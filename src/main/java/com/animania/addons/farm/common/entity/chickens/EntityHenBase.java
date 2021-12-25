@@ -69,12 +69,13 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 			if (chooser == 0)
 			{
-				EntityRoosterBase ChickenEntity = this.type.getMale(level);
+				EntityRoosterBase ChickenEntity = this.type.getMale(this.level);
 				ChickenEntity.setPosition(this.getX(), this.getY(), this.getZ());
 				AnimaniaHelper.spawnEntity(this.level, ChickenEntity);
-			} else if (chooser == 1)
+			}
+			else if (chooser == 1)
 			{
-				EntityChickBase ChickenEntity = this.type.getChild(level);
+				EntityChickBase ChickenEntity = this.type.getChild(this.level);
 				ChickenEntity.setPosition(this.getX(), this.getY(), this.getZ());
 				AnimaniaHelper.spawnEntity(this.level, ChickenEntity);
 			}
@@ -180,7 +181,8 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		{
 			laidTimer--;
 			this.setLaidTimer(laidTimer);
-		} else
+		}
+		else
 		{
 			this.setLaid(false);
 		}
@@ -197,7 +199,8 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		{
 			this.dataManager.set(EntityHenBase.LAID, true);
 			this.setLaidTimer(AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100));
-		} else
+		}
+		else
 			this.dataManager.set(EntityHenBase.LAID, false);
 	}
 
@@ -222,7 +225,8 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			if (timer >= 0)
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.egglay") + ": " + timer);
-			} else
+			}
+			else
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.egglay2"));
 			}

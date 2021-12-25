@@ -18,22 +18,15 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 {
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		CompoundTag tag = new CompoundTag();
 		entity.writeToNBT(tag);
 
-		if (player.isSneaking())
-		{
-			if (entity instanceof IGendered)
-			{
-				IGendered igendered = (IGendered) entity;
-				if (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE)
-					probeInfo.text(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
-			}
-		}
-		
+		if ((player.isSneaking() && entity instanceof IGendered igendered) && (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE))
+			probeInfo.text(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
+
 		boolean fed = tag.getBoolean("Fed");
 		boolean watered = tag.getBoolean("Watered");
 		boolean sleeping = tag.getBoolean("Sleep");
@@ -49,12 +42,10 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 
 		if (!fed && !watered)
 			probeInfo.text(TextFormatting.RED + I18n.translateToLocal("text.waila.hungry") + ", " + I18n.translateToLocal("text.waila.thirsty"));
-		
+
 		if (sleeping)
 			probeInfo.text(TextFormatting.GRAY + I18n.translateToLocal("text.waila.sleeping"));
 
-
-		
 	}
 
 }

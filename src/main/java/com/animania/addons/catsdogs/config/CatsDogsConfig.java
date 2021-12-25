@@ -14,7 +14,7 @@ public class CatsDogsConfig
 	public static class Settings
 	{
 		@Comment("Food that cats can eat")
-		public String[] catFood = new String[] { "minecraft:fish" };
+		public String[] catFood = { "minecraft:fish" };
 
 		@Comment("Cat Bed Block Preferred")
 		public String catBed = "animania:cat_bed_1";
@@ -41,10 +41,10 @@ public class CatsDogsConfig
 		public int numberCatFamilies = 2;
 
 		@Comment("Food that dogs can eat")
-		public String[] dogFood = new String[] { "listAllbeefraw" };
+		public String[] dogFood = { "listAllbeefraw" };
 
 		@Comment("Items that can go in a pet bowl")
-		public String[] petBowlFood = new String[] { "minecraft:fish", "listAllbeefraw", "animania:hamster_food" };
+		public String[] petBowlFood = { "minecraft:fish", "listAllbeefraw", "animania:hamster_food" };
 
 		@Comment("Dog Bed Block Preferred")
 		public String dogBed = "animania:dog_pillow";
@@ -53,13 +53,13 @@ public class CatsDogsConfig
 		public String dogBed2 = "animania:block_straw";
 
 		@Comment("BiomeDictionary types for spawning Wolves")
-		public String[] wolfBiomeTypes = new String[] { "MOUNTAIN", "FOREST", "SNOWY", "COLD" };
+		public String[] wolfBiomeTypes = { "MOUNTAIN", "FOREST", "SNOWY", "COLD" };
 
 		@Comment("BiomeDictionary types for spawning Foxes")
-		public String[] foxBiomeTypes = new String[] { "FOREST", "SNOWY", "COLD" };
+		public String[] foxBiomeTypes = { "FOREST", "SNOWY", "COLD" };
 
 		@Comment("BiomeDictionary types for spawning Ocelots")
-		public String[] ocelotBiomeTypes = new String[] { "HOT", "JUNGLE", "SAVANNA" };
+		public String[] ocelotBiomeTypes = { "HOT", "JUNGLE", "SAVANNA" };
 
 		@Comment("Whether vanilla wolves are replaced by Animania")
 		public boolean replaceVanillaWolves = true;

@@ -32,7 +32,7 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
 
-		if (!getSterilized())
+		if (!this.getSterilized())
 			this.goalSelector.addGoal(8, new GenericAIMate<EntityMaleDogBase, EntityFemaleDogBase>(this, 1.0D, EntityFemaleDogBase.class, EntityPuppyBase.class, EntityAnimaniaDog.class));
 	}
 
@@ -87,6 +87,6 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 				it.remove();
 			}
 		}
-		setSterilized(true);
+		this.setSterilized(true);
 	}
 }

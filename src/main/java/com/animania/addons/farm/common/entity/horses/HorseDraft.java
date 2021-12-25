@@ -32,7 +32,7 @@ public class HorseDraft
 		public EntityStallionDraftHorse(Level level)
 		{
 			super(level);
-			this.horseType = horseType.DRAFT;
+			this.horseType = HorseType.DRAFT;
 		}
 
 		@Override

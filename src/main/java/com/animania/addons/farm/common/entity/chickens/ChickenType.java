@@ -23,18 +23,14 @@ import com.animania.api.interfaces.AnimaniaType;
 
 public enum ChickenType implements AnimaniaType
 {
-	
-	LEGHORN(EntityRoosterLeghorn.class, EntityHenLeghorn.class, EntityChickLeghorn.class, false),
-	ORPINGTON(EntityRoosterOrpington.class, EntityHenOrpington.class, EntityChickOrpington.class, true),
-	PLYMOUTH_ROCK(EntityRoosterPlymouthRock.class, EntityHenPlymouthRock.class, EntityChickPlymouthRock.class, true),
-	RHODE_ISLAND_RED(EntityRoosterRhodeIslandRed.class, EntityHenRhodeIslandRed.class, EntityChickRhodeIslandRed.class, true),
-	WYANDOTTE(EntityRoosterWyandotte.class, EntityHenWyandotte.class, EntityChickWyandotte.class, true);
+
+	LEGHORN(EntityRoosterLeghorn.class, EntityHenLeghorn.class, EntityChickLeghorn.class, false), ORPINGTON(EntityRoosterOrpington.class, EntityHenOrpington.class, EntityChickOrpington.class, true), PLYMOUTH_ROCK(EntityRoosterPlymouthRock.class, EntityHenPlymouthRock.class, EntityChickPlymouthRock.class, true), RHODE_ISLAND_RED(EntityRoosterRhodeIslandRed.class, EntityHenRhodeIslandRed.class, EntityChickRhodeIslandRed.class, true), WYANDOTTE(EntityRoosterWyandotte.class, EntityHenWyandotte.class, EntityChickWyandotte.class, true);
 
 	private Class male;
 	private Class female;
 	private Class child;
 	public boolean isPrime;
-	
+
 	private ChickenType(Class male, Class female, Class child, boolean isPrime)
 	{
 		this.male = male;
@@ -42,7 +38,7 @@ public enum ChickenType implements AnimaniaType
 		this.child = child;
 		this.isPrime = isPrime;
 	}
-	
+
 	@Override
 	public EntityRoosterBase getMale(Level level)
 	{
@@ -88,7 +84,7 @@ public enum ChickenType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return female;	
+		return female;
 	}
 
 	@Override
@@ -112,14 +108,14 @@ public enum ChickenType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return child;	
+		return child;
 	}
 
 	public static ChickenType breed(ChickenType male, ChickenType female)
 	{
 		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
-	
+
 	@Override
 	public String getTypeName()
 	{

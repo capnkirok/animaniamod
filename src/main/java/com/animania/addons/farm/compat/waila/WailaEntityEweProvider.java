@@ -19,7 +19,7 @@ public class WailaEntityEweProvider extends WailaAnimalEntityProviderMateable
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			EntityEweBase thisEntity = (EntityEweBase)entity;
+			EntityEweBase thisEntity = (EntityEweBase) entity;
 
 			if (thisEntity.getHasKids())
 				currenttip.add(I18n.translateToLocal("text.waila.milkable"));
@@ -27,32 +27,39 @@ public class WailaEntityEweProvider extends WailaAnimalEntityProviderMateable
 			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{
 				currenttip.add(I18n.translateToLocal("text.waila.fertile1"));
-			} 
+			}
 
 			if (thisEntity.getPregnant())
 			{
-				if (thisEntity.getGestation() > 1) {
+				if (thisEntity.getGestation() > 1)
+				{
 					int bob = thisEntity.getGestation();
-					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
-				} else {
+					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
+				}
+				else
+				{
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));
 				}
-			} 
+			}
 
-			if (thisEntity.getSheared()) {
-				if (thisEntity.getWoolRegrowthTimer() > 0) { 
+			if (thisEntity.getSheared())
+			{
+				if (thisEntity.getWoolRegrowthTimer() > 0)
+				{
 					int bob = thisEntity.getWoolRegrowthTimer();
-					currenttip.add(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
+					currenttip.add(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
 				}
 
-			} else if (!thisEntity.getSheared()) {
+			}
+			else if (!thisEntity.getSheared())
+			{
 				currenttip.add(I18n.translateToLocal("text.waila.wool3"));
 			}
 
-			if (thisEntity.getSleeping()) {
+			if (thisEntity.getSleeping())
+			{
 				currenttip.add(I18n.translateToLocal("text.waila.sleeping"));
 			}
-
 
 		}
 		return currenttip;

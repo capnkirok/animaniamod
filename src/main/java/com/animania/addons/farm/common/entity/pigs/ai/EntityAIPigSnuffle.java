@@ -74,32 +74,33 @@ public class PigSnuffleGoal extends GenericAIEatGrass<EntityAnimaniaPig>
 
 		Biome biomegenbase = this.entityLevel.getBiome(blockpos1);
 
-		if (this.shouldMoveTo(level, blockpos1))
+		if (this.shouldMoveTo(this.level, blockpos1))
 		{
 			if (this.eatingGrassTimer > 80 && BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() && this.grassEaterEntity.getLeashHolder() instanceof PlayerEntity)
 			{
 				this.entityLevel.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
-				if (!hasSpawned)
+				if (!this.hasSpawned)
 				{
-					ItemHelper.spawnItem(entityLevel, blockpos1.up(), FarmAddonItemHandler.truffle, Animania.RANDOM.nextInt(2) + 1);
-					hasSpawned = true;
+					ItemHelper.spawnItem(this.entityLevel, blockpos1.up(), FarmAddonItemHandler.truffle, Animania.RANDOM.nextInt(2) + 1);
+					this.hasSpawned = true;
 				}
 			}
 
-			if (this.eatingGrassTimer < 100 && !hasEaten)
+			if (this.eatingGrassTimer < 100 && !this.hasEaten)
 			{
-				List<EntityItem> items = AnimaniaHelper.getEntitiesInRangeGeneric(EntityItem.class, 3, level, this.grassEaterEntity);
+				List<EntityItem> items = AnimaniaHelper.getEntitiesInRangeGeneric(EntityItem.class, 3, this.level, this.grassEaterEntity);
 				for (EntityItem ei : items)
 				{
 					if (ei.getItem().getItem() == FarmAddonItemHandler.truffle)
 					{
 						ei.getItem().shrink(64);
 						this.grassEaterEntity.setFed(true);
-						hasEaten = true;
+						this.hasEaten = true;
 					}
 				}
 			}
-		} else
+		}
+		else
 			this.resetTask();
 	}
 }

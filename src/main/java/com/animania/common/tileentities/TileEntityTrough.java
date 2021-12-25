@@ -74,10 +74,10 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 		{
 			int count = stack.getCount();
 
-			if (count != oldItemCount)
+			if (count != this.oldItemCount)
 			{
 				this.markDirty();
-				oldItemCount = count;
+				this.oldItemCount = count;
 			}
 
 			if (count == 0 && fluid == null && this.troughType != TroughContent.EMPTY)
@@ -85,18 +85,20 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 			else if (count >= 1 && this.troughType != TroughContent.FOOD)
 				this.setTroughType(TroughContent.FOOD);
 
-		} else if (fluid != null)
+		}
+		else if (fluid != null)
 		{
 			if (this.troughType != TroughContent.LIQUID)
 				this.setTroughType(TroughContent.LIQUID);
 
-			if (fluid.amount != oldFluidCount)
+			if (fluid.amount != this.oldFluidCount)
 			{
 				this.markDirty();
-				oldFluidCount = fluid.amount;
+				this.oldFluidCount = fluid.amount;
 			}
 
-		} else if (this.troughType != TroughContent.EMPTY)
+		}
+		else if (this.troughType != TroughContent.EMPTY)
 			this.setTroughType(TroughContent.EMPTY);
 
 	}
@@ -155,9 +157,7 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 
 		if (AnimaniaConfig.gameRules.allowTroughAutomation)
 		{
-			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.fluidHandler.getFluid() == null)
-				return true;
-			if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty())
+			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.fluidHandler.getFluid() == null || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty())
 				return true;
 		}
 
@@ -194,13 +194,13 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 	public boolean canConsume(@Nullable Set<ItemStack> fooditems, @Nullable Fluid[] fluid)
 	{
 		if (fluid == null)
-			return canConsume(null, fooditems);
+			return this.canConsume(null, fooditems);
 		else
 		{
 			boolean canConsumeAny = false;
 			for (Fluid f : fluid)
 			{
-				boolean consume = canConsume(new FluidStack(f, 0), fooditems);
+				boolean consume = this.canConsume(new FluidStack(f, 0), fooditems);
 				if (consume)
 					canConsumeAny = true;
 			}
@@ -239,7 +239,6 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 		if (this.fluidHandler.getFluid() != null)
 		{
 			this.consumeLiquid(liquidAmount);
-			return;
 		}
 	}
 

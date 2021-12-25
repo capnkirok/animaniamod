@@ -44,7 +44,7 @@ public class RenderBullHereford<T extends EntityBullHereford> extends RenderLivi
 	{
 		GL11.glScalef(1.4F, 1.4F, 1.4F);
 
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

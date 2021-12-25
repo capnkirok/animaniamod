@@ -24,14 +24,14 @@ import net.minecraft.sounds.SoundEvents;
 
 public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProviderBase, IChild
 {
-	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.<Integer>defineId(EntityFoalBase.class, EntityEntityDataSerializers.INT);
-	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT, Items.APPLE, Items.CARROT });
+	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.<Integer> defineId(EntityFoalBase.class, EntityEntityDataSerializers.INT);
+	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(Items.WHEAT, Items.APPLE, Items.CARROT);
 	private static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final EntityDataAccessor<Float> AGE = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
-	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
+	private static final String[] HORSE_TEXTURES = { "black", "bw1", "bw2", "grey", "red", "white" };
 
 	public EntityFoalBase(Level levelIn)
 	{
@@ -51,7 +51,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		super.entityInit();
 		this.dataManager.register(EntityFoalBase.AGE, Float.valueOf(0));
-		this.dataManager.register(EntityFoalBase.PARENT_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityFoalBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 		if (soundevent != null && !this.getSleeping())
 		{
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - (this.getEntityAge() * 2));
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - this.getEntityAge() * 2);
 		}
 	}
 
@@ -95,25 +95,28 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public int getAgeTimer()
 	{
-		return ageTimer;
+		return this.ageTimer;
 	}
 
 	@Override
 	public void setAgeTimer(int i)
 	{
-		ageTimer = i;
+		this.ageTimer = i;
 	}
 
+	@Override
 	public ResourceLocation getResourceLocation()
 	{
-		return resourceLocation;
+		return this.resourceLocation;
 	}
 
+	@Override
 	public ResourceLocation getResourceLocationBlink()
 	{
-		return resourceLocationBlink;
+		return this.resourceLocationBlink;
 	}
 
+	@Override
 	public void onLivingUpdate()
 	{
 		if (this.getColorNumber() > 5)
@@ -123,8 +126,8 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 		GenericBehavior.livingUpdateChild(this, EntityMareBase.class);
 
-		this.setSize((1f + this.getEntityAge()) * 2,  (1.35f + this.getEntityAge()) * 2);
-		
+		this.setSize((1f + this.getEntityAge()) * 2, (1.35f + this.getEntityAge()) * 2);
+
 		super.onLivingUpdate();
 	}
 

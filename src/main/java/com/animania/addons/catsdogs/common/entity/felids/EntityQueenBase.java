@@ -80,7 +80,7 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 	@Override
 	public int getDryTimer()
 	{
-		return dryTimer;
+		return this.dryTimer;
 	}
 
 	@Override
@@ -137,7 +137,8 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 				{
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
-				} else
+				}
+				else
 				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}

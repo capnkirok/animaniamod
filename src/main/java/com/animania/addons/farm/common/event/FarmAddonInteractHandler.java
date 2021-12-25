@@ -40,7 +40,8 @@ public class FarmAddonInteractHandler
 				{
 					stack.damageItem(1, player);
 				}
-			} else if (player.getRidingEntity() instanceof EntityHogBase)
+			}
+			else if (player.getRidingEntity() instanceof EntityHogBase)
 			{
 				EntityHogBase ep = (EntityHogBase) player.getRidingEntity();
 				ep.boost();
@@ -51,29 +52,23 @@ public class FarmAddonInteractHandler
 			}
 		}
 
-		if (stack != null && stack.getItem() == FarmAddonItemHandler.ridingCrop && player.isPassenger())
+		if (stack != null && stack.getItem() == FarmAddonItemHandler.ridingCrop && player.isPassenger() && player.getRidingEntity() instanceof EntityStallionDraftHorse)
 		{
-			if (player.getRidingEntity() instanceof EntityStallionDraftHorse)
+			EntityStallionDraftHorse ep = (EntityStallionDraftHorse) player.getRidingEntity();
+			ep.boost();
+			if (!player.capabilities.isCreativeMode)
 			{
-				EntityStallionDraftHorse ep = (EntityStallionDraftHorse) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
+				stack.damageItem(1, player);
 			}
 		}
 
-		if (stack != null && stack.getItem() == FarmAddonItemHandler.ridingCrop && player.isPassenger())
+		if (stack != null && stack.getItem() == FarmAddonItemHandler.ridingCrop && player.isPassenger() && player.getRidingEntity() instanceof EntityMareDraftHorse)
 		{
-			if (player.getRidingEntity() instanceof EntityMareDraftHorse)
+			EntityMareDraftHorse ep = (EntityMareDraftHorse) player.getRidingEntity();
+			ep.boost();
+			if (!player.capabilities.isCreativeMode)
 			{
-				EntityMareDraftHorse ep = (EntityMareDraftHorse) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
+				stack.damageItem(1, player);
 			}
 		}
 	}
@@ -85,16 +80,13 @@ public class FarmAddonInteractHandler
 		ItemStack stack = player.getMainHandItem();
 		Entity target = event.getTarget();
 
-		if (stack.getItem() instanceof ItemDye && target instanceof EntityAnimaniaSheep)
-		{
-			if (!((EntityAnimaniaSheep) target).isDyeable())
-				event.setCanceled(true);
-		}
+		if (stack.getItem() instanceof ItemDye && target instanceof EntityAnimaniaSheep && !((EntityAnimaniaSheep) target).isDyeable())
+			event.setCanceled(true);
 
 		if (stack.getItem() == FarmAddonItemHandler.carvingKnife && target instanceof ISterilizable && !((ISterilizable) target).getSterilized())
 		{
 			if (!target.level.isRemote)
-				((net.minecraft.level.LevelServer) target.level).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, false, target.getX(), target.getY() + target.height / 2.0F, target.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+				((net.minecraft.world.LevelServer) target.level).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, false, target.getX(), target.getY() + target.height / 2.0F, target.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 			target.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			stack.damageItem(1, player);
 			((ISterilizable) target).sterilize();
@@ -220,7 +212,6 @@ public class FarmAddonInteractHandler
 			{
 				ResourceLocation egg = new ResourceLocation(key.replace("plymouth", "plymouth_rock"));
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
 			}
 		}
 	}

@@ -15,15 +15,15 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
  */
 public class ReflectionUtil
 {
-	private static final HashMap<Class, HashMap<String, Method>> methodCache = new HashMap<Class, HashMap<String, Method>>();
-	private static final HashMap<Class, HashMap<String, Field>> fieldCache = new HashMap<Class, HashMap<String, Field>>();
+	private static final HashMap<Class, HashMap<String, Method>> methodCache = new HashMap<>();
+	private static final HashMap<Class, HashMap<String, Field>> fieldCache = new HashMap<>();
 
 	public static Method findMethod(final Class<?> clazz, final String methodName, @Nullable final String methodObfName, final Class<?>... parameterTypes)
 	{
 		HashMap<String, Method> classMethods = methodCache.get(clazz);
 		if (classMethods == null)
 		{
-			classMethods = new HashMap<String, Method>();
+			classMethods = new HashMap<>();
 			methodCache.put(clazz, classMethods);
 		}
 
@@ -42,7 +42,7 @@ public class ReflectionUtil
 		HashMap<String, Field> classFields = fieldCache.get(clazz);
 		if (classFields == null)
 		{
-			classFields = new HashMap<String, Field>();
+			classFields = new HashMap<>();
 			fieldCache.put(clazz, classFields);
 		}
 

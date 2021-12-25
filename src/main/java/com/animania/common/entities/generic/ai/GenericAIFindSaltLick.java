@@ -34,19 +34,19 @@ public class GenericAIFindSaltLick<T extends PathfinderMob & ISleeping> extends 
 	@Override
 	public boolean shouldExecute()
 	{
-		if (++delay <= AnimaniaConfig.careAndFeeding.saltLickTick)
+		if (++this.delay <= AnimaniaConfig.careAndFeeding.saltLickTick)
 			return false;
 
-		if (entity.getHealth() >= entity.getMaxHealth() || entity.isBeingRidden() || entity.getSleeping() || AddonInjectionHandler.runInjection("farm", "pigMudTest", Boolean.class, entity))
+		if (this.entity.getHealth() >= this.entity.getMaxHealth() || this.entity.isBeingRidden() || this.entity.getSleeping() || AddonInjectionHandler.runInjection("farm", "pigMudTest", Boolean.class, this.entity))
 		{
-			delay = 0;
+			this.delay = 0;
 			return false;
 		}
 
-		if (entity.getRandom().nextInt(3) != 0)
+		if (this.entity.getRandom().nextInt(3) != 0)
 			return false;
 
-		delay = 0;
+		this.delay = 0;
 		return super.shouldExecute();
 	}
 
@@ -57,17 +57,17 @@ public class GenericAIFindSaltLick<T extends PathfinderMob & ISleeping> extends 
 
 		if (this.isAtDestination())
 		{
-			BlockState state = level.getBlockState(seekingBlockPos);
+			BlockState state = this.level.getBlockState(this.seekingBlockPos);
 			Block block = state.getBlock();
 
 			if (block == BlockHandler.blockSaltLick)
 			{
-				if (eatAI != null)
+				if (this.eatAI != null)
 				{
-					eatAI.startExecuting();
+					this.eatAI.startExecuting();
 				}
 				BlockSaltLick salt = (BlockSaltLick) block;
-				salt.useSaltLick(level, seekingBlockPos, this.entity);
+				salt.useSaltLick(this.level, this.seekingBlockPos, this.entity);
 
 				this.delay = 0;
 			}
@@ -77,7 +77,7 @@ public class GenericAIFindSaltLick<T extends PathfinderMob & ISleeping> extends 
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		return super.shouldContinueExecuting() && entity.getHealth() < entity.getMaxHealth();
+		return super.shouldContinueExecuting() && this.entity.getHealth() < this.entity.getMaxHealth();
 	}
 
 	@Override

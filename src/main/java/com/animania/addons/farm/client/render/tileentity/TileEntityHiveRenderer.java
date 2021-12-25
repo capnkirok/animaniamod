@@ -24,27 +24,36 @@ public class TileEntityHiveRenderer extends TileEntitySpecialRenderer<TileEntity
 	public static TileEntityHiveRenderer instance;
 
 	@Override
-	public void render(TileEntityHive te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+	public void render(TileEntityHive te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	{
 
 		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 		GlStateManager.pushMatrix();
 		this.bindTexture(HIVE_TEXTURE);
-		if (te.getHiveType() == FarmAddonBlockHandler.blockHive) {
+		if (te.getHiveType() == FarmAddonBlockHandler.blockHive)
+		{
 			GlStateManager.translate(x + 0.5D, y + 1.5D, z + 0.5D);
 			GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
 			GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
 			this.modelBeeHive.render(te);
-		} else {
-			if (enumfacing == Direction.NORTH) {
+		}
+		else
+		{
+			if (enumfacing == Direction.NORTH)
+			{
 				GlStateManager.translate(x + 0.5D, y + 1D, z + 0.75D);
-			} else if (enumfacing == Direction.SOUTH) {
+			}
+			else if (enumfacing == Direction.SOUTH)
+			{
 				GlStateManager.translate(x + 0.5D, y + 1D, z + 0.25D);
-			} else if (enumfacing == Direction.EAST) {
+			}
+			else if (enumfacing == Direction.EAST || enumfacing != Direction.WEST)
+			{
 				GlStateManager.translate(x + 0.25D, y + 1D, z + 0.5D);
-			} else if (enumfacing == Direction.WEST) {
+			}
+			else
+			{
 				GlStateManager.translate(x + 0.75D, y + 1D, z + 0.5D);
-			} else {
-				GlStateManager.translate(x + 0.25D, y + 1D, z + 0.5D);
 			}
 			GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
 			GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
@@ -54,7 +63,8 @@ public class TileEntityHiveRenderer extends TileEntitySpecialRenderer<TileEntity
 	}
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
+	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	{
 		super.setRendererDispatcher(rendererDispatcherIn);
 		TileEntityHiveRenderer.instance = this;
 	}

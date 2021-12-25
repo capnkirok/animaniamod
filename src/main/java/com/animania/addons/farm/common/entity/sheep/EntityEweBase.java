@@ -147,14 +147,14 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack) && this.getHasKids())
 		{
-			if (!level.isRemote)
+			if (!this.level.isRemote)
 			{
 				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 
 				ItemStack one = stack.copy();
 				one.setCount(1);
 				FluidActionResult result;
-				result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(milk.copy()), 1000, player, true);
+				result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(this.milk.copy()), 1000, player, true);
 
 				ItemStack filled;
 
@@ -162,19 +162,21 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				{
 					Item item = stack.getItem();
 					if (item == Items.BUCKET)
-						filled = milk.copy();
+						filled = this.milk.copy();
 					else if (ModList.get().isLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
 						filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 					else
 						return false;
-				} else
+				}
+				else
 					filled = result.result;
 				stack.shrink(1);
 				AnimaniaHelper.addItem(player, filled);
 				this.setWatered(false);
 			}
 			return true;
-		} else
+		}
+		else
 			return super.processInteract(player, hand);
 	}
 
@@ -208,7 +210,8 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				{
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
-				} else
+				}
+				else
 				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
@@ -221,7 +224,8 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					int bob = this.getWoolRegrowthTimer();
 					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
 				}
-			} else if (!this.getSheared())
+			}
+			else if (!this.getSheared())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}
@@ -240,7 +244,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Override
 	public int getDryTimer()
 	{
-		return dryTimer;
+		return this.dryTimer;
 	}
 
 	@Override

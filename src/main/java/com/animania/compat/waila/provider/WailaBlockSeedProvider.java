@@ -19,8 +19,10 @@ public class WailaBlockSeedProvider implements IWailaDataProvider
 	@Override
 	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
-		try {
-			if (accessor.getBlockState() != null) {
+		try
+		{
+			if (accessor.getBlockState() != null)
+			{
 
 				switch (accessor.getBlockState().getValue(BlockSeeds.VARIANT))
 				{
@@ -35,14 +37,16 @@ public class WailaBlockSeedProvider implements IWailaDataProvider
 				default:
 					return new ItemStack(Items.WHEAT_SEEDS);
 				}
-			} else {
+			}
+			else
+			{
 				return new ItemStack(Items.WHEAT_SEEDS);
 			}
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return new ItemStack(Items.WHEAT_SEEDS);
 		}
-
 
 	}
 

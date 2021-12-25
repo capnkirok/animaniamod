@@ -21,10 +21,10 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -158,6 +158,7 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 
 	}
 
+	@Override
 	public String getName()
 	{
 		return this.name;
@@ -168,20 +169,16 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
-		if (te instanceof TileEntityNest)
+		if (te instanceof TileEntityNest nest)
 		{
-			TileEntityNest nest = (TileEntityNest) te;
 			ItemStack stack = nest.itemHandler.getStackInSlot(0);
 
-			if (mode == ProbeMode.NORMAL)
+			if (mode == ProbeMode.NORMAL && !stack.isEmpty())
 			{
-				if (!stack.isEmpty())
-				{
-					probeInfo.horizontal();
-					probeInfo.item(stack);
-					if (nest.birdType != null)
-						probeInfo.text("From: " + nest.birdType.toString().substring(0, 1).toUpperCase() + nest.birdType.toString().substring(1).toLowerCase());
-				}
+				probeInfo.horizontal();
+				probeInfo.item(stack);
+				if (nest.birdType != null)
+					probeInfo.text("From: " + nest.birdType.toString().substring(0, 1).toUpperCase() + nest.birdType.toString().substring(1).toLowerCase());
 			}
 
 		}

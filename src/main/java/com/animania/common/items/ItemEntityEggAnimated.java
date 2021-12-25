@@ -19,9 +19,7 @@ public class ItemEntityEggAnimated extends ItemEntityEgg
 	public static Entity getEntity(Level level, ItemStack stack)
 	{
 		String entityName = Animania.MODID + ":" + ((ItemEntityEggAnimated) stack.getItem()).getName().replace("entity_egg_", "");
-		Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(entityName), level);
-
-		return entity;
+		return EntityList.createEntityByIDFromName(new ResourceLocation(entityName), level);
 	}
 
 }

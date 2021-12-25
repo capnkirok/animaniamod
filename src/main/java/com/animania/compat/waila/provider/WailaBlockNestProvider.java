@@ -13,7 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class WailaBlockNestProvider  implements IWailaDataProvider
+public class WailaBlockNestProvider implements IWailaDataProvider
 {
 
 	@Override
@@ -30,23 +30,23 @@ public class WailaBlockNestProvider  implements IWailaDataProvider
 	}
 
 	@Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        TileEntityNest tile = (TileEntityNest) accessor.getTileEntity();
-        CompoundTag tag = new CompoundTag();
-        tile.writeToNBT(tag);
-        String from = tag.getString("birdType");
-        
-        ItemStack stack = tile.itemHandler.getStackInSlot(0);
+	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		TileEntityNest tile = (TileEntityNest) accessor.getTileEntity();
+		CompoundTag tag = new CompoundTag();
+		tile.writeToNBT(tag);
+		String from = tag.getString("birdType");
 
-        if (!stack.isEmpty())
-            currenttip.add(stack.getCount() + " " + stack.getDisplayName());
+		ItemStack stack = tile.itemHandler.getStackInSlot(0);
 
-        if(!from.isEmpty())
-        	currenttip.add("From: " + from.substring(0, 1).toUpperCase() + from.substring(1).toLowerCase());
-        
+		if (!stack.isEmpty())
+			currenttip.add(stack.getCount() + " " + stack.getDisplayName());
 
-        return currenttip;
-    }
+		if (!from.isEmpty())
+			currenttip.add("From: " + from.substring(0, 1).toUpperCase() + from.substring(1).toLowerCase());
+
+		return currenttip;
+	}
 
 	@Override
 	public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)

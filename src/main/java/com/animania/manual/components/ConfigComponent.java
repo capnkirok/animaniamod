@@ -35,8 +35,8 @@ public class ConfigComponent implements IManualComponent
 		this.text = text.trim();
 		this.mc = Minecraft.getInstance();
 
-		this.objectHeight = mc.font.lineHeight;
-		this.objectWidth = mc.font.width(text);
+		this.objectHeight = this.mc.font.lineHeight;
+		this.objectWidth = this.mc.font.width(text);
 
 		this.configOption = configOption;
 	}
@@ -49,17 +49,17 @@ public class ConfigComponent implements IManualComponent
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		boolean isBool = text.equalsIgnoreCase("true") || text.equalsIgnoreCase("false");
+		boolean isBool = this.text.equalsIgnoreCase("true") || this.text.equalsIgnoreCase("false");
 
-		mc.font.drawString((isBool ? (Boolean.valueOf(text) ? TextFormatting.GREEN : TextFormatting.RED) : TextFormatting.DARK_PURPLE) + text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
+		this.mc.font.drawString((isBool ? Boolean.parseBoolean(this.text) ? TextFormatting.GREEN : TextFormatting.RED : TextFormatting.DARK_PURPLE) + this.text, this.absoluteX + this.manual.guiLeft, this.absoluteY + this.manual.guiTop, 0);
 	}
 
 	@Override
 	public void drawLater(int mouseX, int mouseY, float partialTicks)
 	{
-		if (manual.isHovering(this, mouseX, mouseY))
+		if (this.manual.isHovering(this, mouseX, mouseY))
 		{
-			String c = configOption.replace("general.", "");
+			String c = this.configOption.replace("general.", "");
 			String[] split = c.split("[.;]");
 
 			String tooltip = "Config: ";
@@ -73,7 +73,7 @@ public class ConfigComponent implements IManualComponent
 			}
 
 			GlStateManager.pushMatrix();
-			manual.drawHoveringText(tooltip, mouseX, mouseY);
+			this.manual.drawHoveringText(tooltip, mouseX, mouseY);
 			GlStateManager.disableLighting();
 			GlStateManager.popMatrix();
 		}
@@ -92,25 +92,25 @@ public class ConfigComponent implements IManualComponent
 	@Override
 	public int getObjectWidth()
 	{
-		return objectWidth;
+		return this.objectWidth;
 	}
 
 	@Override
 	public int getObjectHeight()
 	{
-		return objectHeight;
+		return this.objectHeight;
 	}
 
 	@Override
 	public int getX()
 	{
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public int getY()
 	{
-		return y;
+		return this.y;
 	}
 
 	@Override
@@ -132,6 +132,6 @@ public class ConfigComponent implements IManualComponent
 	@Override
 	public String toString()
 	{
-		return text;
+		return this.text;
 	}
 }

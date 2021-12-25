@@ -32,9 +32,12 @@ public class RenderBuckRex<T extends RabbitEntityBuckRex> extends RenderLiving<T
 
 	protected void preRenderScale(RabbitEntityBuckRex entity, float f)
 	{
-		if (entity.getCustomNameTag().equals("Killer")) {
+		if (entity.getCustomNameTag().equals("Killer"))
+		{
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
-		} else {	
+		}
+		else
+		{
 			GL11.glScalef(0.54F, 0.54F, 0.54F);
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
@@ -43,7 +46,7 @@ public class RenderBuckRex<T extends RabbitEntityBuckRex> extends RenderLiving<T
 		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
+		EntityAnimaniaRabbit entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -65,7 +68,7 @@ public class RenderBuckRex<T extends RabbitEntityBuckRex> extends RenderLiving<T
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.rabbitTextures;
+		return RenderBuckRex.rabbitTextures;
 	}
 
 	static class Factory<T extends RabbitEntityBuckRex> implements IRenderFactory<T>

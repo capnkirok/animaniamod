@@ -33,9 +33,12 @@ public class RenderDoeDutch<T extends RabbitEntityDoeDutch> extends RenderLiving
 
 	protected void preRenderScale(RabbitEntityDoeDutch entity, float f)
 	{
-		if (entity.getCustomNameTag().equals("Killer")) {
+		if (entity.getCustomNameTag().equals("Killer"))
+		{
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
-		} else {	
+		}
+		else
+		{
 			GL11.glScalef(0.53F, 0.53F, 0.53F);
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
@@ -45,7 +48,7 @@ public class RenderDoeDutch<T extends RabbitEntityDoeDutch> extends RenderLiving
 		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
+		EntityAnimaniaRabbit entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -67,9 +70,12 @@ public class RenderDoeDutch<T extends RabbitEntityDoeDutch> extends RenderLiving
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.getCustomNameTag().trim().equals("Killer")) {
+		if (entity.getCustomNameTag().trim().equals("Killer"))
+		{
 			return RenderDoeDutch.killerRabbitTextures;
-		} else {
+		}
+		else
+		{
 			return RenderDoeDutch.rabbitTextures;
 		}
 	}

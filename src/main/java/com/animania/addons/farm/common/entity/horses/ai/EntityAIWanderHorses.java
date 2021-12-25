@@ -37,13 +37,9 @@ public class WanderHorsesGoal extends WanderGoal
 		}
 
 		boolean isSleeping = false;
-		if (this.entity instanceof EntityAnimaniaHorse)
+		if ((this.entity instanceof EntityAnimaniaHorse entityAV) && entityAV.getSleeping())
 		{
-			EntityAnimaniaHorse entityAV = (EntityAnimaniaHorse) this.entity;
-			if (entityAV.getSleeping())
-			{
-				isSleeping = true;
-			}
+			isSleeping = true;
 		}
 
 		if (!this.entity.level.isDay() || isSleeping)
@@ -51,17 +47,9 @@ public class WanderHorsesGoal extends WanderGoal
 			return false;
 		}
 
-		if (!this.mustUpdate)
+		if (!this.mustUpdate && (this.entity.getIdleTime() >= 100 || this.entity.getRandom().nextInt(this.executionChance) != 0))
 		{
-			if (this.entity.getIdleTime() >= 100)
-			{
-				return false;
-			}
-
-			if (this.entity.getRandom().nextInt(this.executionChance) != 0)
-			{
-				return false;
-			}
+			return false;
 		}
 
 		Vec3d vec3d = this.getPosition();
@@ -69,7 +57,8 @@ public class WanderHorsesGoal extends WanderGoal
 		if (vec3d == null)
 		{
 			return false;
-		} else
+		}
+		else
 		{
 			this.x = vec3d.x;
 			this.y = vec3d.y;
@@ -99,7 +88,8 @@ public class WanderHorsesGoal extends WanderGoal
 		{
 			Vec3d vec3d = RandomPositionGenerator.getLandPos(this.entity, 15, 7);
 			return vec3d == null ? super.getPosition() : vec3d;
-		} else
+		}
+		else
 		{
 			return this.entity.getRandom().nextFloat() >= this.probability ? RandomPositionGenerator.getLandPos(this.entity, 10, 7) : super.getPosition();
 		}

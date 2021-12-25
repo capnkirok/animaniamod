@@ -25,49 +25,56 @@ public class FollowMateHorsesGoal extends Goal
 		this.moveSpeed = speed;
 	}
 
-	public boolean shouldExecute() {
-		
+	public boolean shouldExecute()
+	{
+
 		this.delayCounter++;
-		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
-			
-			if (!thisAnimal.level.isDay() || thisAnimal.getSleeping()) {
-				this.delayCounter = 0;
-				return false;
+		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings && (!this.thisAnimal.level.isDay() || this.thisAnimal.getSleeping()))
+		{
+			this.delayCounter = 0;
+			return false;
+		}
+
+		if (this.thisAnimal instanceof EntityStallionBase ec)
+		{
+			if (ec.getMateUniqueId() == null)
+			{
 			}
-		
-			if (this.thisAnimal instanceof EntityStallionBase) {
-				EntityStallionBase ec = (EntityStallionBase) this.thisAnimal;
-				if (ec.getMateUniqueId() == null)
-					return false;
-				else {
+			else
+			{
 
-					List entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 40, this.thisAnimal.level, this.thisAnimal);
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 40, this.thisAnimal.level, this.thisAnimal);
 
-					for (int k = 0; k <= entities.size() - 1; k++) {
+				for (int k = 0; k <= entities.size() - 1; k++)
+				{
 
-						EntityMareBase entity = (EntityMareBase)entities.get(k);
-						
-						if (entities.get(k) != null && entity.getUUID().equals(((EntityStallionBase) this.thisAnimal).getMateUniqueId())) {
-							double xt = entity.getX();
-							double yt = entity.getY();
-							double zt = entity.getZ();
-							int x1 = Mth.floor(this.thisAnimal.getX());
-							int y1 = Mth.floor(this.thisAnimal.getY());
-							int z1 = Mth.floor(this.thisAnimal.getZ());
-							double x2 = Math.abs(xt - x1);
-							double y2 = Math.abs(yt - y1);
-							double z2 = Math.abs(zt - z1);
+					EntityMareBase entity = (EntityMareBase) entities.get(k);
 
-							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
-								this.mateAnimal = (Animal) entity;
-								return true;
-							} else {
-								return false;
-							}
+					if (entities.get(k) != null && entity.getUUID().equals(((EntityStallionBase) this.thisAnimal).getMateUniqueId()))
+					{
+						double xt = entity.getX();
+						double yt = entity.getY();
+						double zt = entity.getZ();
+						int x1 = Mth.floor(this.thisAnimal.getX());
+						int y1 = Mth.floor(this.thisAnimal.getY());
+						int z1 = Mth.floor(this.thisAnimal.getZ());
+						double x2 = Math.abs(xt - x1);
+						double y2 = Math.abs(yt - y1);
+						double z2 = Math.abs(zt - z1);
+
+						if (x2 <= 20 && y2 <= 8 && z2 <= 20 && x2 >= 3 && z2 >= 3)
+						{
+							this.mateAnimal = entity;
+							return true;
+						}
+						else
+						{
+							return false;
 						}
 					}
 				}
 			}
+		}
 
 		return false;
 

@@ -15,8 +15,9 @@ public class RenderCart extends Render<EntityCart>
 	public static final Factory FACTORY = new Factory();
 	private ModelCraftStudio modelCart = new ModelCraftStudio(Animania.MODID, "model_cart", 128, 128);
 	private ModelCraftStudio modelCartChest = new ModelCraftStudio(Animania.MODID, "model_cart_chest", 128, 128);
-	
-	public RenderCart(RenderManager manager) {
+
+	public RenderCart(RenderManager manager)
+	{
 		super(manager);
 		this.shadowSize = 1.0F;
 	}
@@ -24,7 +25,8 @@ public class RenderCart extends Render<EntityCart>
 	public void doRender(EntityCart entity, double x, double y, double z, float entityYaw, float partialTicks)
 	{
 
-		if (entity.getHasChest()) {
+		if (entity.getHasChest())
+		{
 			GlStateManager.pushMatrix();
 			this.setupTranslation(x, y, z);
 			this.setupRotation(entity, entityYaw, partialTicks);
@@ -32,7 +34,9 @@ public class RenderCart extends Render<EntityCart>
 			this.modelCartChest.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 			GlStateManager.popMatrix();
 			super.doRender(entity, x, y, z, entityYaw, partialTicks);
-		} else {
+		}
+		else
+		{
 			GlStateManager.pushMatrix();
 			this.setupTranslation(x, y, z);
 			this.setupRotation(entity, entityYaw, partialTicks);
@@ -42,7 +46,6 @@ public class RenderCart extends Render<EntityCart>
 			super.doRender(entity, x, y, z, entityYaw, partialTicks);
 		}
 
-
 	}
 
 	public void setupRotation(EntityCart cart, float yaw, float partialticks)
@@ -51,21 +54,25 @@ public class RenderCart extends Render<EntityCart>
 		double yPulling = cart.puller == null ? cart.getY() : cart.puller.getY();
 		double yCart = cart.getY();
 
-		float difference = (float) (yPulling-yCart);
+		float difference = (float) (yPulling - yCart);
 		GlStateManager.rotate(25 * difference, 1.0f, 0, 0);
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 	}
 
 	public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_)
 	{
-		GlStateManager.translate((float)p_188309_1_, (float)p_188309_3_ + 1.5F, (float)p_188309_5_);
+		GlStateManager.translate((float) p_188309_1_, (float) p_188309_3_ + 1.5F, (float) p_188309_5_);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityCart entity) {
-		if (entity.getHasChest()) {
+	protected ResourceLocation getEntityTexture(EntityCart entity)
+	{
+		if (entity.getHasChest())
+		{
 			return new ResourceLocation(Animania.MODID, "textures/entity/props/cart_chest.png");
-		} else {
+		}
+		else
+		{
 			return new ResourceLocation(Animania.MODID, "textures/entity/props/cart.png");
 		}
 	}
@@ -73,11 +80,10 @@ public class RenderCart extends Render<EntityCart>
 	public static class Factory<T extends EntityCart> implements IRenderFactory<T>
 	{
 		@Override
-		public Render<? super T> createRenderFor(RenderManager manager) {
+		public Render<? super T> createRenderFor(RenderManager manager)
+		{
 			return new RenderCart(manager);
 		}
 	}
-
-	
 
 }

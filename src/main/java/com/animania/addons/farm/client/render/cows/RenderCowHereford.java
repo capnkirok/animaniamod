@@ -50,7 +50,7 @@ public class RenderCowHereford<T extends CowEntityHereford> extends RenderLiving
 	{
 		GL11.glScalef(1.34F, 1.34F, 1.34F);
 
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

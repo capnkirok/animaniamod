@@ -21,7 +21,8 @@ public class EventMudDamageCanceller
 		//
 		// BlockPos poschk = new BlockPos(event.getLivingEntity().getX() +
 		// event.getLivingEntity().motionX / 1.5,
-		// event.getLivingEntity().getY() + .1F, event.getLivingEntity().getZ() +
+		// event.getLivingEntity().getY() + .1F, event.getLivingEntity().getZ()
+		// +
 		// event.getLivingEntity().motionZ / 1.5);
 		// Block blockchk =
 		// event.getLivingEntity().level.getBlockState(poschk).getBlock();

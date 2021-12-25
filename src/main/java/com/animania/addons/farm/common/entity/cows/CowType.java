@@ -32,20 +32,13 @@ import com.animania.api.interfaces.AnimaniaType;
 
 public enum CowType implements AnimaniaType
 {
-	ANGUS(EntityBullAngus.class, CowEntityAngus.class, EntityCalfAngus.class, true),
-	FRIESIAN(EntityBullFriesian.class, CowEntityFriesian.class, EntityCalfFriesian.class, false),
-	HEREFORD(EntityBullHereford.class, CowEntityHereford.class, EntityCalfHereford.class, true),
-	HOLSTEIN(EntityBullHolstein.class, CowEntityHolstein.class, EntityCalfHolstein.class, false),
-	LONGHORN(EntityBullLonghorn.class, CowEntityLonghorn.class, EntityCalfLonghorn.class, true),
-	HIGHLAND(EntityBullHighland.class, CowEntityHighland.class, EntityCalfHighland.class, true),
-	JERSEY(EntityBullJersey.class, CowEntityJersey.class, EntityCalfJersey.class, true),
-	MOOSHROOM(EntityBullMooshroom.class, CowEntityMooshroom.class, EntityCalfMooshroom.class, false);
+	ANGUS(EntityBullAngus.class, CowEntityAngus.class, EntityCalfAngus.class, true), FRIESIAN(EntityBullFriesian.class, CowEntityFriesian.class, EntityCalfFriesian.class, false), HEREFORD(EntityBullHereford.class, CowEntityHereford.class, EntityCalfHereford.class, true), HOLSTEIN(EntityBullHolstein.class, CowEntityHolstein.class, EntityCalfHolstein.class, false), LONGHORN(EntityBullLonghorn.class, CowEntityLonghorn.class, EntityCalfLonghorn.class, true), HIGHLAND(EntityBullHighland.class, CowEntityHighland.class, EntityCalfHighland.class, true), JERSEY(EntityBullJersey.class, CowEntityJersey.class, EntityCalfJersey.class, true), MOOSHROOM(EntityBullMooshroom.class, CowEntityMooshroom.class, EntityCalfMooshroom.class, false);
 
 	private Class bull;
 	private Class cow;
 	private Class calf;
 	public boolean isPrime;
-	
+
 	private CowType(Class bull, Class cow, Class calf, boolean prime)
 	{
 		this.bull = bull;
@@ -99,7 +92,7 @@ public enum CowType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return cow;	
+		return cow;
 	}
 
 	@Override
@@ -123,7 +116,7 @@ public enum CowType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return calf;	
+		return calf;
 	}
 
 	public static CowType breed(CowType male, CowType female)
@@ -136,6 +129,5 @@ public enum CowType implements AnimaniaType
 	{
 		return Animania.MODID + ":cow";
 	}
-
 
 }

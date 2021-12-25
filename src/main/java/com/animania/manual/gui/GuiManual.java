@@ -55,10 +55,10 @@ public class GuiManual extends GuiScreen
 	public ManualTopic lastTopic = ManualResourceLoader.firstTopic;
 
 	private ManualPage currentPage;
-	
+
 	public boolean isPrevTopic = false;
-	
-	public Map<ResourceLocation, ManualTopic> manualContent = new HashMap<ResourceLocation, ManualTopic>();
+
+	public Map<ResourceLocation, ManualTopic> manualContent = new HashMap<>();
 
 	public static GuiManual INSTANCE = new GuiManual();
 
@@ -69,8 +69,7 @@ public class GuiManual extends GuiScreen
 
 	private GuiButton buttonPrevTopic;
 	private GuiButton buttonThisTopic;
-	
-	
+
 	private GuiManual()
 	{
 	}
@@ -84,11 +83,11 @@ public class GuiManual extends GuiScreen
 			{
 				INSTANCE.currentTopic = INSTANCE.manualContent.get(new ResourceLocation(tag.getString("currentTopic")));
 				INSTANCE.lastTopic = INSTANCE.manualContent.get(new ResourceLocation(tag.getString("lastTopic")));
-				
-				if(INSTANCE.currentTopic == null)
+
+				if (INSTANCE.currentTopic == null)
 					INSTANCE.currentTopic = ManualResourceLoader.firstTopic;
 
-				if(INSTANCE.lastTopic == null)
+				if (INSTANCE.lastTopic == null)
 					INSTANCE.lastTopic = ManualResourceLoader.firstTopic;
 
 			}
@@ -117,7 +116,7 @@ public class GuiManual extends GuiScreen
 	public void onGuiClosed()
 	{
 		Keyboard.enableRepeatEvents(false);
-		Animania.network.sendToServer(new PacketCloseManual(currentTopic.getId().toString(), lastTopic.getId().toString()));
+		Animania.network.sendToServer(new PacketCloseManual(this.currentTopic.getId().toString(), this.lastTopic.getId().toString()));
 	}
 
 	@Override
@@ -127,28 +126,28 @@ public class GuiManual extends GuiScreen
 		this.width = res.getScaledWidth();
 		this.height = res.getScaledHeight();
 
-		guiLeft = (this.width - this.xSize) / 2;
-		guiTop = (this.height - this.ySize) / 2;
+		this.guiLeft = (this.width - this.xSize) / 2;
+		this.guiTop = (this.height - this.ySize) / 2;
 
-		x = guiLeft + START_OFFSET_X;
-		y = guiTop + START_OFFSET_Y;
+		this.x = this.guiLeft + START_OFFSET_X;
+		this.y = this.guiTop + START_OFFSET_Y;
 
 		int i = (this.width - 192) / 2;
 		this.buttonNextPage = this.addButton(new NextPageButton(0, this.guiLeft + 155, this.guiTop + 164, true));
 		this.buttonPreviousPage = this.addButton(new NextPageButton(1, this.guiLeft + 7, this.guiTop + 164, false));
 		this.buttonPrevTopic = this.addButton(new PrevPageButton(2, this.guiLeft + 9, this.guiTop + 178, false));
 		this.buttonThisTopic = this.addButton(new PrevPageButton(3, this.guiLeft + 159, this.guiTop + 178, true));
-		updateButtons();
+		this.updateButtons();
 
-		initComponents();
+		this.initComponents();
 	}
 
 	public void initComponents()
 	{
-		ManualPage p = pageIndex >= currentTopic.getPages().size() ? currentTopic.getPages().get(0) : currentTopic.getPages().get(pageIndex);
+		ManualPage p = this.pageIndex >= this.currentTopic.getPages().size() ? this.currentTopic.getPages().get(0) : this.currentTopic.getPages().get(this.pageIndex);
 
 		this.currentPage = p;
-		
+
 		for (IManualComponent c : p.getComponents())
 			c.init();
 	}
@@ -158,9 +157,9 @@ public class GuiManual extends GuiScreen
 	{
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(TEXTURE);
-		int marginHorizontal = (width - xSize) / 2;
-		int marginVertical = (height - ySize) / 2;
-		drawTexturedModalRect(marginHorizontal, marginVertical, 0, 0, xSize, ySize);
+		int marginHorizontal = (width - this.xSize) / 2;
+		int marginVertical = (height - this.ySize) / 2;
+		drawTexturedModalRect(marginHorizontal, marginVertical, 0, 0, this.xSize, this.ySize);
 
 		ManualPage p = this.currentPage;
 
@@ -168,17 +167,17 @@ public class GuiManual extends GuiScreen
 			c.draw(mouseX, mouseY, partialTicks);
 
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		
+
 		for (IManualComponent c : p.getComponents())
 			c.drawLater(mouseX, mouseY, partialTicks);
 	}
 
 	public void updateButtons()
 	{
-		this.buttonNextPage.visible = ((pageIndex == currentTopic.getPages().size() - 1) ? false : true);
-		this.buttonPreviousPage.visible = (pageIndex == 0 ? false : true);
-		this.buttonPrevTopic.visible = !isPrevTopic;
-		this.buttonThisTopic.visible = isPrevTopic;
+		this.buttonNextPage.visible = this.pageIndex == this.currentTopic.getPages().size() - 1 ? false : true;
+		this.buttonPreviousPage.visible = this.pageIndex == 0 ? false : true;
+		this.buttonPrevTopic.visible = !this.isPrevTopic;
+		this.buttonThisTopic.visible = this.isPrevTopic;
 	}
 
 	@Override
@@ -189,33 +188,33 @@ public class GuiManual extends GuiScreen
 			switch (button.id)
 			{
 			case 0:
-				pageIndex++;
-				initComponents();
+				this.pageIndex++;
+				this.initComponents();
 				break;
 			case 1:
-				pageIndex--;
-				initComponents();
+				this.pageIndex--;
+				this.initComponents();
 				break;
 			case 2:
 				ManualTopic temp = this.currentTopic;
 				this.currentTopic = this.lastTopic;
 				this.lastTopic = temp;
 				this.isPrevTopic = true;
-				pageIndex = 0;
-				initComponents();
+				this.pageIndex = 0;
+				this.initComponents();
 				break;
 			case 3:
 				ManualTopic temp2 = this.currentTopic;
 				this.currentTopic = this.lastTopic;
 				this.lastTopic = temp2;
 				this.isPrevTopic = false;
-				pageIndex = 0;
-				initComponents();
+				this.pageIndex = 0;
+				this.initComponents();
 				break;
 			}
 		}
 
-		updateButtons();
+		this.updateButtons();
 	}
 
 	@SideOnly(Dist.CLIENT)
@@ -240,7 +239,7 @@ public class GuiManual extends GuiScreen
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 				int i = 0;
 				int j = 227;
-				
+
 				if (flag)
 				{
 					i += 23;
@@ -253,8 +252,8 @@ public class GuiManual extends GuiScreen
 
 				mc.getTextureManager().bindTexture(TEXTURE);
 				this.drawTexturedModalRect(this.x, this.y, i, j, 23, 13);
-				
-				if(flag)
+
+				if (flag)
 				{
 					GlStateManager.pushMatrix();
 					GuiManual.INSTANCE.drawHoveringText(I18n.translateToLocal(this.isForward ? "manual.page.next" : "manual.page.previous"), mouseX, mouseY);
@@ -264,7 +263,7 @@ public class GuiManual extends GuiScreen
 			}
 		}
 	}
-	
+
 	@SideOnly(Dist.CLIENT)
 	static class PrevPageButton extends GuiButton
 	{
@@ -288,7 +287,6 @@ public class GuiManual extends GuiScreen
 				int i = 48;
 				int j = 229;
 
-
 				if (flag)
 				{
 					i += 22;
@@ -301,19 +299,18 @@ public class GuiManual extends GuiScreen
 
 				mc.getTextureManager().bindTexture(TEXTURE);
 				this.drawTexturedModalRect(this.x, this.y, i, j, 18, 11);
-				
-				if(flag)
+
+				if (flag)
 				{
 					GlStateManager.pushMatrix();
 					GuiManual.INSTANCE.drawHoveringText(I18n.translateToLocal("manual.topic.previous"), mouseX, mouseY);
 					GlStateManager.disableLighting();
 					GlStateManager.popMatrix();
 				}
-				
+
 			}
 		}
 	}
-	
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
@@ -322,7 +319,7 @@ public class GuiManual extends GuiScreen
 
 		for (IManualComponent c : p.getComponents())
 		{
-			if (isHovering(c, mouseX, mouseY))
+			if (this.isHovering(c, mouseX, mouseY))
 			{
 				if (mouseButton == 0)
 					c.onLeftClick(mouseX, mouseY);
@@ -345,7 +342,7 @@ public class GuiManual extends GuiScreen
 
 	public boolean isHovering(IManualComponent c, int mouseX, int mouseY)
 	{
-		return mouseX > c.getX() + START_OFFSET_X + guiLeft && mouseX < c.getX() + START_OFFSET_X + guiLeft + c.getObjectWidth() && mouseY > c.getY() + START_OFFSET_Y + guiTop && mouseY < c.getY() + START_OFFSET_Y + guiTop + c.getObjectHeight();
+		return mouseX > c.getX() + START_OFFSET_X + this.guiLeft && mouseX < c.getX() + START_OFFSET_X + this.guiLeft + c.getObjectWidth() && mouseY > c.getY() + START_OFFSET_Y + this.guiTop && mouseY < c.getY() + START_OFFSET_Y + this.guiTop + c.getObjectHeight();
 	}
 
 	public void drawItemStack(ItemStack stack, int x, int y, String altText)
@@ -370,9 +367,9 @@ public class GuiManual extends GuiScreen
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos((double) x, (double) (y + height), 0.0D).tex((double) (u * f), (double) ((v + (float) height) * f1)).endVertex();
-		bufferbuilder.pos((double) (x + width), (double) (y + height), 0.0D).tex((double) ((u + (float) width) * f), (double) ((v + (float) height) * f1)).endVertex();
-		bufferbuilder.pos((double) (x + width), (double) y, 0.0D).tex((double) ((u + (float) width) * f), (double) (v * f1)).endVertex();
+		bufferbuilder.pos((double) x, (double) (y + height), 0.0D).tex((double) (u * f), (double) ((v + height) * f1)).endVertex();
+		bufferbuilder.pos((double) (x + width), (double) (y + height), 0.0D).tex((double) ((u + width) * f), (double) ((v + height) * f1)).endVertex();
+		bufferbuilder.pos((double) (x + width), (double) y, 0.0D).tex((double) ((u + width) * f), (double) (v * f1)).endVertex();
 		bufferbuilder.pos((double) x, (double) y, 0.0D).tex((double) (u * f), (double) (v * f1)).endVertex();
 
 		GlStateManager.scale(scale, scale, scale);
@@ -383,7 +380,7 @@ public class GuiManual extends GuiScreen
 	{
 		FontRenderer font = stack.getItem().getFontRenderer(stack);
 		net.minecraftforge.fml.client.config.GuiUtils.preItemToolTip(stack);
-		this.drawHoveringText(this.getItemToolTip(stack), x, y, (font == null ? fontRenderer : font));
+		this.drawHoveringText(this.getItemToolTip(stack), x, y, font == null ? fontRenderer : font);
 		net.minecraftforge.fml.client.config.GuiUtils.postItemToolTip();
 	}
 

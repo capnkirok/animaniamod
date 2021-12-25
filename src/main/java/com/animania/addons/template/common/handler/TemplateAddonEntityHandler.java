@@ -10,7 +10,7 @@ import net.minecraftforge.common.BiomeDictionary;
 
 public class TemplateAddonEntityHandler
 {
-	
+
 	/**
 	 * Register Entities
 	 */
@@ -18,9 +18,7 @@ public class TemplateAddonEntityHandler
 	{
 
 	}
-	
-	
-	
+
 	private static Biome[] getBiomes(BiomeDictionary.Type type)
 	{
 		List<Biome> criteriaMet = Lists.newArrayList();

@@ -15,7 +15,7 @@ public interface TOPInfoProviderRodent extends TOPInfoProviderBase
 {
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 
@@ -23,13 +23,12 @@ public interface TOPInfoProviderRodent extends TOPInfoProviderBase
 		entity.writeToNBT(tag);
 
 		boolean sitting = tag.getBoolean("IsSitting");
-		
+
 		if (sitting)
 			probeInfo.text(TextFormatting.GRAY + I18n.translateToLocal("text.waila.sitting"));
-		
+
 		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 
-		
 	}
 
 }

@@ -33,7 +33,7 @@ public class RenderHedgehog<T extends EntityHedgehog> extends RenderLiving<T>
 	public RenderHedgehog(RenderManager rm)
 	{
 		super(rm, new ModelHedgehog(), 0.2F);
-		this.addLayer(blinking = new LayerBlinking(this, HEDGEpig_blink, 0xD3CDAB));
+		this.addLayer(this.blinking = new LayerBlinking(this, HEDGEpig_blink, 0xD3CDAB));
 	}
 
 	protected void preRenderScale(T entity, float f)
@@ -57,7 +57,7 @@ public class RenderHedgehog<T extends EntityHedgehog> extends RenderLiving<T>
 		{
 			GL11.glScalef(0.6F, 0.6F, 0.6F);
 
-			EntityHedgehogBase entityChk = (EntityHedgehogBase) entity;
+			EntityHedgehogBase entityChk = entity;
 			if (entity.getCustomNameTag().equals("Sanic"))
 			{
 				GL11.glRotatef(20, -1, 0, 1);
@@ -83,16 +83,16 @@ public class RenderHedgehog<T extends EntityHedgehog> extends RenderLiving<T>
 	{
 		if (entity.getCustomNameTag().equals("Sonic"))
 		{
-			blinking.setColors(0xD8AA82, 0xD8AA82);
+			this.blinking.setColors(0xD8AA82, 0xD8AA82);
 			return RenderHedgehog.SONIC_TEXTURES;
 		}
 		else if (entity.getCustomNameTag().equals("Sanic"))
 		{
-			blinking.setColors(0xFFFFFF, 0xFFFFFF);
+			this.blinking.setColors(0xFFFFFF, 0xFFFFFF);
 			return RenderHedgehog.SANIC_TEXTURES;
 		}
 
-		blinking.setColors(0xD3CDAB, 0xD3CDAB);
+		this.blinking.setColors(0xD3CDAB, 0xD3CDAB);
 		return RenderHedgehog.HEDGEHOG_TEXTURES;
 	}
 

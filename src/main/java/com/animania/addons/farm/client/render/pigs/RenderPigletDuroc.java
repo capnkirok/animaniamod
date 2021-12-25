@@ -38,9 +38,9 @@ public class RenderPigletDuroc<T extends PigEntityletDuroc> extends RenderLiving
 	{
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
+		GL11.glScalef(1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend());
 
-		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		EntityAnimaniaPig entityChk = entity;
 
 		if (entityChk.getSleeping())
 		{
@@ -127,7 +127,7 @@ public class RenderPigletDuroc<T extends PigEntityletDuroc> extends RenderLiving
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.PIG_TEXTURES;
+		return RenderPigletDuroc.PIG_TEXTURES;
 	}
 
 	static class Factory<T extends PigEntityletDuroc> implements IRenderFactory<T>

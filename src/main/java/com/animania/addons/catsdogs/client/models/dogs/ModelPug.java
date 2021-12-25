@@ -99,7 +99,7 @@ public class ModelPug extends ModelBase
 		this.body.addChild(this.back_left);
 		this.body.addChild(this.front_right);
 		this.body.addChild(this.front_left);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()
@@ -176,7 +176,7 @@ public class ModelPug extends ModelBase
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
 	{
-		setupAngles();
+		this.setupAngles();
 
 		ModelPose sleepingPose = AnimationHandler.getOrCreatePose(entity, Pose.SLEEPING, () -> new ModelPose(this, PosePugSleeping.INSTANCE));
 
@@ -198,7 +198,8 @@ public class ModelPug extends ModelBase
 		if (!dog.getSleeping())
 		{
 			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		} else
+		}
+		else
 		{
 			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}

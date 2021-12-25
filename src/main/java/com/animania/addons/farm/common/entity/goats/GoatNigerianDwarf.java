@@ -31,7 +31,7 @@ public class GoatNigerianDwarf
 
 	}
 
-	public  static class EntityDoeNigerianDwarf extends EntityDoeBase
+	public static class EntityDoeNigerianDwarf extends EntityDoeBase
 	{
 
 		public EntityDoeNigerianDwarf(Level levelIn)

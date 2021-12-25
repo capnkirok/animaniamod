@@ -24,26 +24,26 @@ public class RenderRamMerino<T extends EntityRamMerino> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", SheepBaseDir = "textures/entity/sheep/";
 
-	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderRamMerino.modid, RenderRamMerino.SheepBaseDir + "sheep_merino_" + "white_ram.png"), new ResourceLocation(RenderRamMerino.modid, RenderRamMerino.SheepBaseDir + "sheep_merino_" + "brown_ram.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES = { new ResourceLocation(RenderRamMerino.modid, RenderRamMerino.SheepBaseDir + "sheep_merino_" + "white_ram.png"), new ResourceLocation(RenderRamMerino.modid, RenderRamMerino.SheepBaseDir + "sheep_merino_" + "brown_ram.png") };
 
 	private static final ResourceLocation SHEEP_TEXTURE_BLINK = new ResourceLocation("animania:textures/entity/sheep/sheep_blink.png");
-	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { new ResourceLocation(RenderRamMerino.modid, RenderRamMerino.SheepBaseDir + "sheep_merino_" + "white_ram_sheared.png"), new ResourceLocation(RenderRamMerino.modid, RenderRamMerino.SheepBaseDir + "sheep_merino_" + "brown_ram_sheared.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = { new ResourceLocation(RenderRamMerino.modid, RenderRamMerino.SheepBaseDir + "sheep_merino_" + "white_ram_sheared.png"), new ResourceLocation(RenderRamMerino.modid, RenderRamMerino.SheepBaseDir + "sheep_merino_" + "brown_ram_sheared.png") };
 
-	private static int[] EYE_COLORS = new int[] { 0xEDEDED, 0x232323 };
+	private static int[] EYE_COLORS = { 0xEDEDED, 0x232323 };
 
 	private LayerBlinking blinking;
 
 	public RenderRamMerino(RenderManager rm)
 	{
 		super(rm, new ModelMerinoRam(), 0.5F);
-		this.addLayer(blinking = new LayerBlinking(this, SHEEP_TEXTURE_BLINK, 0));
+		this.addLayer(this.blinking = new LayerBlinking(this, SHEEP_TEXTURE_BLINK, 0));
 	}
 
 	protected void preRenderScale(EntityRamMerino entity, float f)
 	{
 		GL11.glScalef(0.56F, 0.56F, 0.56F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaSheep SheepEntity = (EntityAnimaniaSheep) entity;
+		EntityAnimaniaSheep SheepEntity = entity;
 		if (SheepEntity.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -75,11 +75,11 @@ public class RenderRamMerino<T extends EntityRamMerino> extends RenderLiving<T>
 
 		if (!entity.getSheared())
 		{
-			return this.SHEEP_TEXTURES[entity.getColorNumber()];
+			return RenderRamMerino.SHEEP_TEXTURES[entity.getColorNumber()];
 		}
 		else
 		{
-			return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
+			return RenderRamMerino.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 		}
 	}
 

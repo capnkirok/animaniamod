@@ -42,7 +42,7 @@ public class RenderBullAngus<T extends EntityBullAngus> extends RenderLiving<T>
 	protected void preRenderScale(EntityBullAngus entity, float f)
 	{
 		GL11.glScalef(1.4F, 1.4F, 1.4F);
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

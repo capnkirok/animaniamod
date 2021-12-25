@@ -52,41 +52,26 @@ import com.animania.api.interfaces.AnimaniaType;
 
 public enum DogType implements AnimaniaType
 {
-	BLOOD_HOUND(EntityMaleBloodHound.class, EntityFemaleBloodHound.class, EntityPuppyBloodHound.class),
-	CHIHUAHUA(EntityMaleChihuahua.class, EntityFemaleChihuahua.class, EntityPuppyChihuahua.class),
-	COLLIE(EntityMaleCollie.class, EntityFemaleCollie.class, EntityPuppyCollie.class),
-	CORGI(EntityMaleCorgi.class, EntityFemaleCorgi.class, EntityPuppyCorgi.class),
-	DACHSHUND(EntityMaleDachshund.class, EntityFemaleDachshund.class, EntityPuppyDachshund.class),
-	FOX(EntityMaleFox.class, EntityFemaleFox.class, EntityPuppyFox.class),
-	GERMAN_SHEPHERD(EntityMaleGermanShepherd.class, EntityFemaleGermanShepherd.class, EntityPuppyGermanShepherd.class),
-	GREAT_DANE(EntityMaleGreatDane.class, EntityFemaleGreatDane.class, EntityPuppyGreatDane.class),
-	GREYHOUND(EntityMaleGreyhound.class, EntityFemaleGreyhound.class, EntityPuppyGreyhound.class),
-	HUSKY(EntityMaleHusky.class, EntityFemaleHusky.class, EntityPuppyHusky.class),
-	LABRADOR(EntityMaleLabrador.class, EntityFemaleLabrador.class, EntityPuppyLabrador.class),
-	POMERANIAN(EntityMalePomeranian.class, EntityFemalePomeranian.class, EntityPuppyPomeranian.class),
-	POODLE(EntityMalePoodle.class, EntityFemalePoodle.class, EntityPuppyPoodle.class),
-	PUG(EntityMalePug.class, EntityFemalePug.class, EntityPuppyPug.class),
-	WOLF(EntityMaleWolf.class, EntityFemaleWolf.class, EntityPuppyWolf.class);
-	
+	BLOOD_HOUND(EntityMaleBloodHound.class, EntityFemaleBloodHound.class, EntityPuppyBloodHound.class), CHIHUAHUA(EntityMaleChihuahua.class, EntityFemaleChihuahua.class, EntityPuppyChihuahua.class), COLLIE(EntityMaleCollie.class, EntityFemaleCollie.class, EntityPuppyCollie.class), CORGI(EntityMaleCorgi.class, EntityFemaleCorgi.class, EntityPuppyCorgi.class), DACHSHUND(EntityMaleDachshund.class, EntityFemaleDachshund.class, EntityPuppyDachshund.class), FOX(EntityMaleFox.class, EntityFemaleFox.class, EntityPuppyFox.class), GERMAN_SHEPHERD(EntityMaleGermanShepherd.class, EntityFemaleGermanShepherd.class, EntityPuppyGermanShepherd.class), GREAT_DANE(EntityMaleGreatDane.class, EntityFemaleGreatDane.class, EntityPuppyGreatDane.class), GREYHOUND(EntityMaleGreyhound.class, EntityFemaleGreyhound.class, EntityPuppyGreyhound.class), HUSKY(EntityMaleHusky.class, EntityFemaleHusky.class, EntityPuppyHusky.class), LABRADOR(EntityMaleLabrador.class, EntityFemaleLabrador.class, EntityPuppyLabrador.class), POMERANIAN(EntityMalePomeranian.class, EntityFemalePomeranian.class, EntityPuppyPomeranian.class), POODLE(EntityMalePoodle.class, EntityFemalePoodle.class, EntityPuppyPoodle.class), PUG(EntityMalePug.class, EntityFemalePug.class, EntityPuppyPug.class), WOLF(EntityMaleWolf.class, EntityFemaleWolf.class, EntityPuppyWolf.class);
+
 	private Class male;
 	private Class female;
 	private Class child;
-	
+
 	private DogType(Class male, Class female, Class child)
 	{
 		this.male = male;
 		this.female = female;
 		this.child = child;
 	}
-	
+
 	@Override
 	public EntityMaleDogBase getMale(Level level)
 	{
 		try
 		{
 			Constructor<?> constructor = this.male.getConstructor(Level.class);
-			EntityMaleDogBase male = (EntityMaleDogBase) constructor.newInstance(level);
-			return male;
+			return (EntityMaleDogBase) constructor.newInstance(level);
 		}
 		catch (Exception e)
 		{
@@ -94,15 +79,14 @@ public enum DogType implements AnimaniaType
 		}
 		return null;
 	}
-	
+
 	@Override
 	public EntityFemaleDogBase getFemale(Level level)
 	{
 		try
 		{
 			Constructor<?> constructor = this.female.getConstructor(Level.class);
-			EntityFemaleDogBase female = (EntityFemaleDogBase) constructor.newInstance(level);
-			return female;
+			return (EntityFemaleDogBase) constructor.newInstance(level);
 		}
 		catch (Exception e)
 		{
@@ -110,15 +94,14 @@ public enum DogType implements AnimaniaType
 		}
 		return null;
 	}
-	
+
 	@Override
 	public EntityPuppyBase getChild(Level level)
 	{
 		try
 		{
 			Constructor<?> constructor = this.child.getConstructor(Level.class);
-			EntityPuppyBase child = (EntityPuppyBase) constructor.newInstance(level);
-			return child;
+			return (EntityPuppyBase) constructor.newInstance(level);
 		}
 		catch (Exception e)
 		{
@@ -126,12 +109,12 @@ public enum DogType implements AnimaniaType
 		}
 		return null;
 	}
-	
+
 	public static DogType breed(DogType male, DogType female)
 	{
 		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
-	
+
 	@Override
 	public String getTypeName()
 	{

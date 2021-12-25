@@ -13,8 +13,7 @@ public class ItemSaltLick extends BlockItem
 		this.hasSubtypes = true;
 		this.setMaxDamage(AnimaniaConfig.careAndFeeding.saltLickMaxUses);
 		this.setMaxStackSize(1);
-		
+
 	}
-		
 
 }

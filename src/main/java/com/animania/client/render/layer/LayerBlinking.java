@@ -31,8 +31,8 @@ public class LayerBlinking<E extends LivingEntity> implements RenderLayer
 		this.colLeft = colLeft;
 		this.colRight = colRight;
 
-		this.left = new ResourceLocation(texture_base.toString().replace(".png", "") + "_left.png");
-		this.right = new ResourceLocation(texture_base.toString().replace(".png", "") + "_right.png");
+		this.left = new ResourceLocation(this.texture_base.toString().replace(".png", "") + "_left.png");
+		this.right = new ResourceLocation(this.texture_base.toString().replace(".png", "") + "_right.png");
 	}
 
 	public LayerBlinking(RenderLiving render, ResourceLocation blinkingTexture, int col)
@@ -47,8 +47,8 @@ public class LayerBlinking<E extends LivingEntity> implements RenderLayer
 		this.colLeft = col;
 		this.colRight = col;
 
-		this.left = texture_base;
-		this.right = texture_base;
+		this.left = this.texture_base;
+		this.right = this.texture_base;
 	}
 
 	public void setColors(int left, int right)
@@ -63,12 +63,8 @@ public class LayerBlinking<E extends LivingEntity> implements RenderLayer
 
 		boolean drawBlink = false;
 
-		if (entity instanceof IBlinking)
-		{
-			IBlinking iblinking = (IBlinking) entity;
-			if (iblinking.getBlinkTimer() < 7 && iblinking.getBlinkTimer() >= 0)
-				drawBlink = true;
-		}
+		if ((entity instanceof IBlinking iblinking) && (iblinking.getBlinkTimer() < 7 && iblinking.getBlinkTimer() >= 0))
+			drawBlink = true;
 
 		if (entity instanceof ISleeping)
 		{
@@ -86,13 +82,13 @@ public class LayerBlinking<E extends LivingEntity> implements RenderLayer
 
 			float[] rgb = new float[3];
 
-			Color c = new Color(colLeft);
+			Color c = new Color(this.colLeft);
 			rgb = c.getRGBColorComponents(rgb);
 
 			// Manual position and scale overrides, because nothing is perfect
 			AddonInjectionHandler.runInjection("farm", "blink1", Void.class, this.render, entity);
 
-			this.render.bindTexture(left);
+			this.render.bindTexture(this.left);
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.enableCull();
 			GlStateManager.color(rgb[0], rgb[1], rgb[2], 1.0F);
@@ -108,9 +104,9 @@ public class LayerBlinking<E extends LivingEntity> implements RenderLayer
 
 			AddonInjectionHandler.runInjection("farm", "blink2", Void.class, this.render, entity);
 
-			c = new Color(colRight);
+			c = new Color(this.colRight);
 			rgb = c.getRGBColorComponents(new float[3]);
-			this.render.bindTexture(right);
+			this.render.bindTexture(this.right);
 			GlStateManager.color(rgb[0], rgb[1], rgb[2], 1.0F);
 
 			if (this.render.getMainModel() instanceof IColoredModel)

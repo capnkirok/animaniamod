@@ -41,22 +41,23 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 		this.z = z;
 		this.textureOverrideFunction = textureOverride;
 
-		this.addLayer(blinking = new LayerBlinking(this, blink, eyeColor, true));
+		this.addLayer(this.blinking = new LayerBlinking(this, blink, eyeColor, true));
 	}
 
 	protected void preRenderScale(EntityAnimaniaDog entity, float f)
 	{
-		GlStateManager.translate(x, y, z);
+		GlStateManager.translate(this.x, this.y, this.z);
 
 		if (entity instanceof IChild)
 		{
-			double dividend = 0.85 / (0.8 * scale);
+			double dividend = 0.85 / (0.8 * this.scale);
 
 			IChild child = (IChild) entity;
 			float age = child.getEntityAge();
-			GlStateManager.scale(scale + (age / dividend), scale + (age / dividend), scale + (age / dividend));
-		} else
-			GlStateManager.scale(scale, scale, scale);
+			GlStateManager.scale(this.scale + age / dividend, this.scale + age / dividend, this.scale + age / dividend);
+		}
+		else
+			GlStateManager.scale(this.scale, this.scale, this.scale);
 
 		if (entity.getSleeping())
 		{
@@ -74,7 +75,8 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 			GlStateManager.popMatrix();
 			GlStateManager.translate(0, -0.1, 0);
 			// GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		} else
+		}
+		else
 		{
 			// this.shadowSize = 0.5F;
 			// entity.setSleeping(false);
@@ -86,16 +88,16 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (textureOverrideFunction != null)
+		if (this.textureOverrideFunction != null)
 		{
-			ResourceLocation loc = textureOverrideFunction.apply(entity);
+			ResourceLocation loc = this.textureOverrideFunction.apply(entity);
 			if (loc != null)
 				return loc;
 		}
 
 		if (entity.getVariantCount() > 0)
 		{
-			String tex = texture.toString().replace(".png", "");
+			String tex = this.texture.toString().replace(".png", "");
 
 			if (entity.getPosition().equals(new BlockPos(-1, -1, -1)))
 				return new ResourceLocation(tex + 0 + ".png");
@@ -104,7 +106,7 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 			return new ResourceLocation(tex);
 		}
 
-		return texture;
+		return this.texture;
 	}
 
 	@Override
@@ -113,7 +115,7 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 		if (LivingEntity.getVariantCount() > 0)
 		{
 			int col = LivingEntity.getEyeColorForVariant(LivingEntity.getVariant());
-			blinking.setColors(col, col);
+			this.blinking.setColors(col, col);
 		}
 
 		this.preRenderScale(LivingEntity, f);
@@ -150,7 +152,7 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)
 		{
-			return new RenderDogGeneric(manager, model, tex, blink, eye, scale, x, y, z, overrideFunc);
+			return new RenderDogGeneric(manager, this.model, this.tex, this.blink, this.eye, this.scale, this.x, this.y, this.z, this.overrideFunc);
 		}
 
 	}

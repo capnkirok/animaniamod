@@ -11,17 +11,15 @@ import net.minecraft.world.entity.LivingEntity;
 public enum FerretType implements AnimaniaType
 {
 
-	GREY(EntityFerretGrey.class),
-	WHITE(EntityFerretWhite.class);
-	
-	
+	GREY(EntityFerretGrey.class), WHITE(EntityFerretWhite.class);
+
 	private Class male;
-	
+
 	private FerretType(Class male)
 	{
 		this.male = male;
 	}
-	
+
 	@Override
 	public EntityFerretBase getMale(Level level)
 	{
@@ -57,11 +55,11 @@ public enum FerretType implements AnimaniaType
 	{
 		return null;
 	}
-	
+
 	@Override
 	public String getTypeName()
 	{
 		return Animania.MODID + ":ferret";
 	}
-	
+
 }

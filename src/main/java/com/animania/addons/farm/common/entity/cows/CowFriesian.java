@@ -29,7 +29,7 @@ public class CowFriesian
 		}
 
 	}
-	
+
 	public static class EntityCalfFriesian extends EntityCalfBase
 	{
 
@@ -38,13 +38,13 @@ public class CowFriesian
 			super(level);
 			this.cowType = CowType.FRIESIAN;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 15987699;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -52,7 +52,7 @@ public class CowFriesian
 		}
 
 	}
-	
+
 	public static class CowEntityFriesian extends CowEntityBase
 	{
 
@@ -62,13 +62,13 @@ public class CowFriesian
 			this.cowType = CowType.FRIESIAN;
 			this.milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, FarmAddonBlockHandler.fluidMilkFriesian);
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 15987699;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -76,5 +76,5 @@ public class CowFriesian
 		}
 
 	}
-	
+
 }

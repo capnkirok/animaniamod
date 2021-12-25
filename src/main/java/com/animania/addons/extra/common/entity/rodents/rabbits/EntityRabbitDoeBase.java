@@ -137,7 +137,8 @@ public class RabbitEntityDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-		} else
+		}
+		else
 			return super.processInteract(player, hand);
 	}
 
@@ -162,7 +163,8 @@ public class RabbitEntityDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 				{
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
-				} else
+				}
+				else
 				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
@@ -181,7 +183,7 @@ public class RabbitEntityDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	@Override
 	public int getDryTimer()
 	{
-		return dryTimerDoe;
+		return this.dryTimerDoe;
 	}
 
 	@Override

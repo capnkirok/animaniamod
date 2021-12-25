@@ -12,41 +12,42 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class ModelBullLonghorn extends ModelBase
 {
-	private float        headRotationAngleX;
-	public ModelRenderer Head          = new ModelRenderer(this, 0, 0);
-	ModelRenderer        Body;
-	ModelRenderer        BodyHump;
-	ModelRenderer        BodyHump2;
-	ModelRenderer        sac;
-	ModelRenderer        penis;
-	ModelRenderer        TailTop;
-	ModelRenderer        Tail;
-	ModelRenderer        TailHair1;
-	ModelRenderer        TailHair2;
-	ModelRenderer        HeadTop;
-	ModelRenderer        Snout;
-	ModelRenderer        EarL;
-	ModelRenderer        EarLa;
-	ModelRenderer        EarR;
-	ModelRenderer        EarRa;
-	ModelRenderer        Ring;
-	ModelRenderer        Horn1;
-	ModelRenderer        Horn1A;
-	ModelRenderer        Horn1B;
-	ModelRenderer        Horn1C;
-	ModelRenderer        Horn2;
-	ModelRenderer        Horn2A;
-	ModelRenderer        Horn2B;
-	ModelRenderer        Horn2C;
-	ModelRenderer        Leg0;
-	ModelRenderer        Leg1;
-	ModelRenderer        Leg2;
-	ModelRenderer        Leg3;
+	private float headRotationAngleX;
+	public ModelRenderer Head = new ModelRenderer(this, 0, 0);
+	ModelRenderer Body;
+	ModelRenderer BodyHump;
+	ModelRenderer BodyHump2;
+	ModelRenderer sac;
+	ModelRenderer penis;
+	ModelRenderer TailTop;
+	ModelRenderer Tail;
+	ModelRenderer TailHair1;
+	ModelRenderer TailHair2;
+	ModelRenderer HeadTop;
+	ModelRenderer Snout;
+	ModelRenderer EarL;
+	ModelRenderer EarLa;
+	ModelRenderer EarR;
+	ModelRenderer EarRa;
+	ModelRenderer Ring;
+	ModelRenderer Horn1;
+	ModelRenderer Horn1A;
+	ModelRenderer Horn1B;
+	ModelRenderer Horn1C;
+	ModelRenderer Horn2;
+	ModelRenderer Horn2A;
+	ModelRenderer Horn2B;
+	ModelRenderer Horn2C;
+	ModelRenderer Leg0;
+	ModelRenderer Leg1;
+	ModelRenderer Leg2;
+	ModelRenderer Leg3;
 
-	protected float      field_78145_g = 8.0F;
-	protected float      field_78151_h = 4.0F;
+	protected float field_78145_g = 8.0F;
+	protected float field_78151_h = 4.0F;
 
-	public ModelBullLonghorn() {
+	public ModelBullLonghorn()
+	{
 		this.Body = new ModelRenderer(this, 18, 4);
 		this.Body.setTextureSize(128, 64);
 		this.Body.addBox(-6F, -5F, -5F, 12, 10, 10);
@@ -88,7 +89,7 @@ public class ModelBullLonghorn extends ModelBase
 		this.TailHair2.setTextureSize(128, 64);
 		this.TailHair2.addBox(-1F, 0F, -4F, 2, 0, 3);
 		this.TailHair2.setRotationPoint(2.010928E-07F, -.1F, -4.64188F);
-	
+
 		this.Leg0 = new ModelRenderer(this, 0, 32);
 		this.Leg0.setTextureSize(128, 64);
 		this.Leg0.addBox(-2F, 0F, -2F, 4, 12, 4);
@@ -109,12 +110,12 @@ public class ModelBullLonghorn extends ModelBase
 		this.Head = new ModelRenderer(this, 0, 0);
 		this.Head.setTextureSize(128, 64);
 		this.Head.addBox(-4F, -4F, -3F, 8, 8, 6);
-		this.Head.setRotationPoint(0F, 5F, -13F); 
+		this.Head.setRotationPoint(0F, 5F, -13F);
 
 		this.Snout = new ModelRenderer(this, 49, 50);
 		this.Snout.setTextureSize(128, 64);
 		this.Snout.addBox(-2F, -2F, -1.5F, 4, 4, 3);
-		this.Snout.setRotationPoint(0F, 3F, -2.5F); 
+		this.Snout.setRotationPoint(0F, 3F, -2.5F);
 
 		this.EarL = new ModelRenderer(this, 39, 53);
 		this.EarL.setTextureSize(128, 64);
@@ -124,17 +125,17 @@ public class ModelBullLonghorn extends ModelBase
 		this.EarLa = new ModelRenderer(this, 45, 50);
 		this.EarLa.setTextureSize(128, 64);
 		this.EarLa.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
-		this.EarLa.setRotationPoint(-4.5F, -.04F, 0.69718F); 
+		this.EarLa.setRotationPoint(-4.5F, -.04F, 0.69718F);
 
 		this.EarR = new ModelRenderer(this, 39, 53);
 		this.EarR.setTextureSize(128, 64);
 		this.EarR.addBox(-1.5F, -1F, -0.5F, 3, 2, 1);
-		this.EarR.setRotationPoint(5.5F, -1.5F, 1F); 
+		this.EarR.setRotationPoint(5.5F, -1.5F, 1F);
 
 		this.EarRa = new ModelRenderer(this, 41, 50);
 		this.EarRa.setTextureSize(128, 64);
 		this.EarRa.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
-		this.EarRa.setRotationPoint(4.5F, -.04F, 0.69718F); 
+		this.EarRa.setRotationPoint(4.5F, -.04F, 0.69718F);
 
 		this.Ring = new ModelRenderer(this, 65, 53);
 		this.Ring.setTextureSize(128, 64);
@@ -169,7 +170,7 @@ public class ModelBullLonghorn extends ModelBase
 		this.Horn2 = new ModelRenderer(this, 22, 0);
 		this.Horn2.setTextureSize(128, 64);
 		this.Horn2.addBox(0F, -1F, -1F, 6, 2, 2);
-		this.Horn2.setRotationPoint(-9F, -4F, 0F); 
+		this.Horn2.setRotationPoint(-9F, -4F, 0F);
 
 		this.Horn2A = new ModelRenderer(this, 38, 0);
 		this.Horn2A.setTextureSize(128, 64);
@@ -208,7 +209,8 @@ public class ModelBullLonghorn extends ModelBase
 	}
 
 	@Override
-	public void render(Entity entity, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
+	public void render(Entity entity, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale)
+	{
 
 		// Body
 		this.Body.rotateAngleX = 1.570796F;
@@ -234,16 +236,16 @@ public class ModelBullLonghorn extends ModelBase
 
 		this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entity);
 
-		
-		
 		boolean isSleeping = false;
 		EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
-		if (ech.getSleeping()) {
+		if (ech.getSleeping())
+		{
 			isSleeping = true;
 		}
 		float sleepTimer = ech.getSleepTimer();
 
-		if (isSleeping) {
+		if (isSleeping)
+		{
 
 			this.Leg0.rotateAngleX = sleepTimer * -1.8F;
 			this.Leg0.render(scale * .95F);
@@ -255,13 +257,18 @@ public class ModelBullLonghorn extends ModelBase
 			this.Leg3.render(scale * .95F);
 			this.Head.rotateAngleY = sleepTimer * 2.8F;
 
-			if (sleepTimer > -.28) {
-				this.Body.rotateAngleX = (float) Math.PI / 2F - (sleepTimer/3);
-			} else {
-				this.Body.rotateAngleX = (float) Math.PI / 2F + (sleepTimer/3);
+			if (sleepTimer > -.28)
+			{
+				this.Body.rotateAngleX = (float) Math.PI / 2F - sleepTimer / 3;
+			}
+			else
+			{
+				this.Body.rotateAngleX = (float) Math.PI / 2F + sleepTimer / 3;
 			}
 
-		} else {
+		}
+		else
+		{
 
 			this.Leg0.rotateAngleZ = 0;
 			this.Leg0.render(scale);
@@ -280,11 +287,12 @@ public class ModelBullLonghorn extends ModelBase
 		this.Body.render(scale);
 		this.BodyHump.render(scale);
 		this.BodyHump2.render(scale);
-		if (AnimaniaConfig.gameRules.showParts) {
+		if (AnimaniaConfig.gameRules.showParts)
+		{
 			this.sac.render(scale);
 			this.penis.render(scale);
 		}
-		
+
 		this.Leg0.render(scale);
 		this.Leg1.render(scale);
 		this.Leg2.render(scale);
@@ -296,63 +304,58 @@ public class ModelBullLonghorn extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	{
 		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (LivingEntityIn instanceof EntityBullLonghorn) {
-			EntityBullLonghorn entityBullLonghorn = (EntityBullLonghorn) LivingEntityIn;
+		if (LivingEntityIn instanceof EntityBullLonghorn entityBullLonghorn)
+		{
 			this.Head.rotationPointY = 6.0F + entityBullLonghorn.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityBullLonghorn.getHeadAngleX(partialTickTime);
-		} else if (LivingEntityIn instanceof EntityBullHighland) {
-			EntityBullHighland entityBullHighland = (EntityBullHighland) LivingEntityIn;
+		}
+		else if (LivingEntityIn instanceof EntityBullHighland entityBullHighland)
+		{
 			this.Head.rotationPointY = 6.0F + entityBullHighland.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityBullHighland.getHeadAngleX(partialTickTime);
 		}
 	}
 
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
+	{
 		float f6 = 180F / (float) Math.PI;
 		this.Body.rotateAngleX = (float) Math.PI / 2F;
 
-		if (entity instanceof EntityBullLonghorn) {
+		if ((entity instanceof EntityBullLonghorn eb) || (entity instanceof EntityBullHighland eb))
+		{
 
-			EntityBullLonghorn eb = (EntityBullLonghorn) entity;
-			if (eb.getFighting()) {
+			if (eb.getFighting())
+			{
 				this.Head.rotationPointY = 14.0F + eb.getHeadAnchorPointY(1) * 9.0F;
 				this.headRotationAngleX = eb.getHeadAngleX(-3);
 			}
-			else {
+			else
+			{
 				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
 				this.Head.rotateAngleY = par4 / (180F / (float) Math.PI);
 				this.Head.rotateAngleX = this.headRotationAngleX;
 			}
-		} else if (entity instanceof EntityBullHighland) {
-
-			EntityBullHighland eb = (EntityBullHighland) entity;
-			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + eb.getHeadAnchorPointY(1) * 9.0F;
-				this.headRotationAngleX = eb.getHeadAngleX(-3);
-			}
-			else {
-				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
-				this.Head.rotateAngleY = par4 / (180F / (float) Math.PI);
-				this.Head.rotateAngleX = this.headRotationAngleX;
-			}
-
 		}
-
-		else {
+		else
+		{
 			this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
 			this.Head.rotateAngleY = par4 / (180F / (float) Math.PI);
 			this.Head.rotateAngleX = this.headRotationAngleX;
 		}
 
 		EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
-		if (!ech.getSleeping()) {
+		if (!ech.getSleeping())
+		{
 			this.TailTop.rotateAngleX = (float) Math.PI / 2F;
 			this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		} else {
+		}
+		else
+		{
 			this.Tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
 

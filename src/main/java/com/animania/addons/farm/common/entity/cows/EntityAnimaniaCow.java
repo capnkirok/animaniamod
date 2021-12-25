@@ -82,16 +82,16 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	{
 		super(levelIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCow>(this);
-		this.goalSelector.addGoal(1, new GenericAIPanic<EntityAnimaniaCow>(this, 2.0D));
+		this.entityAIEatGrass = new GenericAIEatGrass<>(this);
+		this.goalSelector.addGoal(1, new GenericAIPanic<>(this, 2.0D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaCow>(this, 1.0D, entityAIEatGrass, EntityAnimaniaCow.class));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaCow.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.0, this.entityAIEatGrass, true));
 		}
 		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.goalSelector.addGoal(5, new SwimmingGoal(this));
-		this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, false, EntityAnimaniaCow.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(7, new GenericAITempt<>(this, 1.25D, false, EntityAnimaniaCow.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, new ItemStack(Blocks.YELLOW_FLOWER), false));
 		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, new ItemStack(Blocks.RED_FLOWER), false));
 		this.goalSelector.addGoal(8, this.entityAIEatGrass);
@@ -100,8 +100,8 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 			this.goalSelector.addGoal(9, new GenericAISleep<EntityAnimaniaCow>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.cowBed), AnimaniaHelper.getBlock(FarmConfig.settings.cowBed2), EntityAnimaniaCow.class));
 		}
 		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaCow>(this));
-		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		this.targetTasks.addTask(14, new HurtByTargetGoal(this, false, new Class[0]));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
@@ -193,18 +193,15 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 		ItemStack stack = player.getHeldItem(hand);
 		PlayerEntity PlayerEntity = player;
 
-		if (this instanceof EntityBullBase)
+		if ((this instanceof EntityBullBase ebb) && ebb.getFighting())
 		{
-			EntityBullBase ebb = (EntityBullBase) this;
-			if (ebb.getFighting())
-			{
-				return true;
-			}
+			return true;
 		}
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack))
 		{
 			return true;
-		} else if (stack != ItemStack.EMPTY && (this instanceof CowEntityMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() instanceof ItemShears && this.getGrowingAge() >= 0) // onSheared
+		}
+		else if (stack != ItemStack.EMPTY && (this instanceof CowEntityMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() instanceof ItemShears && this.getGrowingAge() >= 0) // onSheared
 		{
 			this.setDead();
 			this.level.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.getX(), this.getY() + this.height / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D, new int[0]);
@@ -229,7 +226,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 
 				for (int i = 0; i < 5; ++i)
 				{
-					AnimaniaHelper.spawnEntity(level, new EntityItem(this.level, this.getX(), this.getY() + this.height, this.getZ(), new ItemStack(Blocks.RED_MUSHROOM)));
+					AnimaniaHelper.spawnEntity(this.level, new EntityItem(this.level, this.getX(), this.getY() + this.height, this.getZ(), new ItemStack(Blocks.RED_MUSHROOM)));
 				}
 
 				stack.damageItem(1, player);
@@ -254,7 +251,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
-		return mateable && (stack != ItemStack.EMPTY && this.isCowBreedingItem(stack));
+		return this.mateable && stack != ItemStack.EMPTY && this.isCowBreedingItem(stack);
 	}
 
 	private boolean isCowBreedingItem(ItemStack itemIn)
@@ -287,7 +284,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -329,79 +326,79 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
 	public void setEatTimer(int i)
 	{
-		eatTimer = i;
+		this.eatTimer = i;
 	}
 
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return cowType;
+		return this.cowType;
 	}
 
 	@Override

@@ -25,14 +25,13 @@ public class RenderChickBase<T extends EntityChickBase> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 
 	LayerBlinking blinkingLayer;
-	
+
 	public RenderChickBase(RenderManager rm)
 	{
 		super(rm, new ModelChick(), 0.2F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/chickens/chick_blink.png"), 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/chickens/chick_blink.png"), 0));
 	}
 
-		
 	@Override
 	protected float handleRotationFloat(T livingBase, float partialTicks)
 	{
@@ -45,14 +44,14 @@ public class RenderChickBase<T extends EntityChickBase> extends RenderLiving<T>
 	protected void preRenderCallback(T LivingEntity, float f)
 	{
 		this.preRenderScale(LivingEntity, f);
-		blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
+		this.blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
 	}
 
 	protected void preRenderScale(T entity, float f)
 	{
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend())); 
+		GL11.glScalef(1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend());
 
 		double x = entity.getX();
 		double y = entity.getY();
@@ -62,7 +61,7 @@ public class RenderChickBase<T extends EntityChickBase> extends RenderLiving<T>
 
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
 
-		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
+		EntityAnimaniaChicken entityChk = entity;
 
 		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())
 		{

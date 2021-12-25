@@ -19,8 +19,7 @@ public class AnimatedEggModelWrapper implements BakedModel
 {
 
 	private BakedModel old;
-	
-	
+
 	public AnimatedEggModelWrapper(BakedModel old)
 	{
 		this.old = old;
@@ -29,19 +28,19 @@ public class AnimatedEggModelWrapper implements BakedModel
 	@Override
 	public List<BakedQuad> getQuads(BlockState state, Direction side, long rand)
 	{
-		return old.getQuads(state, side, rand);
+		return this.old.getQuads(state, side, rand);
 	}
 
 	@Override
 	public boolean isAmbientOcclusion()
 	{
-		return old.isAmbientOcclusion();
+		return this.old.isAmbientOcclusion();
 	}
 
 	@Override
 	public boolean isGui3d()
 	{
-		return old.isGui3d();
+		return this.old.isGui3d();
 	}
 
 	@Override
@@ -52,7 +51,7 @@ public class AnimatedEggModelWrapper implements BakedModel
 
 	public BakedModel getInternal()
 	{
-		return old;
+		return this.old;
 	}
 
 	public void setInternal(BakedModel internal)
@@ -63,7 +62,7 @@ public class AnimatedEggModelWrapper implements BakedModel
 	@Override
 	public TextureAtlasSprite getParticleTexture()
 	{
-		return old.getParticleTexture();
+		return this.old.getParticleTexture();
 	}
 
 	@Override
@@ -71,12 +70,12 @@ public class AnimatedEggModelWrapper implements BakedModel
 	{
 		return ItemOverrideList.NONE;
 	}
-	
+
 	@Override
 	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType)
 	{
 		RenderAnimatedEgg.transformType = cameraTransformType;
-		return Pair.of(this, old.handlePerspective(cameraTransformType).getRight());
+		return Pair.of(this, this.old.handlePerspective(cameraTransformType).getRight());
 	}
 
 }

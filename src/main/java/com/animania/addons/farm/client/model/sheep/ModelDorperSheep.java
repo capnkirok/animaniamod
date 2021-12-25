@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.entity.LivingEntity;
 
-public class ModelDorperSheep extends ModelBase  implements IColoredModel
+public class ModelDorperSheep extends ModelBase implements IColoredModel
 {
 	private float headRotationAngleX;
 	public ModelRenderer HeadNode = new ModelRenderer(this, 0, 0);
@@ -49,163 +49,164 @@ public class ModelDorperSheep extends ModelBase  implements IColoredModel
 	public ModelDorperSheep(float par1)
 	{
 
-		Body = new ModelRenderer(this, 0, 39);
-		Body.setTextureSize(128, 128);
-		Body.addBox(-3.5F, -5.5F, -13.5F, 7, 13, 17);
-		Body.setRotationPoint(0F, 7F, 0F + 7F);
-		RightFrontLeg = new ModelRenderer(this, 107, 4);
-		RightFrontLeg.setTextureSize(128, 128);
-		RightFrontLeg.addBox(-1.5F, 0F, -1.5F, 3, 16, 3);
-		RightFrontLeg.setRotationPoint(-4F, 9.149483F, -10.08116F + 7F);
-		Hips = new ModelRenderer(this, 56, 25);
-		Hips.setTextureSize(128, 128);
-		Hips.addBox(-4F, -1F, 0F, 8, 12, 11);
-		Hips.setRotationPoint(0F, 2.675018F, 1.651946F + 7F);
-		RightBackLeg = new ModelRenderer(this, 107, 26);
-		RightBackLeg.setTextureSize(128, 128);
-		RightBackLeg.addBox(-1.5F, -0.5F, -1.5F, 3, 18, 3);
-		RightBackLeg.setRotationPoint(-4.5F, 7.543364F, 9.238067F + 7F);
-		Tail = new ModelRenderer(this, 0, 0);
-		Tail.setTextureSize(128, 128);
-		Tail.addBox(-1.5F, -1F, -2F, 3, 7, 3);
-		Tail.setRotationPoint(0F, 3.352909F, 12.66545F + 7F);
-		WoolBody1 = new ModelRendererColored(this, 40, 100);
-		WoolBody1.setTextureSize(128, 128);
-		WoolBody1.addBox(-4.5F, -1.9F, -6F, 9, 8, 12);
-		WoolBody1.setRotationPoint(0F, 3.205133F, -0.06906392F + 7F);
-		WoolBody2 = new ModelRendererColored(this, 1, 104);
-		WoolBody2.setTextureSize(128, 128);
-		WoolBody2.addBox(-5F, -2.5F, -5F, 10, 7, 8);
-		WoolBody2.setRotationPoint(0F, 2.858269F, -8.846455F + 7F);
-		WoolHips = new ModelRendererColored(this, 85, 104);
-		WoolHips.setTextureSize(128, 128);
-		WoolHips.addBox(-5.5F, -2.5F, -6F, 11, 7, 8);
-		WoolHips.setRotationPoint(0F, 3.509068F, 11.16795F + 7F);
-		LeftBackLeg = new ModelRenderer(this, 107, 26);
-		LeftBackLeg.setTextureSize(128, 128);
-		LeftBackLeg.addBox(-1.5F, -0.5F, -1.5F, 3, 18, 3);
-		LeftBackLeg.setRotationPoint(4.5F, 7.543364F, 9.238067F + 7F);
-		LeftFrontLeg = new ModelRenderer(this, 107, 4);
-		LeftFrontLeg.setTextureSize(128, 128);
-		LeftFrontLeg.addBox(-1.5F, 0F, -1.5F, 3, 16, 3);
-		LeftFrontLeg.setRotationPoint(4F, 9.149483F, -10.08116F + 7F);
+		this.Body = new ModelRenderer(this, 0, 39);
+		this.Body.setTextureSize(128, 128);
+		this.Body.addBox(-3.5F, -5.5F, -13.5F, 7, 13, 17);
+		this.Body.setRotationPoint(0F, 7F, 0F + 7F);
+		this.RightFrontLeg = new ModelRenderer(this, 107, 4);
+		this.RightFrontLeg.setTextureSize(128, 128);
+		this.RightFrontLeg.addBox(-1.5F, 0F, -1.5F, 3, 16, 3);
+		this.RightFrontLeg.setRotationPoint(-4F, 9.149483F, -10.08116F + 7F);
+		this.Hips = new ModelRenderer(this, 56, 25);
+		this.Hips.setTextureSize(128, 128);
+		this.Hips.addBox(-4F, -1F, 0F, 8, 12, 11);
+		this.Hips.setRotationPoint(0F, 2.675018F, 1.651946F + 7F);
+		this.RightBackLeg = new ModelRenderer(this, 107, 26);
+		this.RightBackLeg.setTextureSize(128, 128);
+		this.RightBackLeg.addBox(-1.5F, -0.5F, -1.5F, 3, 18, 3);
+		this.RightBackLeg.setRotationPoint(-4.5F, 7.543364F, 9.238067F + 7F);
+		this.Tail = new ModelRenderer(this, 0, 0);
+		this.Tail.setTextureSize(128, 128);
+		this.Tail.addBox(-1.5F, -1F, -2F, 3, 7, 3);
+		this.Tail.setRotationPoint(0F, 3.352909F, 12.66545F + 7F);
+		this.WoolBody1 = new ModelRendererColored(this, 40, 100);
+		this.WoolBody1.setTextureSize(128, 128);
+		this.WoolBody1.addBox(-4.5F, -1.9F, -6F, 9, 8, 12);
+		this.WoolBody1.setRotationPoint(0F, 3.205133F, -0.06906392F + 7F);
+		this.WoolBody2 = new ModelRendererColored(this, 1, 104);
+		this.WoolBody2.setTextureSize(128, 128);
+		this.WoolBody2.addBox(-5F, -2.5F, -5F, 10, 7, 8);
+		this.WoolBody2.setRotationPoint(0F, 2.858269F, -8.846455F + 7F);
+		this.WoolHips = new ModelRendererColored(this, 85, 104);
+		this.WoolHips.setTextureSize(128, 128);
+		this.WoolHips.addBox(-5.5F, -2.5F, -6F, 11, 7, 8);
+		this.WoolHips.setRotationPoint(0F, 3.509068F, 11.16795F + 7F);
+		this.LeftBackLeg = new ModelRenderer(this, 107, 26);
+		this.LeftBackLeg.setTextureSize(128, 128);
+		this.LeftBackLeg.addBox(-1.5F, -0.5F, -1.5F, 3, 18, 3);
+		this.LeftBackLeg.setRotationPoint(4.5F, 7.543364F, 9.238067F + 7F);
+		this.LeftFrontLeg = new ModelRenderer(this, 107, 4);
+		this.LeftFrontLeg.setTextureSize(128, 128);
+		this.LeftFrontLeg.addBox(-1.5F, 0F, -1.5F, 3, 16, 3);
+		this.LeftFrontLeg.setRotationPoint(4F, 9.149483F, -10.08116F + 7F);
 
-		HeadNode = new ModelRenderer(this, 0, 19);
-		HeadNode.setTextureSize(128, 128);
-		HeadNode.addBox(0F, 0F, 0F, 0, 0, 0);
-		HeadNode.setRotationPoint(0F, 5.110041F, -11.14083F + 7F);
+		this.HeadNode = new ModelRenderer(this, 0, 19);
+		this.HeadNode.setTextureSize(128, 128);
+		this.HeadNode.addBox(0F, 0F, 0F, 0, 0, 0);
+		this.HeadNode.setRotationPoint(0F, 5.110041F, -11.14083F + 7F);
 
-		Neck = new ModelRenderer(this, 0, 18);
-		Neck.setTextureSize(128, 128);
-		Neck.addBox(-2.5F, -1.5F, -10.5F, 5, 7, 11);
-		Neck.setRotationPoint(0F, 0F, 0F);
+		this.Neck = new ModelRenderer(this, 0, 18);
+		this.Neck.setTextureSize(128, 128);
+		this.Neck.addBox(-2.5F, -1.5F, -10.5F, 5, 7, 11);
+		this.Neck.setRotationPoint(0F, 0F, 0F);
 
-		Head = new ModelRenderer(this, 32, 25);
-		Head.setTextureSize(128, 128);
-		Head.addBox(-3F, -2F, -4F, 6, 7, 5);
-		Head.setRotationPoint(0F, -0.022192F - 5.110041F, -19.57529F + 11.14083F);
+		this.Head = new ModelRenderer(this, 32, 25);
+		this.Head.setTextureSize(128, 128);
+		this.Head.addBox(-3F, -2F, -4F, 6, 7, 5);
+		this.Head.setRotationPoint(0F, -0.022192F - 5.110041F, -19.57529F + 11.14083F);
 
-		UpperJaw = new ModelRenderer(this, 32, 39);
-		UpperJaw.setTextureSize(128, 128);
-		UpperJaw.addBox(-2F, 0F, -5F, 4, 3, 5);
-		UpperJaw.setRotationPoint(0F, 2.052254F - 5.110041F, -23.13853F + 11.14083F);
-		Nose = new ModelRenderer(this, 0, 36);
-		Nose.setTextureSize(128, 128);
-		Nose.addBox(0F, 0F, 0F, 2, 2, 2);
-		Nose.setRotationPoint(-1F, 3.780466F - 5.110041F, -28.36378F + 11.14083F);
-		UpperJawDetail1 = new ModelRenderer(this, 0, 10);
-		UpperJawDetail1.setTextureSize(128, 128);
-		UpperJawDetail1.addBox(-1.5F, 0F, -5F, 3, 2, 5);
-		UpperJawDetail1.setRotationPoint(0F, -0.6369667F - 5.110041F, -23.91834F + 11.14083F);
-		UpperJawDetail2 = new ModelRenderer(this, 14, 0);
-		UpperJawDetail2.setTextureSize(128, 128);
-		UpperJawDetail2.addBox(-1.5F, 0F, -5F, 3, 2, 5);
-		UpperJawDetail2.setRotationPoint(0F, 0.3641491F - 5.110041F, -23.90201F + 11.14083F);
-		LowerJaw = new ModelRenderer(this, 12, 8);
-		LowerJaw.setTextureSize(128, 128);
-		LowerJaw.addBox(-1.5F, 0F, -5F, 3, 1, 5);
-		LowerJaw.setRotationPoint(0F, 4.670414F - 5.110041F, -21.75461F + 11.14083F);
-		LeftEar1 = new ModelRenderer(this, 20, 15);
-		LeftEar1.setTextureSize(128, 128);
-		LeftEar1.addBox(0F, -1F, -1F, 4, 2, 1);
-		LeftEar1.setRotationPoint(2.5F, -0.2142792F - 5.110041F, -19.63099F + 11.14083F);
-		LeftEar2 = new ModelRenderer(this, 0, 26);
-		LeftEar2.setTextureSize(128, 128);
-		LeftEar2.addBox(0F, -0.5F, -1F, 1, 1, 1);
-		LeftEar2.setRotationPoint(6.166575F, -0.6877365F - 5.110041F, -20.50967F + 11.14083F);
-		RightEar1 = new ModelRenderer(this, 20, 15);
-		RightEar1.setTextureSize(128, 128);
-		RightEar1.addBox(-4F, -1F, -1F, 4, 2, 1);
-		RightEar1.setRotationPoint(-2.5F, -0.2142792F - 5.110041F, -19.63099F + 11.14083F);
-		RightEar2 = new ModelRenderer(this, 0, 26);
-		RightEar2.setTextureSize(128, 128);
-		RightEar2.addBox(-1F, -0.5F, -1F, 1, 1, 1);
-		RightEar2.setRotationPoint(-6.166575F, -0.6877346F - 5.110041F, -20.50966F + 11.14083F);
-		NeckWool = new ModelRendererColored(this, 59, 69);
-		NeckWool.setTextureSize(128, 128);
-		NeckWool.addBox(-3.5F, -2.5F, -5F, 7, 10, 10);
-		NeckWool.setRotationPoint(0F, 2.858284F - 5.110041F, -13.18523F + 11.14083F);
-		NeckWool2 = new ModelRendererColored(this, 30, 75);
-		NeckWool2.setTextureSize(128, 128);
-		NeckWool2.addBox(-4F, -2.5F, -2F, 8, 11, 4);
-		NeckWool2.setRotationPoint(0F, 0.06732941F - 5.110041F, -17.128F + 11.14083F);
+		this.UpperJaw = new ModelRenderer(this, 32, 39);
+		this.UpperJaw.setTextureSize(128, 128);
+		this.UpperJaw.addBox(-2F, 0F, -5F, 4, 3, 5);
+		this.UpperJaw.setRotationPoint(0F, 2.052254F - 5.110041F, -23.13853F + 11.14083F);
+		this.Nose = new ModelRenderer(this, 0, 36);
+		this.Nose.setTextureSize(128, 128);
+		this.Nose.addBox(0F, 0F, 0F, 2, 2, 2);
+		this.Nose.setRotationPoint(-1F, 3.780466F - 5.110041F, -28.36378F + 11.14083F);
+		this.UpperJawDetail1 = new ModelRenderer(this, 0, 10);
+		this.UpperJawDetail1.setTextureSize(128, 128);
+		this.UpperJawDetail1.addBox(-1.5F, 0F, -5F, 3, 2, 5);
+		this.UpperJawDetail1.setRotationPoint(0F, -0.6369667F - 5.110041F, -23.91834F + 11.14083F);
+		this.UpperJawDetail2 = new ModelRenderer(this, 14, 0);
+		this.UpperJawDetail2.setTextureSize(128, 128);
+		this.UpperJawDetail2.addBox(-1.5F, 0F, -5F, 3, 2, 5);
+		this.UpperJawDetail2.setRotationPoint(0F, 0.3641491F - 5.110041F, -23.90201F + 11.14083F);
+		this.LowerJaw = new ModelRenderer(this, 12, 8);
+		this.LowerJaw.setTextureSize(128, 128);
+		this.LowerJaw.addBox(-1.5F, 0F, -5F, 3, 1, 5);
+		this.LowerJaw.setRotationPoint(0F, 4.670414F - 5.110041F, -21.75461F + 11.14083F);
+		this.LeftEar1 = new ModelRenderer(this, 20, 15);
+		this.LeftEar1.setTextureSize(128, 128);
+		this.LeftEar1.addBox(0F, -1F, -1F, 4, 2, 1);
+		this.LeftEar1.setRotationPoint(2.5F, -0.2142792F - 5.110041F, -19.63099F + 11.14083F);
+		this.LeftEar2 = new ModelRenderer(this, 0, 26);
+		this.LeftEar2.setTextureSize(128, 128);
+		this.LeftEar2.addBox(0F, -0.5F, -1F, 1, 1, 1);
+		this.LeftEar2.setRotationPoint(6.166575F, -0.6877365F - 5.110041F, -20.50967F + 11.14083F);
+		this.RightEar1 = new ModelRenderer(this, 20, 15);
+		this.RightEar1.setTextureSize(128, 128);
+		this.RightEar1.addBox(-4F, -1F, -1F, 4, 2, 1);
+		this.RightEar1.setRotationPoint(-2.5F, -0.2142792F - 5.110041F, -19.63099F + 11.14083F);
+		this.RightEar2 = new ModelRenderer(this, 0, 26);
+		this.RightEar2.setTextureSize(128, 128);
+		this.RightEar2.addBox(-1F, -0.5F, -1F, 1, 1, 1);
+		this.RightEar2.setRotationPoint(-6.166575F, -0.6877346F - 5.110041F, -20.50966F + 11.14083F);
+		this.NeckWool = new ModelRendererColored(this, 59, 69);
+		this.NeckWool.setTextureSize(128, 128);
+		this.NeckWool.addBox(-3.5F, -2.5F, -5F, 7, 10, 10);
+		this.NeckWool.setRotationPoint(0F, 2.858284F - 5.110041F, -13.18523F + 11.14083F);
+		this.NeckWool2 = new ModelRendererColored(this, 30, 75);
+		this.NeckWool2.setTextureSize(128, 128);
+		this.NeckWool2.addBox(-4F, -2.5F, -2F, 8, 11, 4);
+		this.NeckWool2.setRotationPoint(0F, 0.06732941F - 5.110041F, -17.128F + 11.14083F);
 
-		this.HeadNode.addChild(Head);
-		this.HeadNode.addChild(Neck);
-		this.HeadNode.addChild(UpperJaw);
-		this.HeadNode.addChild(Nose);
-		this.HeadNode.addChild(UpperJawDetail1);
-		this.HeadNode.addChild(UpperJawDetail2);
-		this.HeadNode.addChild(LowerJaw);
-		this.HeadNode.addChild(LeftEar1);
-		this.HeadNode.addChild(LeftEar2);
-		this.HeadNode.addChild(RightEar1);
-		this.HeadNode.addChild(RightEar2);
-		this.HeadNode.addChild(NeckWool);
-		this.HeadNode.addChild(NeckWool2);
+		this.HeadNode.addChild(this.Head);
+		this.HeadNode.addChild(this.Neck);
+		this.HeadNode.addChild(this.UpperJaw);
+		this.HeadNode.addChild(this.Nose);
+		this.HeadNode.addChild(this.UpperJawDetail1);
+		this.HeadNode.addChild(this.UpperJawDetail2);
+		this.HeadNode.addChild(this.LowerJaw);
+		this.HeadNode.addChild(this.LeftEar1);
+		this.HeadNode.addChild(this.LeftEar2);
+		this.HeadNode.addChild(this.RightEar1);
+		this.HeadNode.addChild(this.RightEar2);
+		this.HeadNode.addChild(this.NeckWool);
+		this.HeadNode.addChild(this.NeckWool2);
 
 	}
 
+	@Override
 	public void setWoolColor(float r, float g, float b)
 	{
-		WoolBody1.setColor(r, g, b);
-		WoolBody2.setColor(r, g, b);
-		WoolHips.setColor(r, g, b);
+		this.WoolBody1.setColor(r, g, b);
+		this.WoolBody2.setColor(r, g, b);
+		this.WoolHips.setColor(r, g, b);
 	}
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
-		Body.rotateAngleX = -0.03490658F;
-		RightFrontLeg.rotateAngleX = -0.009773841F;
-		Hips.rotateAngleX = 0.0174533F;
-		RightBackLeg.rotateAngleX = -0.01396263F;
-		Tail.rotateAngleX = 0.6251218F;
-		WoolBody1.rotateAngleX = -0.01679522F;
-		WoolBody2.rotateAngleX = -0.03490658F;
-		WoolHips.rotateAngleX = -0.03490658F;
-		LeftBackLeg.rotateAngleX = -0.01396263F;
-		Neck.rotateAngleX = -0.6684765F;
-		Head.rotateAngleX = 0.2822346F;
-		UpperJaw.rotateAngleX = 0.3557643F;
-		Nose.rotateAngleX = 0.4814279F;
-		UpperJawDetail1.rotateAngleX = 0.8936448F;
-		UpperJawDetail2.rotateAngleX = 0.6360343F;
-		LowerJaw.rotateAngleX = 0.3450664F;
-		LeftEar1.rotateAngleX = 0.2500451F;
-		LeftEar1.rotateAngleY = 0.2031327F;
-		LeftEar1.rotateAngleZ = -0.1289499F;
-		LeftEar2.rotateAngleX = 0.2696677F;
-		LeftEar2.rotateAngleY = 0.3971406F;
-		LeftEar2.rotateAngleZ = -0.07895216F;
-		RightEar1.rotateAngleX = 0.2500452F;
-		RightEar1.rotateAngleY = -0.2031327F;
-		RightEar1.rotateAngleZ = 0.1289499F;
-		RightEar2.rotateAngleX = 0.2696678F;
-		RightEar2.rotateAngleY = -0.3971407F;
-		RightEar2.rotateAngleZ = 0.07895218F;
-		NeckWool.rotateAngleX = -0.5530767F;
-		NeckWool2.rotateAngleX = -0.19262F;
-		LeftFrontLeg.rotateAngleX = -0.009773842F;
+		this.Body.rotateAngleX = -0.03490658F;
+		this.RightFrontLeg.rotateAngleX = -0.009773841F;
+		this.Hips.rotateAngleX = 0.0174533F;
+		this.RightBackLeg.rotateAngleX = -0.01396263F;
+		this.Tail.rotateAngleX = 0.6251218F;
+		this.WoolBody1.rotateAngleX = -0.01679522F;
+		this.WoolBody2.rotateAngleX = -0.03490658F;
+		this.WoolHips.rotateAngleX = -0.03490658F;
+		this.LeftBackLeg.rotateAngleX = -0.01396263F;
+		this.Neck.rotateAngleX = -0.6684765F;
+		this.Head.rotateAngleX = 0.2822346F;
+		this.UpperJaw.rotateAngleX = 0.3557643F;
+		this.Nose.rotateAngleX = 0.4814279F;
+		this.UpperJawDetail1.rotateAngleX = 0.8936448F;
+		this.UpperJawDetail2.rotateAngleX = 0.6360343F;
+		this.LowerJaw.rotateAngleX = 0.3450664F;
+		this.LeftEar1.rotateAngleX = 0.2500451F;
+		this.LeftEar1.rotateAngleY = 0.2031327F;
+		this.LeftEar1.rotateAngleZ = -0.1289499F;
+		this.LeftEar2.rotateAngleX = 0.2696677F;
+		this.LeftEar2.rotateAngleY = 0.3971406F;
+		this.LeftEar2.rotateAngleZ = -0.07895216F;
+		this.RightEar1.rotateAngleX = 0.2500452F;
+		this.RightEar1.rotateAngleY = -0.2031327F;
+		this.RightEar1.rotateAngleZ = 0.1289499F;
+		this.RightEar2.rotateAngleX = 0.2696678F;
+		this.RightEar2.rotateAngleY = -0.3971407F;
+		this.RightEar2.rotateAngleZ = 0.07895218F;
+		this.NeckWool.rotateAngleX = -0.5530767F;
+		this.NeckWool2.rotateAngleX = -0.19262F;
+		this.LeftFrontLeg.rotateAngleX = -0.009773842F;
 
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
@@ -256,13 +257,13 @@ public class ModelDorperSheep extends ModelBase  implements IColoredModel
 
 		}
 
-		Body.render(scale);
-		HeadNode.render(scale);
-		Hips.render(scale);
-		Tail.render(scale);
-		WoolHips.render(scale);
-		WoolBody1.render(scale);
-		WoolBody2.render(scale);
+		this.Body.render(scale);
+		this.HeadNode.render(scale);
+		this.Hips.render(scale);
+		this.Tail.render(scale);
+		this.WoolHips.render(scale);
+		this.WoolBody1.render(scale);
+		this.WoolBody2.render(scale);
 
 	}
 
@@ -271,21 +272,18 @@ public class ModelDorperSheep extends ModelBase  implements IColoredModel
 	{
 		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (entity instanceof EntityRamDorper)
+		if (entity instanceof EntityRamDorper entitiyRamDorper)
 		{
-			EntityRamDorper entitiyRamDorper = (EntityRamDorper) entity;
 			this.HeadNode.rotationPointY = 4F + entitiyRamDorper.getHeadAnchorPointY(partialTickTime) * 4.0F;
 			this.headRotationAngleX = entitiyRamDorper.getHeadAngleX(partialTickTime);
 		}
-		else if (entity instanceof EntityEweDorper)
+		else if (entity instanceof EntityEweDorper entityEveDorper)
 		{
-			EntityEweDorper entityEveDorper = (EntityEweDorper) entity;
 			this.HeadNode.rotationPointY = 4F + entityEveDorper.getHeadAnchorPointY(partialTickTime) * 4.0F;
 			this.headRotationAngleX = entityEveDorper.getHeadAngleX(partialTickTime);
 		}
-		else if (entity instanceof EntityLambDorper)
+		else if (entity instanceof EntityLambDorper entityLambDorper)
 		{
-			EntityLambDorper entityLambDorper = (EntityLambDorper) entity;
 			this.HeadNode.rotationPointY = 4F + entityLambDorper.getHeadAnchorPointY(partialTickTime) * 4.0F;
 			this.headRotationAngleX = entityLambDorper.getHeadAngleX(partialTickTime);
 		}
@@ -296,25 +294,12 @@ public class ModelDorperSheep extends ModelBase  implements IColoredModel
 	{
 		float f6 = 180F / (float) Math.PI;
 
-		if (entity instanceof EntityRamDorper)
+		if ((entity instanceof EntityRamDorper eb) && (eb.getFighting() && eb.getRivalUniqueId() != null))
 		{
-
-			EntityRamDorper eb = (EntityRamDorper) entity;
-			if (eb.getFighting() && eb.getRivalUniqueId() != null)
-			{
-				this.HeadNode.rotateAngleX = 0.687F;
-			}
-			else
-			{
-				this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
-				this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
-				this.HeadNode.rotateAngleX = this.headRotationAngleX;
-			}
-
+			this.HeadNode.rotateAngleX = 0.687F;
 		}
 		else
 		{
-
 			this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
 			this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
 			this.HeadNode.rotateAngleX = this.headRotationAngleX;

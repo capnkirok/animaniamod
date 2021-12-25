@@ -39,7 +39,7 @@ public class RenderHogDuroc<T extends EntityHogDuroc> extends RenderLiving<T>
 	{
 		GL11.glScalef(1.18F, 1.18F, 1.18F);
 
-		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		EntityAnimaniaPig entityChk = entity;
 
 		if (entityChk.getSleeping())
 		{
@@ -128,7 +128,7 @@ public class RenderHogDuroc<T extends EntityHogDuroc> extends RenderLiving<T>
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.PIG_TEXTURES;
+		return RenderHogDuroc.PIG_TEXTURES;
 	}
 
 	static class Factory<T extends EntityHogDuroc> implements IRenderFactory<T>

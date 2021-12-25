@@ -19,26 +19,28 @@ public class WailaRabbitEntityDoeProvider extends WailaAnimalEntityProviderMatea
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			RabbitEntityDoeBase thisEntity = (RabbitEntityDoeBase)entity;
-			
+			RabbitEntityDoeBase thisEntity = (RabbitEntityDoeBase) entity;
+
 			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{
 				currenttip.add(I18n.translateToLocal("text.waila.fertile1"));
-			} 
+			}
 
 			if (thisEntity.getPregnant())
 			{
-				if (thisEntity.getGestation() > 1) {
+				if (thisEntity.getGestation() > 1)
+				{
 					int bob = thisEntity.getGestation();
-					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
-				} else {
+					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
+				}
+				else
+				{
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));
 				}
-			} 
-			
+			}
+
 		}
 		return currenttip;
 	}
-
 
 }

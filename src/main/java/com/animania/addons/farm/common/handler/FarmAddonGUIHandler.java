@@ -154,7 +154,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 	@Override
 	public int getGuiIdOffset()
 	{
-		return idOffset;
+		return this.idOffset;
 	}
 
 }

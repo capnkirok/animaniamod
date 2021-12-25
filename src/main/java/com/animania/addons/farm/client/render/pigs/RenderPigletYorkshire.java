@@ -40,9 +40,9 @@ public class RenderPigletYorkshire<T extends PigEntityletYorkshire> extends Rend
 	{
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
+		GL11.glScalef(1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend());
 
-		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		EntityAnimaniaPig entityChk = entity;
 
 		if (entityChk.getSleeping())
 		{
@@ -128,7 +128,7 @@ public class RenderPigletYorkshire<T extends PigEntityletYorkshire> extends Rend
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.PIG_TEXTURES;
+		return RenderPigletYorkshire.PIG_TEXTURES;
 	}
 
 	static class Factory<T extends PigEntityletYorkshire> implements IRenderFactory<T>

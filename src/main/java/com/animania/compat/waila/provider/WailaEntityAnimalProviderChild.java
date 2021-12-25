@@ -15,44 +15,50 @@ import net.minecraft.world.entity.LivingEntity;
 public class WailaAnimalEntityProviderChild extends WailaAnimalEntityProviderBase
 {
 
-    @Override
-    public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
-        currenttip = super.getWailaBody(entity, currenttip, accessor, config);
+	@Override
+	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
+	{
+		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
-        if (accessor.getPlayer().isSneaking()) {
-            String parent = accessor.getNBTData().getString("ParentUUID");
-            Level level = entity.level;
+		if (accessor.getPlayer().isSneaking())
+		{
+			String parent = accessor.getNBTData().getString("ParentUUID");
+			Level level = entity.level;
 
-            if (!parent.equals("")) {
-                for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, level, entity)) {
-                    UUID id = e.getUUID();
-                    if (id.toString().equals(parent)) {
-                        String name = e.getCustomNameTag();
-                        if (!name.equals(""))
-                            currenttip.add(I18n.translateToLocal("text.waila.parent") + " (" + name + ")");
+			if (!parent.equals(""))
+			{
+				for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, level, entity))
+				{
+					UUID id = e.getUUID();
+					if (id.toString().equals(parent))
+					{
+						String name = e.getCustomNameTag();
+						if (!name.equals(""))
+							currenttip.add(I18n.translateToLocal("text.waila.parent") + " (" + name + ")");
 
-                        return currenttip;
-                    }
-                }
+						return currenttip;
+					}
+				}
 
-                currenttip.add(I18n.translateToLocal("text.waila.parentmissing"));
+				currenttip.add(I18n.translateToLocal("text.waila.parentmissing"));
 
-            }
+			}
 
-        }
+		}
 
-        return currenttip;
-    }
+		return currenttip;
+	}
 
-    @Override
-    public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level) {
-        CompoundTag comp = ent.getEntityData();
+	@Override
+	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level)
+	{
+		CompoundTag comp = ent.getEntityData();
 
-        String parent = comp.getString("ParentUUID");
-        if (!parent.equals(""))
-            tag.setString("ParentUUID", parent);
+		String parent = comp.getString("ParentUUID");
+		if (!parent.equals(""))
+			tag.setString("ParentUUID", parent);
 
-        return super.getNBTData(player, ent, tag, level);
-    }
+		return super.getNBTData(player, ent, tag, level);
+	}
 
 }

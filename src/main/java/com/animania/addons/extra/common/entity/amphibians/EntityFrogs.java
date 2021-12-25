@@ -109,15 +109,16 @@ public class EntityFrogs extends EntityAmphibian
 		{
 			this.goalSelector.addGoal(1, new EntityAmphibian.AIPanic(this, 2.2D));
 			this.goalSelector.addGoal(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
-		} else if (this.getCustomNameTag().equals("Pepe"))
+		}
+		else if (this.getCustomNameTag().equals("Pepe"))
 		{
 			this.tasks.taskEntries.clear();
 			this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.5F));
 			this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
 			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<EntityFerretBase>(this, EntityFerretBase.class, true));
-			this.targetTasks.addTask(3, new NearestAttackableTargetGoal<EntityHedgehog>(this, EntityHedgehog.class, true));
-			this.targetTasks.addTask(4, new NearestAttackableTargetGoal<EntityHedgehogAlbino>(this, EntityHedgehogAlbino.class, true));
+			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<>(this, EntityFerretBase.class, true));
+			this.targetTasks.addTask(3, new NearestAttackableTargetGoal<>(this, EntityHedgehog.class, true));
+			this.targetTasks.addTask(4, new NearestAttackableTargetGoal<>(this, EntityHedgehogAlbino.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}
@@ -137,7 +138,8 @@ public class EntityFrogs extends EntityAmphibian
 			if (!stack.hasDisplayName())
 			{
 				return false;
-			} else
+			}
+			else
 			{
 				LivingEntity LivingEntity = this;
 				LivingEntity.setCustomNameTag(stack.getDisplayName());
@@ -176,14 +178,17 @@ public class EntityFrogs extends EntityAmphibian
 			return ExtraAddonSoundHandler.oooohhh;
 		}
 
-		if (chooser == 0)
+		switch (chooser)
+		{
+		case 0:
 			return ExtraAddonSoundHandler.frogLiving1;
-		else if (chooser == 1)
+		case 1:
 			return ExtraAddonSoundHandler.frogLiving2;
-		else if (chooser == 2)
+		case 2:
 			return ExtraAddonSoundHandler.frogLiving3;
-		else
+		default:
 			return null;
+		}
 	}
 
 	@Override

@@ -51,26 +51,26 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 	@Override
 	public boolean shouldExecute()
 	{
-		if (++waterFindTimer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
+		if (++this.waterFindTimer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
 
-		if (entity.getWatered() || entity.isBeingRidden() || entity.getSleeping() || (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !entity.getInteracted() : false))
+		if (this.entity.getWatered() || this.entity.isBeingRidden() || this.entity.getSleeping() || (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !this.entity.getInteracted() : false))
 		{
-			waterFindTimer = 0;
+			this.waterFindTimer = 0;
 			return false;
 		}
-		
-		if(entity.getRandom().nextInt(3) != 0)
+
+		if (this.entity.getRandom().nextInt(3) != 0)
 			return false;
 
-		waterFindTimer = 0;
+		this.waterFindTimer = 0;
 		return super.shouldExecute();
 	}
 
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		return super.shouldContinueExecuting() && !entity.getWatered();
+		return super.shouldContinueExecuting() && !this.entity.getWatered();
 	}
 
 	@Override
@@ -80,44 +80,37 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 
 		if (this.isAtDestination())
 		{
-			this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
+			this.creature.getLookHelper().setLookPosition(this.seekingBlockPos.getX() + 0.5D, (double) this.seekingBlockPos.getY(), this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
 
-			BlockState state = level.getBlockState(seekingBlockPos);
+			BlockState state = this.level.getBlockState(this.seekingBlockPos);
 			Block block = state.getBlock();
 
 			if (block instanceof IFoodProviderBlock)
 			{
-				TileEntity te = level.getTileEntity(seekingBlockPos);
-				if (te != null && te instanceof IFoodProviderTE)
+				TileEntity te = this.level.getTileEntity(this.seekingBlockPos);
+				if ((te instanceof IFoodProviderTE trough) && trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
 				{
-					IFoodProviderTE trough = (IFoodProviderTE) te;
-					if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
-					{
-						trough.consumeLiquid(halfAmount ? 50 : 100);
+					trough.consumeLiquid(this.halfAmount ? 50 : 100);
 
-						entity.level.updateComparatorOutputLevel(seekingBlockPos, block);
+					this.entity.level.updateComparatorOutputLevel(this.seekingBlockPos, block);
 
-						if (eatAI != null)
-							eatAI.startExecuting();
-						entity.setWatered(true);
-						entity.setInteracted(true);
+					if (this.eatAI != null)
+						this.eatAI.startExecuting();
+					this.entity.setWatered(true);
+					this.entity.setInteracted(true);
 
-						this.waterFindTimer = 0;
-					}
+					this.waterFindTimer = 0;
 				}
 			}
 
 			if (block == Blocks.WATER)
 			{
-				if (eatAI != null)
-					eatAI.startExecuting();
-				entity.setWatered(true);
+				if (this.eatAI != null)
+					this.eatAI.startExecuting();
+				this.entity.setWatered(true);
 
-				if (AnimaniaConfig.gameRules.waterRemovedAfterDrinking)
-				{
-					if (!halfAmount)
-						this.entity.level.setBlockToAir(seekingBlockPos);
-				}
+				if (AnimaniaConfig.gameRules.waterRemovedAfterDrinking && !this.halfAmount)
+					this.entity.level.setBlockToAir(this.seekingBlockPos);
 
 				this.waterFindTimer = 0;
 			}
@@ -125,7 +118,6 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 		}
 	}
 
-	
 	@Override
 	protected boolean shouldMoveTo(Level level, BlockPos pos)
 	{
@@ -135,11 +127,8 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 		if (block instanceof IFoodProviderBlock)
 		{
 			TileEntity te = level.getTileEntity(pos);
-			if (te != null && te instanceof IFoodProviderTE)
-			{
-				if (((IFoodProviderTE)te).canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
-					return true;
-			}
+			if (te instanceof IFoodProviderTE && ((IFoodProviderTE) te).canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
+				return true;
 		}
 
 		return false;
@@ -148,9 +137,9 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 	@Override
 	protected boolean shouldMoveToSecondary(Level levelIn, BlockPos pos)
 	{
-		BlockState state = level.getBlockState(pos);
+		BlockState state = this.level.getBlockState(pos);
 		Block block = state.getBlock();
-		Biome biome = level.getBiome(pos);
+		Biome biome = this.level.getBiome(pos);
 
 		if (block == Blocks.WATER && !BiomeDictionary.hasType(biome, Type.OCEAN) && !BiomeDictionary.hasType(biome, Type.BEACH))
 		{

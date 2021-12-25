@@ -60,8 +60,8 @@ public class FarmAddonInjectionHandler
 			List<EntityAnimaniaPig> pigs = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 10, levelIn, pos);
 			for (EntityAnimaniaPig pig : pigs)
 			{
-				boolean isMuddy = false;
-				float splashTimer = 0.0F;
+				boolean isMuddy;
+				float splashTimer;
 
 				splashTimer = pig.getSplashTimer();
 				isMuddy = pig.getMuddy();
@@ -127,7 +127,7 @@ public class FarmAddonInjectionHandler
 		// Pig mud test
 		AddonInjectionHandler.addInjection(ID, "pigMudTest", args -> {
 			LivingEntity entity = (LivingEntity) args[0];
-			return Boolean.valueOf((entity instanceof EntityAnimaniaPig && entity.level.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud));
+			return Boolean.valueOf(entity instanceof EntityAnimaniaPig && entity.level.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud);
 		});
 
 		// Is cow
@@ -140,7 +140,7 @@ public class FarmAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "isMooshroom", args -> {
 			LivingEntity grassEaterEntity = (LivingEntity) args[0];
 			Block block = (Block) args[1];
-			return Boolean.valueOf(((grassEaterEntity instanceof EntityAnimaniaCow && ((EntityAnimaniaCow) grassEaterEntity).cowType == CowType.MOOSHROOM) ? block == Blocks.MYCELIUM : false));
+			return Boolean.valueOf(grassEaterEntity instanceof EntityAnimaniaCow && ((EntityAnimaniaCow) grassEaterEntity).cowType == CowType.MOOSHROOM ? block == Blocks.MYCELIUM : false);
 		});
 
 		// Avoid chickens
@@ -178,7 +178,8 @@ public class FarmAddonInjectionHandler
 			if (render.getMainModel() instanceof ModelPiglet || render.getMainModel() instanceof ModelPigletHampshire)
 			{
 				GlStateManager.translate(0.0, -0.038, 0.1499);
-			} else
+			}
+			else
 				GlStateManager.scale(1.0002, 1.0002, 1.0002);
 
 			GlStateManager.pushMatrix();

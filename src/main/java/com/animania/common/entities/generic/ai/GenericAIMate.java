@@ -51,51 +51,26 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 
 		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-			if (entity instanceof ISterilizable)
-			{
-				if (((ISterilizable) entity).getSterilized())
-				{
-					this.delayCounter = 0;
-					return false;
-				}
-			}
-
-			if (entity.getSleeping())
+			if (this.entity instanceof ISterilizable && ((ISterilizable) this.entity).getSterilized() || this.entity.getSleeping())
 			{
 				this.delayCounter = 0;
 				return false;
 			}
 
-			if (child.isInstance(this.entity) || female.isInstance(this.entity) || this.entity.isInWater())
+			if (this.child.isInstance(this.entity) || this.female.isInstance(this.entity) || this.entity.isInWater())
 			{
 				this.delayCounter = 0;
 				return false;
 			}
 
-			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(base, AnimaniaConfig.gameRules.animalCapSearchRange, theLevel, entity);
-			if (similarAnimalsInRange.size() + 1 >= AnimaniaConfig.careAndFeeding.entityBreedingLimit)
-			{
-				//+ 1 for the child that will be born
-				this.delayCounter = 0;
-				return false;
-			}
-
-			if (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !entity.getInteracted() : false)
+			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(this.base, AnimaniaConfig.gameRules.animalCapSearchRange, this.theLevel, this.entity);
+			if ((similarAnimalsInRange.size() + 1 >= AnimaniaConfig.careAndFeeding.entityBreedingLimit) || (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !this.entity.getInteracted() : false) || (AnimaniaConfig.careAndFeeding.feedToBreed && !this.entity.getHandFed()))
 			{
 				this.delayCounter = 0;
 				return false;
 			}
 
-			if (AnimaniaConfig.careAndFeeding.feedToBreed)
-			{
-				if (!entity.getHandFed())
-				{
-					this.delayCounter = 0;
-					return false;
-				}
-			}
-			
-			if(!entity.getFed() || !entity.getWatered())
+			if (!this.entity.getFed() || !this.entity.getWatered())
 			{
 				this.delayCounter = 0;
 				return false;
@@ -121,7 +96,7 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		if (targetMate != null)
+		if (this.targetMate != null)
 		{
 			return this.targetMate.isAlive();
 		}
@@ -143,14 +118,14 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 
 		if (this.targetMate != null)
 		{
-			UUID targetMateUUID = targetMate.getMateUniqueId();
-			boolean preg = targetMate.getPregnant();
-			boolean fertile = targetMate.getFertile();
-			boolean uuidbool = (targetMateUUID == null ? false : !targetMateUUID.equals(entity.getUniqueID()));
+			UUID targetMateUUID = this.targetMate.getMateUniqueId();
+			boolean preg = this.targetMate.getPregnant();
+			boolean fertile = this.targetMate.getFertile();
+			boolean uuidbool = targetMateUUID == null ? false : !targetMateUUID.equals(this.entity.getUniqueID());
 
 			if (uuidbool || preg || !fertile)
 			{
-				targetMate.getNavigation().stop();
+				this.targetMate.getNavigation().stop();
 				this.courtshipTimer = 200;
 				this.resetTask();
 				this.entity.getNavigation().stop();
@@ -159,32 +134,32 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 
 			this.courtshipTimer--;
 
-			if (courtshipTimer >= 0)
+			if (this.courtshipTimer >= 0)
 			{
 
-				if (courtshipTimer % 20 == 0)
+				if (this.courtshipTimer % 20 == 0)
 				{
-					this.entity.getLookHelper().setLookPositionWithEntity(targetMate, 10.0F, this.entity.getVerticalFaceSpeed());
-					this.entity.getNavigation().tryMoveToLivingEntity(targetMate, this.moveSpeed);
-					targetMate.getLookHelper().setLookPositionWithEntity(this.entity, 10.0F, targetMate.getVerticalFaceSpeed());
-					targetMate.getNavigation().tryMoveToLivingEntity(this.entity, this.moveSpeed);
+					this.entity.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, this.entity.getVerticalFaceSpeed());
+					this.entity.getNavigation().tryMoveToLivingEntity(this.targetMate, this.moveSpeed);
+					this.targetMate.getLookHelper().setLookPositionWithEntity(this.entity, 10.0F, this.targetMate.getVerticalFaceSpeed());
+					this.targetMate.getNavigation().tryMoveToLivingEntity(this.entity, this.moveSpeed);
 				}
 
-				double distance = entity.getDistance(targetMate);
+				double distance = this.entity.getDistance(this.targetMate);
 
 				if (distance <= 1.8)
 				{
 					this.entity.setInLove(null);
-					this.entity.setMateUniqueId(targetMate.getUUID());
-					targetMate.setInLove(null);
+					this.entity.setMateUniqueId(this.targetMate.getUUID());
+					this.targetMate.setInLove(null);
 
-					targetMate.setPregnant(true);
-					targetMate.setFertile(false);
-					targetMate.setHandFed(false);
-					targetMate.setInteracted(this.entity.getInteracted());
-					targetMate.setMateUniqueId(entity.getUUID());
+					this.targetMate.setPregnant(true);
+					this.targetMate.setFertile(false);
+					this.targetMate.setHandFed(false);
+					this.targetMate.setInteracted(this.entity.getInteracted());
+					this.targetMate.setMateUniqueId(this.entity.getUUID());
 
-					targetMate.getNavigation().stop();
+					this.targetMate.getNavigation().stop();
 					this.courtshipTimer = 200;
 					this.resetTask();
 					this.entity.getNavigation().stop();
@@ -193,7 +168,7 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 			}
 			else
 			{
-				targetMate.getNavigation().stop();
+				this.targetMate.getNavigation().stop();
 				this.courtshipTimer = 200;
 				this.resetTask();
 				this.entity.getNavigation().stop();
@@ -236,7 +211,7 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 					allowBreeding = false;
 				}
 
-				if (female.getUUID().equals(mateID) && female.getFertile() && (female instanceof ISleeping && !((ISleeping) female).getSleeping()) && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male) && female.getWatered() && female.getFed())
+				if (female.getUUID().equals(mateID) && female.getFertile() && female instanceof ISleeping && !((ISleeping) female).getSleeping() && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male) && female.getWatered() && female.getFed())
 				{
 					this.courtshipTimer = 200;
 					return female;
@@ -258,7 +233,7 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 				}
 
 				this.courtshipTimer--;
-				if ((AnimaniaConfig.careAndFeeding.malesMateMultipleFemales ? (female.getMateUniqueId() == null ? true : female.getMateUniqueId().equals(entity.getUUID())) : female.getMateUniqueId() == null) && female.getFertile() && !female.getSleeping() && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male) && female.getWatered() && female.getFed())
+				if ((AnimaniaConfig.careAndFeeding.malesMateMultipleFemales ? female.getMateUniqueId() == null ? true : female.getMateUniqueId().equals(this.entity.getUUID()) : female.getMateUniqueId() == null) && female.getFertile() && !female.getSleeping() && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male) && female.getWatered() && female.getFed())
 				{
 					this.courtshipTimer = 200;
 					return female;
@@ -266,7 +241,7 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 			}
 		}
 
-		delayCounter = 0;
+		this.delayCounter = 0;
 		return null;
 	}
 }

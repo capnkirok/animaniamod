@@ -13,34 +13,38 @@ import net.minecraftforge.fluids.UniversalBucket;
 public final class TabAnimaniaResources extends CreativeTabs
 {
 	private static ItemStack DISPLAYSTACK = ItemStack.EMPTY;
-	
-    public TabAnimaniaResources(int par1, String par2Str) {
-        super(par1, par2Str);
-    }
 
-    @Override
-    public String getTranslatedTabLabel() {
-        return I18n.translateToLocal("tab.animania_resources.label");
-    }
+	public TabAnimaniaResources(int par1, String par2Str)
+	{
+		super(par1, par2Str);
+	}
 
-    @Override
-    public ItemStack getTabIconItem() {
-    	
-    	if(DISPLAYSTACK.isEmpty())
-    		DISPLAYSTACK = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
-    	
-        return DISPLAYSTACK;
-    }
+	@Override
+	public String getTranslatedTabLabel()
+	{
+		return I18n.translateToLocal("tab.animania_resources.label");
+	}
 
-    @Override
-    public void displayAllRelevantItems(NonNullList<ItemStack> list) {
+	@Override
+	public ItemStack getTabIconItem()
+	{
 
-    	for(ItemStack stack : ItemHandler.resourceTabItems)
-    		list.add(stack.copy());
-    	
-        list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop));
-     
-        super.displayAllRelevantItems(list);
-    }
+		if (DISPLAYSTACK.isEmpty())
+			DISPLAYSTACK = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
+
+		return DISPLAYSTACK;
+	}
+
+	@Override
+	public void displayAllRelevantItems(NonNullList<ItemStack> list)
+	{
+
+		for (ItemStack stack : ItemHandler.resourceTabItems)
+			list.add(stack.copy());
+
+		list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop));
+
+		super.displayAllRelevantItems(list);
+	}
 
 }

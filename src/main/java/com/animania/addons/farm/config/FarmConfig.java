@@ -53,7 +53,7 @@ public class FarmConfig
 		public int hivePlayermadeHoneyRate = 450;
 
 		@Comment("Valid Biome Types for hive. Types can be seen here:\nhttps://github.com/MinecraftForge/MinecraftForge/blob/1.12.x/src/main/java/net/minecraftforge/common/BiomeDictionary.java")
-		public String[] hiveValidBiomeTypes = new String[] { "JUNGLE", "CONIFEROUS", "SWAMP", "FOREST", "PLAINS", };
+		public String[] hiveValidBiomeTypes = { "JUNGLE", "CONIFEROUS", "SWAMP", "FOREST", "PLAINS", };
 
 		@Comment("Food Items that chickens can eat (use # for meta)")
 		public String[] chickenFood = { "minecraft:wheat_seeds", "minecraft:melon_seeds", "minecraft:beetroot_seeds", "minecraft:pumpkin_seeds", "simplecorn:corncob", "biomesoplenty:turnip_seeds", "harvestcraft:cornitem" };
@@ -205,81 +205,81 @@ public class FarmConfig
 
 		// CHICKENS
 		@Comment("BiomeDictionary types for spawning Plymouth Rock Chickens")
-		public String[] chickenPlymouthRockBiomeTypes = new String[] { "MOUNTAIN", };
+		public String[] chickenPlymouthRockBiomeTypes = { "MOUNTAIN", };
 		@Comment("BiomeDictionary types for spawning Leghorn Chickens")
-		public String[] chickenLeghornBiomeTypes = new String[] { "PLAINS", };
+		public String[] chickenLeghornBiomeTypes = { "PLAINS", };
 		@Comment("BiomeDictionary types for spawning Orpington Chickens")
-		public String[] chickenOrpingtonBiomeTypes = new String[] { "JUNGLE", "SWAMP", };
+		public String[] chickenOrpingtonBiomeTypes = { "JUNGLE", "SWAMP", };
 		@Comment("BiomeDictionary types for spawning Wyandotte Chickens")
-		public String[] chickenWyandotteBiomeTypes = new String[] { "FOREST", };
+		public String[] chickenWyandotteBiomeTypes = { "FOREST", };
 		@Comment("BiomeDictionary types for spawning Rhode Island Red Chickens")
-		public String[] chickenRhodeIslandRedBiomeTypes = new String[] { "FOREST", };
+		public String[] chickenRhodeIslandRedBiomeTypes = { "FOREST", };
 
 		// COWS
 		@Comment("BiomeDictionary types for spawning Holstein Cows")
-		public String[] cowHolsteinBiomeTypes = new String[] { "FOREST", };
+		public String[] cowHolsteinBiomeTypes = { "FOREST", };
 		@Comment("BiomeDictionary types for spawning Friesian Cows")
-		public String[] cowFriesianBiomeTypes = new String[] { "PLAINS", };
+		public String[] cowFriesianBiomeTypes = { "PLAINS", };
 		@Comment("BiomeDictionary types for spawning Angus Cows")
-		public String[] cowAngusBiomeTypes = new String[] { "JUNGLE", "MESA", "SWAMP", };
+		public String[] cowAngusBiomeTypes = { "JUNGLE", "MESA", "SWAMP", };
 		@Comment("BiomeDictionary types for spawning Hereford Cows")
-		public String[] cowHerefordBiomeTypes = new String[] { "MOUNTAIN", "HILLS", };
+		public String[] cowHerefordBiomeTypes = { "MOUNTAIN", "HILLS", };
 		@Comment("BiomeDictionary types for spawning Highland Cows")
-		public String[] cowHighlandBiomeTypes = new String[] { "MOUNTAIN", "HILLS" };
+		public String[] cowHighlandBiomeTypes = { "MOUNTAIN", "HILLS" };
 		@Comment("BiomeDictionary types for spawning Jersey Cows")
-		public String[] cowJerseyBiomeTypes = new String[] { "WASTELAND", "SWAMP", };
+		public String[] cowJerseyBiomeTypes = { "WASTELAND", "SWAMP", };
 		@Comment("BiomeDictionary types for spawning Longhorn Cows")
-		public String[] cowLonghornBiomeTypes = new String[] { "SAVANNA", };
+		public String[] cowLonghornBiomeTypes = { "SAVANNA", };
 		@Comment("BiomeDictionary types for spawning Mooshroom Cows")
-		public String[] cowMooshroomBiomeTypes = new String[] { "MUSHROOM", "MAGICAL" };
+		public String[] cowMooshroomBiomeTypes = { "MUSHROOM", "MAGICAL" };
 
 		// HORSES
 		@Comment("BiomeDictionary types for spawning Draft Horses")
-		public String[] draftHorseBiomeTypes = new String[] { "PLAINS", "SAVANNA", "MESA", };
+		public String[] draftHorseBiomeTypes = { "PLAINS", "SAVANNA", "MESA", };
 
 		// PIGS
 		@Comment("BiomeDictionary types for spawning Yorkshire Pigs")
-		public String[] pigYorkshireBiomeTypes = new String[] { "PLAINS", };
+		public String[] pigYorkshireBiomeTypes = { "PLAINS", };
 		@Comment("BiomeDictionary types for spawning Old Spot Pigs")
-		public String[] pigOldSpotBiomeTypes = new String[] { "FOREST", };
+		public String[] pigOldSpotBiomeTypes = { "FOREST", };
 		@Comment("BiomeDictionary types for spawning Large Black Pigs")
-		public String[] pigLargeBlackBiomeTypes = new String[] { "SWAMP", "DENSE", };
+		public String[] pigLargeBlackBiomeTypes = { "SWAMP", "DENSE", };
 		@Comment("BiomeDictionary types for spawning Large White Pigs")
-		public String[] pigLargeWhiteBiomeTypes = new String[] { "FOREST", };
+		public String[] pigLargeWhiteBiomeTypes = { "FOREST", };
 		@Comment("BiomeDictionary types for spawning Duroc Pigs")
-		public String[] pigDurocBiomeTypes = new String[] { "JUNGLE", };
+		public String[] pigDurocBiomeTypes = { "JUNGLE", };
 		@Comment("BiomeDictionary types for spawning Hampshire Pigs")
-		public String[] pigHampshireBiomeTypes = new String[] { "MOUNTAIN", "HILLS", };
+		public String[] pigHampshireBiomeTypes = { "MOUNTAIN", "HILLS", };
 
 		// GOATS
 		@Comment("BiomeDictionary types for spawning Alpine Goats")
-		public String[] goatAlpineBiomeTypes = new String[] { "MOUNTAIN", "HILLS", };
+		public String[] goatAlpineBiomeTypes = { "MOUNTAIN", "HILLS", };
 		@Comment("BiomeDictionary types for spawning Angora Goats")
-		public String[] goatAngoraBiomeTypes = new String[] { "PLAINS", };
+		public String[] goatAngoraBiomeTypes = { "PLAINS", };
 		@Comment("BiomeDictionary types for spawning Fainting Goats")
-		public String[] goatFaintingBiomeTypes = new String[] { "PLAINS", };
+		public String[] goatFaintingBiomeTypes = { "PLAINS", };
 		@Comment("BiomeDictionary types for spawning Kiko Goats")
-		public String[] goatKikoBiomeTypes = new String[] { "MOUNTAIN", "HILLS", };
+		public String[] goatKikoBiomeTypes = { "MOUNTAIN", "HILLS", };
 		@Comment("BiomeDictionary types for spawning Kinder Goats")
-		public String[] goatKinderBiomeTypes = new String[] { "SAVANNA", "MESA", };
+		public String[] goatKinderBiomeTypes = { "SAVANNA", "MESA", };
 		@Comment("BiomeDictionary types for spawning Nigerian Dwarf Goats")
-		public String[] goatNigerianDwarfBiomeTypes = new String[] { "SANDY", };
+		public String[] goatNigerianDwarfBiomeTypes = { "SANDY", };
 		@Comment("BiomeDictionary types for spawning Pygmy Goats")
-		public String[] goatPygmyBiomeTypes = new String[] { "SAVANNA", "MESA", };
+		public String[] goatPygmyBiomeTypes = { "SAVANNA", "MESA", };
 
 		// SHEEP
 		@Comment("BiomeDictionary types for spawning Dorset Sheep")
-		public String[] sheepDorsetBiomeTypes = new String[] { "HILLS", };
+		public String[] sheepDorsetBiomeTypes = { "HILLS", };
 		@Comment("BiomeDictionary types for spawning Friesian Sheep")
-		public String[] sheepFriesianBiomeTypes = new String[] { "PLAINS", };
+		public String[] sheepFriesianBiomeTypes = { "PLAINS", };
 		@Comment("BiomeDictionary types for spawning Jacob Sheep")
-		public String[] sheepJacobBiomeTypes = new String[] { "FOREST", };
+		public String[] sheepJacobBiomeTypes = { "FOREST", };
 		@Comment("BiomeDictionary types for spawning Merino Sheep")
-		public String[] sheepMerinoBiomeTypes = new String[] { "PLAINS", };
+		public String[] sheepMerinoBiomeTypes = { "PLAINS", };
 		@Comment("BiomeDictionary types for spawning Suffolk Sheep")
-		public String[] sheepSuffolkBiomeTypes = new String[] { "SAVANNA", "MESA", };
+		public String[] sheepSuffolkBiomeTypes = { "SAVANNA", "MESA", };
 		@Comment("BiomeDictionary types for spawning Dorper Sheep")
-		public String[] sheepDorperBiomeTypes = new String[] { "SAVANNA", };
+		public String[] sheepDorperBiomeTypes = { "SAVANNA", };
 
 	}
 

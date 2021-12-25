@@ -40,7 +40,7 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.level.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
@@ -49,7 +49,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemShears;
-import net.minecraft.level.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.datasync.EntityDataSerializers;
@@ -59,7 +59,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.level.Level;
+import net.minecraft.world.Level;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -102,8 +102,8 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 		this.goalSelector.addGoal(0, new GenericAIPanic<EntityAnimaniaGoat>(this, 1.4D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, EntityAnimaniaGoat.class));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaGoat>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaGoat.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaGoat>(this, 1.0D, this.entityAIEatGrass, true));
 		}
 		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.goalSelector.addGoal(5, new SwimmingGoal(this));
@@ -112,7 +112,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 		this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 20.0F, 2.2D, 2.2D));
 		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaGoat>(this));
-		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaGoat>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaGoat>(this, 1.0, this.entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(10, new GenericAISleep<EntityAnimaniaGoat>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.goatBed), AnimaniaHelper.getBlock(FarmConfig.settings.goatBed2), EntityAnimaniaGoat.class));
@@ -184,7 +184,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
-		return mateable && (stack != ItemStack.EMPTY && this.isGoatBreedingItem(stack));
+		return this.mateable && stack != ItemStack.EMPTY && this.isGoatBreedingItem(stack);
 	}
 
 	private boolean isGoatBreedingItem(ItemStack itemIn)
@@ -210,7 +210,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 
 	public void setSpookedTimer(Float timer)
 	{
-		this.dataManager.set(EntityAnimaniaGoat.SPOOKED_TIMER, Float.valueOf(timer));
+		this.dataManager.set(EntityAnimaniaGoat.SPOOKED_TIMER, timer);
 	}
 
 	@Override
@@ -258,30 +258,28 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!hasRemovedBOP)
+		if (!this.hasRemovedBOP && ModList.get().isLoaded("biomesoplenty"))
 		{
-			if (ModList.get().isLoaded("biomesoplenty"))
+			Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+			while (it.hasNext())
 			{
-				Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
-				while (it.hasNext())
+				EntityAITaskEntry entry = it.next();
+				Goal ai = entry.action;
+				try
 				{
-					EntityAITaskEntry entry = it.next();
-					Goal ai = entry.action;
-					try
+					if (Class.forName("biomesoplenty.common.entities.ai.EntityAIEatBOPGrass").isInstance(ai))
 					{
-						if (Class.forName("biomesoplenty.common.entities.ai.EntityAIEatBOPGrass").isInstance(ai))
-						{
-							entry.using = false;
-							ai.resetTask();
-							it.remove();
-						}
-					} catch (Exception e)
-					{
+						entry.using = false;
+						ai.resetTask();
+						it.remove();
 					}
 				}
-
-				hasRemovedBOP = true;
+				catch (Exception e)
+				{
+				}
 			}
+
+			this.hasRemovedBOP = true;
 		}
 
 		if (this.getSpooked())
@@ -290,7 +288,8 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 			if (this.getSpookedTimer() == 1.0F)
 			{
 				this.setJumping(true);
-			} else
+			}
+			else
 			{
 				this.setJumping(false);
 			}
@@ -303,7 +302,8 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 			if (this.getSpookedTimer() <= 0.20F && this.getSpookedTimer() > 0.1F)
 			{
 				this.setJumping(true);
-			} else if (this.getSpookedTimer() <= 0.0F)
+			}
+			else if (this.getSpookedTimer() <= 0.0F)
 			{
 				this.setSpooked(false);
 				this.setSpookedTimer(0.0F);
@@ -363,10 +363,8 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 				this.setSleeping(false);
 			}
 			return true;
-		} else if (stack.getItem() instanceof ItemDye)
-		{
-			return true;
-		} else if (stack.getItem() instanceof ItemShears)
+		}
+		else if (stack.getItem() instanceof ItemDye || stack.getItem() instanceof ItemShears)
 		{
 			return true;
 		}
@@ -421,7 +419,8 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 		{
 			this.dataManager.set(EntityAnimaniaGoat.SHEARED, true);
 			this.setWoolRegrowthTimer(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500));
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaGoat.SHEARED, false);
 	}
 
@@ -462,7 +461,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -506,19 +505,19 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
@@ -530,13 +529,13 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -548,43 +547,43 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return goatType;
+		return this.goatType;
 	}
 
 	@Override

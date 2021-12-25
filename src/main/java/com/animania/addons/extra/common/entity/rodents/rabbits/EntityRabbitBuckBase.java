@@ -40,7 +40,7 @@ public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
 
-		if (!getSterilized())
+		if (!this.getSterilized())
 			this.goalSelector.addGoal(6, new GenericAIMate<RabbitEntityBuckBase, RabbitEntityDoeBase>(this, 1.0D, RabbitEntityDoeBase.class, RabbitEntityKitBase.class, EntityAnimaniaRabbit.class));
 		// this.goalSelector.addGoal(3, new FollowMateRabbitsGoal(this, 1.1D));
 	}
@@ -112,7 +112,7 @@ public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInf
 				it.remove();
 			}
 		}
-		setSterilized(true);
+		this.setSterilized(true);
 	}
 
 	@Override

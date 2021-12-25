@@ -41,7 +41,7 @@ public class WailaBlockCheeseMoldProvider implements IWailaDataProvider
 		int progress = tile.getProgress();
 
 		if (stack.isEmpty())
-			currenttip.add(I18n.translateToLocal("text.waila.aging") + ": " + (int) (((float) progress / (float) FarmConfig.settings.cheeseMaturityTime) * 100) + "%");
+			currenttip.add(I18n.translateToLocal("text.waila.aging") + ": " + (int) ((float) progress / (float) FarmConfig.settings.cheeseMaturityTime * 100) + "%");
 		else
 			currenttip.add(I18n.translateToLocal("text.waila.aging") + ": " + "100%");
 

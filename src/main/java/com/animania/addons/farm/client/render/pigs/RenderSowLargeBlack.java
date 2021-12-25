@@ -40,7 +40,7 @@ public class RenderSowLargeBlack<T extends EntitySowLargeBlack> extends RenderLi
 
 		GL11.glScalef(1.14F, 1.14F, 1.14F);
 
-		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		EntityAnimaniaPig entityChk = entity;
 
 		if (entityChk.getSleeping())
 		{
@@ -129,7 +129,7 @@ public class RenderSowLargeBlack<T extends EntitySowLargeBlack> extends RenderLi
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.PIG_TEXTURES;
+		return RenderSowLargeBlack.PIG_TEXTURES;
 	}
 
 	static class Factory<T extends EntitySowLargeBlack> implements IRenderFactory<T>

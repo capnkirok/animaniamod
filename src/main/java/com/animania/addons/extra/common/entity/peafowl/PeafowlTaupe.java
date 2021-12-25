@@ -7,7 +7,7 @@ public class PeafowlTaupe
 
 	public static class EntityPeafowlTaupe extends EntityPeafowlBase
 	{
-	
+
 		public EntityPeafowlTaupe(Level levelIn)
 		{
 			super(levelIn);
@@ -16,13 +16,13 @@ public class PeafowlTaupe
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_taupe_blink.png");
 			this.lidCol = 0xA7988E;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 12427148;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -32,7 +32,7 @@ public class PeafowlTaupe
 
 	public static class EntityPeacockTaupe extends EntityPeacockBase
 	{
-	
+
 		public EntityPeacockTaupe(Level levelIn)
 		{
 			super(levelIn);
@@ -40,15 +40,15 @@ public class PeafowlTaupe
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_taupe.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_taupe_blink.png");
 			this.lidCol = 0xA7988E;
-	
+
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 12427148;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -58,7 +58,7 @@ public class PeafowlTaupe
 
 	public static class EntityPeachickTaupe extends EntityPeachickBase
 	{
-	
+
 		public EntityPeachickTaupe(Level levelIn)
 		{
 			super(levelIn);
@@ -67,13 +67,13 @@ public class PeafowlTaupe
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
 			this.lidCol = 0xA7988E;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 12427148;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{

@@ -14,8 +14,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 
-
-public class  PacketCloseManual implements IMessage, IMessageHandler<PacketCloseManual, IMessage>
+public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseManual, IMessage>
 {
 
 	public String currentTopic;
@@ -34,15 +33,15 @@ public class  PacketCloseManual implements IMessage, IMessageHandler<PacketClose
 	@Override
 	public void fromBytes(ByteBuf buf)
 	{
-		currentTopic = ByteBufUtils.readUTF8String(buf);
-		lastTopic = ByteBufUtils.readUTF8String(buf);
+		this.currentTopic = ByteBufUtils.readUTF8String(buf);
+		this.lastTopic = ByteBufUtils.readUTF8String(buf);
 	}
 
 	@Override
 	public void toBytes(PacketBuffer buf)
 	{
-		ByteBufUtils.writeUTF8String(buf, currentTopic);
-		ByteBufUtils.writeUTF8String(buf, lastTopic);
+		ByteBufUtils.writeUTF8String(buf, this.currentTopic);
+		ByteBufUtils.writeUTF8String(buf, this.lastTopic);
 	}
 
 	@Override
@@ -50,22 +49,21 @@ public class  PacketCloseManual implements IMessage, IMessageHandler<PacketClose
 	{
 		IThreadListener mainThread = (LevelServer) ctx.getServerHandler().player.level;
 
-		mainThread.addScheduledTask(new Runnable()
-		{
+		mainThread.addScheduledTask(new Runnable() {
 			ServerPlayerEntity player = ctx.getServerHandler().player;
 
 			@Override
 			public void run()
 			{
-				ItemStack main = player.getMainHandItem();
-				ItemStack off = player.getHeldItemOffhand();
+				ItemStack main = this.player.getMainHandItem();
+				ItemStack off = this.player.getHeldItemOffhand();
 				ItemStack stack = ItemStack.EMPTY;
-				
+
 				if (main.getItem() == ItemHandler.animaniaManual)
 					stack = main;
 				else if (main.getItem() == ItemHandler.animaniaManual)
 					stack = off;
-				
+
 				CompoundTag tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundTag();
 				tag.setString("currentTopic", message.currentTopic);
 				tag.setString("lastTopic", message.lastTopic);
@@ -78,4 +76,3 @@ public class  PacketCloseManual implements IMessage, IMessageHandler<PacketClose
 	}
 
 }
-

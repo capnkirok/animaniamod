@@ -90,7 +90,8 @@ public class ItemHoneyBottle extends AnimaniaItem
 		{
 			playerIn.setActiveHand(handIn);
 			return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
-		} else
+		}
+		else
 		{
 			return new ActionResult<ItemStack>(ActionResultType.FAIL, itemstack);
 		}

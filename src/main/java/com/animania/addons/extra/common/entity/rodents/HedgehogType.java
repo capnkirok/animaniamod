@@ -11,16 +11,15 @@ import net.minecraft.world.level.Level;
 
 public enum HedgehogType implements AnimaniaType
 {
-	NORMAL(EntityHedgehog.class),
-	ALBINO(EntityHedgehogAlbino.class);
+	NORMAL(EntityHedgehog.class), ALBINO(EntityHedgehogAlbino.class);
 
 	private Class male;
-	
+
 	private HedgehogType(Class male)
 	{
 		this.male = male;
 	}
-	
+
 	@Override
 	public EntityHedgehogBase getMale(Level level)
 	{
@@ -58,7 +57,7 @@ public enum HedgehogType implements AnimaniaType
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public String getTypeName()
 	{

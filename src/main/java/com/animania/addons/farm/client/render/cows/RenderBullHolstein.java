@@ -27,18 +27,18 @@ public class RenderBullHolstein<T extends EntityBullHolstein> extends RenderLivi
 	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_purplicious.png");
 
 	LayerBlinking blinkingLayer;
-	
+
 	public RenderBullHolstein(RenderManager rm)
 	{
 		super(rm, new ModelBull(), 0.5F);
-		addLayer(blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x1C242B, 0xDEDEDE));
+		addLayer(this.blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x1C242B, 0xDEDEDE));
 
 	}
 
 	protected void preRenderScale(T entity, float f)
 	{
 		GL11.glScalef(1.3F, 1.3F, 1.3F);
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

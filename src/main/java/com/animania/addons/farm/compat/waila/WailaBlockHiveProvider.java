@@ -17,36 +17,41 @@ import net.minecraftforge.fluids.FluidStack;
 public class WailaBlockHiveProvider implements IWailaDataProvider
 {
 
-    @Override
-    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-    	return ItemStack.EMPTY;
-    }
+	@Override
+	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		return ItemStack.EMPTY;
+	}
 
-    @Override
-    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return null;
-    }
+	@Override
+	public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		return null;
+	}
 
-    @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        TileEntityHive tile = (TileEntityHive) accessor.getTileEntity();
+	@Override
+	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		TileEntityHive tile = (TileEntityHive) accessor.getTileEntity();
 
-        FluidStack fluid = tile.fluidHandler.getFluid();
+		FluidStack fluid = tile.fluidHandler.getFluid();
 
-        if (fluid != null)
-            currenttip.add(fluid.getLocalizedName() + ", " + fluid.amount + "mB");
+		if (fluid != null)
+			currenttip.add(fluid.getLocalizedName() + ", " + fluid.amount + "mB");
 
-        return currenttip;
-    }
+		return currenttip;
+	}
 
-    @Override
-    public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return null;
-    }
+	@Override
+	public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		return null;
+	}
 
-    @Override
-    public CompoundTag getNBTData(ServerPlayerEntity player, TileEntity te, CompoundTag tag, Level level, BlockPos pos) {
-        return null;
-    }
+	@Override
+	public CompoundTag getNBTData(ServerPlayerEntity player, TileEntity te, CompoundTag tag, Level level, BlockPos pos)
+	{
+		return null;
+	}
 
 }

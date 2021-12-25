@@ -12,8 +12,6 @@ public class TemptItemStackGoal extends Goal
 {
 	private final EntityAnimaniaPig temptedEntity;
 	private final double speed;
-	private double targetX;
-	private double targetY;
 	private double targetZ;
 	private double pitch;
 	private double yaw;
@@ -68,8 +66,8 @@ public class TemptItemStackGoal extends Goal
 	@Override
 	public void startExecuting()
 	{
-		this.targetX = this.temptingPlayer.getX();
-		this.targetY = this.temptingPlayer.getY();
+		double targetX = this.temptingPlayer.getX();
+		double targetY = this.temptingPlayer.getY();
 		this.targetZ = this.temptingPlayer.getZ();
 		this.isRunning = true;
 	}
@@ -86,7 +84,7 @@ public class TemptItemStackGoal extends Goal
 	@Override
 	public void updateTask()
 	{
-		if (temptedEntity != null && this.temptingPlayer != null)
+		if (this.temptedEntity != null && this.temptingPlayer != null)
 			this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, this.temptedEntity.getHorizontalFaceSpeed() + 20, this.temptedEntity.getVerticalFaceSpeed());
 
 		if (this.temptedEntity.getDistanceSq(this.temptingPlayer) < 6.25D)

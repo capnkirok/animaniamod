@@ -17,15 +17,15 @@ public class InvalidConfigException extends Exception
 		{
 			StackTraceElement element = this.getStackTrace()[i];
 			Animania.LOGGER.error(element.toString());
-			
-			if(i >= 10)
+
+			if (i >= 10)
 			{
-				Animania.LOGGER.error((this.getStackTrace().length - 10) + " more...");
+				Animania.LOGGER.error(this.getStackTrace().length - 10 + " more...");
 				break;
 			}
 		}
-		
+
 		Animania.LOGGER.info("");
 	}
-	
+
 }

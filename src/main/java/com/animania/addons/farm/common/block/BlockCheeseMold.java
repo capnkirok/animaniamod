@@ -22,7 +22,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -31,6 +30,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -153,7 +153,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 		{
 			if (!stack.isEmpty() && te != null)
 			{
-				if (AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkFriesian) || AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkHolstein) || AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkGoat) || AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkSheep) || AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkJersey) || (AnimaniaHelper.hasFluid(stack, FluidRegistry.WATER) && !FarmConfig.settings.disableSaltCreation))
+				if (AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkFriesian) || AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkHolstein) || AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkGoat) || AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkSheep) || AnimaniaHelper.hasFluid(stack, FarmAddonBlockHandler.fluidMilkJersey) || AnimaniaHelper.hasFluid(stack, FluidRegistry.WATER) && !FarmConfig.settings.disableSaltCreation)
 				{
 					if (te.getFluidHandler().getFluidAmount() == 0 && te.getItemHandler().getStackInSlot(0).isEmpty())
 					{
@@ -189,10 +189,9 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 				{
 					int progress = te.getProgress();
 					if (te.getItemHandler().getStackInSlot(0).isEmpty())
-						player.sendStatusMessage(new TextComponentString((int) (((float) progress / (float) FarmConfig.settings.cheeseMaturityTime) * 100) + "%"), true);
+						player.sendStatusMessage(new TextComponentString((int) ((float) progress / (float) FarmConfig.settings.cheeseMaturityTime * 100) + "%"), true);
 					else
 						player.sendStatusMessage(new TextComponentString("100%"), true);
-					return true;
 				}
 			}
 		}
@@ -272,16 +271,15 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
-		if (te instanceof TileEntityCheeseMold)
+		if (te instanceof TileEntityCheeseMold mold)
 		{
-			TileEntityCheeseMold mold = (TileEntityCheeseMold) te;
 			ItemStack stack = mold.getItemHandler().getStackInSlot(0);
 			FluidStack fluid = mold.getFluidHandler().getFluid();
 			int progress = mold.getProgress();
 
 			probeInfo.text(I18n.translateToLocal("text.waila.aging") + ":");
 			if (stack.isEmpty())
-				probeInfo.progress((int) (((float) progress / (float) FarmConfig.settings.cheeseMaturityTime) * 100), 100, probeInfo.defaultProgressStyle().suffix("%"));
+				probeInfo.progress((int) ((float) progress / (float) FarmConfig.settings.cheeseMaturityTime * 100), 100, probeInfo.defaultProgressStyle().suffix("%"));
 			else
 				probeInfo.progress(100, 100, probeInfo.defaultProgressStyle().suffix("%"));
 

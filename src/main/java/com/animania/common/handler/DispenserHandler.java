@@ -67,7 +67,8 @@ public class DispenserHandler
 					stack.shrink(1);
 					return stack;
 				}
-			} else if ((ModList.get().isLoaded("quark") || ModList.get().isLoaded("botania")) && level.getBlockState(below).getBlock() instanceof BlockFarmland)
+			}
+			else if ((ModList.get().isLoaded("quark") || ModList.get().isLoaded("botania")) && level.getBlockState(below).getBlock() instanceof BlockFarmland)
 			{
 				if (level.getBlockState(pos).getBlock().isReplaceable(level, pos))
 				{
@@ -81,7 +82,8 @@ public class DispenserHandler
 						level.setBlock(pos, Blocks.BEETROOTS.defaultBlockState());
 					return stack;
 				}
-			} else if (level.getBlockState(pos).getBlock() == BlockHandler.blockSeeds)
+			}
+			else if (level.getBlockState(pos).getBlock() == BlockHandler.blockSeeds)
 			{
 				return stack;
 			}
@@ -123,7 +125,8 @@ public class DispenserHandler
 					if (entity == null)
 						entity = item.type.getMale(level);
 				}
-			} else
+			}
+			else
 			{
 				entity = EntityGender.getEntity(item.type, item.gender, level);
 			}

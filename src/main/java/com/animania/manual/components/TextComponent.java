@@ -11,77 +11,77 @@ public class TextComponent implements IManualComponent
 	private GuiManual manual;
 	private int x;
 	private int y;
-	
+
 	private int absoluteX;
 	private int absoluteY;
-	
+
 	private int objectWidth;
 	private int objectHeight;
-	
+
 	private Minecraft mc;
-	
+
 	public TextComponent(int x, int y, String text)
 	{
 		this.manual = GuiManual.INSTANCE;
 		this.absoluteX = x + GuiManual.START_OFFSET_X;
 		this.absoluteY = y + GuiManual.START_OFFSET_Y;
-		
+
 		this.x = x;
 		this.y = y;
-		
+
 		this.text = text.trim();
 		this.mc = Minecraft.getInstance();
-		
-		this.objectHeight = mc.font.lineHeight;
-		this.objectWidth = mc.font.width(text);
+
+		this.objectHeight = this.mc.font.lineHeight;
+		this.objectWidth = this.mc.font.width(text);
 	}
 
 	@Override
 	public void init()
 	{
-		
+
 	}
 
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		mc.font.drawString(text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
+		this.mc.font.drawString(this.text, this.absoluteX + this.manual.guiLeft, this.absoluteY + this.manual.guiTop, 0);
 	}
 
 	@Override
 	public void onLeftClick()
 	{
-		
+
 	}
 
 	@Override
 	public void onRightClick()
 	{
-		
+
 	}
 
 	@Override
 	public int getObjectWidth()
 	{
-		return objectWidth;
+		return this.objectWidth;
 	}
 
 	@Override
 	public int getObjectHeight()
 	{
-		return objectHeight;
+		return this.objectHeight;
 	}
 
 	@Override
 	public int getX()
 	{
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public int getY()
 	{
-		return y;
+		return this.y;
 	}
 
 	@Override
@@ -99,14 +99,11 @@ public class TextComponent implements IManualComponent
 		this.absoluteY = y + GuiManual.START_OFFSET_Y;
 		return this;
 	}
-	
+
 	@Override
 	public String toString()
 	{
-		return text;
+		return this.text;
 	}
-	
-	
-	
 
 }

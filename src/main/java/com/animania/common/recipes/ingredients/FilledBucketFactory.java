@@ -13,29 +13,35 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 
 /**
- * An ingredient factory that produces a {@link UniversalBucket} filled with the specified {@link Fluid}.
+ * An ingredient factory that produces a {@link UniversalBucket} filled with the
+ * specified {@link Fluid}.
  * <p>
  * JSON Properties:
  * <ul>
- * <li><code>fluid</code> - The name of the {@link Fluid} to fill the bucket with</li>
+ * <li><code>fluid</code> - The name of the {@link Fluid} to fill the bucket
+ * with</li>
  * </ul>
  *
  * @author Choonster
  */
-public class FilledBucketFactory implements IIngredientFactory {
+public class FilledBucketFactory implements IIngredientFactory
+{
 
 	@Override
-	public Ingredient parse(final JsonContext context, final JsonObject json) {
+	public Ingredient parse(final JsonContext context, final JsonObject json)
+	{
 		final String fluidName = JsonUtils.getString(json, "fluid");
 		final Fluid fluid = FluidRegistry.getFluid(fluidName);
 
-		if (fluid == null) {
+		if (fluid == null)
+		{
 			throw new JsonSyntaxException("Unknown fluid '" + fluidName + "'");
 		}
 
 		final ItemStack filledBucket = FluidUtil.getFilledBucket(new FluidStack(fluid, 0));
 
-		if (filledBucket.isEmpty()) {
+		if (filledBucket.isEmpty())
+		{
 			throw new JsonSyntaxException("No bucket registered for fluid '" + fluidName + "'");
 		}
 

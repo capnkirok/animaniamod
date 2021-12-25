@@ -21,7 +21,7 @@ public class TileEntityPropRenderer extends TileEntitySpecialRenderer<TileEntity
 {
 
 	private static Map<PropType, ModelCraftStudio> models = new HashMap<PropType, ModelCraftStudio>();
-	private static Map<PropType, ResourceLocation> textures = new HashMap<PropType, ResourceLocation>();
+	private static Map<PropType, ResourceLocation> textures = new HashMap<>();
 
 	static
 	{
@@ -29,26 +29,26 @@ public class TileEntityPropRenderer extends TileEntitySpecialRenderer<TileEntity
 		{
 			String name = t.block;
 			int height = 0;
-			int width = 0;
+			int width;
 
-			switch (t)
+			width = switch (t)
 			{
-			case CAT_BED_2:
-			case CAT_BED_1:
+			case CAT_BED_2, CAT_BED_1 ->
+			{
 				height = 32;
-				width = 64;
-				break;
-			case CAT_TOWER:
-			case DOG_PILLOW:
-				height = 128;
-				width = 128;
-				break;
-			case LITTER_BOX:
-			case DOG_HOUSE:
-				height = 64;
-				width = 64;
-				break;
+				yield 64;
 			}
+			case CAT_TOWER, DOG_PILLOW ->
+			{
+				height = 128;
+				yield 128;
+			}
+			case LITTER_BOX, DOG_HOUSE ->
+			{
+				height = 64;
+				yield 64;
+			}
+			};
 
 			ResourceLocation texture = new ResourceLocation("animania:textures/entity/tileentities/" + name + ".png");
 			ModelCraftStudio model = new ModelCraftStudio(Animania.MODID, "model_" + name, height, width);

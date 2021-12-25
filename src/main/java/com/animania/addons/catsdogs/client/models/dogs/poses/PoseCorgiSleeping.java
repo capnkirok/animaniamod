@@ -177,7 +177,7 @@ public class PoseCorgiSleeping extends ModelBase
 		this.head_base.addChild(this.ear_l);
 		this.neck.addChild(this.head_base);
 		this.body.addChild(this.neck);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

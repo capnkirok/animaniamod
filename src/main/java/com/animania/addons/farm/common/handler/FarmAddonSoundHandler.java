@@ -92,7 +92,7 @@ public class FarmAddonSoundHandler
 	// Sheep
 	public static SoundEvent sheepHurt1;
 	public static SoundEvent sheepLiving1;
-	public static SoundEvent sheepLiving2;;
+	public static SoundEvent sheepLiving2;
 	public static SoundEvent sheepLiving3;
 	public static SoundEvent sheepLiving4;
 	public static SoundEvent sheepLiving5;
@@ -103,12 +103,12 @@ public class FarmAddonSoundHandler
 
 	// Goats
 	public static SoundEvent goatLiving1;
-	public static SoundEvent goatLiving2;;
+	public static SoundEvent goatLiving2;
 	public static SoundEvent goatLiving3;
 	public static SoundEvent goatLiving4;
 	public static SoundEvent goatLiving5;
 	public static SoundEvent kidLiving1;
-	public static SoundEvent kidLiving2;;
+	public static SoundEvent kidLiving2;
 	public static SoundEvent kidLiving3;
 	public static SoundEvent goatHurt1;
 	public static SoundEvent goatHurt2;

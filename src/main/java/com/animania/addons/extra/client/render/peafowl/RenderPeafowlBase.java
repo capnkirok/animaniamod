@@ -29,7 +29,7 @@ public class RenderPeafowlBase<T extends EntityPeafowlBase> extends RenderLiving
 	public RenderPeafowlBase(RenderManager rm)
 	{
 		super(rm, new ModelPeafowl(), 0.3F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/peacocks/peafowl_blink.png"), 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/peacocks/peafowl_blink.png"), 0));
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class RenderPeafowlBase<T extends EntityPeafowlBase> extends RenderLiving
 	protected void preRenderCallback(T LivingEntity, float f)
 	{
 		this.preRenderScale(LivingEntity, f);
-		blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
+		this.blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
 	}
 
 	protected void preRenderScale(EntityPeafowlBase entity, float f)
@@ -58,7 +58,7 @@ public class RenderPeafowlBase<T extends EntityPeafowlBase> extends RenderLiving
 		BlockPos pos = new BlockPos(x, y, z);
 
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
+		EntityAnimaniaPeacock entityChk = entity;
 		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())
 		{
 			GlStateManager.translate(-0.25F, 0.45F, -0.45F);

@@ -35,7 +35,7 @@ public class RenderBullMooshroom<T extends EntityBullMooshroom> extends RenderLi
 	protected void preRenderScale(EntityBullMooshroom entity, float f)
 	{
 		GL11.glScalef(1.3F, 1.3F, 1.3F);
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

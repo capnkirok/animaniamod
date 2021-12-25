@@ -25,9 +25,9 @@ package com.animania.client.render;
  * net.minecraft.client.renderer.block.model.ItemOverrideList; import
  * net.minecraft.client.renderer.block.model.ModelRotation; import
  * net.minecraft.client.renderer.texture.TextureAtlasSprite; import
- * net.minecraft.entity.LivingEntity; import net.minecraft.init.Blocks;
- * import net.minecraft.item.ItemStack; import net.minecraft.util.Direction;
- * import net.minecraft.level.Level; import
+ * net.minecraft.entity.LivingEntity; import net.minecraft.init.Blocks; import
+ * net.minecraft.item.ItemStack; import net.minecraft.util.Direction; import
+ * net.minecraft.world.Level; import
  * net.minecraftforge.client.model.IPerspectiveAwareModel; import
  * net.minecraftforge.common.model.TRSRTransformation;
  *

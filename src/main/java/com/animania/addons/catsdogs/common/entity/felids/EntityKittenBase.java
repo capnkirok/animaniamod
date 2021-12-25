@@ -35,7 +35,7 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
 		this.goalSelector.addGoal(1, new GenericAIFollowParents<EntityKittenBase, EntityQueenBase>(this, 1.1D, EntityQueenBase.class));
-		this.goalSelector.addGoal(8, playAI = new GenericAIPlay(this, EntityKittenBase.class));
+		this.goalSelector.addGoal(8, this.playAI = new GenericAIPlay(this, EntityKittenBase.class));
 	}
 
 	@Override
@@ -64,13 +64,13 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	@Override
 	public int getAgeTimer()
 	{
-		return ageTimer;
+		return this.ageTimer;
 	}
 
 	@Override
 	public void setAgeTimer(int i)
 	{
-		ageTimer = i;
+		this.ageTimer = i;
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	@Override
 	public GenericAIPlay getPlayAI()
 	{
-		return playAI;
+		return this.playAI;
 	}
 
 }

@@ -69,9 +69,9 @@ public class AddonHandler
 
 	private static Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-	private static Map<String, AnimaniaAddon> loadedAddons = new HashMap<String, AnimaniaAddon>();
+	private static Map<String, AnimaniaAddon> loadedAddons = new HashMap<>();
 	private static List<MissingModsException> missingModsExceptions = new ArrayList<MissingModsException>();
-	private static Map<String, IAddonGuiHandler> addonGuiHandlers = new HashMap<String, IAddonGuiHandler>();
+	private static Map<String, IAddonGuiHandler> addonGuiHandlers = new HashMap<>();
 
 	private static Method loadFactories;
 	private static Method loadConstants;
@@ -106,7 +106,8 @@ public class AddonHandler
 			ADVANCEMENT_LIST = ReflectionUtil.findField(AdvancementManager.class, "field_192784_c", "ADVANCEMENT_LIST");
 			ADVANCEMENT_LIST.setAccessible(true);
 
-		} catch (SecurityException e)
+		}
+		catch (SecurityException e)
 		{
 			e.printStackTrace();
 		}
@@ -143,7 +144,7 @@ public class AddonHandler
 	{
 		Set<ASMData> asmData = table.getAll(LoadAddon.class.getCanonicalName());
 
-		asmData.forEach((asm) -> {
+		asmData.forEach(asm -> {
 			try
 			{
 				Class<AnimaniaAddon> clazz = (Class<AnimaniaAddon>) Class.forName(asm.getClassName()).asSubclass(AnimaniaAddon.class);
@@ -157,7 +158,8 @@ public class AddonHandler
 					return;
 
 				loadedAddons.put(a.getAddonID(), a);
-			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
+			}
+			catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
 			{
 				Animania.LOGGER.error(e);
 			}
@@ -210,10 +212,7 @@ public class AddonHandler
 
 	private static void register(AnimaniaAddon addon)
 	{
-		if (addon == null)
-			return;
-
-		if (addon.getAddonID().equals("template"))
+		if (addon == null || addon.getAddonID().equals("template"))
 			return;
 
 		Map<String, ModContainer> loadedMods = Loader.instance().getIndexedModList();
@@ -243,7 +242,8 @@ public class AddonHandler
 						missingModsExceptions.add(ex);
 						continue;
 					}
-				} else
+				}
+				else
 				{
 					MissingModsException ex = new MissingModsException(addon.getAddonID(), addon.getAddonName());
 					ex.addMissingMod(dependency, null, true);
@@ -324,16 +324,19 @@ public class AddonHandler
 				{
 					JsonObject json = JsonUtils.fromJson(GSON, reader, JsonObject.class);
 					loadFactories.invoke(CraftingHelper.class, json, ctx, new FactoryLoader[] { CraftingHelper.RECIPES, CraftingHelper.INGREDIENTS, CraftingHelper.CONDITIONS });
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+				}
+				catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		} catch (JsonParseException | IOException e)
+		}
+		catch (JsonParseException | IOException e)
 		{
 			FMLLog.log.error("Error loading _factories.json: ", e);
-		} finally
+		}
+		finally
 		{
 			IOUtils.closeQuietly(fs);
 		}
@@ -354,7 +357,8 @@ public class AddonHandler
 				{
 					JsonObject[] json = JsonUtils.fromJson(GSON, reader, JsonObject[].class);
 					loadConstants.invoke(ctx, new Object[] { json });
-				} catch (JsonParseException | IOException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+				}
+				catch (JsonParseException | IOException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 				{
 					FMLLog.log.error("Error loading _constants.json: ", e);
 					return false;
@@ -368,7 +372,7 @@ public class AddonHandler
 			if (!"json".equals(FilenameUtils.getExtension(file.toString())) || relative.startsWith("_"))
 				return true;
 
-			String name = FilenameUtils.removeExtension(relative).replaceAll("\\\\", "/");
+			String name = FilenameUtils.removeExtension(relative).replace('\\', '/');
 			ResourceLocation key = new ResourceLocation(ctx.getModId(), name);
 
 			try (BufferedReader reader = Files.newBufferedReader(file))
@@ -378,11 +382,13 @@ public class AddonHandler
 					return true;
 				IRecipe recipe = CraftingHelper.getRecipe(json, ctx);
 				ForgeRegistries.RECIPES.register(recipe.setRegistryName(key));
-			} catch (JsonParseException e)
+			}
+			catch (JsonParseException e)
 			{
 				FMLLog.log.error("Parsing error loading recipe {}", key, e);
 				return false;
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				FMLLog.log.error("Couldn't read recipe {} from {}", key, file, e);
 				return false;
@@ -424,7 +430,8 @@ public class AddonHandler
 				try
 				{
 					itr = Files.walk(root).iterator();
-				} catch (IOException e)
+				}
+				catch (IOException e)
 				{
 					FMLLog.log.error("Error iterating filesystem for: {}", addon.getAddonID(), e);
 					return false;
@@ -437,13 +444,15 @@ public class AddonHandler
 					if (visitAllFiles)
 					{
 						success &= cont != null && cont;
-					} else if (cont == null || !cont)
+					}
+					else if (cont == null || !cont)
 					{
 						return false;
 					}
 				}
 			}
-		} finally
+		}
+		finally
 		{
 			if (tuple.getFirst() != null)
 				IOUtils.closeQuietly(tuple.getFirst());
@@ -464,7 +473,7 @@ public class AddonHandler
 			if (!"json".equals(FilenameUtils.getExtension(file.toString())) || relative.startsWith("_"))
 				return true;
 
-			String name = FilenameUtils.removeExtension(relative).replaceAll("\\\\", "/");
+			String name = FilenameUtils.removeExtension(relative).replace('\\', '/');
 			ResourceLocation key = new ResourceLocation(mod.getModId(), name);
 
 			if (!map.containsKey(key))
@@ -480,15 +489,18 @@ public class AddonHandler
 						return true;
 					Advancement.Builder builder = JsonUtils.gsonDeserialize(AdvancementManager.GSON, contents, Advancement.Builder.class);
 					map.put(key, builder);
-				} catch (JsonParseException jsonparseexception)
+				}
+				catch (JsonParseException jsonparseexception)
 				{
 					FMLLog.log.error("Parsing error loading built-in advancement " + key, jsonparseexception);
 					return false;
-				} catch (IOException ioexception)
+				}
+				catch (IOException ioexception)
 				{
 					FMLLog.log.error("Couldn't read advancement " + key + " from " + file, ioexception);
 					return false;
-				} finally
+				}
+				finally
 				{
 					IOUtils.closeQuietly(reader);
 				}
@@ -536,7 +548,8 @@ public class AddonHandler
 					}
 				}
 
-			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e)
+			}
+			catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e)
 			{
 				e.printStackTrace();
 			}

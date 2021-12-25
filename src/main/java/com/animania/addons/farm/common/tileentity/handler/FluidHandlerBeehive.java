@@ -13,8 +13,9 @@ public class FluidHandlerBeehive extends FluidTank
 		super(capacity);
 	}
 
-	 @Override
-	    public boolean canFillFluidType(FluidStack fluid) {
-	        return fluid.getFluid() == FarmAddonBlockHandler.fluidHoney;
-	    }
+	@Override
+	public boolean canFillFluidType(FluidStack fluid)
+	{
+		return fluid.getFluid() == FarmAddonBlockHandler.fluidHoney;
+	}
 }

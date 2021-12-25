@@ -36,7 +36,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
-	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
+	private static final String[] HORSE_TEXTURES = { "black", "bw1", "bw2", "grey", "red", "white" };
 	public int dryTimerMare;
 	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.<Boolean> defineId(EntityMareBase.class, EntityEntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.<Boolean> defineId(EntityMareBase.class, EntityEntityDataSerializers.BOOLEAN);
@@ -104,17 +104,20 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			{
 				this.openGUI(player);
 				return true;
-			} else
+			}
+			else
 			{
 				return super.processInteract(player, hand);
 			}
 
-		} else if (!player.isSneaking() && stack != null && this.isHorseSaddled() && !this.getSleeping() && !this.isBeingRidden() && this.getWatered() && this.getFed())
+		}
+		else if (!player.isSneaking() && stack != null && this.isHorseSaddled() && !this.getSleeping() && !this.isBeingRidden() && this.getWatered() && this.getFed())
 		{
 			this.mountTo(player);
 			// player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;
-		} else
+		}
+		else
 		{
 			return super.processInteract(player, hand);
 		}
@@ -188,15 +191,13 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof PlayerEntity))
+		if (!(entity instanceof PlayerEntity) || !this.isHorseSaddled())
 		{
 			return false;
-		} else if (this.isHorseSaddled())
+		}
+		else
 		{
 			return true;
-		} else
-		{
-			return false;
 		}
 	}
 
@@ -226,13 +227,13 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public ResourceLocation getResourceLocation()
 	{
-		return resourceLocation;
+		return this.resourceLocation;
 	}
 
 	@Override
 	public ResourceLocation getResourceLocationBlink()
 	{
-		return resourceLocationBlink;
+		return this.resourceLocationBlink;
 	}
 
 	@Override
@@ -275,7 +276,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				{
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
-				} else
+				}
+				else
 				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
@@ -299,7 +301,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public int getDryTimer()
 	{
-		return dryTimerMare;
+		return this.dryTimerMare;
 	}
 
 	@Override

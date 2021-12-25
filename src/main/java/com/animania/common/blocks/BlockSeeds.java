@@ -14,12 +14,12 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +35,7 @@ public class BlockSeeds extends Block
 
 	private String name = "block_seeds";
 
-	public static final PropertyEnum<BlockSeeds.EnumType> VARIANT = PropertyEnum.<BlockSeeds.EnumType>create("variant", BlockSeeds.EnumType.class);
+	public static final PropertyEnum<BlockSeeds.EnumType> VARIANT = PropertyEnum.<BlockSeeds.EnumType> create("variant", BlockSeeds.EnumType.class);
 
 	public BlockSeeds()
 	{
@@ -67,7 +67,7 @@ public class BlockSeeds extends Block
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
-	
+
 	@Override
 	public boolean isReplaceable(IBlockAccess levelIn, BlockPos pos)
 	{
@@ -102,7 +102,7 @@ public class BlockSeeds extends Block
 	@Nullable
 	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		switch(state.getValue(VARIANT))
+		switch (state.getValue(VARIANT))
 		{
 		case WHEAT:
 			return Items.WHEAT_SEEDS;
@@ -114,7 +114,7 @@ public class BlockSeeds extends Block
 			return Items.BEETROOT_SEEDS;
 		default:
 			return Items.WHEAT_SEEDS;
-		
+
 		}
 	}
 
@@ -168,7 +168,7 @@ public class BlockSeeds extends Block
 	@Override
 	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
 	{
-		switch(state.getValue(VARIANT))
+		switch (state.getValue(VARIANT))
 		{
 		case WHEAT:
 			return new ItemStack(Items.WHEAT_SEEDS);
@@ -180,12 +180,11 @@ public class BlockSeeds extends Block
 			return new ItemStack(Items.BEETROOT_SEEDS);
 		default:
 			return new ItemStack(Items.WHEAT_SEEDS);
-		
+
 		}
-			
+
 	}
-	
-	
+
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
@@ -198,37 +197,32 @@ public class BlockSeeds extends Block
 	@Override
 	public int getMetaFromState(BlockState state)
 	{
-		return ((BlockSeeds.EnumType)state.getValue(VARIANT)).getMetadata();
+		return ((BlockSeeds.EnumType) state.getValue(VARIANT)).getMetadata();
 	}
 
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, new IProperty[] {VARIANT});
+		return new BlockStateContainer(this, new IProperty[] { VARIANT });
 	}
-	
+
 	@Override
 	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
 	{
-		return ((BlockSeeds.EnumType)state.getValue(VARIANT)).getMaterialColor();
+		return ((BlockSeeds.EnumType) state.getValue(VARIANT)).getMaterialColor();
 	}
 
-	
 	@Override
 	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, Direction side)
 	{
-		if(side == Direction.UP)
+		if (side == Direction.UP)
 			return true;
 		return false;
 	}
-	
-	
+
 	public static enum EnumType implements IStringSerializable
 	{
-		WHEAT(0, MaterialColor.GREEN, "wheat"),
-		PUMPKIN(1, MaterialColor.YELLOW, "pumpkin"),
-		MELON(2, MaterialColor.BROWN, "melon"),
-		BEETROOT(3, MaterialColor.BROWN, "beetroot");
+		WHEAT(0, MaterialColor.GREEN, "wheat"), PUMPKIN(1, MaterialColor.YELLOW, "pumpkin"), MELON(2, MaterialColor.BROWN, "melon"), BEETROOT(3, MaterialColor.BROWN, "beetroot");
 
 		/** Array of the Block's BlockStates */
 		private static final BlockSeeds.EnumType[] META = new BlockSeeds.EnumType[values().length];
@@ -265,6 +259,7 @@ public class BlockSeeds extends Block
 			return this.MaterialColor;
 		}
 
+		@Override
 		public String toString()
 		{
 			return this.name;
@@ -300,7 +295,6 @@ public class BlockSeeds extends Block
 				META[blockstone$enumtype.getMetadata()] = blockstone$enumtype;
 			}
 		}
-
 
 	}
 

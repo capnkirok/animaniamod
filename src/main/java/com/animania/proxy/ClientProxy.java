@@ -169,14 +169,14 @@ public class ClientProxy extends CommonProxy
 			@Override
 			public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer)
 			{
-				screen = errors.createGui();
-				screen.setLevelAndResolution(Minecraft.getMinecraft(), errorScreen.width, errorScreen.height);
+				this.screen = errors.createGui();
+				this.screen.setLevelAndResolution(Minecraft.getMinecraft(), errorScreen.width, errorScreen.height);
 			}
 
 			@Override
 			public void drawScreen(GuiErrorScreen errorScreen, FontRenderer fontRenderer, int mouseRelX, int mouseRelY, float tickTime)
 			{
-				screen.drawScreen(mouseRelX, mouseRelY, tickTime);
+				this.screen.drawScreen(mouseRelX, mouseRelY, tickTime);
 			}
 
 		};

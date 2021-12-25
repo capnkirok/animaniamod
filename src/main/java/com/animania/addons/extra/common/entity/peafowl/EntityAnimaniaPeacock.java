@@ -84,18 +84,18 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 		this.goalSelector.addGoal(0, new SwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(1, new GenericAIFindWater<EntityAnimaniaPeacock>(this, 1.0D, null, EntityAnimaniaPeacock.class, true));
-			this.goalSelector.addGoal(1, new GenericAIFindFood<EntityAnimaniaPeacock>(this, 1.0D, null, true));
+			this.goalSelector.addGoal(1, new GenericAIFindWater<>(this, 1.0D, null, EntityAnimaniaPeacock.class, true));
+			this.goalSelector.addGoal(1, new GenericAIFindFood<>(this, 1.0D, null, true));
 		}
-		this.goalSelector.addGoal(2, new GenericAIPanic<EntityAnimaniaPeacock>(this, 1.4D));
-		this.goalSelector.addGoal(3, new GenericAITempt<EntityAnimaniaPeacock>(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(2, new GenericAIPanic<>(this, 1.4D));
+		this.goalSelector.addGoal(3, new GenericAITempt<>(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.goalSelector.addGoal(5, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(6, new GenericAISleep<EntityAnimaniaPeacock>(this, 0.8, AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed), AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed2), EntityAnimaniaPeacock.class));
 		}
-		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaPeacock>(this));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
 			this.goalSelector.addGoal(8, new LeapAtTargetGoal(this, 0.2F));
@@ -256,7 +256,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float) (this.destPos + ((this.onGround || this.isPassenger()) ? -1 : 4) * 0.3D);
+		this.destPos = (float) (this.destPos + (this.onGround || this.isPassenger() ? -1 : 4) * 0.3D);
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
 		if (!this.onGround && !this.isPassenger() && this.wingRotDelta < 1.0F)
@@ -272,41 +272,27 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 		if (this instanceof EntityPeacockBase && AnimaniaConfig.gameRules.birdsDropFeathers)
 		{
 			this.featherCounter--;
-			if (featherCounter <= 0)
+			if (this.featherCounter <= 0)
 			{
-				featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
-				Item feather = null;
+				this.featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
+				Item feather;
 
-				switch (this.type)
+				feather = switch (this.type)
 				{
-				case BLUE:
-					feather = ExtraAddonItemHandler.peacockFeatherBlue;
-					break;
-				case CHARCOAL:
-					feather = ExtraAddonItemHandler.peacockFeatherCharcoal;
-					break;
-				case OPAL:
-					feather = ExtraAddonItemHandler.peacockFeatherOpal;
-					break;
-				case PEACH:
-					feather = ExtraAddonItemHandler.peacockFeatherPeach;
-					break;
-				case PURPLE:
-					feather = ExtraAddonItemHandler.peacockFeatherPurple;
-					break;
-				case TAUPE:
-					feather = ExtraAddonItemHandler.peacockFeatherTaupe;
-					break;
-				default:
-					feather = ExtraAddonItemHandler.peacockFeatherWhite;
-					break;
-				}
+				case BLUE -> ExtraAddonItemHandler.peacockFeatherBlue;
+				case CHARCOAL -> ExtraAddonItemHandler.peacockFeatherCharcoal;
+				case OPAL -> ExtraAddonItemHandler.peacockFeatherOpal;
+				case PEACH -> ExtraAddonItemHandler.peacockFeatherPeach;
+				case PURPLE -> ExtraAddonItemHandler.peacockFeatherPurple;
+				case TAUPE -> ExtraAddonItemHandler.peacockFeatherTaupe;
+				default -> ExtraAddonItemHandler.peacockFeatherWhite;
+				};
 
-				if (!level.isRemote)
+				if (!this.level.isRemote)
 				{
 					ItemStack item = new ItemStack(feather, 1);
-					EntityItem entityitem = new EntityItem(level, this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, item);
-				AnimaniaHelper.spawnEntity(	level, entityitem);
+					EntityItem entityitem = new EntityItem(this.level, this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, item);
+					AnimaniaHelper.spawnEntity(this.level, entityitem);
 				}
 			}
 
@@ -392,7 +378,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -442,13 +428,13 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
@@ -465,13 +451,13 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -483,43 +469,43 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return type;
+		return this.type;
 	}
 
 	@Override

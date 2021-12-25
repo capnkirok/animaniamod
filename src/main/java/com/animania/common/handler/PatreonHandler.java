@@ -13,7 +13,7 @@ public class PatreonHandler
 
 	public static void initList()
 	{
-		patreonUUIDS = new ArrayList<String>();
+		patreonUUIDS = new ArrayList<>();
 
 		// DEV TEAM
 		patreonUUIDS.add("3507ad5c-d868-453c-90a0-3b8092999d22"); // purplicious_cow

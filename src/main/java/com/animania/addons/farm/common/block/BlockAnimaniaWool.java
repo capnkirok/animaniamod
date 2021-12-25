@@ -14,8 +14,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemShears;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -140,6 +140,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 			return this.MaterialColor;
 		}
 
+		@Override
 		public String toString()
 		{
 			return this.name;

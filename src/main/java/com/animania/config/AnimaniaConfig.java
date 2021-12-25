@@ -60,7 +60,8 @@ public class AnimaniaConfig
 					// stringConfigurationEntry.getValue());
 
 					configuration = cfgs;
-				} catch (Throwable throwable)
+				}
+				catch (Throwable throwable)
 				{
 					throwable.printStackTrace();
 				}

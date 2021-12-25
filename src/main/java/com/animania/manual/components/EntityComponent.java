@@ -63,12 +63,12 @@ public class EntityComponent implements IManualComponent
 	@Override
 	public void init()
 	{
-		for (int i = 0; i < entityLoc.length; i++)
+		for (int i = 0; i < this.entityLoc.length; i++)
 		{
 			try
 			{
-				Level level = mc.level;
-				Entity e = EntityList.createEntityByIDFromName(entityLoc[i], level);
+				Level level = this.mc.level;
+				Entity e = EntityList.createEntityByIDFromName(this.entityLoc[i], level);
 				if (e != null)
 				{
 					float height = e.height;
@@ -92,15 +92,15 @@ public class EntityComponent implements IManualComponent
 			}
 		}
 
-		this.currentEntity = entities[0];
+		this.currentEntity = this.entities[0];
 	}
 
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		if (currentEntity != null)
+		if (this.currentEntity != null)
 		{
-			int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
+			int border = (GuiManual.MANUAL_MAX_X - this.objectWidth) / 2;
 			GlStateManager.pushMatrix();
 			GlStateManager.color(1, 1, 1);
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
@@ -108,11 +108,11 @@ public class EntityComponent implements IManualComponent
 
 			int size = 10;
 
-			GlStateManager.scale(multiplier[index], multiplier[index], multiplier[index]);
-			GlStateManager.translate((manual.guiLeft + absoluteX + manual.MANUAL_MAX_X / 2) / (multiplier[index]), (manual.guiTop + absoluteY + 27) / (multiplier[index]), 2);
+			GlStateManager.scale(this.multiplier[this.index], this.multiplier[this.index], this.multiplier[this.index]);
+			GlStateManager.translate((this.manual.guiLeft + this.absoluteX + GuiManual.MANUAL_MAX_X / 2) / this.multiplier[this.index], (this.manual.guiTop + this.absoluteY + 27) / this.multiplier[this.index], 2);
 			GlStateManager.rotate(180, 0f, 0, 1f);
 			GlStateManager.rotate(360 * RenderAnimatedEgg.renderTimer, 0, 1f, 0);
-			renderEntityStatic(currentEntity);
+			this.renderEntityStatic(this.currentEntity);
 			GlStateManager.disableLighting();
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
 			GlStateManager.popMatrix();
@@ -126,28 +126,28 @@ public class EntityComponent implements IManualComponent
 		{
 			if (renderTimer >= 79)
 			{
-				index++;
-				if (index == entityLoc.length)
-					index = 0;
+				this.index++;
+				if (this.index == this.entityLoc.length)
+					this.index = 0;
 			}
 
-			currentEntity = entities[index];
+			this.currentEntity = this.entities[this.index];
 		}
 	}
 
 	@Override
 	public void update()
 	{
-		updateRenderEntity();
+		this.updateRenderEntity();
 	}
 
 	@Override
 	public void drawLater(int mouseX, int mouseY, float partialTicks)
 	{
-		if (manual.isHovering(this, mouseX, mouseY))
+		if (this.manual.isHovering(this, mouseX, mouseY))
 		{
 			GlStateManager.pushMatrix();
-			manual.drawHoveringText(I18n.translateToLocal("entity." + entityLoc[index] + ".name"), mouseX, mouseY);
+			this.manual.drawHoveringText(I18n.translateToLocal("entity." + this.entityLoc[this.index] + ".name"), mouseX, mouseY);
 			GlStateManager.disableLighting();
 			GlStateManager.popMatrix();
 		}
@@ -168,25 +168,25 @@ public class EntityComponent implements IManualComponent
 	@Override
 	public int getObjectWidth()
 	{
-		return objectWidth;
+		return this.objectWidth;
 	}
 
 	@Override
 	public int getObjectHeight()
 	{
-		return objectHeight;
+		return this.objectHeight;
 	}
 
 	@Override
 	public int getX()
 	{
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public int getY()
 	{
-		return y;
+		return this.y;
 	}
 
 	@Override

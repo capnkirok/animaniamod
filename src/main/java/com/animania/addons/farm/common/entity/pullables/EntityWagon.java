@@ -60,8 +60,6 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	private double lerpZ;
 	public double wagonYaw;
 	private double lerpXRot;
-	private int sleepDelay = 0;
-	private boolean sleepFlag = true;
 	private boolean allSleeping = false;
 	private int lastLighting = 60;
 	private int sleepTimer = 0;
@@ -166,9 +164,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 					player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
 				}
-				return true;
 
-			} else if (!player.isPassenger())
+			}
+			else if (!player.isPassenger())
 			{
 				player.startRiding(this);
 
@@ -180,11 +178,10 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 					this.setPullerType(0);
 					this.stopwagon();
 				}
-				return true;
 			}
-			return true;
 
-		} else if (!player.isSneaking() && FarmConfig.settings.sleepAllowedWagon)
+		}
+		else if (!player.isSneaking() && FarmConfig.settings.sleepAllowedWagon)
 		{
 
 			if (mdiffx > 0 && mdiffx < 1 && mdiffy > 1.15 && mdiffy < 1.25 && mdiffz > 0 && mdiffz < 1.6)
@@ -193,48 +190,44 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				if (level.provider.canRespawnHere())
 
 				{
-					sleepFlag = false;
-					allSleeping = true;
+					boolean sleepFlag = false;
+					this.allSleeping = true;
 					PlayerEntity player1 = null;
 					Iterator iterator = level.playerEntities.iterator();
 					while (iterator.hasNext())
 					{
 						PlayerEntity player2 = (PlayerEntity) iterator.next();
 
-						if (player2 != player)
+						if (player2 != player && !player2.isPlayerSleeping())
 						{
-							if (!player2.isPlayerSleeping())
-							{
-								allSleeping = false;
-							}
+							this.allSleeping = false;
 						}
 					}
 
-					PlayerEntity.SleepResult player$sleepresult = trySleep(new BlockPos(player.getX(), player.getY(), player.getZ()), player);
+					PlayerEntity.SleepResult player$sleepresult = this.trySleep(new BlockPos(player.getX(), player.getY(), player.getZ()), player);
 
-					if (player$sleepresult == PlayerEntity.SleepResult.OK && allSleeping == true)
+					if (player$sleepresult == PlayerEntity.SleepResult.OK && this.allSleeping)
 					{
 
 						sleepFlag = true;
-						sleepDelay = 0;
+						int sleepDelay = 0;
 
-					} else
+					}
+					else if (player$sleepresult == PlayerEntity.SleepResult.NOT_POSSIBLE_NOW)
 					{
-						if (player$sleepresult == PlayerEntity.SleepResult.NOT_POSSIBLE_NOW)
-						{
-							sleepFlag = false;
-							player.sendStatusMessage(new TextComponentTranslation("tile.bed.noSleep", new Object[0]), true);
-						} else if (player$sleepresult == PlayerEntity.SleepResult.NOT_SAFE)
-						{
-							sleepFlag = false;
-							player.sendStatusMessage(new TextComponentTranslation("tile.bed.notSafe", new Object[0]), true);
+						sleepFlag = false;
+						player.sendStatusMessage(new TextComponentTranslation("tile.bed.noSleep", new Object[0]), true);
+					}
+					else if (player$sleepresult == PlayerEntity.SleepResult.NOT_SAFE)
+					{
+						sleepFlag = false;
+						player.sendStatusMessage(new TextComponentTranslation("tile.bed.notSafe", new Object[0]), true);
 
-						} else if (player$sleepresult == PlayerEntity.SleepResult.NOT_POSSIBLE_HERE)
-						{
-							sleepFlag = false;
-							player.sendStatusMessage(new TextComponentTranslation("tile.bed.notHere", new Object[0]), true);
-
-						}
+					}
+					else if (player$sleepresult == PlayerEntity.SleepResult.NOT_POSSIBLE_HERE)
+					{
+						sleepFlag = false;
+						player.sendStatusMessage(new TextComponentTranslation("tile.bed.notHere", new Object[0]), true);
 
 					}
 
@@ -257,9 +250,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 				}
 
-				return true;
-
-			} else if (player.isPassenger() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this)
+			}
+			else if (player.isPassenger() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this)
 			{
 
 				this.pulled = true;
@@ -272,9 +264,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-
-				return true;
-			} else if (player.isPassenger() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this)
+			}
+			else if (player.isPassenger() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this)
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -283,9 +274,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				stopwagon();
-				return true;
-			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashHolder() == player)
+				this.stopwagon();
+			}
+			else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashHolder() == player)
 			{
 				this.pulled = true;
 				this.puller = horse;
@@ -299,8 +290,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isRemote)
+			}
+			else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 
 				if (mdiffx > 0 && mdiffy < 2 && mdiffz > 0)
@@ -314,8 +305,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 					}
 				}
-				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isRemote)
+			}
+			else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -324,9 +315,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				stopwagon();
-				return true;
-			} else
+				this.stopwagon();
+			}
+			else
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -335,8 +326,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				stopwagon();
-				return true;
+				this.stopwagon();
 			}
 		}
 		return true;
@@ -369,7 +359,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 	public boolean getHasChest()
 	{
-		return (this.dataManager.get(EntityWagon.HAS_CHEST).booleanValue());
+		return this.dataManager.get(EntityWagon.HAS_CHEST).booleanValue();
 	}
 
 	public void setTimeSinceHit(int timeSinceHit)
@@ -392,7 +382,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				super.applyEntityCollision(entityIn);
 
 			}
-		} else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY && !this.pulled)
+		}
+		else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY && !this.pulled)
 		{
 			super.applyEntityCollision(entityIn);
 
@@ -443,9 +434,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 		}
 
-		if (sleepTimer > 0)
+		if (this.sleepTimer > 0)
 		{
-			sleepTimer--;
+			this.sleepTimer--;
 		}
 
 		// Dismount text
@@ -463,9 +454,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			double movZ = Math.abs(this.puller.getZ() - this.puller.prevgetZ());
 
 			// double moveThresh = .005D;
-			double moveThresh = (movX + movZ - 1); // TODO Testing
+			double moveThresh = movX + movZ - 1; // TODO Testing
 
-			if ((this.wagonYaw < 0 && this.puller.motionX > .001 && this.puller.motionZ > .001) && (movX + movZ > moveThresh))
+			if (this.wagonYaw < 0 && this.puller.motionX > .001 && this.puller.motionZ > .001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this))
 				{
@@ -475,7 +466,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_wagon", this);
 				}
-			} else if ((this.wagonYaw > 0 && this.puller.motionX < -.001 && this.puller.motionZ < -.001) && (movX + movZ > moveThresh))
+			}
+			else if (this.wagonYaw > 0 && this.puller.motionX < -.001 && this.puller.motionZ < -.001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this))
 				{
@@ -485,7 +477,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_wagon", this);
 				}
-			} else if ((this.wagonYaw > 0 && this.puller.motionX < -.001 && this.puller.motionZ > .001) && (movX + movZ > moveThresh))
+			}
+			else if (this.wagonYaw > 0 && this.puller.motionX < -.001 && this.puller.motionZ > .001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this))
 				{
@@ -495,7 +488,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_wagon", this);
 				}
-			} else if ((this.wagonYaw < 0 && this.puller.motionX > .001 && this.puller.motionZ < -.001) && (movX + movZ > moveThresh))
+			}
+			else if (this.wagonYaw < 0 && this.puller.motionX > .001 && this.puller.motionZ < -.001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this))
 				{
@@ -505,7 +499,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_wagon", this);
 				}
-			} else if ((this.wagonYaw < 0 && this.puller.motionX < -.001 && this.puller.motionZ < -.001) && (movX + movZ > moveThresh))
+			}
+			else if (this.wagonYaw < 0 && this.puller.motionX < -.001 && this.puller.motionZ < -.001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this))
 				{
@@ -515,7 +510,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_wagon_back", this);
 				}
-			} else if ((this.wagonYaw > 0 && this.puller.motionX > .001 && this.puller.motionZ > .001) && (movX + movZ > moveThresh))
+			}
+			else if (this.wagonYaw > 0 && this.puller.motionX > .001 && this.puller.motionZ > .001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this))
 				{
@@ -525,7 +521,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_wagon_back", this);
 				}
-			} else if ((this.wagonYaw > 0 && this.puller.motionX > .001 && this.puller.motionZ < -.001) && (movX + movZ > moveThresh))
+			}
+			else if (this.wagonYaw > 0 && this.puller.motionX > .001 && this.puller.motionZ < -.001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this))
 				{
@@ -535,7 +532,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_wagon_back", this);
 				}
-			} else if ((this.wagonYaw < 0 && this.puller.motionX < -.001 && this.puller.motionZ > .001) && (movX + movZ > moveThresh))
+			}
+			else if (this.wagonYaw < 0 && this.puller.motionX < -.001 && this.puller.motionZ > .001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this))
 				{
@@ -560,9 +558,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			{
 				if (wagons.size() >= 0)
 				{
-					for (int i = 0; i < wagons.size(); i++)
+					for (Object wagon : wagons)
 					{
-						EntityWagon tempwagon = (EntityWagon) wagons.get(i);
+						EntityWagon tempwagon = (EntityWagon) wagon;
 						if (tempwagon.pulled && tempwagon.puller == player)
 						{
 							totPulling++;
@@ -585,9 +583,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			{
 				if (wagons.size() > 1)
 				{
-					for (int i = 0; i < wagons.size(); i++)
+					for (Object wagon : wagons)
 					{
-						EntityWagon tempwagon = (EntityWagon) wagons.get(i);
+						EntityWagon tempwagon = (EntityWagon) wagon;
 						if (tempwagon.pulled && tempwagon.puller == animal && tempwagon != this)
 						{
 							totPulling++;
@@ -605,20 +603,20 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 		if (this.level.isRemote && this.pulled)
 		{
-			double diffX = (this.getX() - this.prevgetX());
-			double diffZ = (this.getZ() - this.prevgetZ());
+			double diffX = this.getX() - this.prevgetX();
+			double diffZ = this.getZ() - this.prevgetZ();
 
 			double movX = Math.abs(this.getX() - this.prevgetX());
 			double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
 			double moveThresh = .008D;
 
-			if ((diffX < .005 && diffZ < .005) && (movX + movZ < moveThresh) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this))
+			if (diffX < .005 && diffZ < .005 && movX + movZ < moveThresh && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this))
 			{
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_wagon", this);
 			}
 
-			if ((diffX < .005 && diffZ < .005) && (movX + movZ < moveThresh) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this))
+			if (diffX < .005 && diffZ < .005 && movX + movZ < moveThresh && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this))
 			{
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_wagon_back", this);
 			}
@@ -646,7 +644,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 					this.pulled = true;
 					this.setPullerType(1);
 				}
-			} else if (this.getPullerType() == 2)
+			}
+			else if (this.getPullerType() == 2)
 			{
 				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.level, this);
 				if (!entities.isEmpty())
@@ -655,7 +654,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 					this.pulled = true;
 					this.setPullerType(2);
 				}
-			} else
+			}
+			else
 			{
 				this.pulled = false;
 				this.setPullerType(0);
@@ -677,7 +677,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			this.puller = null;
 			this.setPullerType(0);
 			level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
-			stopwagon();
+			this.stopwagon();
 		}
 
 		if (this.pulled)
@@ -766,7 +766,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				if (i == 0)
 				{
 					f = 0.2F;
-				} else
+				}
+				else
 				{
 					f = -0.6F;
 				}
@@ -783,7 +784,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				f = (float) (f + 1.8D);
 			}
 
-			Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+			Vec3d vec3d = new Vec3d(f, 0.0D, 0.0D).rotateYaw(-this.rotationYaw * 0.017453292F - (float) Math.PI / 2F);
 			passenger.setPosition(this.getX() + vec3d.x, this.getY() + f1, this.getZ() + vec3d.z);
 			passenger.rotationYaw += this.deltaRotation;
 			passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
@@ -826,12 +827,14 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		if (this.isEntityInvulnerable(source))
 		{
 			return false;
-		} else if (!this.level.isRemote && !this.isDead)
+		}
+		else if (!this.level.isRemote && !this.isDead)
 		{
 			if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null)
 			{
 				return false;
-			} else
+			}
+			else
 			{
 
 				this.setTimeSinceHit(10);
@@ -847,7 +850,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 						if (this.getHasChest())
 						{
-							InventoryHelper.dropInventoryItems(level, this.getPosition(), wagonChest);
+							InventoryHelper.dropInventoryItems(level, this.getPosition(), this.wagonChest);
 							// this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST),
 							// 1, 0.0F);
 						}
@@ -858,7 +861,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 				return true;
 			}
-		} else
+		}
+		else
 		{
 			return true;
 		}
@@ -872,13 +876,11 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		double movX = Math.abs(this.getX() - this.prevgetX());
 		double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
-		if (entityIn == this.puller)
+		if (entityIn == this.puller || this.pulled)
 		{
 			return null;
-		} else if (this.pulled)
-		{
-			return null;
-		} else
+		}
+		else
 		{
 			return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
 		}
@@ -976,7 +978,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		if (entity instanceof HorseEntity)
 		{
 			pullerType = 1;
-		} else if (entity instanceof PlayerEntity)
+		}
+		else if (entity instanceof PlayerEntity)
 		{
 			pullerType = 2;
 		}
@@ -1071,7 +1074,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			float f1 = 0.5F + enumfacing.getFrontOffsetX() * 0.4F;
 			float f = 0.5F + enumfacing.getFrontOffsetZ() * 0.4F;
 			PlayerEntity.setPosition(bedLocation.getX() + f1, bedLocation.getY() + 0.6875F, bedLocation.getZ() + f);
-		} else
+		}
+		else
 		{
 			PlayerEntity.setPosition(bedLocation.getX() + 0.5F, bedLocation.getY() + 0.6875F, bedLocation.getZ() + 0.5F);
 		}
@@ -1107,19 +1111,22 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		{
 			blockpos$mutableblockpos.setY(MathHelper.floor(this.getY() + this.getEyeHeight()));
 
-			if (Animania.RANDOM.nextInt(32) == 0 && time > 13000 && sleepTimer == 0)
+			if (Animania.RANDOM.nextInt(32) == 0 && time > 13000 && this.sleepTimer == 0)
 			{
-				lastLighting = 85 + Animania.RANDOM.nextInt(22);
-				return this.level.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
+				this.lastLighting = 85 + Animania.RANDOM.nextInt(22);
+				return this.level.getCombinedLight(blockpos$mutableblockpos, 0) + this.lastLighting;
 
-			} else if (sleepTimer == 0 || time < 13000)
+			}
+			else if (this.sleepTimer == 0 || time < 13000)
 			{
-				return this.level.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
-			} else
+				return this.level.getCombinedLight(blockpos$mutableblockpos, 0) + this.lastLighting;
+			}
+			else
 			{
 				return 30;
 			}
-		} else
+		}
+		else
 		{
 			return 0;
 		}

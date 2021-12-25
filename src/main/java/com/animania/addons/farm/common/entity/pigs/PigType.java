@@ -26,13 +26,7 @@ import com.animania.api.interfaces.AnimaniaType;
 
 public enum PigType implements AnimaniaType
 {
-	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, PigEntityletDuroc.class, true),
-	HAMPSHIRE(EntityHogHampshire.class, EntitySowHampshire.class, PigEntityletHampshire.class, true),
-	LARGE_BLACK(EntityHogLargeBlack.class, EntitySowLargeBlack.class, PigEntityletLargeBlack.class, true),
-	LARGE_WHITE(EntityHogLargeWhite.class, EntitySowLargeWhite.class, PigEntityletLargeWhite.class, false),
-	OLD_SPOT(EntityHogOldSpot.class, EntitySowOldSpot.class, PigEntityletOldSpot.class, true),
-	YORKSHIRE(EntityHogYorkshire.class, EntitySowYorkshire.class, PigEntityletYorkshire.class, false);
-
+	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, PigEntityletDuroc.class, true), HAMPSHIRE(EntityHogHampshire.class, EntitySowHampshire.class, PigEntityletHampshire.class, true), LARGE_BLACK(EntityHogLargeBlack.class, EntitySowLargeBlack.class, PigEntityletLargeBlack.class, true), LARGE_WHITE(EntityHogLargeWhite.class, EntitySowLargeWhite.class, PigEntityletLargeWhite.class, false), OLD_SPOT(EntityHogOldSpot.class, EntitySowOldSpot.class, PigEntityletOldSpot.class, true), YORKSHIRE(EntityHogYorkshire.class, EntitySowYorkshire.class, PigEntityletYorkshire.class, false);
 
 	private Class hog;
 	private Class sow;
@@ -92,7 +86,7 @@ public enum PigType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return cow;	
+		return cow;
 	}
 
 	@Override
@@ -116,7 +110,7 @@ public enum PigType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return calf;	
+		return calf;
 	}
 
 	public static PigType breed(PigType male, PigType female)

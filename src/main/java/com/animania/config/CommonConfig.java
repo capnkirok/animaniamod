@@ -138,7 +138,7 @@ public class CommonConfig
 	public static class FoodValues
 	{
 		@Comment("Food Value Overrides. Format: modid:name(hunger,saturationMultiplier) Example: animania:cheese_omelette(5,0.8)")
-		public String[] foodValueOverrides = new String[] {};
+		public String[] foodValueOverrides = {};
 	}
 
 }

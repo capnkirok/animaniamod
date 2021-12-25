@@ -79,7 +79,7 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 	@Override
 	public int getDryTimer()
 	{
-		return dryTimer;
+		return this.dryTimer;
 	}
 
 	@Override
@@ -136,7 +136,8 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 				{
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
-				} else
+				}
+				else
 				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}

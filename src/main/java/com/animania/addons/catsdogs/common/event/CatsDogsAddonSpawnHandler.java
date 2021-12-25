@@ -27,10 +27,11 @@ public class CatsDogsAddonSpawnHandler
 
 		LivingEntity replacementEntity = null;
 
-		if (CatsDogsConfig.catsdogs.replaceVanillaWolves && (event.getEntity().getClass().equals(Wolf.class)) && !levelIn.isRemote)
+		if (CatsDogsConfig.catsdogs.replaceVanillaWolves && event.getEntity().getClass().equals(Wolf.class) && !levelIn.isRemote)
 		{
 			event.setResult(Result.DENY);
-		} else if (CatsDogsConfig.catsdogs.replaceVanillaOcelots && event.getEntity().getClass().equals(OcelotEntity.class) && !levelIn.isRemote)
+		}
+		else if (CatsDogsConfig.catsdogs.replaceVanillaOcelots && event.getEntity().getClass().equals(OcelotEntity.class) && !levelIn.isRemote)
 		{
 			event.setResult(Result.DENY);
 		}
@@ -43,14 +44,15 @@ public class CatsDogsAddonSpawnHandler
 		Level levelIn = event.getLevel();
 		Biome biome = event.getLevel().getBiome(pos);
 
-		if ((event.getEntity() instanceof EntityAnimaniaCat && !levelIn.isRemote))
+		if (event.getEntity() instanceof EntityAnimaniaCat && !levelIn.isRemote)
 		{
 			List<EntityAnimaniaCat> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCat.class, 100, event.getEntity().level, pos);
 			if (others.size() > CatsDogsConfig.catsdogs.spawnLimitCats)
 			{
 				event.setResult(Result.DENY);
 			}
-		} else if ((event.getEntity() instanceof EntityAnimaniaDog && !levelIn.isRemote))
+		}
+		else if (event.getEntity() instanceof EntityAnimaniaDog && !levelIn.isRemote)
 		{
 			List<EntityAnimaniaDog> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaDog.class, 100, event.getEntity().level, pos);
 			if (others.size() > CatsDogsConfig.catsdogs.spawnLimitDogs)

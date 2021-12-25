@@ -18,13 +18,13 @@ import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase, IChild
 {
 
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float>defineId(EntityChickBase.class, EntityEntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityChickBase.class, EntityEntityDataSerializers.FLOAT);
 	protected int ageTimer;
-	
+
 	public EntityChickBase(Level levelIn)
 	{
 		super(levelIn);
-		this.setSize(1.1F, 1.5F); 
+		this.setSize(1.1F, 1.5F);
 		this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
 		this.ageTimer = 0;
 		this.type = ChickenType.LEGHORN;
@@ -56,14 +56,12 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	{
 		super.writeEntityToNBT(CompoundTag);
 
-
 	}
 
 	@Override
 	public void readEntityFromNBT(CompoundTag CompoundTag)
 	{
 		super.readEntityFromNBT(CompoundTag);
-		
 
 	}
 
@@ -73,23 +71,22 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 		this.timeUntilNextEgg = 1000;
 
 		GenericBehavior.livingUpdateChild(this, EntityHenBase.class);
-				
+
 		super.onLivingUpdate();
-		
+
 	}
 
 	@Override
 	public int getAgeTimer()
 	{
-		return ageTimer;
+		return this.ageTimer;
 	}
 
 	@Override
 	public void setAgeTimer(int i)
 	{
-		ageTimer = i;
+		this.ageTimer = i;
 	}
-
 
 	@Override
 	public void playLivingSound()
@@ -103,7 +100,6 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
-		return;
 	}
 
 	@Override
@@ -123,7 +119,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	{
 		return AGE;
 	}
-	
+
 	@Override
 	public void ageUp(int growthSeconds, boolean updateForcedAge)
 	{

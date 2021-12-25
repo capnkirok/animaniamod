@@ -13,11 +13,11 @@ public class FluidHandlerCheeseMold extends FluidTank
 	{
 		super(1000);
 	}
-	
-	@Override
-    public boolean canFillFluidType(FluidStack fluid) {
-        return fluid.getFluid() == FarmAddonBlockHandler.fluidMilkFriesian || fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein || fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey ||fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep || fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat || fluid.getFluid() == FluidRegistry.WATER;
-    }
 
+	@Override
+	public boolean canFillFluidType(FluidStack fluid)
+	{
+		return fluid.getFluid() == FarmAddonBlockHandler.fluidMilkFriesian || fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein || fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey || fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep || fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat || fluid.getFluid() == FluidRegistry.WATER;
+	}
 
 }

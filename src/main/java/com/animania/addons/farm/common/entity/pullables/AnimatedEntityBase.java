@@ -14,51 +14,62 @@ public abstract class AnimatedEntityBase extends Entity implements IAnimated
 	protected static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(AnimatedEntity.class);
 
 	// Here you should add all the needed animations in the animationHandler.
-	static {
-		//AnimatedEntity.animHandler.addAnim("yourModId", "yourAnimation", "yourModel", false);
+	static
+	{
+		// AnimatedEntity.animHandler.addAnim("yourModId", "yourAnimation",
+		// "yourModel",
+		// false);
 	}
 
 	/** The constructor of the entity. */
-	public AnimatedEntityBase(Level levelIn) {
+	public AnimatedEntityBase(Level levelIn)
+	{
 		super(levelIn);
 	}
 
 	// You must call super.onLivingUpdate(), in your entity, or call the
 	// animationsUpdate() method like here.
 	@Override
-	public void onEntityUpdate() {
+	public void onEntityUpdate()
+	{
 		super.onEntityUpdate();
 		this.getAnimationHandler().animationsUpdate(this);
 	}
 
 	@Override
-	public <T extends IAnimated> AnimationHandler<T> getAnimationHandler() {
+	public <T extends IAnimated> AnimationHandler<T> getAnimationHandler()
+	{
 		// Be careful to return the right animation handler.
 		return AnimatedEntityBase.animHandler;
 	}
 
 	@Override
-	public int getDimension() {
+	public int getDimension()
+	{
 		return this.dimension;
 	}
 
 	@Override
-	public double getX() {
+	public double getX()
+	{
 		return this.getX();
 	}
 
 	@Override
-	public double getY() {
+	public double getY()
+	{
 		return this.getY();
 	}
 
 	@Override
-	public double getZ() {
+	public double getZ()
+	{
 		return this.getZ();
 	}
 
 	@Override
-	public boolean isLevelRemote() {
+	public boolean isLevelRemote()
+	{
 		return this.level.isRemote;
 	}
 }

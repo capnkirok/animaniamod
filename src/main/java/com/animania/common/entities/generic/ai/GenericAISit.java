@@ -9,7 +9,7 @@ public class GenericAISit<T extends TamableAnimal & ISleeping> extends SitWhenOr
 {
 
 	T entity;
-	
+
 	public GenericAISit(T entityIn)
 	{
 		super(entityIn);
@@ -19,10 +19,10 @@ public class GenericAISit<T extends TamableAnimal & ISleeping> extends SitWhenOr
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.entity.getSleeping())
+		if (this.entity.getSleeping())
 			return false;
-		
+
 		return super.shouldExecute();
 	}
-	
+
 }

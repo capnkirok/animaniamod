@@ -19,14 +19,11 @@ public class GenericAITargetNonTamed extends NonTameRandomTargetGoal
 	@Override
 	public boolean shouldExecute()
 	{
-		if (entity instanceof ISleeping)
-			if (((ISleeping) entity).getSleeping())
+		if (this.entity instanceof ISleeping)
+			if (((ISleeping) this.entity).getSleeping())
 				return false;
 
-		if (entity.isTamed())
-			return false;
-
-		if (entity.isSitting())
+		if (this.entity.isTamed() || this.entity.isSitting())
 			return false;
 
 		return super.shouldExecute();
@@ -35,14 +32,11 @@ public class GenericAITargetNonTamed extends NonTameRandomTargetGoal
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		if (entity instanceof ISleeping)
-			if (((ISleeping) entity).getSleeping())
+		if (this.entity instanceof ISleeping)
+			if (((ISleeping) this.entity).getSleeping())
 				return false;
 
-		if (entity.isTamed())
-			return false;
-
-		if (entity.isSitting())
+		if (this.entity.isTamed() || this.entity.isSitting())
 			return false;
 
 		return super.shouldContinueExecuting();

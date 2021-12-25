@@ -9,7 +9,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.entity.LivingEntity;
 
 public class ModelDoePygmy extends ModelBase
-{	
+{
 	private float headRotationAngleX;
 	public ModelRenderer HeadNode = new ModelRenderer(this, 0, 0);
 
@@ -21,10 +21,10 @@ public class ModelDoePygmy extends ModelBase
 	ModelRenderer FrontLeg_L;
 	ModelRenderer FrontLeg_R;
 	ModelRenderer Udder;
-    ModelRenderer Udder1;
-    ModelRenderer Udder2;
-    ModelRenderer Udder3;
-    ModelRenderer Udder4;
+	ModelRenderer Udder1;
+	ModelRenderer Udder2;
+	ModelRenderer Udder3;
+	ModelRenderer Udder4;
 	ModelRenderer Neck;
 	ModelRenderer Head;
 	ModelRenderer Ear_R;
@@ -46,173 +46,175 @@ public class ModelDoePygmy extends ModelBase
 
 	public ModelDoePygmy(float par1)
 	{
-		Body = new ModelRenderer( this, 81, 5 );
-		Body.setTextureSize( 128, 128 );
-		Body.addBox( -5F, -6F, -6.5F, 10, 12, 13);
-		Body.setRotationPoint( 0F, 9F, 2F );
-		Butt = new ModelRenderer( this, 74, 43 );
-		Butt.setTextureSize( 128, 128 );
-		Butt.addBox( -4.5F, -5.5F, -0.5F, 9, 11, 15);
-		Butt.setRotationPoint( 0F, 9.435779F, 6.980974F );
-		Tail = new ModelRenderer( this, 38, 10 );
-		Tail.setTextureSize( 128, 128 );
-		Tail.addBox( -1.5F, -3.5F, -1.5F, 3, 5, 3);
-		Tail.setRotationPoint( 0F, 5.177864F, 20.9047F );
-		BackLeg_L = new ModelRenderer( this, 47, 28 );
-		BackLeg_L.setTextureSize( 128, 128 );
-		BackLeg_L.addBox( -1.5F, -2F, -2.5F, 3, 16, 5);
-		BackLeg_L.setRotationPoint( 5F, 10.2509F, 16.99774F );
-		BackLeg_R = new ModelRenderer( this, 47, 28 );
-		BackLeg_R.setTextureSize( 128, 128 );
-		BackLeg_R.addBox( -1.5F, -2F, -2.5F, 3, 16, 5);
-		BackLeg_R.setRotationPoint( -5F, 10.2509F, 16.99774F );
-		FrontLeg_L = new ModelRenderer( this, 62, 4 );
-		FrontLeg_L.setTextureSize( 128, 128 );
-		FrontLeg_L.addBox( -1.5F, -1F, -2F, 3, 14, 4);
-		FrontLeg_L.setRotationPoint( 4F, 11.72712F, -1.250051F );
-		FrontLeg_R = new ModelRenderer( this, 62, 4 );
-		FrontLeg_R.setTextureSize( 128, 128 );
-		FrontLeg_R.addBox( -1.5F, -1F, -2F, 3, 14, 4);
-		FrontLeg_R.setRotationPoint( -4F, 11.72712F, -1.250051F );
-		Udder = new ModelRenderer( this, 7, 14 );
-        Udder.setTextureSize( 128, 128 );
-        Udder.addBox( -3F, -2F, -3F, 6, 4, 6);
-        Udder.setRotationPoint( 0F, 15.28831F, 16.50714F );
-        Udder1 = new ModelRenderer( this, 12, 19 );
-        Udder1.setTextureSize( 128, 128 );
-        Udder1.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-        Udder1.setRotationPoint( 2F, 17.78831F, 14.50714F );
-        Udder2 = new ModelRenderer( this, 12, 19 );
-        Udder2.setTextureSize( 128, 128 );
-        Udder2.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-        Udder2.setRotationPoint( -2F, 17.78831F, 14.50714F );
-        Udder3 = new ModelRenderer( this, 12, 19 );
-        Udder3.setTextureSize( 128, 128 );
-        Udder3.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-        Udder3.setRotationPoint( -2F, 17.78831F, 18.50714F );
-        Udder4 = new ModelRenderer( this, 12, 19 );
-        Udder4.setTextureSize( 128, 128 );
-        Udder4.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-        Udder4.setRotationPoint( 2F, 17.78831F, 18.50714F );
+		this.Body = new ModelRenderer(this, 81, 5);
+		this.Body.setTextureSize(128, 128);
+		this.Body.addBox(-5F, -6F, -6.5F, 10, 12, 13);
+		this.Body.setRotationPoint(0F, 9F, 2F);
+		this.Butt = new ModelRenderer(this, 74, 43);
+		this.Butt.setTextureSize(128, 128);
+		this.Butt.addBox(-4.5F, -5.5F, -0.5F, 9, 11, 15);
+		this.Butt.setRotationPoint(0F, 9.435779F, 6.980974F);
+		this.Tail = new ModelRenderer(this, 38, 10);
+		this.Tail.setTextureSize(128, 128);
+		this.Tail.addBox(-1.5F, -3.5F, -1.5F, 3, 5, 3);
+		this.Tail.setRotationPoint(0F, 5.177864F, 20.9047F);
+		this.BackLeg_L = new ModelRenderer(this, 47, 28);
+		this.BackLeg_L.setTextureSize(128, 128);
+		this.BackLeg_L.addBox(-1.5F, -2F, -2.5F, 3, 16, 5);
+		this.BackLeg_L.setRotationPoint(5F, 10.2509F, 16.99774F);
+		this.BackLeg_R = new ModelRenderer(this, 47, 28);
+		this.BackLeg_R.setTextureSize(128, 128);
+		this.BackLeg_R.addBox(-1.5F, -2F, -2.5F, 3, 16, 5);
+		this.BackLeg_R.setRotationPoint(-5F, 10.2509F, 16.99774F);
+		this.FrontLeg_L = new ModelRenderer(this, 62, 4);
+		this.FrontLeg_L.setTextureSize(128, 128);
+		this.FrontLeg_L.addBox(-1.5F, -1F, -2F, 3, 14, 4);
+		this.FrontLeg_L.setRotationPoint(4F, 11.72712F, -1.250051F);
+		this.FrontLeg_R = new ModelRenderer(this, 62, 4);
+		this.FrontLeg_R.setTextureSize(128, 128);
+		this.FrontLeg_R.addBox(-1.5F, -1F, -2F, 3, 14, 4);
+		this.FrontLeg_R.setRotationPoint(-4F, 11.72712F, -1.250051F);
+		this.Udder = new ModelRenderer(this, 7, 14);
+		this.Udder.setTextureSize(128, 128);
+		this.Udder.addBox(-3F, -2F, -3F, 6, 4, 6);
+		this.Udder.setRotationPoint(0F, 15.28831F, 16.50714F);
+		this.Udder1 = new ModelRenderer(this, 12, 19);
+		this.Udder1.setTextureSize(128, 128);
+		this.Udder1.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.Udder1.setRotationPoint(2F, 17.78831F, 14.50714F);
+		this.Udder2 = new ModelRenderer(this, 12, 19);
+		this.Udder2.setTextureSize(128, 128);
+		this.Udder2.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.Udder2.setRotationPoint(-2F, 17.78831F, 14.50714F);
+		this.Udder3 = new ModelRenderer(this, 12, 19);
+		this.Udder3.setTextureSize(128, 128);
+		this.Udder3.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.Udder3.setRotationPoint(-2F, 17.78831F, 18.50714F);
+		this.Udder4 = new ModelRenderer(this, 12, 19);
+		this.Udder4.setTextureSize(128, 128);
+		this.Udder4.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.Udder4.setRotationPoint(2F, 17.78831F, 18.50714F);
 
-		HeadNode = new ModelRenderer(this, 87, 80);
-		HeadNode.setTextureSize(128, 128);
-		HeadNode.addBox(0F, 0F, 0F, 0, 0, 0);
-		HeadNode.setRotationPoint( 0F, 10.73092F, -1.162896F );
+		this.HeadNode = new ModelRenderer(this, 87, 80);
+		this.HeadNode.setTextureSize(128, 128);
+		this.HeadNode.addBox(0F, 0F, 0F, 0, 0, 0);
+		this.HeadNode.setRotationPoint(0F, 10.73092F, -1.162896F);
 
-		Neck = new ModelRenderer( this, 87, 80 );
-		Neck.setTextureSize(128, 128);
-		Neck.addBox( -2.5F, -4F, -13.5F, 5, 8, 13);
-		Neck.setRotationPoint(0F, 0F, 0F);
+		this.Neck = new ModelRenderer(this, 87, 80);
+		this.Neck.setTextureSize(128, 128);
+		this.Neck.addBox(-2.5F, -4F, -13.5F, 5, 8, 13);
+		this.Neck.setRotationPoint(0F, 0F, 0F);
 
-		Head = new ModelRenderer( this, 9, 60 );
-		Head.setTextureSize( 128, 128 );
-		Head.addBox( -3F, -3.5F, -7.5F, 6, 7, 7);
-		Head.setRotationPoint( 0F, -0.4532948F - 10.73092F, -5.183255F + 1.162896F );
+		this.Head = new ModelRenderer(this, 9, 60);
+		this.Head.setTextureSize(128, 128);
+		this.Head.addBox(-3F, -3.5F, -7.5F, 6, 7, 7);
+		this.Head.setRotationPoint(0F, -0.4532948F - 10.73092F, -5.183255F + 1.162896F);
 
-		Ear_R = new ModelRenderer( this, 60, 84 );
-		Ear_R.setTextureSize( 128, 128 );
-		Ear_R.addBox( -4F, -1F, -0.5F, 4, 2, 1);
-		Ear_R.setRotationPoint( -2.5F, -1.556122F - 10.73092F, -8.616005F  + 1.162896F);
-		Ear2_R = new ModelRenderer( this, 49, 80 );
-		Ear2_R.setTextureSize( 128, 128 );
-		Ear2_R.addBox( -2.5F, -0.5F, -0.5F, 1, 1, 1);
-		Ear2_R.setRotationPoint( -4.761655F, -2.284157F - 10.73092F, -9.393745F  + 1.162896F);
-		Ear_L = new ModelRenderer( this, 60, 84 );
-		Ear_L.setTextureSize( 128, 128 );
-		Ear_L.addBox( 0F, -1F, -0.5F, 4, 2, 1);
-		Ear_L.setRotationPoint( 2.5F, -1.556122F - 10.73092F, -8.616005F  + 1.162896F);
-		Ear2_L = new ModelRenderer( this, 49, 80 );
-		Ear2_L.setTextureSize( 128, 128 );
-		Ear2_L.addBox( 1.5F, -0.5F, -0.5F, 1, 1, 1);
-		Ear2_L.setRotationPoint( 4.761655F, -2.284157F - 10.73092F, -9.393745F + 1.162896F );
-		Mouth = new ModelRenderer( this, 8, 111 );
-		Mouth.setTextureSize( 128, 128 );
-		Mouth.addBox( -1.5F, -0.5F, -5.5F, 3, 1, 6);
-		Mouth.setRotationPoint( 0F, 3.977737F - 10.73092F, -10.1608F + 1.162896F );
-		Snout3 = new ModelRenderer( this, 9, 86 );
-		Snout3.setTextureSize( 128, 128 );
-		Snout3.addBox( -1.5F, 0F, -5F, 3, 2, 5);
-		Snout3.setRotationPoint( 0F, -0.2211952F - 10.73092F, -12.39496F + 1.162896F );
-		Nose = new ModelRenderer( this, 40, 91 );
-		Nose.setTextureSize( 128, 128 );
-		Nose.addBox( -1F, 0F, 0F, 2, 2, 2);
-		Nose.setRotationPoint( 0F, 2.882965F - 10.73092F, -16.94551F + 1.162896F );
-		Snout1 = new ModelRenderer( this, 11, 76 );
-		Snout1.setTextureSize( 128, 128 );
-		Snout1.addBox( -1.5F, 0F, -5.5F, 3, 2, 6);
-		Snout1.setRotationPoint( -0.01F, -1.447739F - 10.73092F, -12.70536F + 1.162896F );
-		Snout2 = new ModelRenderer( this, 10, 96 );
-		Snout2.setTextureSize( 128, 128 );
-		Snout2.addBox( -2F, -0.5F, -5F, 4, 3, 6);
-		Snout2.setRotationPoint( 0F, 1.374268F - 10.73092F, -11.80168F + 1.162896F );
-		Bud_L = new ModelRenderer( this, 38, 64 );
-		Bud_L.setTextureSize( 128, 128 );
-		Bud_L.addBox( -1.5F, -0.5F, -1.5F, 3, 1, 3);
-		Bud_L.setRotationPoint( 1.8F, -3.561049F - 10.73092F, -8.146675F + 1.162896F );
-		Bud_R = new ModelRenderer( this, 38, 64 );
-		Bud_R.setTextureSize( 128, 128 );
-		Bud_R.addBox( -1.5F, -0.5F, -1.5F, 3, 1, 3);
-		Bud_R.setRotationPoint( -1.8F, -3.561049F - 10.73092F, -8.146675F  + 1.162896F);
-		
-		this.HeadNode.addChild(Head);
-		this.HeadNode.addChild(Neck);
-		this.HeadNode.addChild(Ear_R);
-		this.HeadNode.addChild(Ear2_R);
-		this.HeadNode.addChild(Ear_L);
-		this.HeadNode.addChild(Ear2_L);
-		this.HeadNode.addChild(Bud_R);
-		this.HeadNode.addChild(Bud_L);
-		this.HeadNode.addChild(Mouth);
-		this.HeadNode.addChild(Snout1);
-		this.HeadNode.addChild(Snout2);
-		this.HeadNode.addChild(Snout3);
+		this.Ear_R = new ModelRenderer(this, 60, 84);
+		this.Ear_R.setTextureSize(128, 128);
+		this.Ear_R.addBox(-4F, -1F, -0.5F, 4, 2, 1);
+		this.Ear_R.setRotationPoint(-2.5F, -1.556122F - 10.73092F, -8.616005F + 1.162896F);
+		this.Ear2_R = new ModelRenderer(this, 49, 80);
+		this.Ear2_R.setTextureSize(128, 128);
+		this.Ear2_R.addBox(-2.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.Ear2_R.setRotationPoint(-4.761655F, -2.284157F - 10.73092F, -9.393745F + 1.162896F);
+		this.Ear_L = new ModelRenderer(this, 60, 84);
+		this.Ear_L.setTextureSize(128, 128);
+		this.Ear_L.addBox(0F, -1F, -0.5F, 4, 2, 1);
+		this.Ear_L.setRotationPoint(2.5F, -1.556122F - 10.73092F, -8.616005F + 1.162896F);
+		this.Ear2_L = new ModelRenderer(this, 49, 80);
+		this.Ear2_L.setTextureSize(128, 128);
+		this.Ear2_L.addBox(1.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.Ear2_L.setRotationPoint(4.761655F, -2.284157F - 10.73092F, -9.393745F + 1.162896F);
+		this.Mouth = new ModelRenderer(this, 8, 111);
+		this.Mouth.setTextureSize(128, 128);
+		this.Mouth.addBox(-1.5F, -0.5F, -5.5F, 3, 1, 6);
+		this.Mouth.setRotationPoint(0F, 3.977737F - 10.73092F, -10.1608F + 1.162896F);
+		this.Snout3 = new ModelRenderer(this, 9, 86);
+		this.Snout3.setTextureSize(128, 128);
+		this.Snout3.addBox(-1.5F, 0F, -5F, 3, 2, 5);
+		this.Snout3.setRotationPoint(0F, -0.2211952F - 10.73092F, -12.39496F + 1.162896F);
+		this.Nose = new ModelRenderer(this, 40, 91);
+		this.Nose.setTextureSize(128, 128);
+		this.Nose.addBox(-1F, 0F, 0F, 2, 2, 2);
+		this.Nose.setRotationPoint(0F, 2.882965F - 10.73092F, -16.94551F + 1.162896F);
+		this.Snout1 = new ModelRenderer(this, 11, 76);
+		this.Snout1.setTextureSize(128, 128);
+		this.Snout1.addBox(-1.5F, 0F, -5.5F, 3, 2, 6);
+		this.Snout1.setRotationPoint(-0.01F, -1.447739F - 10.73092F, -12.70536F + 1.162896F);
+		this.Snout2 = new ModelRenderer(this, 10, 96);
+		this.Snout2.setTextureSize(128, 128);
+		this.Snout2.addBox(-2F, -0.5F, -5F, 4, 3, 6);
+		this.Snout2.setRotationPoint(0F, 1.374268F - 10.73092F, -11.80168F + 1.162896F);
+		this.Bud_L = new ModelRenderer(this, 38, 64);
+		this.Bud_L.setTextureSize(128, 128);
+		this.Bud_L.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3);
+		this.Bud_L.setRotationPoint(1.8F, -3.561049F - 10.73092F, -8.146675F + 1.162896F);
+		this.Bud_R = new ModelRenderer(this, 38, 64);
+		this.Bud_R.setTextureSize(128, 128);
+		this.Bud_R.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3);
+		this.Bud_R.setRotationPoint(-1.8F, -3.561049F - 10.73092F, -8.146675F + 1.162896F);
+
+		this.HeadNode.addChild(this.Head);
+		this.HeadNode.addChild(this.Neck);
+		this.HeadNode.addChild(this.Ear_R);
+		this.HeadNode.addChild(this.Ear2_R);
+		this.HeadNode.addChild(this.Ear_L);
+		this.HeadNode.addChild(this.Ear2_L);
+		this.HeadNode.addChild(this.Bud_R);
+		this.HeadNode.addChild(this.Bud_L);
+		this.HeadNode.addChild(this.Mouth);
+		this.HeadNode.addChild(this.Snout1);
+		this.HeadNode.addChild(this.Snout2);
+		this.HeadNode.addChild(this.Snout3);
 
 	}
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
-		Body.rotateAngleX = -0.08726646F;
-		Butt.rotateAngleX = 0.01847221F;
-		Tail.rotateAngleX = -1.015312F;
-		BackLeg_L.rotateAngleX = 0.01847221F;
-		BackLeg_R.rotateAngleX = 0.01847221F;
-		Neck.rotateAngleX = -0.9705301F;
-		Head.rotateAngleX = 0.2771511F;
-		Ear_R.rotateAngleX = 0.3975939F;
-		Ear_R.rotateAngleY = -0.2030238F;
-		Ear_R.rotateAngleZ = 0.321354F;
-		Ear2_R.rotateAngleX = 0.397594F;
-		Ear2_R.rotateAngleY = -0.2030239F;
-		Ear2_R.rotateAngleZ = 0.3213542F;
-		Ear_L.rotateAngleX = 0.3975939F;
-		Ear_L.rotateAngleY = 0.2030238F;
-		Ear_L.rotateAngleZ = -0.321354F;
-		Ear2_L.rotateAngleX = 0.397594F;
-		Ear2_L.rotateAngleY = 0.2030239F;
-		Ear2_L.rotateAngleZ = -0.3213542F;
-		Mouth.rotateAngleX = 0.2771511F;
-		Snout3.rotateAngleX = 0.6541421F;
-		Nose.rotateAngleX = 0.4028149F;
-		Snout1.rotateAngleX = 1.100248F;
-		Snout2.rotateAngleX = 0.4028149F;
-		Bud_L.rotateAngleX = 0.1493225F;
-		Bud_L.rotateAngleY = 0.1260779F;
-		Bud_L.rotateAngleZ = 0.09751797F;
-		Bud_R.rotateAngleX = 0.1493226F;
-		Bud_R.rotateAngleY = -0.1260779F;
-		Bud_R.rotateAngleZ = -0.09751798F;
+		this.Body.rotateAngleX = -0.08726646F;
+		this.Butt.rotateAngleX = 0.01847221F;
+		this.Tail.rotateAngleX = -1.015312F;
+		this.BackLeg_L.rotateAngleX = 0.01847221F;
+		this.BackLeg_R.rotateAngleX = 0.01847221F;
+		this.Neck.rotateAngleX = -0.9705301F;
+		this.Head.rotateAngleX = 0.2771511F;
+		this.Ear_R.rotateAngleX = 0.3975939F;
+		this.Ear_R.rotateAngleY = -0.2030238F;
+		this.Ear_R.rotateAngleZ = 0.321354F;
+		this.Ear2_R.rotateAngleX = 0.397594F;
+		this.Ear2_R.rotateAngleY = -0.2030239F;
+		this.Ear2_R.rotateAngleZ = 0.3213542F;
+		this.Ear_L.rotateAngleX = 0.3975939F;
+		this.Ear_L.rotateAngleY = 0.2030238F;
+		this.Ear_L.rotateAngleZ = -0.321354F;
+		this.Ear2_L.rotateAngleX = 0.397594F;
+		this.Ear2_L.rotateAngleY = 0.2030239F;
+		this.Ear2_L.rotateAngleZ = -0.3213542F;
+		this.Mouth.rotateAngleX = 0.2771511F;
+		this.Snout3.rotateAngleX = 0.6541421F;
+		this.Nose.rotateAngleX = 0.4028149F;
+		this.Snout1.rotateAngleX = 1.100248F;
+		this.Snout2.rotateAngleX = 0.4028149F;
+		this.Bud_L.rotateAngleX = 0.1493225F;
+		this.Bud_L.rotateAngleY = 0.1260779F;
+		this.Bud_L.rotateAngleZ = 0.09751797F;
+		this.Bud_R.rotateAngleX = 0.1493226F;
+		this.Bud_R.rotateAngleY = -0.1260779F;
+		this.Bud_R.rotateAngleZ = -0.09751798F;
 
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		boolean isSleeping = false;
 		EntityAnimaniaGoat ech = (EntityAnimaniaGoat) entityIn;
-		if (ech.getSleeping()) {
+		if (ech.getSleeping())
+		{
 			isSleeping = true;
 		}
 		float sleepTimer = ech.getSleepTimer();
 
-		if (isSleeping) {
+		if (isSleeping)
+		{
 
 			this.FrontLeg_L.rotateAngleX = sleepTimer * -1.8F;
 			this.FrontLeg_L.render(scale * .95F);
@@ -224,13 +226,18 @@ public class ModelDoePygmy extends ModelBase
 			this.BackLeg_R.render(scale * .95F);
 			this.HeadNode.rotateAngleY = sleepTimer * 2.8F;
 
-			if (sleepTimer > -.28) {
-				this.Body.rotateAngleX =  - (sleepTimer/3);
-			} else {
-				this.Body.rotateAngleX = + (sleepTimer/3);
+			if (sleepTimer > -.28)
+			{
+				this.Body.rotateAngleX = -(sleepTimer / 3);
+			}
+			else
+			{
+				this.Body.rotateAngleX = +(sleepTimer / 3);
 			}
 
-		} else {
+		}
+		else
+		{
 
 			this.BackLeg_L.rotateAngleZ = 0;
 			this.BackLeg_L.render(scale);
@@ -245,17 +252,16 @@ public class ModelDoePygmy extends ModelBase
 
 		}
 
-		
-		Body.render(scale);
-		Butt.render(scale);
-		Tail.render(scale);
-		
-		HeadNode.render(scale);
-		Udder.render(scale);
-		Udder1.render(scale);
-		Udder2.render(scale);
-		Udder3.render(scale);
-		Udder4.render(scale);
+		this.Body.render(scale);
+		this.Butt.render(scale);
+		this.Tail.render(scale);
+
+		this.HeadNode.render(scale);
+		this.Udder.render(scale);
+		this.Udder1.render(scale);
+		this.Udder2.render(scale);
+		this.Udder3.render(scale);
+		this.Udder4.render(scale);
 
 	}
 
@@ -264,8 +270,8 @@ public class ModelDoePygmy extends ModelBase
 	{
 		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityDoePygmy)LivingEntityIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityDoePygmy)LivingEntityIn).getHeadAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = +7.75F + ((EntityDoePygmy) LivingEntityIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityDoePygmy) LivingEntityIn).getHeadAngleX(partialTickTime);
 
 	}
 
@@ -273,7 +279,7 @@ public class ModelDoePygmy extends ModelBase
 	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
 	{
 		float f6 = 180F / (float) Math.PI;
-	
+
 		this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
 		this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
 		this.HeadNode.rotateAngleX = this.headRotationAngleX;
@@ -281,13 +287,17 @@ public class ModelDoePygmy extends ModelBase
 		boolean isSleeping = false;
 
 		EntityAnimaniaGoat ech = (EntityAnimaniaGoat) entity;
-		if (ech.getSleeping()) {
+		if (ech.getSleeping())
+		{
 			isSleeping = true;
 		}
 
-		if (!isSleeping) {
+		if (!isSleeping)
+		{
 			this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		} else {
+		}
+		else
+		{
 			this.Tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
 		this.BackLeg_L.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;

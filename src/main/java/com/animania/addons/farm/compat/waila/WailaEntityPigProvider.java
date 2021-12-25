@@ -14,29 +14,29 @@ import net.minecraft.nbt.CompoundTag;
 public class WailaPigEntityProvider extends WailaAnimalEntityProviderMateable
 {
 
-    @Override
-    public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
-       
-    	EntityAnimaniaPig tempEnt = (EntityAnimaniaPig) entity;
-		
-    	boolean played = tempEnt.getPlayed();
+	@Override
+	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
+	{
 
-        if (played)
-            currenttip.add(I18n.translateToLocal("text.waila.played"));
-        else
-            currenttip.add(I18n.translateToLocal("text.waila.bored"));
+		EntityAnimaniaPig tempEnt = (EntityAnimaniaPig) entity;
 
-        currenttip = super.getWailaBody(entity, currenttip, accessor, config);
+		boolean played = tempEnt.getPlayed();
 
-        return currenttip;
-    }
+		if (played)
+			currenttip.add(I18n.translateToLocal("text.waila.played"));
+		else
+			currenttip.add(I18n.translateToLocal("text.waila.bored"));
 
-    @Override
-    public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level) {
+		return super.getWailaBody(entity, currenttip, accessor, config);
+	}
 
-        tag.putBoolean("Played", ent.getEntityData().getBoolean("Played"));
+	@Override
+	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level)
+	{
 
-        return super.getNBTData(player, ent, tag, level);
-    }
+		tag.putBoolean("Played", ent.getEntityData().getBoolean("Played"));
+
+		return super.getNBTData(player, ent, tag, level);
+	}
 
 }

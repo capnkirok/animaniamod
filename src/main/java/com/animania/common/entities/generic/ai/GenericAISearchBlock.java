@@ -35,7 +35,7 @@ public abstract class GenericAISearchBlock extends Goal
 	private boolean hasSecondary;
 	private int walkTries = 0;
 	private boolean isDone = false;
-	private Set<BlockPos> nonValidPositions = new HashSet<BlockPos>();
+	private Set<BlockPos> nonValidPositions = new HashSet<>();
 	private int blacklistTimer = 0;
 
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
@@ -45,9 +45,8 @@ public abstract class GenericAISearchBlock extends Goal
 		this.creature = creature;
 		this.movementSpeed = speedIn;
 		this.searchRange = range;
-		this.destinationOffset = new ArrayList<Direction>();
-		for (Direction f : destinationOffset)
-			this.destinationOffset.add(f);
+		this.destinationOffset = new ArrayList<>();
+		Collections.addAll(this.destinationOffset, destinationOffset);
 		this.level = creature.level;
 		this.hasSecondary = hasSecondary;
 		// this.setMutexBits(5);
@@ -64,9 +63,9 @@ public abstract class GenericAISearchBlock extends Goal
 	@Override
 	public boolean shouldExecute()
 	{
-		blacklistTimer++;
+		this.blacklistTimer++;
 
-		if (blacklistTimer > 10)
+		if (this.blacklistTimer > 10)
 		{
 			this.nonValidPositions.clear();
 			this.blacklistTimer = 0;
@@ -85,7 +84,7 @@ public abstract class GenericAISearchBlock extends Goal
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		return destinationBlock != NO_POS && seekingBlockPos != NO_POS && !isDone && (this.shouldMoveTo(this.creature.level, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(level, seekingBlockPos) : false));
+		return this.destinationBlock != NO_POS && this.seekingBlockPos != NO_POS && !this.isDone && (this.shouldMoveTo(this.creature.level, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(this.level, this.seekingBlockPos) : false));
 	}
 
 	/**
@@ -94,7 +93,7 @@ public abstract class GenericAISearchBlock extends Goal
 	@Override
 	public void startExecuting()
 	{
-		this.creature.getNavigation().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, (this.destinationBlock.getY()), (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+		this.creature.getNavigation().tryMoveToXYZ(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY(), this.destinationBlock.getZ() + 0.5D, this.movementSpeed);
 		this.walkTries = 0;
 	}
 
@@ -114,7 +113,7 @@ public abstract class GenericAISearchBlock extends Goal
 	@Override
 	public void updateTask()
 	{
-		if (!shouldContinueExecuting())
+		if (!this.shouldContinueExecuting())
 			this.resetTask();
 
 		if (!this.destinationBlock.equals(NO_POS))
@@ -130,18 +129,19 @@ public abstract class GenericAISearchBlock extends Goal
 
 				if (isStandingStill && this.walkTries % 40 == 0)
 				{
-					this.creature.getNavigation().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, (this.destinationBlock.getY()), (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
-					this.creature.getLookHelper().setLookPosition(this.seekingBlockPos.getX() + 0.5D, (this.seekingBlockPos.getY()), this.seekingBlockPos.getZ() + 0.5D, 10.0F, this.creature.getVerticalFaceSpeed());
+					this.creature.getNavigation().tryMoveToXYZ(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY(), this.destinationBlock.getZ() + 0.5D, this.movementSpeed);
+					this.creature.getLookHelper().setLookPosition(this.seekingBlockPos.getX() + 0.5D, this.seekingBlockPos.getY(), this.seekingBlockPos.getZ() + 0.5D, 10.0F, this.creature.getVerticalFaceSpeed());
 				}
 
 				if (isStandingStill && this.walkTries > 100)
 				{
-					this.nonValidPositions.add(seekingBlockPos);
+					this.nonValidPositions.add(this.seekingBlockPos);
 
 					this.resetTask();
 					this.searchForDestination();
 				}
-			} else
+			}
+			else
 			{
 				this.isAtDestination = true;
 				this.blacklistTimer = 0;
@@ -182,17 +182,17 @@ public abstract class GenericAISearchBlock extends Goal
 	{
 		BlockPos blockpos = new BlockPos(this.creature);
 
-		if (blockpos.equals(oldBlockPos))
+		if (blockpos.equals(this.oldBlockPos))
 			return false;
-		oldBlockPos = blockpos;
+		this.oldBlockPos = blockpos;
 
 		BlockPos secondaryDest = null;
 		BlockPos secondarySeek = null;
-		int ySearchRange = searchRange / 2;
+		int ySearchRange = this.searchRange / 2;
 		if (ySearchRange < 1)
 			ySearchRange = 1;
 
-		Collections.shuffle(destinationOffset);
+		Collections.shuffle(this.destinationOffset);
 
 		for (int range = 0; range < this.searchRange; ++range)
 		{
@@ -207,9 +207,9 @@ public abstract class GenericAISearchBlock extends Goal
 						if (!this.nonValidPositions.contains(blockpos1))
 						{
 							boolean shouldMoveToPrimary = this.shouldMoveTo(this.creature.level, blockpos1);
-							if (shouldMoveToPrimary || (this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.level, blockpos1)))
+							if (shouldMoveToPrimary || this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.level, blockpos1))
 							{
-								if (destinationOffset.isEmpty())
+								if (this.destinationOffset.isEmpty())
 								{
 									if (this.creature.getNavigation().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
 									{
@@ -222,12 +222,13 @@ public abstract class GenericAISearchBlock extends Goal
 										secondaryDest = blockpos1;
 										secondarySeek = blockpos1;
 									}
-								} else
+								}
+								else
 								{
 
-									for (Direction facing : destinationOffset)
+									for (Direction facing : this.destinationOffset)
 									{
-										AxisAlignedBB aabb = level.getBlockState(blockpos1).getCollisionBoundingBox(level, blockpos1);
+										AxisAlignedBB aabb = this.level.getBlockState(blockpos1).getCollisionBoundingBox(this.level, blockpos1);
 
 										BlockPos offsetPos = aabb == Block.NULL_AABB ? blockpos1 : blockpos1.offset(facing);
 
@@ -273,10 +274,11 @@ public abstract class GenericAISearchBlock extends Goal
 			Method getPath = ReflectionUtil.findMethod(PathFinder.class, "findPath", "func_186336_a", PathPoint.class, PathPoint.class, float.class);
 
 			PathFinder finder = (PathFinder) getPathFinder.invoke(navigate);
-			Path p = (Path) getPath.invoke(finder, startPoint, endPoint, (float) searchRange);
+			Path p = (Path) getPath.invoke(finder, startPoint, endPoint, (float) this.searchRange);
 
 			return p != null;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			return false;

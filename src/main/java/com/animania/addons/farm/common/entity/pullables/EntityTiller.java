@@ -164,16 +164,15 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 			/*
 			 * else if (player.getRidingEntity() != this) {
-			 * 
+			 *
 			 * player.startRiding(this);
-			 * 
+			 *
 			 * this.rideCooldown = 20; if (this.puller == player) { this.puller
 			 * = null; this.pulled = false; this.setPullerType(0);
 			 * this.stopCart(); } }
 			 */
-
-			return true;
-		} else if (!player.isSneaking())
+		}
+		else if (!player.isSneaking())
 		{
 
 			if (player.isPassenger() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this)
@@ -184,7 +183,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				if (this.puller instanceof HorseEntity)
 				{
 					this.setPullerType(1);
-				} else if (this.puller instanceof EntityAnimaniaCow)
+				}
+				else if (this.puller instanceof EntityAnimaniaCow)
 				{
 					this.setPullerType(3);
 				}
@@ -192,9 +192,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-
-				return true;
-			} else if (player.isPassenger() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this)
+			}
+			else if (player.isPassenger() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this)
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -203,9 +202,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				stopCart();
-				return true;
-			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashHolder() == player)
+				this.stopCart();
+			}
+			else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashHolder() == player)
 			{
 				this.pulled = true;
 				this.puller = horse;
@@ -219,8 +218,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				return true;
-			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && cow != null && cow.getLeashHolder() == player)
+			}
+			else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && cow != null && cow.getLeashHolder() == player)
 			{
 				this.pulled = true;
 				this.puller = cow;
@@ -234,8 +233,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isRemote)
+			}
+			else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 
 				double diffx = Math.abs(this.getX() - player.getX());
@@ -253,8 +252,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 					}
 				}
-				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isRemote)
+			}
+			else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -263,9 +262,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				stopCart();
-				return true;
-			} else
+				this.stopCart();
+			}
+			else
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -274,8 +273,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
-				stopCart();
-				return true;
+				this.stopCart();
 			}
 		}
 		return true;
@@ -299,7 +297,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 	public boolean getHasChest()
 	{
-		return (this.dataManager.get(EntityTiller.HAS_CHEST).booleanValue());
+		return this.dataManager.get(EntityTiller.HAS_CHEST).booleanValue();
 	}
 
 	public void setTimeSinceHit(int timeSinceHit)
@@ -322,7 +320,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				super.applyEntityCollision(entityIn);
 
 			}
-		} else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY && !this.pulled)
+		}
+		else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY && !this.pulled)
 		{
 			super.applyEntityCollision(entityIn);
 
@@ -339,21 +338,24 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 			if (this.level.getBlockState(pos.up()).getBlock() instanceof BlockTallGrass || this.level.getBlockState(pos.up()).getBlock() instanceof BlockDoublePlant)
 			{
 				this.level.destroyBlock(this.getPosition(), false);
-			} else if (this.level.getBlockState(pos.up()).getBlock() instanceof BlockCrops)
+			}
+			else if (this.level.getBlockState(pos.up()).getBlock() instanceof BlockCrops)
 			{
 				// do nothing
-			} else
+			}
+			else
 			{
 				for (int j = 0; j < 10; j++)
 				{
-					ItemStack seeds = cartChest.getStackInSlot(j);
+					ItemStack seeds = this.cartChest.getStackInSlot(j);
 					if (seeds != ItemStack.EMPTY && (seeds.getItem() instanceof ItemSeeds || seeds.getItem() instanceof ItemSeedFood))
 					{
 						if (seeds.getItem() instanceof ItemSeeds)
 						{
 							ItemSeeds seedy = (ItemSeeds) seeds.getItem();
 							this.level.setBlock(pos.up(), seedy.getPlant(level, pos.up()));
-						} else
+						}
+						else
 						{
 							ItemSeedFood seedy = (ItemSeedFood) seeds.getItem();
 							this.level.setBlock(pos.up(), seedy.getPlant(level, pos.up()));
@@ -384,9 +386,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 			Vec3d posvec = new Vec3d(this.getPosition().down());
 			posvec = posvec.addVector(0.5, 0, 0.5);
 
-			tillGround(new BlockPos(posvec), lastPosMid, player);
-			tillGround(new BlockPos(posvec.add(right)), lastPosRight, player);
-			tillGround(new BlockPos(posvec.subtract(right)), lastPosLeft, player);
+			this.tillGround(new BlockPos(posvec), this.lastPosMid, player);
+			this.tillGround(new BlockPos(posvec.add(right)), this.lastPosRight, player);
+			this.tillGround(new BlockPos(posvec.subtract(right)), this.lastPosLeft, player);
 		}
 
 		if (!this.getHasChest())
@@ -441,7 +443,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 			double moveThresh = .005D;
 
-			if ((this.cartYaw < 0 && this.motionX > .001 && this.motionZ > .001) && (movX + movZ > moveThresh))
+			if (this.cartYaw < 0 && this.motionX > .001 && this.motionZ > .001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller_back", this))
 				{
@@ -451,7 +453,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_tiller", this);
 				}
-			} else if ((this.cartYaw > 0 && this.motionX < -.001 && this.motionZ < -.001) && (movX + movZ > moveThresh))
+			}
+			else if (this.cartYaw > 0 && this.motionX < -.001 && this.motionZ < -.001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller_back", this))
 				{
@@ -461,7 +464,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_tiller", this);
 				}
-			} else if ((this.cartYaw > 0 && this.motionX < -.001 && this.motionZ > .001) && (movX + movZ > moveThresh))
+			}
+			else if (this.cartYaw > 0 && this.motionX < -.001 && this.motionZ > .001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller_back", this))
 				{
@@ -471,7 +475,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_tiller", this);
 				}
-			} else if ((this.cartYaw < 0 && this.motionX > .001 && this.motionZ < -.001) && (movX + movZ > moveThresh))
+			}
+			else if (this.cartYaw < 0 && this.motionX > .001 && this.motionZ < -.001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller_back", this))
 				{
@@ -481,7 +486,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_tiller", this);
 				}
-			} else if ((this.cartYaw < 0 && this.motionX < -.001 && this.motionZ < -.001) && (movX + movZ > moveThresh))
+			}
+			else if (this.cartYaw < 0 && this.motionX < -.001 && this.motionZ < -.001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller", this))
 				{
@@ -491,7 +497,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_tiller_back", this);
 				}
-			} else if ((this.cartYaw > 0 && this.motionX > .001 && this.motionZ > .001) && (movX + movZ > moveThresh))
+			}
+			else if (this.cartYaw > 0 && this.motionX > .001 && this.motionZ > .001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller", this))
 				{
@@ -501,7 +508,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_tiller_back", this);
 				}
-			} else if ((this.cartYaw > 0 && this.motionX > .001 && this.motionZ < -.001) && (movX + movZ > moveThresh))
+			}
+			else if (this.cartYaw > 0 && this.motionX > .001 && this.motionZ < -.001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller", this))
 				{
@@ -511,7 +519,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_tiller_back", this);
 				}
-			} else if ((this.cartYaw < 0 && this.motionX < -.001 && this.motionZ > .001) && (movX + movZ > moveThresh))
+			}
+			else if (this.cartYaw < 0 && this.motionX < -.001 && this.motionZ > .001 && movX + movZ > moveThresh)
 			{
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller", this))
 				{
@@ -536,9 +545,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 			{
 				if (carts.size() > 1)
 				{
-					for (int i = 0; i < carts.size(); i++)
+					for (Object cart : carts)
 					{
-						EntityTiller tempCart = (EntityTiller) carts.get(i);
+						EntityTiller tempCart = (EntityTiller) cart;
 						if (tempCart.pulled && tempCart.puller == player && tempCart != this)
 						{
 							totPulling++;
@@ -561,9 +570,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 			{
 				if (carts.size() > 1)
 				{
-					for (int i = 0; i < carts.size(); i++)
+					for (Object cart : carts)
 					{
-						EntityTiller tempCart = (EntityTiller) carts.get(i);
+						EntityTiller tempCart = (EntityTiller) cart;
 						if (tempCart.pulled && tempCart.puller == animal && tempCart != this)
 						{
 							totPulling++;
@@ -581,20 +590,20 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 		if (this.level.isRemote && this.pulled)
 		{
-			double diffX = (this.getX() - this.prevgetX());
-			double diffZ = (this.getZ() - this.prevgetZ());
+			double diffX = this.getX() - this.prevgetX();
+			double diffZ = this.getZ() - this.prevgetZ();
 
 			double movX = Math.abs(this.getX() - this.prevgetX());
 			double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
 			double moveThresh = .008D;
 
-			if ((diffX < .005 && diffZ < .005) && (movX + movZ < moveThresh) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller", this))
+			if (diffX < .005 && diffZ < .005 && movX + movZ < moveThresh && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller", this))
 			{
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_tiller", this);
 			}
 
-			if ((diffX < .005 && diffZ < .005) && (movX + movZ < moveThresh) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller_back", this))
+			if (diffX < .005 && diffZ < .005 && movX + movZ < moveThresh && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_tiller_back", this))
 			{
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_tiller_back", this);
 			}
@@ -622,7 +631,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 					this.pulled = true;
 					this.setPullerType(1);
 				}
-			} else if (this.getPullerType() == 2)
+			}
+			else if (this.getPullerType() == 2)
 			{
 				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.level, this);
 				if (!entities.isEmpty())
@@ -631,7 +641,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 					this.pulled = true;
 					this.setPullerType(2);
 				}
-			} else if (this.getPullerType() == 3)
+			}
+			else if (this.getPullerType() == 3)
 			{
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 3, this.level, this);
 				if (!entities.isEmpty())
@@ -641,7 +652,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 					this.setPullerType(3);
 				}
 
-			} else
+			}
+			else
 			{
 				this.pulled = false;
 				this.setPullerType(0);
@@ -654,7 +666,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 			if (this.puller instanceof HorseEntity)
 			{
 				this.setPullerType(1);
-			} else if (this.puller instanceof EntityAnimaniaCow)
+			}
+			else if (this.puller instanceof EntityAnimaniaCow)
 			{
 				this.setPullerType(3);
 			}
@@ -666,7 +679,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 			this.puller = null;
 			this.setPullerType(0);
 			level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
-			stopCart();
+			this.stopCart();
 		}
 
 		if (this.pulled)
@@ -700,7 +713,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof PlayerEntity && !entity.isPassenger() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof PlayerEntity))
 						{
 							entity.startRiding(this);
-						} else
+						}
+						else
 						{
 							this.applyEntityCollision(entity);
 						}
@@ -776,7 +790,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				if (i == 0)
 				{
 					f = 0.2F;
-				} else
+				}
+				else
 				{
 					f = -0.6F;
 				}
@@ -787,7 +802,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				}
 			}
 
-			Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+			Vec3d vec3d = new Vec3d(f, 0.0D, 0.0D).rotateYaw(-this.rotationYaw * 0.017453292F - (float) Math.PI / 2F);
 			passenger.setPosition(this.getX() + vec3d.x, this.getY() + f1, this.getZ() + vec3d.z);
 			passenger.rotationYaw += this.deltaRotation;
 			passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
@@ -830,12 +845,14 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 		if (this.isEntityInvulnerable(source))
 		{
 			return false;
-		} else if (!this.level.isRemote && !this.isDead)
+		}
+		else if (!this.level.isRemote && !this.isDead)
 		{
 			if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null)
 			{
 				return false;
-			} else
+			}
+			else
 			{
 
 				this.setTimeSinceHit(10);
@@ -855,7 +872,8 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 				return true;
 			}
-		} else
+		}
+		else
 		{
 			return true;
 		}
@@ -869,13 +887,11 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 		double movX = Math.abs(this.getX() - this.prevgetX());
 		double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
-		if (entityIn == this.puller)
+		if (entityIn == this.puller || this.pulled)
 		{
 			return null;
-		} else if (this.pulled)
-		{
-			return null;
-		} else
+		}
+		else
 		{
 			return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
 		}
@@ -973,10 +989,12 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 		if (entity instanceof HorseEntity)
 		{
 			pullerType = 1;
-		} else if (entity instanceof PlayerEntity)
+		}
+		else if (entity instanceof PlayerEntity)
 		{
 			pullerType = 2;
-		} else if (entity instanceof EntityAnimaniaCow)
+		}
+		else if (entity instanceof EntityAnimaniaCow)
 		{
 			pullerType = 3;
 		}

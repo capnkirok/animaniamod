@@ -38,9 +38,7 @@ public class AddonItemIngredient extends Ingredient
 
 			Ingredient fallback = CraftingHelper.getIngredient(json.get("fallback"), context);
 
-			AddonItemIngredient ing = new AddonItemIngredient(main, fallback, id);
-
-			return ing;
+			return new AddonItemIngredient(main, fallback, id);
 		}
 
 	}

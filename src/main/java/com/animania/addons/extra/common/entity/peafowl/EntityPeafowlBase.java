@@ -19,21 +19,21 @@ import net.minecraft.network.syncher.SynchedEntityData;
 public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoProviderBase
 {
 
-	private static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean>defineId(EntityPeafowlBase.class, EntityEntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer>defineId(EntityPeafowlBase.class, EntityEntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean> defineId(EntityPeafowlBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer> defineId(EntityPeafowlBase.class, EntityEntityDataSerializers.INT);
 	protected int laidTimer;
-	
+
 	public EntityPeafowlBase(Level levelIn)
 	{
 		super(levelIn);
-		this.setSize(0.6F, 1.2F); 
+		this.setSize(0.6F, 1.2F);
 		this.width = 0.6F;
 		this.height = 1.2F;
 		this.goalSelector.addGoal(1, new FindPeacockNestGoal(this, 1.0D));
 		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100);
 		this.gender = EntityGender.FEMALE;
 	}
-	
+
 	@Override
 	protected void entityInit()
 	{
@@ -41,7 +41,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 		this.dataManager.register(EntityPeafowlBase.LAID, true);
 		this.dataManager.register(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
@@ -68,16 +68,18 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 		this.dataManager.set(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(laidtimer));
 	}
 
-	
 	@Override
 	public void onLivingUpdate()
 	{
 		int laidTimer = this.getLaidTimer();
 
-		if (laidTimer > -1) {
+		if (laidTimer > -1)
+		{
 			laidTimer--;
-			this.setLaidTimer(laidTimer); 
-		} else {
+			this.setLaidTimer(laidTimer);
+		}
+		else
+		{
 			this.setLaid(false);
 		}
 
@@ -99,7 +101,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 		else
 			this.dataManager.set(EntityPeafowlBase.LAID, false);
 	}
-	
+
 	@Override
 	public void playLivingSound()
 	{
@@ -108,19 +110,22 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume() - .8F, this.getSoundPitch() + .2F);
 	}
-	
+
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
 
-			EntityPeafowlBase ehb = (EntityPeafowlBase)entity;
+			EntityPeafowlBase ehb = (EntityPeafowlBase) entity;
 			int timer = ehb.getLaidTimer();
-			if (timer >= 0) { 
+			if (timer >= 0)
+			{
 				probeInfo.text(I18n.translateToLocal("text.waila.egglay") + ": " + timer);
-			} else {
+			}
+			else
+			{
 				probeInfo.text(I18n.translateToLocal("text.waila.egglay2"));
 			}
 		}

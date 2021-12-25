@@ -121,7 +121,7 @@ public class PoseChihuahuaSleeping extends ModelBase
 		this.body.addChild(this.front_left);
 		this.body.addChild(this.back_left);
 		this.body.addChild(this.back_right);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

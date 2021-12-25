@@ -76,7 +76,7 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 	public FeedAnimalTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
 	{
 		ItemStack item = ItemStack.EMPTY;
-		EntityEntry entity = null;
+		EntityEntry entity;
 		boolean useOptional = false;
 
 		ResourceLocation entityloc = new ResourceLocation(JsonUtils.getString(json, "entity"));
@@ -86,12 +86,14 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 			item = AnimaniaHelper.getItemStack(JsonUtils.getJsonObject(json, "itemstack"));
 			if (item.isEmpty())
 				throw new JsonSyntaxException("Item cannot be air '" + JsonUtils.getJsonObject(json, "item").toString() + "'");
-		} else if (json.has("optional"))
+		}
+		else if (json.has("optional"))
 		{
 			try
 			{
 				item = AnimaniaHelper.getItemStack(JsonUtils.getJsonObject(json, "optional"));
-			} catch (Exception e)
+			}
+			catch (Exception e)
 			{
 				item = ItemStack.EMPTY;
 			}
@@ -121,7 +123,7 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 
 		public boolean test(ItemStack item, EntityEntry entry, Entity entity)
 		{
-			if (this.item.isEmpty() && optional)
+			if (this.item.isEmpty() && this.optional)
 				return false;
 
 			if (this.item.isEmpty())

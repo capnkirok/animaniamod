@@ -30,12 +30,14 @@ public class UpdateHandler
 			if (UpdateHandler.newestVersion.equals(UpdateHandler.currentVersion))
 			{
 				// show = true;
-			} else
+			}
+			else
 			{
 				UpdateHandler.show = true;
 				UpdateHandler.updateStatus = TextFormatting.WHITE + I18n.translateToLocal("animania.updatetext.1") + " " + TextFormatting.GOLD + UpdateHandler.newestVersion + TextFormatting.RESET + " " + I18n.translateToLocal("animania.updatetext.2");
 			}
-		} else
+		}
+		else
 		{
 			// UpdateHandler.show = false;
 			UpdateHandler.show = true;
@@ -52,7 +54,8 @@ public class UpdateHandler
 			Scanner s = new Scanner(url.openStream());
 			UpdateHandler.newestVersion = s.next();
 			s.close();
-		} catch (Exception ex)
+		}
+		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}

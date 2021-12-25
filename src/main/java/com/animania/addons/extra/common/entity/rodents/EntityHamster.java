@@ -3,7 +3,6 @@ package com.animania.addons.extra.common.entity.rodents;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
@@ -86,7 +85,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.FLOAT);
 	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.BOOLEAN);
 
-	private static final String[] HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white", "gold" };
+	private static final String[] HAMSTER_TEXTURES = { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white", "gold" };
 
 	private int fedTimer;
 	private int wateredTimer;
@@ -95,7 +94,6 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	public int blinkTimer;
 	private long rideCount;
 
-	private int stackCount;
 	private int eatCount;
 	private int foodStackCount;
 	private int standCount;
@@ -106,7 +104,6 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	private float field_25054_c;
 	private static List hamsterColorList;
 	private PlayerEntity givemeEntity;
-	private int breeding;
 	private boolean mountFlag;
 	private double yOffset;
 	private ResourceLocation resourceLocation;
@@ -123,13 +120,13 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		this.height = 0.3F;
 		this.stepHeight = 1.0F;
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-		this.wateredTimer = (AnimaniaConfig.careAndFeeding.waterTimer * 4) + this.rand.nextInt(200);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 4 + this.rand.nextInt(200);
 		this.looksWithInterest = false;
-		this.stackCount = 20;
+		int stackCount = 20;
 		this.eatCount = 5000;
 		this.standCount = 30;
 		this.isStanding = false;
-		this.breeding = 0;
+		int breeding = 0;
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + this.rand.nextInt(70);
@@ -141,30 +138,22 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	protected void initAI()
 	{
 
-		this.goalSelector.addGoal(1, new GenericAIPanic<EntityHamster>(this, 1.4D));
+		this.goalSelector.addGoal(1, new GenericAIPanic<>(this, 1.4D));
 		this.goalSelector.addGoal(2, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(3, new GenericAIFindWater<EntityHamster>(this, 1.0D, null, EntityHamster.class, true));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityHamster>(this, 1.0D, null, false));
+			this.goalSelector.addGoal(3, new GenericAIFindWater<>(this, 1.0D, null, EntityHamster.class, true));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.0D, null, false));
 		}
 		this.goalSelector.addGoal(4, new FleeSunGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new GenericAIWanderAvoidWater(this, 1.1D));
-		this.goalSelector.addGoal(6, new GenericAITempt<EntityHamster>(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(7, new GenericAIFollowOwner<EntityHamster>(this, 1.0D, 10.0F, 2.0F));
+		this.goalSelector.addGoal(6, new GenericAITempt<>(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(7, new GenericAIFollowOwner<>(this, 1.0D, 10.0F, 2.0F));
 		this.goalSelector.addGoal(8, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(9, new LookIdleRodentGoal(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.goalSelector.addGoal(10, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hamsterBed), Block.getBlockFromName(ExtraConfig.settings.hamsterBed2), EntityHamster.class, new Function<Long, Boolean>() {
-
-				@Override
-				public Boolean apply(Long leveltime)
-				{		
-					return (leveltime < 13000);
-				}
-				
-			}));
+			this.goalSelector.addGoal(10, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hamsterBed), Block.getBlockFromName(ExtraConfig.settings.hamsterBed2), EntityHamster.class, leveltime -> leveltime < 13000));
 		}
 		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 
@@ -323,43 +312,44 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 				props.setType("hamster");
 				this.setDead();
 				player.swingArm(EnumHand.MAIN_HAND);
-				if(!player.level.isRemote)
+				if (!player.level.isRemote)
 					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.level.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 				return true;
 			}
 
 		}
 
-		if (!itemstack.isEmpty() && itemstack.getItem() == ExtraAddonItemHandler.hamsterBallColored && !isInBall() && !this.getSleeping())
+		if (!itemstack.isEmpty() && itemstack.getItem() == ExtraAddonItemHandler.hamsterBallColored && !this.isInBall() && !this.getSleeping())
 		{
 			if (this.isSitting())
 			{
 				this.setSitting(false);
 			}
-			setInBall(true);
+			this.setInBall(true);
 			int meta = itemstack.getMetadata();
-			setBallColor(meta);
+			this.setBallColor(meta);
 			if (!player.isCreative())
 				itemstack.shrink(1);
 			return true;
 		}
-		if (!itemstack.isEmpty() && itemstack.getItem() == ExtraAddonItemHandler.hamsterBallClear && !isInBall() && !this.getSleeping())
+		if (!itemstack.isEmpty() && itemstack.getItem() == ExtraAddonItemHandler.hamsterBallClear && !this.isInBall() && !this.getSleeping())
 		{
 			if (this.isSitting())
 			{
 				this.setSitting(false);
 				this.setSitting(false);
 			}
-			setInBall(true);
+			this.setInBall(true);
 			int meta = itemstack.getMetadata();
-			setBallColor(16);
+			this.setBallColor(16);
 			if (!player.isCreative())
 				itemstack.shrink(1);
 			return true;
-		} else if (itemstack.isEmpty() && isInBall() && !this.getSleeping())
+		}
+		else if (itemstack.isEmpty() && this.isInBall() && !this.getSleeping())
 		{
 			int color = this.getBallColor();
-			setInBall(false);
+			this.setInBall(false);
 			if (!player.isCreative())
 			{
 				if (color == 16)
@@ -458,7 +448,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 				this.navigator.stop();
 				this.isJumping = false;
 			}
-		} else if (this.isHamsterStanding() && this.standCount-- <= 0 && this.rand.nextInt(10) == 0)
+		}
+		else if (this.isHamsterStanding() && this.standCount-- <= 0 && this.rand.nextInt(10) == 0)
 			this.setHamsterStanding(false);
 		if (this.getFoodStackCount() > 0)
 			if (this.eatCount == 0)
@@ -468,7 +459,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 					this.eatFood();
 					this.eatCount = 5000;
 				}
-			} else
+			}
+			else
 				this.eatCount--;
 		this.looksWithInterest = false;
 		if (!this.hasPath())
@@ -562,7 +554,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		{
 			this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.30F, 1.6F);
 			this.dataManager.set(EntityHamster.IN_BALL, true);
-		} else
+		}
+		else
 		{
 			this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.30F, 1.3F);
 			this.dataManager.set(EntityHamster.IN_BALL, false);
@@ -673,8 +666,9 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		try
 		{
 			// System.out.print(this.getIntFromDataManager(COLOR_NUM));
-			return (this.getIntFromDataManager(COLOR_NUM));
-		} catch (Exception e)
+			return this.getIntFromDataManager(COLOR_NUM);
+		}
+		catch (Exception e)
 		{
 			// System.out.print(e);
 			return this.getRandom().nextInt(8);
@@ -692,7 +686,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		{
 			this.foodStackCount++;
 			return true;
-		} else
+		}
+		else
 		{
 			this.heal(1);
 			return false;
@@ -706,7 +701,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 			this.foodStackCount--;
 			this.heal(1);
 			return true;
-		} else
+		}
+		else
 			return false;
 	}
 
@@ -764,13 +760,10 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 
 	private void doPatreonCheck(PlayerEntity player)
 	{
-		if (player.isSneaking())
+		if (player.isSneaking() && PatreonHandler.isPlayerPatreon(player))
 		{
-			if (PatreonHandler.isPlayerPatreon(player))
-			{
-				this.setColorNumber(8);
-				this.resourceLocation = null;
-			}
+			this.setColorNumber(8);
+			this.resourceLocation = null;
 		}
 	}
 
@@ -780,7 +773,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		if (this.getColorNumber() == 9)
 		{
 			this.setColorNumber(8);
-		} else if (this.getColorNumber() > 9)
+		}
+		else if (this.getColorNumber() > 9)
 		{
 			this.setColorNumber(0);
 		}
@@ -801,7 +795,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -845,13 +839,13 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
@@ -868,13 +862,13 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -886,37 +880,37 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override

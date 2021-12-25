@@ -27,7 +27,7 @@ public class RenderPeacockBase<T extends EntityPeacockBase> extends RenderLiving
 	public RenderPeacockBase(RenderManager rm)
 	{
 		super(rm, new ModelPeacock(), 0.32F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/peacocks/peacock_blink.png"), 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/peacocks/peacock_blink.png"), 0));
 	}
 
 	@Override
@@ -42,14 +42,14 @@ public class RenderPeacockBase<T extends EntityPeacockBase> extends RenderLiving
 	protected void preRenderCallback(T LivingEntity, float f)
 	{
 		this.preRenderScale(LivingEntity, f);
-		blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
+		this.blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
 	}
 
 	protected void preRenderScale(T entity, float f)
 	{
 		GL11.glScalef(1.0F, 1.0F, 1.0F);
 
-		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
+		EntityAnimaniaPeacock entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			GlStateManager.translate(-0.25F, 0.45F, -0.45F);

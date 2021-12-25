@@ -33,122 +33,132 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 
 	public TileEntityCheeseMold()
 	{
-		fluidHandler = new FluidHandlerCheeseMold();
-		itemHandler = new ItemHandlerCheeseMold();
+		this.fluidHandler = new FluidHandlerCheeseMold();
+		this.itemHandler = new ItemHandlerCheeseMold();
 	}
 
 	@Override
 	public void update()
 	{
-		if (level.getBlockState(pos).getBlock() == FarmAddonBlockHandler.blockCheeseMold)
+		if (this.level.getBlockState(pos).getBlock() == FarmAddonBlockHandler.blockCheeseMold)
 		{
 
-			if (this.fluidHandler.getFluid() != null && this.fluidHandler.getFluid().amount >= 1000 && progress < FarmConfig.settings.cheeseMaturityTime && this.itemHandler.getStackInSlot(0).isEmpty())
+			if (this.fluidHandler.getFluid() != null && this.fluidHandler.getFluid().amount >= 1000 && this.progress < FarmConfig.settings.cheeseMaturityTime && this.itemHandler.getStackInSlot(0).isEmpty())
 			{
-				progress++;
-				markDirty();
+				this.progress++;
+				this.markDirty();
 
 			}
 
-			if (progress >= FarmConfig.settings.cheeseMaturityTime)
+			if (this.progress >= FarmConfig.settings.cheeseMaturityTime)
 			{
-				FluidStack fluid = fluidHandler.getFluid();
+				FluidStack fluid = this.fluidHandler.getFluid();
 				if (fluid != null)
 				{
-					BlockState state = level.getBlockState(pos);
-					fluidHandler.drain(1000, true);
+					BlockState state = this.level.getBlockState(pos);
+					this.fluidHandler.drain(1000, true);
 					if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkFriesian)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelFriesian));
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
-					} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
+					}
+					else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelHolstein));
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
-					} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
+					}
+					else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelGoat));
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_CHEESE));
-					} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_CHEESE));
+					}
+					else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelSheep));
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
-					} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
+					}
+					else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelJersey));
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
-					} else if (fluid.getFluid() == FluidRegistry.WATER)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
+					}
+					else if (fluid.getFluid() == FluidRegistry.WATER)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.salt, FarmConfig.settings.saltCreationAmount));
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
 					}
 
-					progress = 0;
-					markDirty();
+					this.progress = 0;
+					this.markDirty();
 
 				}
 
 			}
 
-			BlockState state2 = level.getBlockState(pos);
+			BlockState state2 = this.level.getBlockState(pos);
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelFriesian && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.FRIESIAN_CHEESE)
-				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
+				this.level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelHolstein && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.HOLSTEIN_CHEESE)
-				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
+				this.level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelJersey && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.JERSEY_CHEESE)
-				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
+				this.level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelGoat && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.GOAT_CHEESE)
-				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_CHEESE));
+				this.level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelSheep && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SHEEP_CHEESE)
-				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
+				this.level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.salt && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SALT)
-				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
+				this.level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
 
 			if (this.fluidHandler.getFluid() != null)
 			{
 
-				FluidStack fluid = fluidHandler.getFluid();
+				FluidStack fluid = this.fluidHandler.getFluid();
 				if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkFriesian)
 				{
-					BlockState state = level.getBlockState(pos);
+					BlockState state = this.level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.FRIESIAN_MILK)
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_MILK));
-				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_MILK));
+				}
+				else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein)
 				{
-					BlockState state = level.getBlockState(pos);
+					BlockState state = this.level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.HOLSTEIN_MILK)
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_MILK));
-				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_MILK));
+				}
+				else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey)
 				{
-					BlockState state = level.getBlockState(pos);
+					BlockState state = this.level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.JERSEY_MILK)
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_MILK));
-				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_MILK));
+				}
+				else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat)
 				{
-					BlockState state = level.getBlockState(pos);
+					BlockState state = this.level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.GOAT_MILK)
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_MILK));
-				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_MILK));
+				}
+				else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep)
 				{
-					BlockState state = level.getBlockState(pos);
+					BlockState state = this.level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SHEEP_MILK)
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_MILK));
-				} else if (fluid.getFluid() == FluidRegistry.WATER)
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_MILK));
+				}
+				else if (fluid.getFluid() == FluidRegistry.WATER)
 				{
-					BlockState state = level.getBlockState(pos);
+					BlockState state = this.level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.WATER)
-						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.WATER));
+						this.level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.WATER));
 				}
 			}
 
-			if (itemHandler.getStackInSlot(0).isEmpty() && this.fluidHandler.getFluid() == null && level.getBlockState(pos) != level.getBlockState(pos).getBlock().defaultBlockState())
-				level.setBlock(pos, level.getBlockState(pos).getBlock().defaultBlockState());
+			if (this.itemHandler.getStackInSlot(0).isEmpty() && this.fluidHandler.getFluid() == null && this.level.getBlockState(pos) != this.level.getBlockState(pos).getBlock().defaultBlockState())
+				this.level.setBlock(pos, this.level.getBlockState(pos).getBlock().defaultBlockState());
 
 		}
 	}
@@ -157,9 +167,7 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 	public boolean hasCapability(Capability<?> capability, Direction facing)
 	{
 
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty())
-			return true;
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty() || capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return true;
 
 		return super.hasCapability(capability, facing);
@@ -202,17 +210,17 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 
 	public FluidHandlerCheeseMold getFluidHandler()
 	{
-		return fluidHandler;
+		return this.fluidHandler;
 	}
 
 	public ItemHandlerCheeseMold getItemHandler()
 	{
-		return itemHandler;
+		return this.itemHandler;
 	}
 
 	public int getProgress()
 	{
-		return progress;
+		return this.progress;
 	}
 
 	public void setProgress(int progress)
@@ -230,7 +238,7 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 		items = this.itemHandler.serializeNBT();
 		tag.putTag("fluid", fluid);
 		tag.putTag("items", items);
-		tag.putInteger("progress", progress);
+		tag.putInteger("progress", this.progress);
 
 		return tag;
 

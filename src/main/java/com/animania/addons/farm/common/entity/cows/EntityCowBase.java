@@ -72,7 +72,8 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		if (FarmConfig.settings.cowsMilkableAtSpawn)
 		{
 			this.dataManager.register(CowEntityBase.HAS_KIDS, true);
-		} else
+		}
+		else
 		{
 			this.dataManager.register(CowEntityBase.HAS_KIDS, false);
 		}
@@ -195,7 +196,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				if (this.getCustomNameTag().trim().toLowerCase().equals("purp"))
 					result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(new ItemStack(Items.LAVA_BUCKET)), 1000, player, true);
 				else
-					result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(milk.copy()), 1000, player, true);
+					result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(this.milk.copy()), 1000, player, true);
 
 				ItemStack filled;
 
@@ -203,19 +204,21 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				{
 					Item item = stack.getItem();
 					if (item == Items.BUCKET)
-						filled = milk.copy();
+						filled = this.milk.copy();
 					else if (ModList.get().isLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
 						filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 					else
 						return false;
-				} else
+				}
+				else
 					filled = result.result;
 				stack.shrink(1);
 				AnimaniaHelper.addItem(player, filled);
 				this.setWatered(false);
 			}
 			return true;
-		} else
+		}
+		else
 			return super.processInteract(player, hand);
 	}
 
@@ -250,7 +253,8 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				{
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
-				} else
+				}
+				else
 				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
@@ -274,7 +278,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	@Override
 	public int getDryTimer()
 	{
-		return dryTimer;
+		return this.dryTimer;
 	}
 
 	@Override

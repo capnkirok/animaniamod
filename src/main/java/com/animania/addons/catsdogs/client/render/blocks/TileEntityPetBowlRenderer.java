@@ -37,7 +37,7 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 	public static TileEntityPetBowlRenderer instance;
 	private final ModelPetBowl pet_bowl = new ModelPetBowl();
 
-	private static Map<TileEntityPetBowl, Color> cachedColors = new HashMap<TileEntityPetBowl, Color>();
+	private static Map<TileEntityPetBowl, Color> cachedColors = new HashMap<>();
 
 	@Override
 	public void render(TileEntityPetBowl te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
@@ -53,7 +53,7 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 		GlStateManager.enableCull();
 
 		this.bindTexture(TEXTURE);
-		pet_bowl.render((Entity) null, partialTicks, 0.0F, 0.0F, 0, 0.0F, 0.0625F);
+		this.pet_bowl.render((Entity) null, partialTicks, 0.0F, 0.0F, 0, 0.0F, 0.0625F);
 
 		if (te.getBowlContent() == BowlContent.FOOD)
 		{
@@ -66,24 +66,24 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 
 			if (RenderEvents.ticks % 20 == 0)
 			{
-				Color foodColor = getAverageColor(item);
+				Color foodColor = this.getAverageColor(item);
 				cachedColors.put(te, foodColor);
 			}
 
 			Color foodColor = cachedColors.get(te);
 			if (foodColor == null)
 			{
-				foodColor = getAverageColor(item);
+				foodColor = this.getAverageColor(item);
 				cachedColors.put(te, foodColor);
 			}
 
 			float[] rgb = new float[3];
 			foodColor.getRGBColorComponents(rgb);
 
-			pet_bowl.setColor(rgb[0], rgb[1], rgb[2]);
+			this.pet_bowl.setColor(rgb[0], rgb[1], rgb[2]);
 			GlStateManager.scale(1.2, 1.2, 1.2);
 			GlStateManager.translate(0, -0.12 - (item.getCount() - 1) * 0.04, 0);
-			pet_bowl.renderFood(0.0625F);
+			this.pet_bowl.renderFood(0.0625F);
 
 			GlStateManager.disableCull();
 			GlStateManager.disableBlend();
@@ -100,7 +100,7 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 			{
 				TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fluid.getFluid().getStill().toString());
 				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getResourceDomain() + ":textures/" + fluid.getFluid().getStill().getResourcePath() + ".png");
-				double multi = ((double) fluid.amount / (double) 1000);
+				double multi = (double) fluid.amount / 1000;
 				GlStateManager.pushMatrix();
 				GlStateManager.translate(0.4, 1.405, -0.3);
 				GlStateManager.enableAlpha();
@@ -141,9 +141,9 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 		double uLen = u * len;
 		double vLen = v * len;
 
-		double a = Math.sqrt((len * len) / 2);
-		double b = Math.sqrt((uLen * uLen) / 2);
-		double c = Math.sqrt((vLen * vLen) / 2);
+		double a = Math.sqrt(len * len / 2);
+		double b = Math.sqrt(uLen * uLen / 2);
+		double c = Math.sqrt(vLen * vLen / 2);
 
 		bufferbuilder.begin(GL11.GL_POLYGON, DefaultVertexFormats.POSITION_TEX_NORMAL);
 		bufferbuilder.pos(x + a, y, 0).tex(u1 - b, v1).normal(0, 0, 1).endVertex();
@@ -169,7 +169,8 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 
 			is = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
 			image = ImageIO.read(is);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 			return new Color(0, 0, 0);

@@ -19,111 +19,111 @@ public class LinkComponent implements IManualComponent
 	private GuiManual manual;
 	private int x;
 	private int y;
-	
+
 	private int absoluteX;
 	private int absoluteY;
-	
+
 	private int objectWidth;
 	private int objectHeight;
-	
+
 	private Minecraft mc;
-	
+
 	public LinkComponent(int x, int y, String buttonText, ResourceLocation link)
 	{
 		this.link = link;
 		this.manual = GuiManual.INSTANCE;
 		this.absoluteX = x + GuiManual.START_OFFSET_X;
 		this.absoluteY = y + GuiManual.START_OFFSET_Y;
-		
+
 		this.text = buttonText.trim();
 		this.x = x;
 		this.y = y;
-		
+
 		this.mc = Minecraft.getInstance();
-		
-		this.objectHeight = mc.font.lineHeight;
-		this.objectWidth = mc.font.width(text);
+
+		this.objectHeight = this.mc.font.lineHeight;
+		this.objectWidth = this.mc.font.width(this.text);
 	}
 
 	@Override
 	public void init()
 	{
-		
+
 	}
 
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		mc.font.drawString((isHovering(mouseX, mouseY) ? (TextFormatting.BLUE + "" + TextFormatting.UNDERLINE) : (TextFormatting.BLUE)) + text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
+		this.mc.font.drawString((this.isHovering(mouseX, mouseY) ? TextFormatting.BLUE + "" + TextFormatting.UNDERLINE : TextFormatting.BLUE) + this.text, this.absoluteX + this.manual.guiLeft, this.absoluteY + this.manual.guiTop, 0);
 	}
-	
+
 	@Override
 	public void drawLater(int mouseX, int mouseY, float partialTicks)
 	{
-		if(isHovering(mouseX, mouseY))
+		if (this.isHovering(mouseX, mouseY))
 		{
-			ManualTopic t = manual.manualContent.get(link);
+			ManualTopic t = this.manual.manualContent.get(this.link);
 			String name = TextFormatting.DARK_RED + "INVALID LINK";
-			if(t != null)
+			if (t != null)
 				name = t.getName();
 			GlStateManager.pushMatrix();
 			GlStateManager.disableLighting();
-			manual.drawHoveringText(name, mouseX, mouseY);
+			this.manual.drawHoveringText(name, mouseX, mouseY);
 			GlStateManager.disableLighting();
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	private boolean isHovering(int mouseX, int mouseY)
 	{
-		return mouseX > absoluteX + manual.guiLeft && mouseX < absoluteX + manual.guiLeft + objectWidth && mouseY > absoluteY + manual.guiTop && mouseY < absoluteY + manual.guiTop + objectHeight;
+		return mouseX > this.absoluteX + this.manual.guiLeft && mouseX < this.absoluteX + this.manual.guiLeft + this.objectWidth && mouseY > this.absoluteY + this.manual.guiTop && mouseY < this.absoluteY + this.manual.guiTop + this.objectHeight;
 	}
 
 	@Override
 	public void onLeftClick()
 	{
-		ManualTopic t = manual.manualContent.get(link);
-        mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+		ManualTopic t = this.manual.manualContent.get(this.link);
+		this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 
-		if(t != null)
+		if (t != null)
 		{
-			manual.lastTopic = manual.currentTopic;
-			manual.currentTopic = t;
-			manual.pageIndex = 0;
-			manual.isPrevTopic = false;
-			manual.updateButtons();
-			manual.initComponents();
+			this.manual.lastTopic = this.manual.currentTopic;
+			this.manual.currentTopic = t;
+			this.manual.pageIndex = 0;
+			this.manual.isPrevTopic = false;
+			this.manual.updateButtons();
+			this.manual.initComponents();
 		}
 	}
 
 	@Override
 	public void onRightClick()
 	{
-		
+
 	}
 
 	@Override
 	public int getObjectWidth()
 	{
-		return objectWidth;
+		return this.objectWidth;
 	}
 
 	@Override
 	public int getObjectHeight()
 	{
-		return objectHeight;
+		return this.objectHeight;
 	}
 
 	@Override
 	public int getX()
 	{
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public int getY()
 	{
-		return y;
+		return this.y;
 	}
 
 	@Override
@@ -141,11 +141,11 @@ public class LinkComponent implements IManualComponent
 		this.absoluteY = y + GuiManual.START_OFFSET_Y;
 		return this;
 	}
-	
+
 	@Override
 	public String toString()
 	{
-		return text + "@" + link;
+		return this.text + "@" + this.link;
 	}
 
 }

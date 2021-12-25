@@ -38,15 +38,13 @@ public class WailaAnimalEntityProviderBase implements IWailaEntityProvider
 		boolean watered = accessor.getNBTData().getBoolean("Watered");
 		boolean sleeping = accessor.getNBTData().getBoolean("Sleeping");
 
-		if (entity instanceof IFoodEating)
+		if (entity instanceof IFoodEating tempEnt)
 		{
-			IFoodEating tempEnt = (IFoodEating) entity;
 			fed = tempEnt.getFed();
 			watered = tempEnt.getWatered();
 		}
-		if (entity instanceof ISleeping)
+		if (entity instanceof ISleeping tempEnt)
 		{
-			ISleeping tempEnt = (ISleeping) entity;
 			sleeping = tempEnt.getSleeping();
 		}
 
@@ -65,12 +63,8 @@ public class WailaAnimalEntityProviderBase implements IWailaEntityProvider
 		if (sleeping)
 			currenttip.add(I18n.translateToLocal("text.waila.sleeping"));
 
-		if (accessor.getPlayer().isSneaking())
-			if (entity instanceof ISterilizable)
-			{
-				if (((ISterilizable) entity).getSterilized())
-					currenttip.add(I18n.translateToLocal("text.waila.sterilized"));
-			}
+		if ((accessor.getPlayer().isSneaking() && entity instanceof ISterilizable) && ((ISterilizable) entity).getSterilized())
+			currenttip.add(I18n.translateToLocal("text.waila.sterilized"));
 
 		return currenttip;
 	}

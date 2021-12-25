@@ -35,19 +35,18 @@ public class GenericAIFollowParents<T extends PathfinderMob & IChild & ISleeping
 		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
 
-			if (!childAnimal.level.isDay() || childAnimal.getSleeping())
+			if (!this.childAnimal.level.isDay() || this.childAnimal.getSleeping())
 			{
 				this.delayCounter = 0;
 				return false;
 			}
 
-			if (childAnimal.getParentUniqueId() == null)
+			if (this.childAnimal.getParentUniqueId() == null)
 			{
-				return false;
 			}
 			else
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(mother, 40, this.childAnimal.level, this.childAnimal);
+				List entities = AnimaniaHelper.getEntitiesInRange(this.mother, 40, this.childAnimal.level, this.childAnimal);
 
 				for (int k = 0; k <= entities.size() - 1; k++)
 				{
@@ -69,7 +68,7 @@ public class GenericAIFollowParents<T extends PathfinderMob & IChild & ISleeping
 
 						if (x2 <= 20 && y2 <= 8 && z2 <= 20 && x2 >= 3 && z2 >= 3)
 						{
-							this.parentAnimal =  mother;
+							this.parentAnimal = mother;
 							return true;
 						}
 						else

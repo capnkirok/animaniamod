@@ -23,26 +23,26 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", horseBaseDir = "textures/entity/horses/";
 
-	private static final ResourceLocation[] HORSE_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "black.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "bw1.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "bw2.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "grey.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "red.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "white.png") };
+	private static final ResourceLocation[] HORSE_TEXTURES = { new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "black.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "bw1.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "bw2.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "grey.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "red.png"), new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "white.png") };
 	private static ResourceLocation BLINK = new ResourceLocation("animania:textures/entity/horses/horse_blink.png");
-	
-	private static final int[] BLINK_COLORS = new int[]{0x1B1B1B, 0x181818, 0x171717, 0x797979, 0x8F3514, 0xC1C1C1};
-	
+
+	private static final int[] BLINK_COLORS = { 0x1B1B1B, 0x181818, 0x171717, 0x797979, 0x8F3514, 0xC1C1C1 };
+
 	private LayerBlinking blinkingLayer;
 
 	public RenderFoalDraftHorse(RenderManager rm)
 	{
 		super(rm, new ModelDraftHorseFoal(), 0.5F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, BLINK, 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, BLINK, 0));
 	}
 
 	protected void preRenderScale(EntityFoalDraftHorse entity, float f)
 	{
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.4F + (age / entity.getSizeDividend()), 0.4F + (age / entity.getSizeDividend()), 0.4F + (age / entity.getSizeDividend())); 
+		GL11.glScalef(0.4F + age / entity.getSizeDividend(), 0.4F + age / entity.getSizeDividend(), 0.4F + age / entity.getSizeDividend());
 
-		EntityAnimaniaHorse HorseEntity = (EntityAnimaniaHorse) entity;
+		EntityAnimaniaHorse HorseEntity = entity;
 		if (HorseEntity.getSleeping())
 		{
 			this.shadowSize = 0F;
@@ -79,8 +79,8 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 	@Override
 	protected void preRenderCallback(EntityFoalDraftHorse LivingEntity, float f)
 	{
-		preRenderScale((EntityFoalDraftHorse) LivingEntity, f);
-		blinkingLayer.setColors(BLINK_COLORS[LivingEntity.getColorNumber()], BLINK_COLORS[LivingEntity.getColorNumber()]);
+		this.preRenderScale(LivingEntity, f);
+		this.blinkingLayer.setColors(BLINK_COLORS[LivingEntity.getColorNumber()], BLINK_COLORS[LivingEntity.getColorNumber()]);
 	}
 
 	static class Factory<T extends EntityFoalDraftHorse> implements IRenderFactory<T>

@@ -54,13 +54,13 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.mateable = true;
 		this.headbutting = true;
 		this.gender = EntityGender.MALE;
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.getSterilized())
 		{
 			this.goalSelector.addGoal(3, new ButtHeadsGoatsGoal(this, 1.3D));
 			this.goalSelector.addGoal(3, new GoatsLeapAtTargetGoal(this, 0.25F));
 		}
 
-		if (!getSterilized())
+		if (!this.getSterilized())
 			this.goalSelector.addGoal(5, new GenericAIMate<EntityBuckBase, EntityDoeBase>(this, 1.0D, EntityDoeBase.class, EntityKidBase.class, EntityAnimaniaGoat.class));
 		// this.goalSelector.addGoal(5, new FollowMateGoatsGoal(this, 1.0D));
 	}
@@ -86,8 +86,9 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	{
 		try
 		{
-			return (this.getBoolFromDataManager(FIGHTING));
-		} catch (Exception e)
+			return this.getBoolFromDataManager(FIGHTING);
+		}
+		catch (Exception e)
 		{
 			return false;
 		}
@@ -117,12 +118,12 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	@Nullable
 	public UUID getRivalUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityBuckBase.RIVAL_UNIQUE_ID)).orNull();
+		return (UUID) ((Optional) this.dataManager.get(EntityAnimaniaGoat.RIVAL_UNIQUE_ID)).orNull();
 	}
 
 	public void setRivalUniqueId(@Nullable UUID uniqueId)
 	{
-		this.dataManager.set(EntityBuckBase.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		this.dataManager.set(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	@Override
@@ -186,7 +187,8 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 					int bob = this.getWoolRegrowthTimer();
 					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
 				}
-			} else if (!this.getSheared() && this instanceof EntityBuckAngora)
+			}
+			else if (!this.getSheared() && this instanceof EntityBuckAngora)
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}
@@ -216,7 +218,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 				it.remove();
 			}
 		}
-		setSterilized(true);
+		this.setSterilized(true);
 	}
 
 	@Override

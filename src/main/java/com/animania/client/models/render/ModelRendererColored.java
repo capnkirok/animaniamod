@@ -12,9 +12,9 @@ public class ModelRendererColored extends ModelRendererAnimania
 	public ModelRendererColored(ModelBase model, int texOffX, int texOffY)
 	{
 		super(model, texOffX, texOffY);
-		r = 1f;
-		g = 1f;
-		b = 1f;
+		this.r = 1f;
+		this.g = 1f;
+		this.b = 1f;
 	}
 
 	public void setColor(float r, float g, float b)
@@ -28,23 +28,24 @@ public class ModelRendererColored extends ModelRendererAnimania
 	public void render(float scale)
 	{
 		GlStateManager.pushMatrix();
-		if (r != -1 && g != -1 && b != -1)
-			GlStateManager.color(r, g, b);
+		if (this.r != -1 && this.g != -1 && this.b != -1)
+			GlStateManager.color(this.r, this.g, this.b);
 		super.render(scale);
-		if (r != -1 && g != -1 && b != -1)
+		if (this.r != -1 && this.g != -1 && this.b != -1)
 			GlStateManager.color(1, 1, 1);
 		GlStateManager.popMatrix();
 	}
-	
+
 	@Override
 	public void renderWithRotation(float scale)
 	{
 		GlStateManager.pushMatrix();
-		if (r != -1 && g != -1 && b != -1)
-			GlStateManager.color(r, g, b);
+		if (this.r != -1 && this.g != -1 && this.b != -1)
+			GlStateManager.color(this.r, this.g, this.b);
 		super.renderWithRotation(scale);
-		if (r != -1 && g != -1 && b != -1)
+		if (this.r != -1 && this.g != -1 && this.b != -1)
 			GlStateManager.color(1, 1, 1);
-		GlStateManager.popMatrix();	}
+		GlStateManager.popMatrix();
+	}
 
 }

@@ -27,13 +27,12 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public class Animania
 {
 
-	//public static IProxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+	// public static IProxy proxy = DistExecutor.safeRunForDist(() ->
+	// ClientProxy::new, () -> ServerProxy::new);
 
 	public static final String MODID = "animania";
 	public static final Logger LOGGER = LogManager.getLogger();
-	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;" +
-			"after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;" +
-			"after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.5.2847,)";
+	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;" + "after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;" + "after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.5.2847,)";
 	public static File CONFIGURATION_FILE;
 
 	public static boolean FINGERPRINT_VIOLATED = false;
@@ -42,15 +41,15 @@ public class Animania
 	public static IModInfo info;
 
 	public static final Random RANDOM = new Random();
-	
+
 	public Animania()
 	{
 		// Register the setup method for modloading
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		bus.addListener(this::setup);
 
-
-		// Register ourselves for server and other game events we are interested in
+		// Register ourselves for server and other game events we are interested
+		// in
 		MinecraftForge.EVENT_BUS.register(this);
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -84,74 +83,63 @@ public class Animania
 
 	public static final ItemGroup TabAnimaniaEntities = new ItemGroup("TabAnimaniaEntities") {
 		@Override
-		public ItemStack makeIcon() {
+		public ItemStack makeIcon()
+		{
 			return new ItemStack();
 		}
 	};
 	public static final ItemGroup TabAnimaniaResources = new ItemGroup("TabAnimaniaResources") {
 		@Override
-		public ItemStack makeIcon() {
+		public ItemStack makeIcon()
+		{
 			return new ItemStack();
 		}
 	};
 
 	/*
-
-
-	@SidedProxy(clientSide = "com.animania.proxy.ClientProxy", serverSide = "com.animania.proxy.ServerProxy")
-	public static CommonProxy proxy;
-
-	// Instance
-	@Instance(Animania.MODID)
-	public static Animania instance;
-
-	public static final String VERSION = "GRADLE:VERSION";
-	public static final String NAME = "Animania";
-	public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
-	public final static String ACCEPTED_VERSIONS = "[1.12,1.13)";
-	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.5.2847,)";
-	public static boolean IS_DEV = true;
-
-	public static SimpleNetworkWrapper network;
-	public static Random RANDOM = new Random();
-
-	// Gui
-	private GuiHandlerAnimania guiHandlerAnimania = new GuiHandlerAnimania();
-
-	// Tabs
-	public static CreativeTabs TabAnimaniaEggs = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
-	public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
-
-	@EventHandler
-	public void construction(FMLConstructionEvent event)
-	{
-		FluidRegistry.enableUniversalBucket();
-		AddonHandler.loadAddons(event.getASMHarvestedData());
-	}
-
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		Animania.proxy.preInit(event);
-	}
-
-	@EventHandler
-	public void init(FMLInitializationEvent event)
-	{
-		Animania.proxy.init(event);
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerAnimania);
-	}
-
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent e)
-	{
-		Animania.proxy.postInit(e);
-	}
-
-	@EventHandler
-	public void serverStarting(FMLServerStartingEvent e)
-	{
-		e.registerServerCommand(new AnimaniaCommand());
-	}
-*/
+	 *
+	 *
+	 * @SidedProxy(clientSide = "com.animania.proxy.ClientProxy", serverSide =
+	 * "com.animania.proxy.ServerProxy") public static CommonProxy proxy;
+	 *
+	 * // Instance
+	 *
+	 * @Instance(Animania.MODID) public static Animania instance;
+	 *
+	 * public static final String VERSION = "GRADLE:VERSION"; public static
+	 * final String NAME = "Animania"; public static final Logger LOGGER =
+	 * LogManager.getFormatterLogger("Animania"); public final static String
+	 * ACCEPTED_VERSIONS = "[1.12,1.13)"; public static final String
+	 * DEPENDENCIES =
+	 * "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.5.2847,)";
+	 * public static boolean IS_DEV = true;
+	 *
+	 * public static SimpleNetworkWrapper network; public static Random RANDOM =
+	 * new Random();
+	 *
+	 * // Gui private GuiHandlerAnimania guiHandlerAnimania = new
+	 * GuiHandlerAnimania();
+	 *
+	 * // Tabs public static CreativeTabs TabAnimaniaEggs = new
+	 * TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania"); public static
+	 * CreativeTabs TabAnimaniaResources = new
+	 * TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
+	 *
+	 * @EventHandler public void construction(FMLConstructionEvent event) {
+	 * FluidRegistry.enableUniversalBucket();
+	 * AddonHandler.loadAddons(event.getASMHarvestedData()); }
+	 *
+	 * @EventHandler public void preInit(FMLPreInitializationEvent event) {
+	 * Animania.proxy.preInit(event); }
+	 *
+	 * @EventHandler public void init(FMLInitializationEvent event) {
+	 * Animania.proxy.init(event);
+	 * NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerAnimania); }
+	 *
+	 * @EventHandler public void postInit(FMLPostInitializationEvent e) {
+	 * Animania.proxy.postInit(e); }
+	 *
+	 * @EventHandler public void serverStarting(FMLServerStartingEvent e) {
+	 * e.registerServerCommand(new AnimaniaCommand()); }
+	 */
 }

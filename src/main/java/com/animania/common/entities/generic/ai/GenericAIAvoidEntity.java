@@ -10,21 +10,21 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 
 public class GenericAIAvoidEntity<T extends LivingEntity> extends AvoidEntityGoal<T>
 {
-    public GenericAIAvoidEntity(PathfinderMob entityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
-    {
-        super(entityIn, classToAvoidIn, Predicates.alwaysTrue(), avoidDistanceIn, farSpeedIn, nearSpeedIn);
-    }
+	public GenericAIAvoidEntity(PathfinderMob entityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
+	{
+		super(entityIn, classToAvoidIn, Predicates.alwaysTrue(), avoidDistanceIn, farSpeedIn, nearSpeedIn);
+	}
 
-    public GenericAIAvoidEntity(PathfinderMob entityIn, Class<T> classToAvoidIn, Predicate <? super T > avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
-    {
-    	super(entityIn, classToAvoidIn, avoidTargetSelectorIn, avoidDistanceIn, farSpeedIn, nearSpeedIn);
-    }
+	public GenericAIAvoidEntity(PathfinderMob entityIn, Class<T> classToAvoidIn, Predicate<? super T> avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
+	{
+		super(entityIn, classToAvoidIn, avoidTargetSelectorIn, avoidDistanceIn, farSpeedIn, nearSpeedIn);
+	}
 
-    public boolean shouldExecute()
-    {
-    	if (((ISleeping) entity).getSleeping())
+	public boolean shouldExecute()
+	{
+		if (((ISleeping) entity).getSleeping())
 			return false;
 
-    	return super.shouldExecute();
-    }
+		return super.shouldExecute();
+	}
 }

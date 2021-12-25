@@ -10,13 +10,13 @@ public class CatTabby
 			super(levelIn);
 			this.type = CatType.TABBY;
 		}
-	
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x41332B;
 		}
-	
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -24,19 +24,20 @@ public class CatTabby
 		}
 	}
 
-	public static class EntityQueenTabby extends EntityQueenBase {
+	public static class EntityQueenTabby extends EntityQueenBase
+	{
 		public EntityQueenTabby(Level levelIn)
 		{
 			super(levelIn);
 			this.type = CatType.TABBY;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x41332B;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -44,19 +45,20 @@ public class CatTabby
 		}
 	}
 
-	public static class EntityKittenTabby extends EntityKittenBase {
+	public static class EntityKittenTabby extends EntityKittenBase
+	{
 		public EntityKittenTabby(Level levelIn)
 		{
 			super(levelIn);
 			this.type = CatType.TABBY;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x41332B;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{

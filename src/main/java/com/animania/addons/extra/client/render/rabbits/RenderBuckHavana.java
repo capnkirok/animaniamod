@@ -30,12 +30,15 @@ public class RenderBuckHavana<T extends RabbitEntityBuckHavana> extends RenderLi
 		super(rm, new ModelHavana(), 0.25F);
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x404040));
 	}
-	
+
 	protected void preRenderScale(RabbitEntityBuckHavana entity, float f)
 	{
-		if (entity.getCustomNameTag().equals("Killer")) {
+		if (entity.getCustomNameTag().equals("Killer"))
+		{
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
-		} else {	
+		}
+		else
+		{
 			GL11.glScalef(0.52F, 0.52F, 0.52F);
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
@@ -45,7 +48,7 @@ public class RenderBuckHavana<T extends RabbitEntityBuckHavana> extends RenderLi
 		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
+		EntityAnimaniaRabbit entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -67,9 +70,12 @@ public class RenderBuckHavana<T extends RabbitEntityBuckHavana> extends RenderLi
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.getCustomNameTag().trim().equals("Killer")) {
+		if (entity.getCustomNameTag().trim().equals("Killer"))
+		{
 			return RenderBuckHavana.killerRabbitTextures;
-		} else {
+		}
+		else
+		{
 			return RenderBuckHavana.rabbitTextures;
 		}
 	}

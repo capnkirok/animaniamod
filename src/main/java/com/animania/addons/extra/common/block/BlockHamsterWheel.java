@@ -23,12 +23,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -85,35 +85,30 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	{
 		TileEntityHamsterWheel te = (TileEntityHamsterWheel) level.getTileEntity(pos);
 
-		if (!te.isRunning())
+		if (!te.isRunning() && player.hasCapability(CapabilityRefs.CAPS, null))
 		{
+			ICapabilityPlayer cap = player.getCapability(CapabilityRefs.CAPS, null);
 
-			if (player.hasCapability(CapabilityRefs.CAPS, null))
+			CompoundTag hamsternbt = cap.getAnimal();
+
+			if (!hamsternbt.hasNoTags() && cap.isCarrying() && cap.getType().equals("hamster"))
+
 			{
-				ICapabilityPlayer cap = player.getCapability(CapabilityRefs.CAPS, null);
-
-				CompoundTag hamsternbt = cap.getAnimal();
-
-				if (!hamsternbt.hasNoTags() && cap.isCarrying() && cap.getType().equals("hamster"))
-
+				EntityHamster hamster = (EntityHamster) EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, "hamster"), level);
+				hamster.readFromNBT(hamsternbt);
+				if (hamster.getFed() && !hamster.isInBall())
 				{
-					EntityHamster hamster = (EntityHamster) EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, "hamster"), level);
-					hamster.readFromNBT(hamsternbt);
-					if (hamster.getFed() && !hamster.isInBall())
-					{
-						te.setHamster(hamster);
-						te.markDirty();
-						cap.setAnimal(new CompoundTag());
-						cap.setCarrying(false);
-						cap.setType("");
-						player.swingArm(EnumHand.MAIN_HAND);
-						player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
+					te.setHamster(hamster);
+					te.markDirty();
+					cap.setAnimal(new CompoundTag());
+					cap.setCarrying(false);
+					cap.setType("");
+					player.swingArm(EnumHand.MAIN_HAND);
+					player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 
-						return true;
-					}
+					return true;
 				}
 			}
-
 		}
 
 		if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ExtraAddonItemHandler.hamsterFood)
@@ -158,16 +153,12 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	{
 
 		TileEntity te = level.getTileEntity(data.getPos());
-		if (te instanceof TileEntityHamsterWheel)
+		if (te instanceof TileEntityHamsterWheel wheel && mode == ProbeMode.NORMAL)
 		{
-			if (mode == ProbeMode.NORMAL)
-			{
-				TileEntityHamsterWheel wheel = (TileEntityHamsterWheel) te;
-				ItemStack food = wheel.getItemHandler().getStackInSlot(0);
+			ItemStack food = wheel.getItemHandler().getStackInSlot(0);
 
-				if (!food.isEmpty())
-					probeInfo.item(food);
-			}
+			if (!food.isEmpty())
+				probeInfo.item(food);
 		}
 	}
 

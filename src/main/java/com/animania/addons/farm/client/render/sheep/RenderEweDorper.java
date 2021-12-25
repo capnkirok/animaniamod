@@ -24,11 +24,10 @@ public class RenderEweDorper<T extends EntityEweDorper> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", SheepBaseDir = "textures/entity/sheep/";
 
-	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderEweDorper.modid, RenderEweDorper.SheepBaseDir + "sheep_dorper.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES = { new ResourceLocation(RenderEweDorper.modid, RenderEweDorper.SheepBaseDir + "sheep_dorper.png") };
 
 	private static final ResourceLocation SHEEP_TEXTURE_BLINK = new ResourceLocation("animania:textures/entity/sheep/sheep_blink.png");
-	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { new ResourceLocation(RenderEweDorper.modid, RenderEweDorper.SheepBaseDir + "sheep_dorper_sheared.png") };
-
+	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = { new ResourceLocation(RenderEweDorper.modid, RenderEweDorper.SheepBaseDir + "sheep_dorper_sheared.png") };
 
 	public RenderEweDorper(RenderManager rm)
 	{
@@ -40,7 +39,7 @@ public class RenderEweDorper<T extends EntityEweDorper> extends RenderLiving<T>
 	{
 		GL11.glScalef(0.60F, 0.60F, 0.60F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaSheep SheepEntity = (EntityAnimaniaSheep) entity;
+		EntityAnimaniaSheep SheepEntity = entity;
 		if (SheepEntity.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -72,11 +71,11 @@ public class RenderEweDorper<T extends EntityEweDorper> extends RenderLiving<T>
 
 		if (!entity.getSheared())
 		{
-			return this.SHEEP_TEXTURES[entity.getColorNumber()];
+			return RenderEweDorper.SHEEP_TEXTURES[entity.getColorNumber()];
 		}
 		else
 		{
-			return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
+			return RenderEweDorper.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 		}
 	}
 

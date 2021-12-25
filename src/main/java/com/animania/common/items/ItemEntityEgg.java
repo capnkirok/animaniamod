@@ -40,13 +40,12 @@ public class ItemEntityEgg extends Item
 	public EntityGender gender;
 
 	public static Map<AnimalContainer, Item> ANIMAL_EGGS = new HashMap<AnimalContainer, Item>();
-	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_PRIMARY = new HashMap<AnimalContainer, Integer>();
-	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_SECONDARY = new HashMap<AnimalContainer, Integer>();
-	public static Map<AnimalContainer, Boolean> ANIMAL_USES_COLOR = new HashMap<AnimalContainer, Boolean>();
+	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_PRIMARY = new HashMap<>();
+	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_SECONDARY = new HashMap<>();
+	public static Map<AnimalContainer, Boolean> ANIMAL_USES_COLOR = new HashMap<>();
 
 	public ItemEntityEgg(String atype, AnimaniaType animal, EntityGender gender)
 	{
-		super();
 		this.setCreativeTab(Animania.TabAnimaniaEggs);
 		this.maxStackSize = 64;
 		this.name = this.name + "_" + atype;
@@ -77,14 +76,14 @@ public class ItemEntityEgg extends Item
 			Class<? extends AnimaniaType> clazz = this.type.getClass();
 			AnimaniaType[] types = clazz.getEnumConstants();
 
-			if (type instanceof RandomAnimalType)
-				entity = EntityGender.getEntity(type, gender, level);
+			if (this.type instanceof RandomAnimalType)
+				entity = EntityGender.getEntity(this.type, this.gender, level);
 			else
-				entity = EntityGender.getEntity(types[Animania.RANDOM.nextInt(types.length)], gender, level);
+				entity = EntityGender.getEntity(types[Animania.RANDOM.nextInt(types.length)], this.gender, level);
 		}
 		else
 		{
-			entity = EntityGender.getEntity(type, gender, level);
+			entity = EntityGender.getEntity(this.type, this.gender, level);
 		}
 		if (entity != null)
 		{
@@ -92,7 +91,7 @@ public class ItemEntityEgg extends Item
 			entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(level.rand.nextFloat() * 360.0F), 0.0F);
 
 			if (stack.hasDisplayName())
-				((LivingEntity) entity).setCustomNameTag(stack.getDisplayName());
+				entity.setCustomNameTag(stack.getDisplayName());
 
 			if (!playerIn.isCreative())
 				stack.shrink(1);
@@ -100,13 +99,12 @@ public class ItemEntityEgg extends Item
 			level.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 			entity.rotationYawHead = entity.rotationYaw;
 			entity.renderYawOffset = entity.rotationYaw;
-			
-			if(entity instanceof IFoodEating)
+
+			if (entity instanceof IFoodEating foodEating)
 			{
-				IFoodEating foodEating = (IFoodEating) entity;
 				foodEating.setInteracted(true);
 			}
-			
+
 			AnimaniaHelper.spawnEntity(level, entity);
 			return ActionResultType.SUCCESS;
 
@@ -130,7 +128,7 @@ public class ItemEntityEgg extends Item
 	{
 		return I18n.translateToLocal("entity.animania:" + stack.getItem().getRegistryName().getResourcePath().replace("entity_egg_", "") + ".name");
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, Level levelIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
@@ -148,18 +146,15 @@ public class ItemEntityEgg extends Item
 			{
 				AnimalContainer animal = ((ItemEntityEgg) stack.getItem()).getAnimal();
 
-				if (animal.getGender() != EntityGender.RANDOM)
+				if (animal.getGender() != EntityGender.RANDOM && ANIMAL_USES_COLOR.containsKey(animal) && ANIMAL_USES_COLOR.get(animal).booleanValue())
 				{
-					if (ANIMAL_USES_COLOR.containsKey(animal) && ANIMAL_USES_COLOR.get(animal).booleanValue())
+					switch (tintIndex)
 					{
-						switch (tintIndex)
-						{
-						case 0:
-							return ANIMAL_COLOR_PRIMARY.get(animal).intValue();
-						case 1:
-							return ANIMAL_COLOR_SECONDARY.get(animal).intValue();
+					case 0:
+						return ANIMAL_COLOR_PRIMARY.get(animal);
+					case 1:
+						return ANIMAL_COLOR_SECONDARY.get(animal);
 
-						}
 					}
 				}
 			}

@@ -10,7 +10,7 @@ import com.animania.config.AnimaniaConfig;
 
 public class FoodValueHandler
 {
-	private static Map<ItemAnimaniaFood, String> food_values = new HashMap<ItemAnimaniaFood, String>();
+	private static Map<ItemAnimaniaFood, String> food_values = new HashMap<>();
 
 	public static void init()
 	{
@@ -97,9 +97,7 @@ public class FoodValueHandler
 		String s = food_values.get(item);
 		String[] values = s.split(",");
 
-		int healAmount = Integer.parseInt(values[0]);
-
-		return healAmount;
+		return Integer.parseInt(values[0]);
 	}
 
 	public static float getSaturation(Item item)
@@ -107,8 +105,6 @@ public class FoodValueHandler
 		String s = food_values.get(item);
 		String[] values = s.split(",");
 
-		float saturation = Float.parseFloat(values[1]);
-
-		return saturation;
+		return Float.parseFloat(values[1]);
 	}
 }

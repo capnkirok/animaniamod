@@ -18,18 +18,14 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 {
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 
 		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 
-		if (player.isSneaking())
-			if (entity instanceof ISterilizable)
-			{
-				if (((ISterilizable) entity).getSterilized())
-					probeInfo.text(I18n.translateToLocal("text.waila.sterilized"));
-			}
+		if ((player.isSneaking() && entity instanceof ISterilizable) && ((ISterilizable) entity).getSterilized())
+			probeInfo.text(I18n.translateToLocal("text.waila.sterilized"));
 
 		if (mode == ProbeMode.EXTENDED)
 		{
@@ -38,28 +34,26 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 			entity.writeToNBT(nbt);
 			String mate = nbt.getString("MateUUID");
 
-			if (mate != null)
+			if (mate != null && !mate.equals(""))
 			{
-				if (!mate.equals(""))
+				for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, level, entity))
 				{
-					for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, level, entity))
+					UUID id = e.getUUID();
+					if (id.toString().equals(mate))
 					{
-						UUID id = e.getUUID();
-						if (id.toString().equals(mate))
+						String name = e.getCustomNameTag();
+						if (!name.equals(""))
 						{
-							String name = e.getCustomNameTag();
-							if (!name.equals(""))
-							{
-								probeInfo.entity(e).text(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
-							} else
-								probeInfo.entity(e).text(I18n.translateToLocal("text.waila.mated"));
-
-							return;
+							probeInfo.entity(e).text(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
 						}
-					}
+						else
+							probeInfo.entity(e).text(I18n.translateToLocal("text.waila.mated"));
 
-					// probeInfo.text(I18n.translateToLocal("text.waila.matemissing"));
+						return;
+					}
 				}
+
+				// probeInfo.text(I18n.translateToLocal("text.waila.matemissing"));
 			}
 		}
 

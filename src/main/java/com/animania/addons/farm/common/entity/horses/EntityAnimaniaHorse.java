@@ -96,18 +96,18 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 		this.entityAIEatGrass = new HorseEntityEatGrass(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(1, new GenericAIFindWater<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, EntityAnimaniaHorse.class));
-			this.goalSelector.addGoal(1, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(1, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaHorse.class));
+			this.goalSelector.addGoal(1, new GenericAIFindFood<>(this, 1.0D, this.entityAIEatGrass, true));
 		}
-		this.goalSelector.addGoal(0, new GenericAIPanic<EntityAnimaniaHorse>(this, 2.0D));
+		this.goalSelector.addGoal(0, new GenericAIPanic<>(this, 2.0D));
 		this.goalSelector.addGoal(2, new FollowMateHorsesGoal(this, 1.1D));
 		this.goalSelector.addGoal(3, new WanderHorsesGoal(this, 1.0D));
 		this.goalSelector.addGoal(4, new SwimmingGoal(this));
-		this.goalSelector.addGoal(5, new GenericAITempt<EntityAnimaniaHorse>(this, 1.25D, false, TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(5, new GenericAITempt<>(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(6, this.entityAIEatGrass);
 		this.goalSelector.addGoal(7, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(8, new LookIdleHorsesGoal(this));
-		this.goalSelector.addGoal(9, new GenericAIFindSaltLick<EntityAnimaniaHorse>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(9, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(10, new GenericAISleep<EntityAnimaniaHorse>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.horseBed), AnimaniaHelper.getBlock(FarmConfig.settings.horseBed2), EntityAnimaniaHorse.class));
@@ -165,17 +165,17 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	{
 		GenericBehavior.livingUpdateCommon(this);
 
-		if (boosting)
+		if (this.boosting)
 		{
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 1, 3, false, false));
 		}
 
-		boostTime++;
+		this.boostTime++;
 
-		if (boostTime >= totalBoostTime)
+		if (this.boostTime >= this.totalBoostTime)
 		{
-			boosting = false;
-			boostTime = 0;
+			this.boosting = false;
+			this.boostTime = 0;
 		}
 
 		super.onLivingUpdate();
@@ -198,7 +198,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 			{
 
 				PlayerEntity player = (PlayerEntity) passenger;
-				List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, level, this);
+				List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, this.level, this);
 
 				if (!wagons.isEmpty())
 				{
@@ -212,26 +212,30 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 
 								f = (float) (f + 1.82D);
 
-								Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-tempWagon.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+								Vec3d vec3d = new Vec3d(f, 0.0D, 0.0D).rotateYaw(-tempWagon.rotationYaw * 0.017453292F - (float) Math.PI / 2F);
 								passenger.setPosition(tempWagon.getX() + vec3d.x, tempWagon.getY() + f1, tempWagon.getZ() + vec3d.z);
 
-							} else
+							}
+							else
 							{
 								passenger.setPosition(this.getX(), this.getY() + this.getMountedYOffset() + passenger.getYOffset(), this.getZ());
 							}
 						}
 					}
-				} else
+				}
+				else
 				{
 					f = (float) (f - 0.42D);
 
-					Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-					// passenger.setPosition(this.getX() + vec3d.x, this.getY() +
+					Vec3d vec3d = new Vec3d(f, 0.0D, 0.0D).rotateYaw(-this.rotationYaw * 0.017453292F - (float) Math.PI / 2F);
+					// passenger.setPosition(this.getX() + vec3d.x, this.getY()
+					// +
 					// (double) f1, this.getZ() + vec3d.z);
 
 					passenger.setPosition(this.getX(), this.getY() + this.getMountedYOffset() + passenger.getYOffset(), this.getZ());
 				}
-			} else
+			}
+			else
 			{
 				passenger.setPosition(this.getX(), this.getY() + this.getMountedYOffset() + passenger.getYOffset(), this.getZ());
 			}
@@ -244,7 +248,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 		if (this.boosting)
 		{
 			return false;
-		} else
+		}
+		else
 		{
 			this.boosting = true;
 			this.boostTime = 0;
@@ -291,7 +296,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 		if (jumpPowerIn < 0)
 		{
 			jumpPowerIn = 0;
-		} else
+		}
+		else
 		{
 			// do nothing
 		}
@@ -299,7 +305,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 		if (jumpPowerIn >= 90)
 		{
 			this.jumpPower = 1.0F;
-		} else
+		}
+		else
 		{
 			this.jumpPower = 0.4F + 0.4F * jumpPowerIn / 90.0F;
 		}
@@ -376,12 +383,12 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 
 	public ResourceLocation getResourceLocation()
 	{
-		return resourceLocation;
+		return this.resourceLocation;
 	}
 
 	public ResourceLocation getResourceLocationBlink()
 	{
-		return resourceLocationBlink;
+		return this.resourceLocationBlink;
 	}
 
 	@Override
@@ -442,7 +449,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 			{
 				this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(strafe, vertical / 8, forward);
-			} else if (LivingEntity instanceof PlayerEntity)
+			}
+			else if (LivingEntity instanceof PlayerEntity)
 			{
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
@@ -467,7 +475,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 
 			// this.limbSwingAmount += (f2 - this.limbSwingAmount) * 0.4F;
 			// this.limbSwing += this.limbSwingAmount;
-		} else
+		}
+		else
 		{
 			this.jumpMovementFactor = 0.02F;
 			if (!this.isBeingRidden())
@@ -493,7 +502,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 				stack.shrink(1);
 			this.updateHorseSlots();
 			return true;
-		} else if (stack == ItemStack.EMPTY && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild() && !this.getSleeping())
+		}
+		else if (stack == ItemStack.EMPTY && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild() && !this.getSleeping())
 		{
 			this.navigator.stop();
 			this.mountTo(player);
@@ -546,7 +556,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.putInteger("ColorNumber", getColorNumber());
+		compound.putInteger("ColorNumber", this.getColorNumber());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 
@@ -577,7 +587,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -623,37 +633,37 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
 	public void setEatTimer(int i)
 	{
-		eatTimer = i;
+		this.eatTimer = i;
 	}
 
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -665,43 +675,43 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return horseType;
+		return this.horseType;
 	}
 
 	@Override

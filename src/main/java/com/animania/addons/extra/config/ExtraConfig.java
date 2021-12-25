@@ -121,57 +121,57 @@ public class ExtraConfig
 
 		// FROGS
 		@Comment("BiomeDictionary types for spawning Toads")
-		public String[] toadBiomeTypes = new String[] { "SWAMP", "FOREST", };
+		public String[] toadBiomeTypes = { "SWAMP", "FOREST", };
 		@Comment("BiomeDictionary types for spawning Frogs")
-		public String[] frogBiomeTypes = new String[] { "SWAMP", "RIVER" };
+		public String[] frogBiomeTypes = { "SWAMP", "RIVER" };
 		@Comment("BiomeDictionary types for spawning Dart Frogs")
-		public String[] dartFrogBiomeTypes = new String[] { "JUNGLE", "FOREST", };
+		public String[] dartFrogBiomeTypes = { "JUNGLE", "FOREST", };
 
 		// RODENTS
 		@Comment("BiomeDictionary types for spawning Hamsters")
-		public String[] hamsterBiomeTypes = new String[] { "BEACH", "SANDY", };
+		public String[] hamsterBiomeTypes = { "BEACH", "SANDY", };
 		@Comment("BiomeDictionary types for spawning Grey Ferrets")
-		public String[] ferretGrayBiomeTypes = new String[] { "SAVANNA", };
+		public String[] ferretGrayBiomeTypes = { "SAVANNA", };
 		@Comment("BiomeDictionary types for spawning White Ferrets")
-		public String[] ferretWhiteBiomeTypes = new String[] { "SAVANNA", };
+		public String[] ferretWhiteBiomeTypes = { "SAVANNA", };
 		@Comment("BiomeDictionary types for spawning Hedgehogs")
-		public String[] hedgehogBiomeTypes = new String[] { "FOREST", };
+		public String[] hedgehogBiomeTypes = { "FOREST", };
 		@Comment("BiomeDictionary types for spawning Albino Hedgehogs")
-		public String[] hedgehogAlbinoBiomeTypes = new String[] { "SWAMP", };
+		public String[] hedgehogAlbinoBiomeTypes = { "SWAMP", };
 
 		// RABBITS
 		@Comment("BiomeDictionary types for spawning Cottontail Rabbits")
-		public String[] rabbitCottontailBiomeTypes = new String[] { "FOREST", };
+		public String[] rabbitCottontailBiomeTypes = { "FOREST", };
 		@Comment("BiomeDictionary types for spawning Chinchilla Rabbits")
-		public String[] rabbitChinchillaBiomeTypes = new String[] { "SAVANNA", };
+		public String[] rabbitChinchillaBiomeTypes = { "SAVANNA", };
 		@Comment("BiomeDictionary types for spawning Dutch Rabbits")
-		public String[] rabbitDutchBiomeTypes = new String[] { "PLAINS", };
+		public String[] rabbitDutchBiomeTypes = { "PLAINS", };
 		@Comment("BiomeDictionary types for spawning Havana Rabbits")
-		public String[] rabbitHavanaBiomeTypes = new String[] { "MOUNTAIN", "HILLS", };
+		public String[] rabbitHavanaBiomeTypes = { "MOUNTAIN", "HILLS", };
 		@Comment("BiomeDictionary types for spawning Jack Rabbits")
-		public String[] rabbitJackBiomeTypes = new String[] { "SAVANNA", "SANDY", };
+		public String[] rabbitJackBiomeTypes = { "SAVANNA", "SANDY", };
 		@Comment("BiomeDictionary types for spawning New Zealand Rabbits")
-		public String[] rabbitNewZealandBiomeTypes = new String[] { "FOREST", };
+		public String[] rabbitNewZealandBiomeTypes = { "FOREST", };
 		@Comment("BiomeDictionary types for spawning Rex Rabbits")
-		public String[] rabbitRexBiomeTypes = new String[] { "SAVANNA", };
+		public String[] rabbitRexBiomeTypes = { "SAVANNA", };
 		@Comment("BiomeDictionary types for spawning Lop Rabbits")
-		public String[] rabbitLopBiomeTypes = new String[] { "PLAINS", "FOREST", };
+		public String[] rabbitLopBiomeTypes = { "PLAINS", "FOREST", };
 
 		// PEAFOWL
 		@Comment("BiomeDictionary types for spawning Charcoal Peafowl")
-		public String[] peafowlCharcoalBiomeTypes = new String[] { "SWAMP", "JUNGLE", };
+		public String[] peafowlCharcoalBiomeTypes = { "SWAMP", "JUNGLE", };
 		@Comment("BiomeDictionary types for spawning Opal Peafowl")
-		public String[] peafowlOpalBiomeTypes = new String[] { "SWAMP", "JUNGLE", };
+		public String[] peafowlOpalBiomeTypes = { "SWAMP", "JUNGLE", };
 		@Comment("BiomeDictionary types for spawning Peach Peafowl")
-		public String[] peafowlPeachBiomeTypes = new String[] { "SWAMP", "JUNGLE", };
+		public String[] peafowlPeachBiomeTypes = { "SWAMP", "JUNGLE", };
 		@Comment("BiomeDictionary types for spawning Purple Peafowl")
-		public String[] peafowlPurpleBiomeTypes = new String[] { "SWAMP", "JUNGLE", };
+		public String[] peafowlPurpleBiomeTypes = { "SWAMP", "JUNGLE", };
 		@Comment("BiomeDictionary types for spawning Taupe Peafowl")
-		public String[] peafowlTaupeBiomeTypes = new String[] { "SWAMP", "JUNGLE", };
+		public String[] peafowlTaupeBiomeTypes = { "SWAMP", "JUNGLE", };
 		@Comment("BiomeDictionary types for spawning Blue Peafowl")
-		public String[] peafowlBlueBiomeTypes = new String[] { "SWAMP", "JUNGLE", };
+		public String[] peafowlBlueBiomeTypes = { "SWAMP", "JUNGLE", };
 		@Comment("BiomeDictionary types for spawning White Peafowl")
-		public String[] peafowlWhiteBiomeTypes = new String[] { "SWAMP", "JUNGLE", };
+		public String[] peafowlWhiteBiomeTypes = { "SWAMP", "JUNGLE", };
 
 	}
 }

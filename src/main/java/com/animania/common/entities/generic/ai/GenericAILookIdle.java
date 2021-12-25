@@ -1,6 +1,5 @@
 package com.animania.common.entities.generic.ai;
 
-
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.handler.AddonInjectionHandler;
 
@@ -22,7 +21,7 @@ public class GenericAILookIdle<T extends LivingEntity & ISleeping> extends LookI
 	 */
 	public boolean shouldExecute()
 	{
-		if (this.entity.getSleeping() || AddonInjectionHandler.runInjection("farm", "pigMudTest", Boolean.class, entity))
+		if (this.entity.getSleeping() || AddonInjectionHandler.runInjection("farm", "pigMudTest", Boolean.class, this.entity))
 			return false;
 
 		return super.shouldExecute();

@@ -32,28 +32,30 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class EntityAmphibian extends Animal implements ISpawnable, IAnimaniaAnimal, IGendered
 {
-	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.<Integer>createKey(EntityAmphibian.class, EntityDataSerializers.VARINT);
-	private int     jumpTicks;
-	private int     jumpDuration;
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.<Integer> createKey(EntityAmphibian.class, EntityDataSerializers.VARINT);
+	private int jumpTicks;
+	private int jumpDuration;
 	private boolean wasOnGround, canEntityJump;
-	private int     currentMoveTypeDuration;
-	public float    squishAmount;
-	public float    squishFactor;
-	public float    prevSquishFactor;
+	private int currentMoveTypeDuration;
+	public float squishAmount;
+	public float squishFactor;
+	public float prevSquishFactor;
 
 	/**
 	 * Default constructor
 	 */
-	public EntityAmphibian(Level levelIn) {
+	public EntityAmphibian(Level levelIn)
+	{
 		super(levelIn);
 	}
 
 	/**
 	 * Constructor just for jumping amphibians, frogs and toads
 	 */
-	public EntityAmphibian(Level levelIn, boolean canEntityJumpIn) {
+	public EntityAmphibian(Level levelIn, boolean canEntityJumpIn)
+	{
 		this(levelIn);
-		this.setSize(0.3F, 0.3F); 
+		this.setSize(0.3F, 0.3F);
 		this.width = 0.3F;
 		this.height = 0.3F;
 		this.setMovementSpeed(0.0D);
@@ -82,25 +84,30 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	}
 
 	@Override
-	protected void initEntityAI() {
+	protected void initEntityAI()
+	{
 		this.goalSelector.addGoal(1, new SwimmingGoal(this));
 		this.goalSelector.addGoal(1, new EntityAmphibian.AIPanic(this, 2.2D));
-		if (!this.getCustomNameTag().equals("Pepe")) {
+		if (!this.getCustomNameTag().equals("Pepe"))
+		{
 			this.goalSelector.addGoal(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
 		}
 		this.goalSelector.addGoal(3, new WanderAvoidWaterGoal(this, 0.6D));
 		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
-		this.goalSelector.addGoal(5, new AvoidEntityGoal<EntityAnimaniaPeacock>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
-		
+		this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
+
 		AddonInjectionHandler.runInjection("farm", "avoidChicken", Void.class, this.tasks, this);
 	}
 
 	@Override
-	protected float getJumpUpwardsMotion() {
-		if (!this.collidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.getY() + 0.5D)) {
+	protected float getJumpUpwardsMotion()
+	{
+		if (!this.collidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.getY() + 0.5D))
+		{
 			Path path = this.navigator.getPath();
 
-			if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
+			if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength())
+			{
 				Vec3d vec3d = path.getPosition(this);
 
 				if (vec3d.x > this.getY() + 0.5D)
@@ -113,24 +120,26 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 			return 0.5F;
 	}
 
-
+	@Override
 	public int getAge()
 	{
 		return this.dataManager.get(EntityAmphibian.AGE).intValue();
 	}
 
+	@Override
 	public void setAge(int age)
 	{
 		this.dataManager.set(EntityAmphibian.AGE, Integer.valueOf(age));
 	}
 
-
 	@Override
-	protected void jump() {
+	protected void jump()
+	{
 		super.jump();
 		double d0 = this.moveHelper.getSpeed();
 
-		if (d0 > 0.0D) {
+		if (d0 > 0.0D)
+		{
 			double d1 = this.motionX * this.motionX + this.motionZ * this.motionZ;
 
 			if (d1 < 0.010000000000000002D)
@@ -142,42 +151,52 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	}
 
 	@SideOnly(Dist.CLIENT)
-	public float setJumpCompletion(float p_175521_1_) {
+	public float setJumpCompletion(float p_175521_1_)
+	{
 		return this.jumpDuration == 0 ? 0.0F : (this.jumpTicks + p_175521_1_) / this.jumpDuration;
 	}
 
-	public void setMovementSpeed(double newSpeed) {
+	public void setMovementSpeed(double newSpeed)
+	{
 		this.getNavigation().setSpeed(newSpeed);
 		this.moveHelper.setMoveTo(this.moveHelper.getX(), this.moveHelper.getY(), this.moveHelper.getZ(), newSpeed);
 	}
 
 	@Override
-	public void setJumping(boolean jumping) {
+	public void setJumping(boolean jumping)
+	{
 		super.setJumping(jumping);
 	}
 
-	public void startJumping() {
+	public void startJumping()
+	{
 		this.setJumping(true);
 		this.jumpDuration = 10;
 		this.jumpTicks = 0;
 	}
 
 	@Override
-	public void updateAITasks() {
-		if (this.canEntityJump) {
+	public void updateAITasks()
+	{
+		if (this.canEntityJump)
+		{
 			if (this.currentMoveTypeDuration > 0)
 				--this.currentMoveTypeDuration;
 
-			if (this.onGround) {
-				if (!this.wasOnGround) {
+			if (this.onGround)
+			{
+				if (!this.wasOnGround)
+				{
 					this.setJumping(false);
 					this.checkLandingDelay();
 				}
 
 				EntityAmphibian.FrogJumpHelper jumphelper = (EntityAmphibian.FrogJumpHelper) this.jumpHelper;
 
-				if (!jumphelper.getIsJumping()) {
-					if (this.moveHelper.isUpdating() && this.currentMoveTypeDuration == 0) {
+				if (!jumphelper.getIsJumping())
+				{
+					if (this.moveHelper.isUpdating() && this.currentMoveTypeDuration == 0)
+					{
 						Path path = this.navigator.getPath();
 
 						Vec3d vec3d = new Vec3d(this.moveHelper.getX(), this.moveHelper.getY(), this.moveHelper.getZ());
@@ -197,26 +216,31 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 		}
 	}
 
-	private void calculateRotationYaw(double x, double z) {
+	private void calculateRotationYaw(double x, double z)
+	{
 		this.rotationYaw = (float) (MathHelper.atan2(z - this.getZ(), x - this.getX()) * (180D / Math.PI)) - 90.0F;
 	}
 
-	private void enableJumpControl() {
+	private void enableJumpControl()
+	{
 		((EntityAmphibian.FrogJumpHelper) this.jumpHelper).setCanJump(true);
 	}
 
-	private void disableJumpControl() {
+	private void disableJumpControl()
+	{
 		((EntityAmphibian.FrogJumpHelper) this.jumpHelper).setCanJump(false);
 	}
 
-	private void updateMoveTypeDuration() {
+	private void updateMoveTypeDuration()
+	{
 		if (this.moveHelper.getSpeed() < 2.2D)
 			this.currentMoveTypeDuration = 10;
 		else
 			this.currentMoveTypeDuration = 1;
 	}
 
-	private void checkLandingDelay() {
+	private void checkLandingDelay()
+	{
 		this.updateMoveTypeDuration();
 		this.disableJumpControl();
 	}
@@ -227,14 +251,14 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	 * sunlight and start to burn.
 	 */
 	@Override
-	public void onLivingUpdate() {
+	public void onLivingUpdate()
+	{
 
-		if (this.getAge() == 0) {
+		if (this.getAge() == 0)
+		{
 			this.setAge(1);
 		}
-		
-	
-		
+
 		if (this.getCustomNameTag().equals("Pepe") && this.getMaxHealth() != 20.0D)
 		{
 			this.initEntityAI();
@@ -242,11 +266,11 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 			this.setHealth(20);
 		}
 
-		
 		if (this.canEntityJump)
 			if (this.jumpTicks != this.jumpDuration)
 				++this.jumpTicks;
-			else if (this.jumpDuration != 0) {
+			else if (this.jumpDuration != 0)
+			{
 				this.jumpTicks = 0;
 				this.jumpDuration = 0;
 				this.setJumping(false);
@@ -258,55 +282,64 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 
 		if (this.onGround)
 			this.squishAmount = -0.5F;
-		else if (!this.onGround)
+		else
 			this.squishAmount = 0.5F;
 
 		this.alterSquishAmount();
 
 	}
 
-	protected void alterSquishAmount() {
+	protected void alterSquishAmount()
+	{
 		this.squishAmount *= 0.6F;
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
+	protected void applyEntityAttributes()
+	{
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 	}
 
-	protected SoundEvent getJumpSound() {
+	protected SoundEvent getJumpSound()
+	{
 		return null;
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSound()
+	{
 		return null;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
 		return null;
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound()
+	{
 		return null;
 	}
 
 	@Override
-	public SoundCategory getSoundCategory() {
+	public SoundCategory getSoundCategory()
+	{
 		return SoundCategory.NEUTRAL;
 	}
 
 	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
+	public boolean attackEntityFrom(DamageSource source, float amount)
+	{
 		return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
 	}
 
 	@Override
-	public EntityAmphibian createChild(AgeableEntity ageable) {
+	public EntityAmphibian createChild(AgeableEntity ageable)
+	{
 		return null;
 	}
 
@@ -327,8 +360,10 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 
 	@Override
 	@SideOnly(Dist.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 1) {
+	public void handleStatusUpdate(byte id)
+	{
+		if (id == 1)
+		{
 			// this.createRunningParticles();
 			this.jumpDuration = 3;
 			this.jumpTicks = 0;
@@ -341,7 +376,8 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	{
 		private final EntityAmphibian theEntity;
 
-		public AIPanic(EntityAmphibian amphibian, double speedIn) {
+		public AIPanic(EntityAmphibian amphibian, double speedIn)
+		{
 			super(amphibian, speedIn);
 			this.theEntity = amphibian;
 		}
@@ -350,7 +386,8 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 		 * Updates the task
 		 */
 		@Override
-		public void updateTask() {
+		public void updateTask()
+		{
 			super.updateTask();
 			this.theEntity.setMovementSpeed(this.speed);
 		}
@@ -359,22 +396,26 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	public class FrogJumpHelper extends EntityJumpHelper
 	{
 		private final EntityAmphibian theEntity;
-		private boolean               canJump;
+		private boolean canJump;
 
-		public FrogJumpHelper(EntityAmphibian rabbit) {
+		public FrogJumpHelper(EntityAmphibian rabbit)
+		{
 			super(rabbit);
 			this.theEntity = rabbit;
 		}
 
-		public boolean getIsJumping() {
+		public boolean getIsJumping()
+		{
 			return this.isJumping;
 		}
 
-		public boolean canJump() {
+		public boolean canJump()
+		{
 			return this.canJump;
 		}
 
-		public void setCanJump(boolean canJumpIn) {
+		public void setCanJump(boolean canJumpIn)
+		{
 			this.canJump = canJumpIn;
 		}
 
@@ -382,8 +423,10 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 		 * Called to actually make the entity jump if isJumping is true.
 		 */
 		@Override
-		public void doJump() {
-			if (this.isJumping) {
+		public void doJump()
+		{
+			if (this.isJumping)
+			{
 				this.theEntity.startJumping();
 				this.isJumping = false;
 			}
@@ -393,15 +436,17 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	static class FrogMoveHelper extends EntityMoveHelper
 	{
 		private final EntityAmphibian theEntity;
-		private double                nextJumpSpeed;
+		private double nextJumpSpeed;
 
-		public FrogMoveHelper(EntityAmphibian rabbit) {
+		public FrogMoveHelper(EntityAmphibian rabbit)
+		{
 			super(rabbit);
 			this.theEntity = rabbit;
 		}
 
 		@Override
-		public void onUpdateMoveHelper() {
+		public void onUpdateMoveHelper()
+		{
 			if (this.theEntity.onGround && !this.theEntity.isJumping && !((EntityAmphibian.FrogJumpHelper) this.theEntity.jumpHelper).getIsJumping())
 				this.theEntity.setMovementSpeed(0.0D);
 			else if (this.isUpdating())
@@ -414,13 +459,15 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 		 * Sets the speed and location to move to
 		 */
 		@Override
-		public void setMoveTo(double x, double y, double z, double speedIn) {
+		public void setMoveTo(double x, double y, double z, double speedIn)
+		{
 			if (this.theEntity.isInWater())
 				speedIn = 1.5D;
 
 			super.setMoveTo(x, y, z, speedIn);
 
-			if (speedIn > 0.0D) {
+			if (speedIn > 0.0D)
+			{
 				float distance = Animania.RANDOM.nextFloat() / 25;
 				this.nextJumpSpeed = speedIn + distance;
 			}
@@ -431,7 +478,8 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	{
 		public int typeData;
 
-		public RabbitTypeData(int type) {
+		public RabbitTypeData(int type)
+		{
 			this.typeData = type;
 		}
 	}
@@ -445,7 +493,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override

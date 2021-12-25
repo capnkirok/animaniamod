@@ -30,12 +30,15 @@ public class RenderDoeJack<T extends RabbitEntityDoeJack> extends RenderLiving<T
 		super(rm, new ModelJack(), 0.25F);
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x938375));
 	}
-	
+
 	protected void preRenderScale(RabbitEntityDoeJack entity, float f)
 	{
-		if (entity.getCustomNameTag().equals("Killer")) {
+		if (entity.getCustomNameTag().equals("Killer"))
+		{
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
-		} else {	
+		}
+		else
+		{
 			GL11.glScalef(0.57F, 0.57F, 0.57F);
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
@@ -45,7 +48,7 @@ public class RenderDoeJack<T extends RabbitEntityDoeJack> extends RenderLiving<T
 		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
+		EntityAnimaniaRabbit entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -67,9 +70,12 @@ public class RenderDoeJack<T extends RabbitEntityDoeJack> extends RenderLiving<T
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.getCustomNameTag().trim().equals("Killer")) {
+		if (entity.getCustomNameTag().trim().equals("Killer"))
+		{
 			return RenderDoeJack.killerRabbitTextures;
-		} else {
+		}
+		else
+		{
 			return RenderDoeJack.rabbitTextures;
 		}
 	}

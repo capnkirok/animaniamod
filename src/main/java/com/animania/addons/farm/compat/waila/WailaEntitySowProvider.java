@@ -15,15 +15,15 @@ public class WailaEntitySowProvider extends WailaAnimalEntityProviderMateable
 	@Override
 	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
 	{
-		
-		EntitySowBase thisEntity = (EntitySowBase)entity;
+
+		EntitySowBase thisEntity = (EntitySowBase) entity;
 		boolean played = thisEntity.getPlayed();
 
 		if (played)
 			currenttip.add(I18n.translateToLocal("text.waila.played"));
 		else
 			currenttip.add(I18n.translateToLocal("text.waila.bored"));
-		
+
 		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 		if (accessor.getPlayer().isSneaking())
 		{
@@ -31,22 +31,23 @@ public class WailaEntitySowProvider extends WailaAnimalEntityProviderMateable
 			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{
 				currenttip.add(I18n.translateToLocal("text.waila.fertile1"));
-			} 
+			}
 
 			if (thisEntity.getPregnant())
 			{
-				if (thisEntity.getGestation() > 0) {
+				if (thisEntity.getGestation() > 0)
+				{
 					int bob = thisEntity.getGestation();
-					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
-				} else {
+					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
+				}
+				else
+				{
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));
 				}
-			} 
-
+			}
 
 		}
 		return currenttip;
 	}
-
 
 }

@@ -75,13 +75,13 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public int getAgeTimer()
 	{
-		return ageTimer;
+		return this.ageTimer;
 	}
 
 	@Override
 	public void setAgeTimer(int i)
 	{
-		ageTimer = i;
+		this.ageTimer = i;
 	}
 
 	@Override
@@ -127,7 +127,6 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	protected void dropFewItems(boolean damaged, int looting)
 	{
-		return;
 	}
 
 	@Override
@@ -137,7 +136,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 		if (soundevent != null)
 		{
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - (this.getEntityAge() * 2));
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - this.getEntityAge() * 2);
 		}
 	}
 

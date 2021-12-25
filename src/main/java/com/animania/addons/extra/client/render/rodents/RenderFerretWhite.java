@@ -70,7 +70,7 @@ public class RenderFerretWhite<T extends EntityFerretWhite> extends RenderLiving
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.FERRET_TEXTURES;
+		return RenderFerretWhite.FERRET_TEXTURES;
 	}
 
 	@Override

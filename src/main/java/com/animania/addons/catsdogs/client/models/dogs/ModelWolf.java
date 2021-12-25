@@ -225,7 +225,7 @@ public class ModelWolf extends ModelBase
 		this.leg_r2.addChild(this.toe_l1);
 		this.leg_r1.addChild(this.leg_r2);
 		this.body.addChild(this.leg_r1);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()
@@ -361,7 +361,7 @@ public class ModelWolf extends ModelBase
 	{
 		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
 
-		setupAngles();
+		this.setupAngles();
 
 		ModelPose sleepingPose = AnimationHandler.getOrCreatePose(entity, Pose.SLEEPING, () -> new ModelPose(this, PoseStandardDogSleeping.INSTANCE));
 
@@ -386,7 +386,8 @@ public class ModelWolf extends ModelBase
 			this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
 			this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
 			this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-		} else
+		}
+		else
 		{
 			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}

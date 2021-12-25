@@ -9,13 +9,15 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 public class FluidHandlerTrough extends FluidTank
 {
 
-    public FluidHandlerTrough(int capacity) {
-        super(capacity);
-    }
+	public FluidHandlerTrough(int capacity)
+	{
+		super(capacity);
+	}
 
-    @Override
-    public boolean canFillFluidType(FluidStack fluid) {
-        return fluid.getFluid() == FluidRegistry.WATER || fluid.getFluid() == BlockHandler.fluidSlop;
-    }
+	@Override
+	public boolean canFillFluidType(FluidStack fluid)
+	{
+		return fluid.getFluid() == FluidRegistry.WATER || fluid.getFluid() == BlockHandler.fluidSlop;
+	}
 
 }

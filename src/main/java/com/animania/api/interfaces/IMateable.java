@@ -9,12 +9,12 @@ import net.minecraft.world.entity.player.Player;
 
 public interface IMateable extends IAnimaniaAnimal
 {
-	
+
 	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam();
-	
+
 	default UUID getMateUniqueId()
 	{
-		EntityDataAccessor<Optional<UUID>> param = getMateUniqueIdParam();
+		EntityDataAccessor<Optional<UUID>> param = this.getMateUniqueIdParam();
 		if (param != null)
 			return this.getUUIDFromDataManager(param);
 		return null;
@@ -22,14 +22,13 @@ public interface IMateable extends IAnimaniaAnimal
 
 	default void setMateUniqueId(UUID id)
 	{
-		EntityDataAccessor<Optional<UUID>> param = getMateUniqueIdParam();
+		EntityDataAccessor<Optional<UUID>> param = this.getMateUniqueIdParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, Optional.fromNullable(id));
 	}
 
-	
 	default void setInLove(Player player)
 	{
-		
+
 	}
 }

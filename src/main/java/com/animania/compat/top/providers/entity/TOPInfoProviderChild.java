@@ -17,7 +17,7 @@ public interface TOPInfoProviderChild extends TOPInfoProviderBase
 {
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, level, entity, data);

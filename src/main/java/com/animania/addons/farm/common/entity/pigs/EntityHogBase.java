@@ -44,7 +44,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
 
-		if (!getSterilized())
+		if (!this.getSterilized())
 			this.goalSelector.addGoal(3, new GenericAIMate<EntityHogBase, EntitySowBase>(this, 1.0D, EntitySowBase.class, PigEntityletBase.class, EntityAnimaniaPig.class));
 		// this.goalSelector.addGoal(9, new FollowMatePigsGoal(this, 1.1D));
 	}
@@ -195,7 +195,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				it.remove();
 			}
 		}
-		setSterilized(true);
+		this.setSterilized(true);
 	}
 
 }

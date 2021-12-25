@@ -20,7 +20,7 @@ public class LoginEventHandler
 	@SubscribeEvent
 	public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event)
 	{
-		if (UpdateHandler.show && AnimaniaConfig.gameRules.showModUpdateNotification == true)
+		if (UpdateHandler.show && AnimaniaConfig.gameRules.showModUpdateNotification)
 		{
 			event.getPlayer().sendMessage(new TextComponentString(UpdateHandler.updateStatus));
 

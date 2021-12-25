@@ -7,14 +7,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CartChest extends InventoryBasic
 {
-    public CartChest(String inventoryName, int slotCount)
-    {
-        super(inventoryName, false, slotCount);
-    }
+	public CartChest(String inventoryName, int slotCount)
+	{
+		super(inventoryName, false, slotCount);
+	}
 
-    @SideOnly(Dist.CLIENT)
-    public CartChest(ITextComponent invTitle, int slotCount)
-    {
-        super(invTitle, slotCount);
-    }
+	@SideOnly(Dist.CLIENT)
+	public CartChest(ITextComponent invTitle, int slotCount)
+	{
+		super(invTitle, slotCount);
+	}
 }

@@ -81,17 +81,17 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 		super(levelIn);
 		this.tasks.taskEntries.clear();
 		this.goalSelector.addGoal(0, new GenericAISwimmingSmallCreatures(this));
-		this.goalSelector.addGoal(1, new GenericAIPanic<EntityAnimaniaChicken>(this, 1.4D));
+		this.goalSelector.addGoal(1, new GenericAIPanic<>(this, 1.4D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaChicken>(this, 1.0D, null, EntityAnimaniaChicken.class, true));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaChicken>(this, 1.0D, null, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<>(this, 1.0D, null, EntityAnimaniaChicken.class, true));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.0D, null, true));
 		}
 
-		this.goalSelector.addGoal(4, new GenericAITempt<EntityAnimaniaChicken>(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(4, new GenericAITempt<>(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(6, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.goalSelector.addGoal(7, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaChicken>(this));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(8, new GenericAISleep<EntityAnimaniaChicken>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed), AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed2), EntityAnimaniaChicken.class));
@@ -204,7 +204,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float) (this.destPos + ((this.onGround || this.isPassenger()) ? -1 : 4) * 0.3D);
+		this.destPos = (float) (this.destPos + (this.onGround || this.isPassenger() ? -1 : 4) * 0.3D);
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
 		this.fallDistance = 0;
@@ -350,7 +350,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -376,13 +376,13 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
@@ -435,13 +435,13 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -453,43 +453,43 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return type;
+		return this.type;
 	}
 
 	@Override

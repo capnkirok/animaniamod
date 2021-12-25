@@ -7,6 +7,6 @@ public class CatsDogsAddonCraftingHandler
 	 */
 	public static void init()
 	{
-		
+
 	}
 }

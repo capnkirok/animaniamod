@@ -20,13 +20,13 @@ public class WailaBlockCheeseProvider implements IWailaDataProvider
 	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
 		Block block = accessor.getBlock();
-		if(block == FarmAddonBlockHandler.blockCheeseFriesian)
+		if (block == FarmAddonBlockHandler.blockCheeseFriesian)
 			return new ItemStack(FarmAddonBlockHandler.blockCheeseFriesian);
-		if(block == FarmAddonBlockHandler.blockCheeseHolstein)
+		if (block == FarmAddonBlockHandler.blockCheeseHolstein)
 			return new ItemStack(FarmAddonBlockHandler.blockCheeseHolstein);
-		if(block == FarmAddonBlockHandler.blockCheeseSheep)
+		if (block == FarmAddonBlockHandler.blockCheeseSheep)
 			return new ItemStack(FarmAddonBlockHandler.blockCheeseSheep);
-		if(block == FarmAddonBlockHandler.blockCheeseGoat)
+		if (block == FarmAddonBlockHandler.blockCheeseGoat)
 			return new ItemStack(FarmAddonBlockHandler.blockCheeseGoat);
 		return ItemStack.EMPTY;
 	}

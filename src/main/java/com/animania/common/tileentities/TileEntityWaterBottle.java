@@ -5,25 +5,25 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class TileEntityWaterBottle extends BlockEntity
 {
-    public int rotation;
+	public int rotation;
 
-    @Override
-    public void readFromNBT(CompoundTag compound) {
-        super.readFromNBT(compound);
-        this.rotation = compound.getInteger("BlockRotation");
-    }
+	@Override
+	public void readFromNBT(CompoundTag compound)
+	{
+		super.readFromNBT(compound);
+		this.rotation = compound.getInteger("BlockRotation");
+	}
 
-    /*
-     * @Override public void writeToNBT(CompoundTag compound) {
-     * super.writeToNBT(compound); compound.putInteger("BlockRotation",
-     * rotation); }
-     *
-     * @Override public Packet getDescriptionPacket() { CompoundTag
-     * CompoundTag = new CompoundTag(); this.writeToNBT(CompoundTag);
-     * return new S35PacketUpdateTileEntity(this.x, this.y,
-     * this.z, -1, CompoundTag); }
-     *
-     * @Override public void onDataPacket(NetworkManager net,
-     * S35PacketUpdateTileEntity pkt) { readFromNBT(pkt.getTag()); }
-     */
+	/*
+	 * @Override public void writeToNBT(CompoundTag compound) {
+	 * super.writeToNBT(compound); compound.putInteger("BlockRotation",
+	 * rotation); }
+	 *
+	 * @Override public Packet getDescriptionPacket() { CompoundTag CompoundTag
+	 * = new CompoundTag(); this.writeToNBT(CompoundTag); return new
+	 * S35PacketUpdateTileEntity(this.x, this.y, this.z, -1, CompoundTag); }
+	 *
+	 * @Override public void onDataPacket(NetworkManager net,
+	 * S35PacketUpdateTileEntity pkt) { readFromNBT(pkt.getTag()); }
+	 */
 }

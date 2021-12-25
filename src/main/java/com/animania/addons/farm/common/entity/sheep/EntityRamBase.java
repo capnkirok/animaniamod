@@ -51,10 +51,10 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.headbutting = true;
 		this.mateable = true;
 		// this.goalSelector.addGoal(3, new FollowMateSheepGoal(this, 1.1D));
-		if (!getSterilized())
+		if (!this.getSterilized())
 			this.goalSelector.addGoal(5, new GenericAIMate<EntityRamBase, EntityEweBase>(this, 1.0D, EntityEweBase.class, EntityLambBase.class, EntityAnimaniaSheep.class));
 
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.getSterilized())
 		{
 			this.goalSelector.addGoal(3, new ButtHeadsSheepGoal(this, 1.3D));
 		}
@@ -82,8 +82,9 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	{
 		try
 		{
-			return (this.getBoolFromDataManager(FIGHTING));
-		} catch (Exception e)
+			return this.getBoolFromDataManager(FIGHTING);
+		}
+		catch (Exception e)
 		{
 			return false;
 		}
@@ -100,12 +101,12 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Nullable
 	public UUID getRivalUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityRamBase.RIVAL_UNIQUE_ID)).orNull();
+		return (UUID) ((Optional) this.dataManager.get(EntityAnimaniaSheep.RIVAL_UNIQUE_ID)).orNull();
 	}
 
 	public void setRivalUniqueId(@Nullable UUID uniqueId)
 	{
-		this.dataManager.set(EntityRamBase.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		this.dataManager.set(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	@Override
@@ -168,7 +169,8 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					int bob = this.getWoolRegrowthTimer();
 					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
 				}
-			} else if (!this.getSheared())
+			}
+			else if (!this.getSheared())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}
@@ -199,7 +201,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				it.remove();
 			}
 		}
-		setSterilized(true);
+		this.setSterilized(true);
 	}
 
 	@Override

@@ -13,18 +13,18 @@ public class GenericAIPanic<T extends PathfinderMob> extends PanicGoal
 		super(creature, speedIn);
 	}
 
-
 	public boolean shouldExecute()
 	{
 
-		if (creature.getRevengeTarget() != null && AddonInjectionHandler.runInjection("farm", "isCow", Boolean.class, creature)) {
+		if (creature.getRevengeTarget() != null && AddonInjectionHandler.runInjection("farm", "isCow", Boolean.class, creature))
+		{
 			return false;
 		}
 
 		if (creature.isBurning())
 		{
-			ISleeping s = (ISleeping)creature;
-			if(s.getSleeping())
+			ISleeping s = (ISleeping) creature;
+			if (s.getSleeping())
 				s.setSleeping(false);
 		}
 

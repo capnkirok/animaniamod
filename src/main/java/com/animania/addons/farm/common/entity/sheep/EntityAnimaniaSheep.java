@@ -54,7 +54,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemShears;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -63,6 +62,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -89,7 +89,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	protected static final EntityDataAccessor<Integer> DYE_COLOR = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.VARINT);
 	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.BOOLEAN);
 
-	private static final String[] SHEEP_TEXTURES = new String[] { "black", "white", "brown" };
+	private static final String[] SHEEP_TEXTURES = { "black", "white", "brown" };
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -109,23 +109,23 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	{
 		super(levelIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaSheep>(this);
+		this.entityAIEatGrass = new GenericAIEatGrass<>(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, EntityAnimaniaSheep.class));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaSheep.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.0D, this.entityAIEatGrass, true));
 		}
 		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.goalSelector.addGoal(5, new SwimmingGoal(this));
-		this.goalSelector.addGoal(6, new GenericAIPanic<EntityAnimaniaSheep>(this, 2.2D));
-		this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(6, new GenericAIPanic<>(this, 2.2D));
+		this.goalSelector.addGoal(7, new GenericAITempt<>(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.YELLOW_FLOWER), false));
 		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.RED_FLOWER), false));
 		this.goalSelector.addGoal(8, this.entityAIEatGrass);
 		this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 2.0D, 2.2D));
 		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaSheep>(this));
-		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaSheep>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(11, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.sheepBed), AnimaniaHelper.getBlock(FarmConfig.settings.sheepBed2), EntityAnimaniaSheep.class));
@@ -179,16 +179,20 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 		if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian || this instanceof EntityLambFriesian)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
-		} else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset || this instanceof EntityLambDorset)
+		}
+		else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset || this instanceof EntityLambDorset)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
-		} else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino || this instanceof EntityLambMerino)
+		}
+		else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino || this instanceof EntityLambMerino)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
-		} else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityLambSuffolk)
+		}
+		else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityLambSuffolk)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
-		} else
+		}
+		else
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, 0);
 		}
@@ -222,7 +226,8 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 		{
 			this.dataManager.set(EntityAnimaniaSheep.SHEARED, true);
 			this.setWoolRegrowthTimer(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500));
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaSheep.SHEARED, false);
 	}
 
@@ -273,7 +278,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 	public void setDyeColorNum(int col)
 	{
-		this.dataManager.set(EntityAnimaniaSheep.DYE_COLOR, new Integer(col));
+		this.dataManager.set(EntityAnimaniaSheep.DYE_COLOR, Integer.valueOf(col));
 	}
 
 	@Override
@@ -307,41 +312,39 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 	public EnumDyeColor getDyeColor()
 	{
-		if (color == null)
+		if (this.color == null)
 		{
-			color = EnumDyeColor.byMetadata(this.getDyeColorNum());
+			this.color = EnumDyeColor.byMetadata(this.getDyeColorNum());
 		}
 
-		return color;
+		return this.color;
 	}
 
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!hasRemovedBOP)
+		if (!this.hasRemovedBOP && ModList.get().isLoaded("biomesoplenty"))
 		{
-			if (ModList.get().isLoaded("biomesoplenty"))
+			Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+			while (it.hasNext())
 			{
-				Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
-				while (it.hasNext())
+				EntityAITaskEntry entry = it.next();
+				Goal ai = entry.action;
+				try
 				{
-					EntityAITaskEntry entry = it.next();
-					Goal ai = entry.action;
-					try
+					if (Class.forName("biomesoplenty.common.entities.ai.EntityAIEatBOPGrass").isInstance(ai))
 					{
-						if (Class.forName("biomesoplenty.common.entities.ai.EntityAIEatBOPGrass").isInstance(ai))
-						{
-							entry.using = false;
-							ai.resetTask();
-							it.remove();
-						}
-					} catch (Exception e)
-					{
+						entry.using = false;
+						ai.resetTask();
+						it.remove();
 					}
 				}
-
-				hasRemovedBOP = true;
+				catch (Exception e)
+				{
+				}
 			}
+
+			this.hasRemovedBOP = true;
 		}
 
 		GenericBehavior.livingUpdateCommon(this);
@@ -383,7 +386,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 		if (stack.getItem() instanceof ItemDye && !this.isChild() && !this.getSheared())
 		{
-			if (isDyeable())
+			if (this.isDyeable())
 			{
 				EnumDyeColor col = EnumDyeColor.byDyeDamage(stack.getItemDamage());
 				if (this.getDyeColor() != col)
@@ -393,10 +396,10 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 					this.color = col;
 					this.setDyeColorNum(col.getMetadata());
-					return true;
 				}
 				return true;
-			} else
+			}
+			else
 				return false;
 		}
 
@@ -423,7 +426,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
-		return mateable && (stack != ItemStack.EMPTY && this.isSheepBreedingItem(stack));
+		return this.mateable && stack != ItemStack.EMPTY && this.isSheepBreedingItem(stack);
 	}
 
 	private boolean isSheepBreedingItem(ItemStack itemIn)
@@ -437,7 +440,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 		super.writeEntityToNBT(compound);
 
 		compound.putBoolean("Sheared", this.getSheared());
-		compound.putInteger("ColorNumber", getColorNumber());
+		compound.putInteger("ColorNumber", this.getColorNumber());
 		compound.putInteger("DyeColor", this.getDyeColorNum());
 
 		GenericBehavior.writeCommonNBT(compound, this);
@@ -481,7 +484,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -502,7 +505,8 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 		if (!this.getSheared() && !this.isChild())
 		{
 			return true;
-		} else
+		}
+		else
 		{
 			return false;
 		}
@@ -543,37 +547,37 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
 	public void setEatTimer(int i)
 	{
-		eatTimer = i;
+		this.eatTimer = i;
 	}
 
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -585,43 +589,43 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return sheepType;
+		return this.sheepType;
 	}
 
 	@Override

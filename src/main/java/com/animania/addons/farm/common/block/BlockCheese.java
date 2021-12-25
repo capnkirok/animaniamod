@@ -14,13 +14,13 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -102,7 +102,8 @@ public class BlockCheese extends Block
 		if (!levelIn.isRemote)
 		{
 			return this.eatCheese(levelIn, pos, state, playerIn);
-		} else
+		}
+		else
 		{
 			ItemStack itemstack = playerIn.getHeldItem(hand);
 			return this.eatCheese(levelIn, pos, state, playerIn) || itemstack.isEmpty();
@@ -114,7 +115,8 @@ public class BlockCheese extends Block
 		if (!player.canEat(false))
 		{
 			return false;
-		} else
+		}
+		else
 		{
 			if (!levelIn.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 			{
@@ -129,12 +131,13 @@ public class BlockCheese extends Block
 
 			}
 			player.getFoodStats().addStats(2, 1.2F);
-			int i = ((Integer) state.getValue(BITES)).intValue();
+			int i = (Integer) state.getValue(BITES);
 
 			if (i < 3)
 			{
 				levelIn.setBlock(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
-			} else
+			}
+			else
 			{
 				levelIn.setBlockToAir(pos);
 			}
@@ -146,7 +149,7 @@ public class BlockCheese extends Block
 	@Override
 	public int getMetaFromState(BlockState state)
 	{
-		return ((Integer) state.getValue(BITES)).intValue();
+		return (Integer) state.getValue(BITES);
 	}
 
 	@Override

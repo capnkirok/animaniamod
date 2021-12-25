@@ -28,16 +28,19 @@ public class EntityToad extends EntityAmphibian
 
 		int chooser = Animania.RANDOM.nextInt(5);
 
-		if (chooser == 0)
+		switch (chooser)
+		{
+		case 0:
 			return ExtraAddonSoundHandler.toadLiving1;
-		else if (chooser == 1)
+		case 1:
 			return ExtraAddonSoundHandler.toadLiving2;
-		else if (chooser == 2)
+		case 2:
 			return ExtraAddonSoundHandler.toadLiving3;
-		else if (chooser == 3)
+		case 3:
 			return ExtraAddonSoundHandler.toadLiving4;
-		else
+		default:
 			return null;
+		}
 	}
 
 	@Override
@@ -84,9 +87,9 @@ public class EntityToad extends EntityAmphibian
 
 		ItemStack foundStack = null;
 		String item = "";
-		String mod = "";
-		int sepLoc = 0;
-		int metaLoc = 0;
+		String mod;
+		int sepLoc;
+		int metaLoc;
 		boolean metaFlag = false;
 		String metaVal = "";
 
@@ -103,14 +106,15 @@ public class EntityToad extends EntityAmphibian
 		if (metaLoc > 0)
 		{
 			item = moditem.substring(sepLoc + 1, metaLoc);
-		} else
+		}
+		else
 		{
-			item = moditem.substring(sepLoc + 1, moditem.length());
+			item = moditem.substring(sepLoc + 1);
 		}
 		if (metaLoc > 0)
 		{
 			metaFlag = true;
-			metaVal = moditem.substring(metaLoc + 1, moditem.length());
+			metaVal = moditem.substring(metaLoc + 1);
 		}
 
 		Item bob = Item.getByNameOrId(item);
@@ -121,11 +125,13 @@ public class EntityToad extends EntityAmphibian
 			if (metaFlag)
 			{
 				foundStack = new ItemStack(bob, 1, Integer.parseInt(metaVal));
-			} else
+			}
+			else
 			{
 				foundStack = new ItemStack(bob, 1);
 			}
-		} else
+		}
+		else
 		{
 			foundStack = new ItemStack(Blocks.AIR, 1);
 		}

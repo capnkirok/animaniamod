@@ -199,7 +199,7 @@ public class PoseBloodhoundSleeping extends ModelBase
 		this.leg_r2.addChild(this.toes_r);
 		this.leg_r1.addChild(this.leg_r2);
 		this.body.addChild(this.leg_r1);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

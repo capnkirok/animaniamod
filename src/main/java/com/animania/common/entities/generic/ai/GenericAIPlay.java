@@ -37,13 +37,13 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 	@Override
 	public boolean shouldExecute()
 	{
-		if (isRunning)
+		if (this.isRunning)
 			return true;
 
-		if (entity.getSleeping())
+		if (this.entity.getSleeping())
 			return false;
 
-		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(playmateClass, 5, entity.level, entity, e -> !e.getSleeping() && !e.getPlayAI().isRunning);
+		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(this.playmateClass, 5, this.entity.level, this.entity, e -> !e.getSleeping() && !e.getPlayAI().isRunning);
 		if (list.isEmpty())
 			return false;
 
@@ -56,10 +56,7 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		if (rand.nextDouble() < 0.1)
-			return false;
-
-		if (!shouldExecute())
+		if (rand.nextDouble() < 0.1 || !this.shouldExecute())
 			return false;
 
 		return super.shouldContinueExecuting();
@@ -68,25 +65,25 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 	@Override
 	public void resetTask()
 	{
-		isRunning = false;
-		isChaser = false;
-		playmate = null;
-		path = null;
+		this.isRunning = false;
+		this.isChaser = false;
+		this.playmate = null;
+		this.path = null;
 	}
 
 	@Override
 	public void startExecuting()
 	{
-		if (!isRunning)
+		if (!this.isRunning)
 		{
-			List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(playmateClass, 5, entity.level, entity, e -> !e.getSleeping() && !e.getPlayAI().isRunning);
+			List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(this.playmateClass, 5, this.entity.level, this.entity, e -> !e.getSleeping() && !e.getPlayAI().isRunning);
 			if (!list.isEmpty())
 			{
 				this.playmate = list.get(0);
 				this.isRunning = true;
 				this.isChaser = true;
-				GenericAIPlay otherAI = playmate.getPlayAI();
-				otherAI.playmate = entity;
+				GenericAIPlay otherAI = this.playmate.getPlayAI();
+				otherAI.playmate = this.entity;
 				otherAI.isRunning = true;
 				otherAI.isChaser = false;
 			}
@@ -96,35 +93,36 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 	@Override
 	public void updateTask()
 	{
-		if (isRunning)
+		if (this.isRunning)
 		{
-			if (isChaser)
+			if (this.isChaser)
 			{
-				if (path == null || navigator.noPath())
+				if (this.path == null || this.navigator.noPath())
 				{
-					path = navigator.getPathToLivingEntity(playmate);
+					this.path = this.navigator.getPathToLivingEntity(this.playmate);
 				}
 
-				navigator.setPath(path, 1.0);
+				this.navigator.setPath(this.path, 1.0);
 
-				if (entity.getDistance(playmate) <= 0.5)
+				if (this.entity.getDistance(this.playmate) <= 0.5)
 				{
-					GenericAIPlay otherAI = playmate.getPlayAI();
+					GenericAIPlay otherAI = this.playmate.getPlayAI();
 					otherAI.isChaser = true;
 					this.isChaser = false;
 				}
-			} else
+			}
+			else
 			{
-				if (path == null || navigator.noPath())
+				if (this.path == null || this.navigator.noPath())
 				{
-					Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.entity, 16, 7, new Vec3d(playmate.getX(), playmate.getY(), playmate.getZ()));
+					Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.entity, 16, 7, new Vec3d(this.playmate.getX(), this.playmate.getY(), this.playmate.getZ()));
 					if (vec3d != null)
 					{
-						path = navigator.getPathToXYZ(vec3d.x, vec3d.y, vec3d.z);
+						this.path = this.navigator.getPathToXYZ(vec3d.x, vec3d.y, vec3d.z);
 					}
 				}
 
-				navigator.setPath(path, 1.0);
+				this.navigator.setPath(this.path, 1.0);
 			}
 		}
 	}

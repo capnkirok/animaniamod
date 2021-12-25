@@ -15,46 +15,49 @@ import net.minecraft.world.entity.LivingEntity;
 public class WailaEntityRodentProvider extends WailaAnimalEntityProviderBase
 {
 
-    @Override
-    public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
-        currenttip = super.getWailaBody(entity, currenttip, accessor, config);
-        boolean tamed = accessor.getNBTData().getBoolean("IsTamed");
-        boolean sitting = accessor.getNBTData().getBoolean("IsSitting");
-        boolean sleeping = accessor.getNBTData().getBoolean("Sleep");
+	@Override
+	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
+	{
+		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
+		boolean tamed = accessor.getNBTData().getBoolean("IsTamed");
+		boolean sitting = accessor.getNBTData().getBoolean("IsSitting");
+		boolean sleeping = accessor.getNBTData().getBoolean("Sleep");
 
-        if (sitting)
-            currenttip.add(I18n.translateToLocal("text.waila.sitting"));
-        
-        if (sleeping)
-        	currenttip.add(I18n.translateToLocal("text.waila.sleeping"));
-        
-        if (accessor.getPlayer().isSneaking())
-            if (tamed) {
-                LivingEntity owner = ((TameableEntity) accessor.getEntity()).getOwner();
-                if (owner != null) {
-                    String name = owner.getName();
-                    if (!name.equals(""))
-                        currenttip.add(I18n.translateToLocal("text.waila.tamed") + " (" + name + ")");
-                    else
-                        currenttip.add(I18n.translateToLocal("text.waila.tamed"));
-                }
-                else
-                    currenttip.add(I18n.translateToLocal("text.waila.ownermissing"));
+		if (sitting)
+			currenttip.add(I18n.translateToLocal("text.waila.sitting"));
 
-            }
+		if (sleeping)
+			currenttip.add(I18n.translateToLocal("text.waila.sleeping"));
 
-        return currenttip;
-    }
+		if (accessor.getPlayer().isSneaking() && tamed)
+		{
+			LivingEntity owner = ((TameableEntity) accessor.getEntity()).getOwner();
+			if (owner != null)
+			{
+				String name = owner.getName();
+				if (!name.equals(""))
+					currenttip.add(I18n.translateToLocal("text.waila.tamed") + " (" + name + ")");
+				else
+					currenttip.add(I18n.translateToLocal("text.waila.tamed"));
+			}
+			else
+				currenttip.add(I18n.translateToLocal("text.waila.ownermissing"));
 
-    @Override
-    public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level) {
-        CompoundTag comp = ent.getEntityData();
+		}
 
-        tag.putBoolean("IsSitting", comp.getBoolean("IsSitting"));
-        tag.putBoolean("IsTamed", comp.getBoolean("IsTamed"));
-        tag.putBoolean("Sleep", comp.getBoolean("Sleep"));
+		return currenttip;
+	}
 
-        return super.getNBTData(player, ent, tag, level);
-    }
+	@Override
+	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level)
+	{
+		CompoundTag comp = ent.getEntityData();
+
+		tag.putBoolean("IsSitting", comp.getBoolean("IsSitting"));
+		tag.putBoolean("IsTamed", comp.getBoolean("IsTamed"));
+		tag.putBoolean("Sleep", comp.getBoolean("Sleep"));
+
+		return super.getNBTData(player, ent, tag, level);
+	}
 
 }

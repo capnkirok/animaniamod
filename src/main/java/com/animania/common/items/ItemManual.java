@@ -25,18 +25,14 @@ public class ItemManual extends AnimaniaItem
 	public ActionResult<ItemStack> onItemRightClick(Level level, PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		if (level.isRemote)
+		if (level.isRemote && player instanceof PlayerEntitySP)
 		{
-			if (player instanceof PlayerEntitySP)
+			if (!ManualResourceLoader.errored)
 			{
-				if (!ManualResourceLoader.errored)
-				{
-					Animania.proxy.openManualGui(stack);
-				}
-				else
-					player.sendMessage(new TextComponentString(TextFormatting.RED + "Error while building the book! Please double-check your json files!"));
+				Animania.proxy.openManualGui(stack);
 			}
-
+			else
+				player.sendMessage(new TextComponentString(TextFormatting.RED + "Error while building the book! Please double-check your json files!"));
 		}
 
 		return new ActionResult(ActionResultType.SUCCESS, stack);

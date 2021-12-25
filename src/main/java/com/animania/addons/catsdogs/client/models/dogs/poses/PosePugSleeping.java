@@ -93,7 +93,7 @@ public class PosePugSleeping extends ModelBase
 		this.body.addChild(this.back_left);
 		this.body.addChild(this.front_right);
 		this.body.addChild(this.front_left);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

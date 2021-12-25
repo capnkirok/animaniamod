@@ -53,8 +53,8 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	@Override
 	public void update()
 	{
-		nextHoney--;
-		if (nextHoney < 1)
+		this.nextHoney--;
+		if (this.nextHoney < 1)
 		{
 			Biome b = level.getBiome(pos);
 			boolean isCorrectBiome = false;
@@ -64,28 +64,25 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 
 			if (isCorrectBiome)
 			{
-				int filled = fluidHandler.fill(new FluidStack(FarmAddonBlockHandler.fluidHoney, 25), true);
+				int filled = this.fluidHandler.fill(new FluidStack(FarmAddonBlockHandler.fluidHoney, 25), true);
 
 				if (this.getBlockType() == FarmAddonBlockHandler.blockHive)
-					nextHoney = FarmConfig.settings.hivePlayermadeHoneyRate + Animania.RANDOM.nextInt(100);
+					this.nextHoney = FarmConfig.settings.hivePlayermadeHoneyRate + Animania.RANDOM.nextInt(100);
 				else
-					nextHoney = FarmConfig.settings.hiveWildHoneyRate + Animania.RANDOM.nextInt(100);
+					this.nextHoney = FarmConfig.settings.hiveWildHoneyRate + Animania.RANDOM.nextInt(100);
 
 				if (filled > 0)
 					this.markDirty();
 			}
 		}
 
-		if (this.blockType == FarmAddonBlockHandler.blockWildHive)
+		if (this.blockType == FarmAddonBlockHandler.blockWildHive && Animania.RANDOM.nextInt(10) == 0)
 		{
-			if (Animania.RANDOM.nextInt(10) == 0)
+			List<PlayerEntity> players = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 2, this.level, pos);
+			for (PlayerEntity p : players)
 			{
-				List<PlayerEntity> players = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 2, this.level, pos);
-				for (PlayerEntity p : players)
-				{
-					if (Animania.RANDOM.nextInt(3) == 0)
-						p.attackEntityFrom(DamageSourceHandler.beeDamage, 2.5f);
-				}
+				if (Animania.RANDOM.nextInt(3) == 0)
+					p.attackEntityFrom(DamageSourceHandler.beeDamage, 2.5f);
 			}
 		}
 
@@ -122,7 +119,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		CompoundTag tag = super.writeToNBT(compound);
 		CompoundTag fluid = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
-		tag.putInteger("nextHoney", nextHoney);
+		tag.putInteger("nextHoney", this.nextHoney);
 		tag.putTag("fluid", fluid);
 		return tag;
 
@@ -149,7 +146,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	@Override
 	public boolean shouldRefresh(Level level, BlockPos pos, BlockState oldState, BlockState newState)
 	{
-		return (oldState.getBlock() != newState.getBlock());
+		return oldState.getBlock() != newState.getBlock();
 	}
 
 	@Override
@@ -165,7 +162,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 
 	public boolean isRunning()
 	{
-		return isRunning;
+		return this.isRunning;
 	}
 
 	public void setRunning(boolean isRunning)
@@ -181,12 +178,12 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	@Override
 	public void markDirty()
 	{
-		nbtSyncTimer++;
-		if (nbtSyncTimer > 50)
+		this.nbtSyncTimer++;
+		if (this.nbtSyncTimer > 50)
 		{
 			super.markDirty();
 			AnimaniaHelper.sendTileEntityUpdate(this);
-			nbtSyncTimer = 0;
+			this.nbtSyncTimer = 0;
 		}
 	}
 
@@ -208,12 +205,10 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 				{
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_bees_wild", this);
 				}
-			} else
+			}
+			else if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_bees", this))
 			{
-				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_bees", this))
-				{
-					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_bees", this);
-				}
+				this.getAnimationHandler().startAnimation(Animania.MODID, "anim_bees", this);
 			}
 		}
 	}

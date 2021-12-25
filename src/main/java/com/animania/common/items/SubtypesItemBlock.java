@@ -14,11 +14,11 @@ public class SubtypesBlockItem extends BlockItem
 		this.setRegistryName(block.getRegistryName());
 		this.hasSubtypes = true;
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		return block.getUnlocalizedName() + "_" + ((IMetaBlockName)block).getSpecialName(stack);
+		return this.block.getUnlocalizedName() + "_" + ((IMetaBlockName) this.block).getSpecialName(stack);
 	}
 
 }

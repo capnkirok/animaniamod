@@ -13,34 +13,44 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
-public class CapabilityRefs {
-
+public class CapabilityRefs
+{
 
 	@CapabilityInject(ICapabilityPlayer.class)
 	public static final Capability<ICapabilityPlayer> CAPS = null;
 
-	public static ICapabilityPlayer getPlayerCaps(Player player) {
+	public static ICapabilityPlayer getPlayerCaps(Player player)
+	{
 		return player.getCapability(CapabilityRefs.CAPS, null);
 	}
 
-	public static NBTTagString toTagString(String s){
+	public static NBTTagString toTagString(String s)
+	{
 		return new NBTTagString(s);
 	}
-	public static NBTTagInt toTagInt(int i){
+
+	public static NBTTagInt toTagInt(int i)
+	{
 		return new NBTTagInt(i);
 	}
-	public static NBTTagLong toTagLong(long i){
+
+	public static NBTTagLong toTagLong(long i)
+	{
 		return new NBTTagLong(i);
 	}
-	public static NBTTagFloat toTagFloat(float f){
+
+	public static NBTTagFloat toTagFloat(float f)
+	{
 		return new NBTTagFloat(f);
 	}
-	
-	public static NBTTagList toTagList(NBTTagList l){
+
+	public static NBTTagList toTagList(NBTTagList l)
+	{
 		return new NBTTagList();
 	}
-	
-	public static ResourceLocation toResource(String path) {
+
+	public static ResourceLocation toResource(String path)
+	{
 		return new ResourceLocation(Animania.MODID, path);
 	}
 }

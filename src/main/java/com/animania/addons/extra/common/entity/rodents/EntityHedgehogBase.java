@@ -1,7 +1,6 @@
 package com.animania.addons.extra.common.entity.rodents;
 
 import java.util.Set;
-import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
@@ -97,7 +96,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		this.height = 0.5F;
 		this.stepHeight = 1.1F;
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-		this.wateredTimer = (AnimaniaConfig.careAndFeeding.waterTimer * 2) + this.rand.nextInt(200);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(200);
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 80 + this.rand.nextInt(80);
@@ -120,37 +119,29 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		this.goalSelector.addGoal(1, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, EntityHedgehogBase.class, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityHedgehogBase.class, true));
 			this.goalSelector.addGoal(3, new HedgehogFindNestsGoal(this, 1.0D));
-			this.goalSelector.addGoal(4, new GenericAIFindFood<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, false));
+			this.goalSelector.addGoal(4, new GenericAIFindFood<>(this, 1.0D, this.entityAIEatGrass, false));
 		}
 		this.goalSelector.addGoal(5, this.aiSit);
 		this.goalSelector.addGoal(6, new FleeSunGoal(this, 1.0D));
 		this.goalSelector.addGoal(7, new LeapAtTargetGoal(this, 0.2F));
 		this.goalSelector.addGoal(8, new AttackMeleeGoal(this, 1.0D, true));
-		this.goalSelector.addGoal(9, new GenericAITempt<EntityHedgehogBase>(this, 1.2D, false, EntityHedgehogBase.TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(10, new GenericAIPanic<EntityHedgehogBase>(this, 1.5D));
-		this.goalSelector.addGoal(11, new GenericAIFollowOwner<EntityHedgehogBase>(this, 1.0D, 10.0F, 2.0F));
+		this.goalSelector.addGoal(9, new GenericAITempt<>(this, 1.2D, false, EntityHedgehogBase.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(10, new GenericAIPanic<>(this, 1.5D));
+		this.goalSelector.addGoal(11, new GenericAIFollowOwner<>(this, 1.0D, 10.0F, 2.0F));
 		this.goalSelector.addGoal(13, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.goalSelector.addGoal(14, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.addGoal(15, new GenericAILookIdle<EntityHedgehogBase>(this));
+		this.goalSelector.addGoal(15, new GenericAILookIdle<>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.goalSelector.addGoal(16, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hedgehogBed), Block.getBlockFromName(ExtraConfig.settings.hedgehogBed2), EntityHedgehogBase.class, new Function<Long, Boolean>() {
-
-					@Override
-					public Boolean apply(Long leveltime)
-					{		
-						return (leveltime < 13000);
-					}
-					
-				}));
+			this.goalSelector.addGoal(16, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hedgehogBed), Block.getBlockFromName(ExtraConfig.settings.hedgehogBed2), EntityHedgehogBase.class, leveltime -> leveltime < 13000));
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
 			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget<SilverfishEntity>(this, SilverfishEntity.class, false));
-			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget<EntityFrogs>(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget<EntityToad>(this, EntityToad.class, false));
+			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget<>(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget<>(this, EntityToad.class, false));
 
 			AddonInjectionHandler.runInjection("farm", "avoidRooster", Void.class, this.tasks, this);
 		}
@@ -307,7 +298,8 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 			this.setHedgehogRiding(true);
 			this.startRiding(par1Entity, true);
 
-		} else if (!this.isHedgehogRiding())
+		}
+		else if (!this.isHedgehogRiding())
 			this.dismountRidingEntity();
 
 	}
@@ -328,7 +320,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 				props.setType(EntityList.getKey(this).getResourcePath());
 				this.setDead();
 				player.swingArm(EnumHand.MAIN_HAND);
-				if(!player.level.isRemote)
+				if (!player.level.isRemote)
 					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.level.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 				return true;
 			}
@@ -466,7 +458,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -510,37 +502,37 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
 	public void setEatTimer(int i)
 	{
-		eatTimer = i;
+		this.eatTimer = i;
 	}
 
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -552,43 +544,43 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return type;
+		return this.type;
 	}
 
 	@Override

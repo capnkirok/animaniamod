@@ -26,11 +26,11 @@ public class RenderHenBase<T extends EntityHenBase> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 
 	private LayerBlinking blinkingLayer;
-	
+
 	public RenderHenBase(RenderManager rm)
 	{
 		super(rm, new ModelHen(), 0.3F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png"), 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png"), 0));
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class RenderHenBase<T extends EntityHenBase> extends RenderLiving<T>
 	protected void preRenderCallback(T LivingEntity, float f)
 	{
 		this.preRenderScale(LivingEntity, f);
-		blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
+		this.blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
 	}
 
 	protected void preRenderScale(T LivingEntity, float f)
@@ -60,7 +60,7 @@ public class RenderHenBase<T extends EntityHenBase> extends RenderLiving<T>
 
 		Block blockchk = Livingentity.level.getBlockState(pos).getBlock();
 
-		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) LivingEntity;
+		EntityAnimaniaChicken entityChk = LivingEntity;
 		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())
 		{
 			GlStateManager.translate(-0.25F, 0.35F, -0.25F);

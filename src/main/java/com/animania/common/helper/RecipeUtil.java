@@ -24,20 +24,25 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
  *
  * @author Choonster
  */
-public class RecipeUtil {
+public class RecipeUtil
+{
 
 	/**
 	 * Parse the input of a shaped recipe.
 	 * <p>
 	 * Adapted from {@link ShapedOreRecipe#factory}.
 	 *
-	 * @param context The parsing context
-	 * @param json    The recipe's JSON object
+	 * @param context
+	 *            The parsing context
+	 * @param json
+	 *            The recipe's JSON object
 	 * @return A ShapedPrimer containing the input specified in the JSON object
 	 */
-	public static CraftingHelper.ShapedPrimer parseShaped(final JsonContext context, final JsonObject json) {
+	public static CraftingHelper.ShapedPrimer parseShaped(final JsonContext context, final JsonObject json)
+	{
 		final Map<Character, Ingredient> ingredientMap = Maps.newHashMap();
-		for (final Map.Entry<String, JsonElement> entry : JsonUtils.getJsonObject(json, "key").entrySet()) {
+		for (final Map.Entry<String, JsonElement> entry : JsonUtils.getJsonObject(json, "key").entrySet())
+		{
 			if (entry.getKey().length() != 1)
 				throw new JsonSyntaxException("Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only).");
 			if (" ".equals(entry.getKey()))
@@ -54,7 +59,8 @@ public class RecipeUtil {
 			throw new JsonSyntaxException("Invalid pattern: empty pattern not allowed");
 
 		final String[] pattern = new String[patternJ.size()];
-		for (int x = 0; x < pattern.length; ++x) {
+		for (int x = 0; x < pattern.length; ++x)
+		{
 			final String line = JsonUtils.getString(patternJ.get(x), "pattern[" + x + "]");
 			if (x > 0 && pattern[0].length() != line.length())
 				throw new JsonSyntaxException("Invalid pattern: each row must  be the same width");
@@ -71,8 +77,10 @@ public class RecipeUtil {
 		keys.remove(' ');
 
 		int index = 0;
-		for (final String line : pattern) {
-			for (final char chr : line.toCharArray()) {
+		for (final String line : pattern)
+		{
+			for (final char chr : line.toCharArray())
+			{
 				final Ingredient ing = ingredientMap.get(chr);
 				if (ing == null)
 					throw new JsonSyntaxException("Pattern references symbol '" + chr + "' but it's not defined in the key");
@@ -92,11 +100,15 @@ public class RecipeUtil {
 	 * <p>
 	 * Adapted from {@link ShapelessOreRecipe#factory}.
 	 *
-	 * @param context The parsing context
-	 * @param json    The recipe's JSON object
-	 * @return A NonNullList containing the ingredients specified in the JSON object
+	 * @param context
+	 *            The parsing context
+	 * @param json
+	 *            The recipe's JSON object
+	 * @return A NonNullList containing the ingredients specified in the JSON
+	 *         object
 	 */
-	public static NonNullList<Ingredient> parseShapeless(final JsonContext context, final JsonObject json) {
+	public static NonNullList<Ingredient> parseShapeless(final JsonContext context, final JsonObject json)
+	{
 		final NonNullList<Ingredient> ingredients = NonNullList.create();
 		for (final JsonElement element : JsonUtils.getJsonArray(json, "ingredients"))
 			ingredients.add(CraftingHelper.getIngredient(element, context));

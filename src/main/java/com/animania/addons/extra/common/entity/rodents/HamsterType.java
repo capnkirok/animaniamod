@@ -7,17 +7,19 @@ import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public enum HamsterType implements AnimaniaType
 {
 	STANDARD(EntityHamster.class);
 
 	private Class male;
+
 	private HamsterType(Class male)
 	{
 		this.male = male;
 	}
-	
+
 	@Override
 	public EntityHamster getMale(Level level)
 	{

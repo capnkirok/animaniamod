@@ -51,13 +51,11 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends Ta
 		this.sorter = new GenericAINearestAttackableTarget.Sorter(creature);
 		this.setMutexBits(1);
 		this.targetEntitySelector = (@Nullable T p_apply_1_) -> {
-			if (p_apply_1_ == null)
+			if (p_apply_1_ == null || targetSelector != null && !targetSelector.apply(p_apply_1_))
 			{
 				return false;
-			} else if (targetSelector != null && !targetSelector.apply(p_apply_1_))
-			{
-				return false;
-			} else
+			}
+			else
 			{
 				return !EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) ? false : GenericAINearestAttackableTarget.this.isSuitableTarget(p_apply_1_, false);
 			}
@@ -82,20 +80,23 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends Ta
 		if (this.targetChance > 0 && this.taskOwner.getRandom().nextInt(this.targetChance) != 0)
 		{
 			return false;
-		} else if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class)
+		}
+		else if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class)
 		{
 			List<T> list = this.taskOwner.level.<T> getEntitiesWithinAABB(this.targetClass, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
 
 			if (list.isEmpty())
 			{
 				return false;
-			} else
+			}
+			else
 			{
 				Collections.sort(list, this.sorter);
 				this.targetEntity = list.get(0);
 				return true;
 			}
-		} else
+		}
+		else
 		{
 			this.targetEntity = (T) this.taskOwner.level.getNearestAttackablePlayer(this.taskOwner.getX(), this.taskOwner.getY() + this.taskOwner.getEyeHeight(), this.taskOwner.getZ(), this.getTargetDistance(), this.getTargetDistance(), new Function<PlayerEntity, Double>() {
 				@Override
@@ -157,7 +158,8 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends Ta
 			if (d0 < d1)
 			{
 				return -1;
-			} else
+			}
+			else
 			{
 				return d0 > d1 ? 1 : 0;
 			}

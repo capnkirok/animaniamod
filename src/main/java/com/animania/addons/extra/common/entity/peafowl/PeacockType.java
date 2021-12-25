@@ -29,25 +29,19 @@ import com.animania.api.interfaces.AnimaniaType;
 
 public enum PeacockType implements AnimaniaType
 {
-	BLUE(EntityPeacockBlue.class, EntityPeafowlBlue.class, EntityPeachickBlue.class),
-	WHITE(EntityPeacockWhite.class, EntityPeafowlWhite.class, EntityPeachickWhite.class),
-	TAUPE(EntityPeacockTaupe.class, EntityPeafowlTaupe.class, EntityPeachickTaupe.class),
-	PURPLE(EntityPeacockPurple.class, EntityPeafowlPurple.class, EntityPeachickPurple.class),
-	PEACH(EntityPeacockPeach.class, EntityPeafowlPeach.class, EntityPeachickPeach.class),
-	OPAL(EntityPeacockOpal.class, EntityPeafowlOpal.class, EntityPeachickOpal.class),
-	CHARCOAL(EntityPeacockCharcoal.class, EntityPeafowlCharcoal.class, EntityPeachickCharcoal.class);
-	
+	BLUE(EntityPeacockBlue.class, EntityPeafowlBlue.class, EntityPeachickBlue.class), WHITE(EntityPeacockWhite.class, EntityPeafowlWhite.class, EntityPeachickWhite.class), TAUPE(EntityPeacockTaupe.class, EntityPeafowlTaupe.class, EntityPeachickTaupe.class), PURPLE(EntityPeacockPurple.class, EntityPeafowlPurple.class, EntityPeachickPurple.class), PEACH(EntityPeacockPeach.class, EntityPeafowlPeach.class, EntityPeachickPeach.class), OPAL(EntityPeacockOpal.class, EntityPeafowlOpal.class, EntityPeachickOpal.class), CHARCOAL(EntityPeacockCharcoal.class, EntityPeafowlCharcoal.class, EntityPeachickCharcoal.class);
+
 	private Class male;
 	private Class female;
 	private Class child;
-	
+
 	private PeacockType(Class male, Class female, Class child)
 	{
 		this.male = male;
 		this.female = female;
 		this.child = child;
 	}
-	
+
 	@Override
 	public EntityPeacockBase getMale(Level level)
 	{
@@ -93,7 +87,7 @@ public enum PeacockType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return female;	
+		return female;
 	}
 
 	@Override
@@ -117,14 +111,14 @@ public enum PeacockType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return child;	
+		return child;
 	}
 
 	public static PeacockType breed(PeacockType male, PeacockType female)
 	{
 		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
-	
+
 	@Override
 	public String getTypeName()
 	{

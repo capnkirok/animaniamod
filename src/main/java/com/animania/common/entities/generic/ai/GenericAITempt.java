@@ -34,13 +34,13 @@ public class GenericAITempt<T extends PathfinderMob & ISleeping & IFoodEating> e
 
 		this.temptSet = Sets.newHashSet();
 		for (ItemStack s : temptItemIn)
-			temptSet.add(s.copy());
+			this.temptSet.add(s.copy());
 	}
 
 	@Override
 	protected boolean isTempting(ItemStack stack)
 	{
-		return AnimaniaHelper.containsItemStack(temptSet, stack);
+		return AnimaniaHelper.containsItemStack(this.temptSet, stack);
 	}
 
 	/**
@@ -49,10 +49,7 @@ public class GenericAITempt<T extends PathfinderMob & ISleeping & IFoodEating> e
 	@Override
 	public boolean shouldExecute()
 	{
-		if (temptedEntity.getSleeping())
-			return false;
-
-		if (temptedEntity instanceof TameableEntity && ((TameableEntity) temptedEntity).isSitting())
+		if (this.temptedEntity.getSleeping() || this.temptedEntity instanceof TameableEntity && ((TameableEntity) this.temptedEntity).isSitting())
 			return false;
 
 		return super.shouldExecute();
@@ -61,8 +58,8 @@ public class GenericAITempt<T extends PathfinderMob & ISleeping & IFoodEating> e
 	@Override
 	public void updateTask()
 	{
-		if (!temptedEntity.getInteracted())
-			temptedEntity.setInteracted(true);
+		if (!this.temptedEntity.getInteracted())
+			this.temptedEntity.setInteracted(true);
 
 		super.updateTask();
 	}

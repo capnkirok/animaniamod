@@ -38,9 +38,9 @@ public class RenderPigletOldSpot<T extends PigEntityletOldSpot> extends RenderLi
 	protected void preRenderScale(T entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.1F + (age / entity.getSizeDividend()), 1.1F + (age / entity.getSizeDividend()), 1.1F + (age / entity.getSizeDividend()));
+		GL11.glScalef(1.1F + age / entity.getSizeDividend(), 1.1F + age / entity.getSizeDividend(), 1.1F + age / entity.getSizeDividend());
 
-		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		EntityAnimaniaPig entityChk = entity;
 
 		if (entityChk.getSleeping())
 		{
@@ -127,7 +127,7 @@ public class RenderPigletOldSpot<T extends PigEntityletOldSpot> extends RenderLi
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.PIG_TEXTURES;
+		return RenderPigletOldSpot.PIG_TEXTURES;
 	}
 
 	static class Factory<T extends PigEntityletOldSpot> implements IRenderFactory<T>

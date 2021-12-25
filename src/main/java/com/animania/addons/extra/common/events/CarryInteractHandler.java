@@ -77,7 +77,6 @@ public class CarryInteractHandler
 			{
 				ResourceLocation egg = new ResourceLocation("animania:entity_egg_dartfrog");
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
 			}
 
 		}

@@ -15,20 +15,22 @@ public class ItemHandlerNest extends ItemStackHandler
 		this.te = nest;
 	}
 
-    @Override
-    public int getSlotLimit(int slot) {
-        return 3;
-    }
- 
-    @Override
-    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-    	return stack;
-    }
-    
-    @Override
-    protected void onContentsChanged(int slot)
-    {
-    	te.setChanged();
-    	super.onContentsChanged(slot);
-    }
+	@Override
+	public int getSlotLimit(int slot)
+	{
+		return 3;
+	}
+
+	@Override
+	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate)
+	{
+		return stack;
+	}
+
+	@Override
+	protected void onContentsChanged(int slot)
+	{
+		this.te.setChanged();
+		super.onContentsChanged(slot);
+	}
 }

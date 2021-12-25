@@ -22,7 +22,6 @@ public class LookIdleHorsesGoal extends Goal
 	 * 0.
 	 */
 	private int idleTime;
-	private int delayCounter;
 
 	public LookIdleHorsesGoal(PathfinderMob LivingEntityIn)
 	{
@@ -39,26 +38,26 @@ public class LookIdleHorsesGoal extends Goal
 
 		if (!this.idleentity.level.isDay())
 		{
-			this.delayCounter = 0;
+			int delayCounter = 0;
 			return false;
 		}
 
 		boolean pullingFlag = false;
-		List entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, idleentity.level, idleEntity);
+		List entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, idleentity.level, this.idleEntity);
 		if (!entities.isEmpty())
 		{
 			EntityCart checkCart = (EntityCart) entities.get(0);
-			if (checkCart.puller == idleEntity)
+			if (checkCart.puller == this.idleEntity)
 			{
 				pullingFlag = true;
 			}
 		}
 
-		entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, idleentity.level, idleEntity);
+		entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, idleentity.level, this.idleEntity);
 		if (!entities.isEmpty())
 		{
 			EntityWagon checkWagon = (EntityWagon) entities.get(0);
-			if (checkWagon.puller == idleEntity)
+			if (checkWagon.puller == this.idleEntity)
 			{
 				pullingFlag = true;
 			}
@@ -83,7 +82,7 @@ public class LookIdleHorsesGoal extends Goal
 	@Override
 	public void startExecuting()
 	{
-		double d0 = (Math.PI * 2D) * this.idleEntity.getRandom().nextDouble();
+		double d0 = Math.PI * 2D * this.idleEntity.getRandom().nextDouble();
 		this.lookX = Math.cos(d0);
 		this.lookZ = Math.sin(d0);
 		this.idleTime = 20 + this.idleEntity.getRandom().nextInt(20);

@@ -35,7 +35,7 @@ public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProvide
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
 		this.goalSelector.addGoal(1, new GenericAIFollowParents<EntityPuppyBase, EntityFemaleDogBase>(this, 1.1D, EntityFemaleDogBase.class));
-		this.goalSelector.addGoal(8, playAI = new GenericAIPlay(this, EntityPuppyBase.class));
+		this.goalSelector.addGoal(8, this.playAI = new GenericAIPlay(this, EntityPuppyBase.class));
 	}
 
 	@Override
@@ -64,13 +64,13 @@ public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProvide
 	@Override
 	public int getAgeTimer()
 	{
-		return ageTimer;
+		return this.ageTimer;
 	}
 
 	@Override
 	public void setAgeTimer(int i)
 	{
-		ageTimer = i;
+		this.ageTimer = i;
 	}
 
 	@Override

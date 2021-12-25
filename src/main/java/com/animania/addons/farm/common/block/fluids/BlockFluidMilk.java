@@ -3,9 +3,9 @@ package com.animania.addons.farm.common.block.fluids;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
 

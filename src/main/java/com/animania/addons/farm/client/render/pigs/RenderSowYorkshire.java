@@ -40,7 +40,7 @@ public class RenderSowYorkshire<T extends EntitySowYorkshire> extends RenderLivi
 
 		GL11.glScalef(1.0F, 1.0F, 1.0F);
 
-		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		EntityAnimaniaPig entityChk = entity;
 
 		if (entityChk.getSleeping())
 		{
@@ -129,7 +129,7 @@ public class RenderSowYorkshire<T extends EntitySowYorkshire> extends RenderLivi
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.PIG_TEXTURES;
+		return RenderSowYorkshire.PIG_TEXTURES;
 	}
 
 	static class Factory<T extends EntitySowYorkshire> implements IRenderFactory<T>

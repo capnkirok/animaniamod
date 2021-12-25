@@ -9,11 +9,11 @@ public interface AnimaniaType
 {
 
 	public LivingEntity getMale(Level level);
-	
+
 	public LivingEntity getFemale(Level level);
-	
+
 	public LivingEntity getChild(Level level);
-	
+
 	public static AnimaniaType valueOf(String type)
 	{
 		return null;
@@ -23,7 +23,7 @@ public interface AnimaniaType
 	{
 		return Animania.RANDOM.nextBoolean() ? this : other;
 	}
-	
+
 	public String getTypeName();
 
 }

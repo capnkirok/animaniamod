@@ -15,33 +15,34 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Dist.CLIENT)
 public class ModelCowAngus extends ModelBase
 {
-	private float        headRotationAngleX;
-	public ModelRenderer head          = new ModelRenderer(this, 0, 0);
-	ModelRenderer        body;
-	ModelRenderer        udder;
-	ModelRenderer        udderA;
-	ModelRenderer        udderC;
-	ModelRenderer        udderB;
-	ModelRenderer        udderD;
+	private float headRotationAngleX;
+	public ModelRenderer head = new ModelRenderer(this, 0, 0);
+	ModelRenderer body;
+	ModelRenderer udder;
+	ModelRenderer udderA;
+	ModelRenderer udderC;
+	ModelRenderer udderB;
+	ModelRenderer udderD;
 	// ModelRenderer Horn1;
 	// ModelRenderer Horn2;
-	ModelRenderer        Snout;
-	ModelRenderer        EarL;
-	ModelRenderer        EarLa;
-	ModelRenderer        EarR;
-	ModelRenderer        EarRa;
-	ModelRenderer        TailTop;
-	ModelRenderer        Tail;
-	ModelRenderer        TailHair1;
-	ModelRenderer        TailHair2;
-	ModelRenderer        leg1;
-	ModelRenderer        leg2;
-	ModelRenderer        leg3;
-	ModelRenderer        leg4;
-	protected float      field_78145_g = 8.0F;
-	protected float      field_78151_h = 4.0F;
+	ModelRenderer Snout;
+	ModelRenderer EarL;
+	ModelRenderer EarLa;
+	ModelRenderer EarR;
+	ModelRenderer EarRa;
+	ModelRenderer TailTop;
+	ModelRenderer Tail;
+	ModelRenderer TailHair1;
+	ModelRenderer TailHair2;
+	ModelRenderer leg1;
+	ModelRenderer leg2;
+	ModelRenderer leg3;
+	ModelRenderer leg4;
+	protected float field_78145_g = 8.0F;
+	protected float field_78151_h = 4.0F;
 
-	public ModelCowAngus() {
+	public ModelCowAngus()
+	{
 		this.head.setTextureSize(64, 64);
 		this.head.addBox(-4F, -4F, -3F, 8, 8, 6);
 		this.head.setRotationPoint(0F, 5F, -12F);
@@ -153,9 +154,9 @@ public class ModelCowAngus extends ModelBase
 
 	}
 
-
 	@Override
-	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+	{
 
 		this.Tail.rotateAngleX = -2F;
 		this.Tail.rotateAngleY = -3.141593F;
@@ -167,12 +168,14 @@ public class ModelCowAngus extends ModelBase
 
 		boolean isSleeping = false;
 		EntityAnimaniaCow ech = (EntityAnimaniaCow) entityIn;
-		if (ech.getSleeping()) {
+		if (ech.getSleeping())
+		{
 			isSleeping = true;
 		}
 		float sleepTimer = ech.getSleepTimer();
 
-		if (isSleeping) {
+		if (isSleeping)
+		{
 
 			this.leg1.rotateAngleX = sleepTimer * -1.8F;
 			this.leg1.render(scale * .95F);
@@ -184,13 +187,18 @@ public class ModelCowAngus extends ModelBase
 			this.leg4.render(scale * .95F);
 			this.head.rotateAngleY = sleepTimer * -2.8F;
 
-			if (sleepTimer > -.28) {
-				this.body.rotateAngleX = (float) Math.PI / 2F - (sleepTimer/3);
-			} else {
-				this.body.rotateAngleX = (float) Math.PI / 2F + (sleepTimer/3);
+			if (sleepTimer > -.28)
+			{
+				this.body.rotateAngleX = (float) Math.PI / 2F - sleepTimer / 3;
+			}
+			else
+			{
+				this.body.rotateAngleX = (float) Math.PI / 2F + sleepTimer / 3;
 			}
 
-		} else {
+		}
+		else
+		{
 
 			this.leg1.rotateAngleZ = 0;
 			this.leg1.render(scale);
@@ -218,22 +226,23 @@ public class ModelCowAngus extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	{
 
 		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (LivingEntityIn instanceof CowEntityHolstein) {
-			CowEntityHolstein CowEntityHolstein = (CowEntityHolstein) LivingEntityIn;
+		if (LivingEntityIn instanceof CowEntityHolstein CowEntityHolstein)
+		{
 			this.head.rotationPointY = 6.0F + CowEntityHolstein.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = CowEntityHolstein.getHeadAngleX(partialTickTime);
 		}
-		else if (LivingEntityIn instanceof CowEntityAngus) {
-			CowEntityAngus CowEntityAngus = (CowEntityAngus) LivingEntityIn;
+		else if (LivingEntityIn instanceof CowEntityAngus CowEntityAngus)
+		{
 			this.head.rotationPointY = 6.0F + CowEntityAngus.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = CowEntityAngus.getHeadAngleX(partialTickTime);
 		}
-		else if (LivingEntityIn instanceof CowEntityFriesian) {
-			CowEntityFriesian CowEntityFriesian = (CowEntityFriesian) LivingEntityIn;
+		else if (LivingEntityIn instanceof CowEntityFriesian CowEntityFriesian)
+		{
 			this.head.rotationPointY = 6.0F + CowEntityFriesian.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = CowEntityFriesian.getHeadAngleX(partialTickTime);
 		}
@@ -241,8 +250,8 @@ public class ModelCowAngus extends ModelBase
 	}
 
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
-
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
+	{
 
 		this.udder.rotateAngleX = (float) Math.PI / 2F;
 		this.udderA.rotateAngleX = (float) Math.PI / 2F;
@@ -255,10 +264,13 @@ public class ModelCowAngus extends ModelBase
 		this.head.rotateAngleX = this.headRotationAngleX;
 
 		EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
-		if (!ech.getSleeping()) {
+		if (!ech.getSleeping())
+		{
 			this.TailTop.rotateAngleX = (float) Math.PI / 2F;
 			this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		} else {
+		}
+		else
+		{
 			this.Tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
 		this.leg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;

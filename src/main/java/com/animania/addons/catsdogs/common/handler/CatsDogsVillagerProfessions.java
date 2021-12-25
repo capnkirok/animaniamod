@@ -58,8 +58,7 @@ public class CatsDogsVillagerProfessions
 	private static ListItemForEmeralds t(Item i, int a, int b)
 	{
 		PriceInfo p = new PriceInfo(a, b);
-		ListItemForEmeralds li = new ListItemForEmeralds(i, p);
-		return li;
+		return new ListItemForEmeralds(i, p);
 	}
 
 	private static ListItemForEmeralds[] trades(AnimaniaType type, int a, int b)

@@ -269,7 +269,7 @@ public class PosePoodleSleeping extends ModelBase
 		this.leg_r1.addChild(this.leg_r1_fluff);
 		this.body.addChild(this.leg_r1);
 		this.body.addChild(this.body_fluff1);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

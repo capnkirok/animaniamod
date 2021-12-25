@@ -7,6 +7,6 @@ public class TemplateAddonCraftingHandler
 	 */
 	public static void init()
 	{
-		
+
 	}
 }

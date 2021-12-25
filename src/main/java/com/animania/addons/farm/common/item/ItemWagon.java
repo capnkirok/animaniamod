@@ -53,7 +53,8 @@ public class ItemWagon extends Item
 		if (raytraceresult == null)
 		{
 			return new ActionResult(ActionResultType.PASS, itemstack);
-		} else
+		}
+		else
 		{
 			Vec3d vec3d2 = playerIn.getLook(1.0F);
 			boolean flag = false;
@@ -74,14 +75,12 @@ public class ItemWagon extends Item
 				}
 			}
 
-			if (flag)
+			if (flag || raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK)
 			{
 				return new ActionResult(ActionResultType.PASS, itemstack);
 
-			} else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK)
-			{
-				return new ActionResult(ActionResultType.PASS, itemstack);
-			} else
+			}
+			else
 			{
 				Block block = levelIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
 				boolean flag1 = false;

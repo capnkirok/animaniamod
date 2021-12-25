@@ -213,7 +213,7 @@ public class PoseCatSleeping extends ModelBase
 		this.body.addChild(this.leg_r1);
 		this.leg_l1.addChild(this.leg_l2);
 		this.body.addChild(this.leg_l1);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

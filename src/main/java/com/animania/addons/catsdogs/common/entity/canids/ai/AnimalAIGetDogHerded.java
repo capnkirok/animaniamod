@@ -26,10 +26,10 @@ public class AnimalAIGetDogHerded<T extends PathfinderMob & ISleeping, U extends
 	@Override
 	public boolean shouldExecute()
 	{
-		if (herdAnimal.getSleeping())
+		if (this.herdAnimal.getSleeping())
 			return false;
 
-		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(herderType, 10, herdAnimal.level, herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
+		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(this.herderType, 10, this.herdAnimal.level, this.herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
 		if (list.isEmpty())
 			return false;
 
@@ -39,7 +39,7 @@ public class AnimalAIGetDogHerded<T extends PathfinderMob & ISleeping, U extends
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		if (!shouldExecute())
+		if (!this.shouldExecute())
 			return false;
 
 		return super.shouldContinueExecuting();
@@ -48,7 +48,7 @@ public class AnimalAIGetDogHerded<T extends PathfinderMob & ISleeping, U extends
 	@Override
 	public void updateTask()
 	{
-		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(herderType, 10, herdAnimal.level, herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
+		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(this.herderType, 10, this.herdAnimal.level, this.herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
 		if (list.size() > 0)
 		{
 			U herder = list.get(0);
@@ -57,7 +57,7 @@ public class AnimalAIGetDogHerded<T extends PathfinderMob & ISleeping, U extends
 			if (herderPath != null)
 			{
 				PathPoint herderDest = herderPath.getFinalPathPoint();
-				herdAnimal.getNavigation().tryMoveToXYZ(herderDest.x, herderDest.y, herderDest.z, 1.0f);
+				this.herdAnimal.getNavigation().tryMoveToXYZ(herderDest.x, herderDest.y, herderDest.z, 1.0f);
 			}
 		}
 	}

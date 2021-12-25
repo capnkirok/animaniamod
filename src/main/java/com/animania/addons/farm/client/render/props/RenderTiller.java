@@ -15,8 +15,8 @@ public class RenderTiller extends Render<EntityTiller>
 	public static final Factory FACTORY = new Factory();
 	private ModelCraftStudio modeltiller = new ModelCraftStudio(Animania.MODID, "model_tiller", 128, 64);
 
-
-	public RenderTiller(RenderManager manager) {
+	public RenderTiller(RenderManager manager)
+	{
 		super(manager);
 		this.shadowSize = 1.0F;
 	}
@@ -38,18 +38,19 @@ public class RenderTiller extends Render<EntityTiller>
 		double yPulling = tiller.puller == null ? tiller.getY() : tiller.puller.getY();
 		double ytiller = tiller.getY();
 
-		float difference = (float) (yPulling-ytiller);
+		float difference = (float) (yPulling - ytiller);
 		GlStateManager.rotate(25 * difference, 1.0f, 0, 0);
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 	}
 
 	public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_)
 	{
-		GlStateManager.translate((float)p_188309_1_, (float)p_188309_3_ + 1.5F, (float)p_188309_5_);
+		GlStateManager.translate((float) p_188309_1_, (float) p_188309_3_ + 1.5F, (float) p_188309_5_);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityTiller entity) {
+	protected ResourceLocation getEntityTexture(EntityTiller entity)
+	{
 
 		return new ResourceLocation(Animania.MODID, "textures/entity/props/tiller.png");
 
@@ -58,11 +59,10 @@ public class RenderTiller extends Render<EntityTiller>
 	public static class Factory<T extends EntityTiller> implements IRenderFactory<T>
 	{
 		@Override
-		public Render<? super T> createRenderFor(RenderManager manager) {
+		public Render<? super T> createRenderFor(RenderManager manager)
+		{
 			return new RenderTiller(manager);
 		}
 	}
-
-
 
 }

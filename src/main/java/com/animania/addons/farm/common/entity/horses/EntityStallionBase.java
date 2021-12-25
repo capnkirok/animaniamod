@@ -38,7 +38,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
-	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
+	private static final String[] HORSE_TEXTURES = { "black", "bw1", "bw2", "grey", "red", "white" };
 
 	public EntityStallionBase(Level levelIn)
 	{
@@ -50,7 +50,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
 		// this.goalSelector.addGoal(1, new FollowMateHorsesGoal(this, 1.1D));
-		if (!getSterilized())
+		if (!this.getSterilized())
 			this.goalSelector.addGoal(3, new GenericAIMate<EntityStallionBase, EntityMareBase>(this, 1.0D, EntityMareBase.class, EntityFoalBase.class, EntityAnimaniaHorse.class));
 	}
 
@@ -106,15 +106,13 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof PlayerEntity))
+		if (!(entity instanceof PlayerEntity) || !this.isHorseSaddled())
 		{
 			return false;
-		} else if (this.isHorseSaddled())
+		}
+		else
 		{
 			return true;
-		} else
-		{
-			return false;
 		}
 	}
 
@@ -154,23 +152,24 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		if (this.eatTimer > 4 && this.eatTimer <= 156)
 		{
 			float f = (this.eatTimer - 4 - p_70890_1_) / 80.0F;
-			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 500F) * MathHelper.sin(f * 28.7F);
-		} else
+			return (float) Math.PI / 5F + (float) Math.PI * 7F / 500F * MathHelper.sin(f * 28.7F);
+		}
+		else
 		{
-			return this.eatTimer > 0 ? ((float) Math.PI / 5F) : this.rotationPitch * 0.017453292F;
+			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 		}
 	}
 
 	@Override
 	public ResourceLocation getResourceLocation()
 	{
-		return resourceLocation;
+		return this.resourceLocation;
 	}
 
 	@Override
 	public ResourceLocation getResourceLocationBlink()
 	{
-		return resourceLocationBlink;
+		return this.resourceLocationBlink;
 	}
 
 	@Override
@@ -200,17 +199,20 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			{
 				this.openGUI(player);
 				return true;
-			} else
+			}
+			else
 			{
 				return super.processInteract(player, hand);
 			}
 
-		} else if (!player.isSneaking() && stack != null && this.isHorseSaddled() && !this.getSleeping() && !this.isBeingRidden() && this.getWatered() && this.getFed())
+		}
+		else if (!player.isSneaking() && stack != null && this.isHorseSaddled() && !this.getSleeping() && !this.isBeingRidden() && this.getWatered() && this.getFed())
 		{
 			this.mountTo(player);
 			// player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;
-		} else
+		}
+		else
 		{
 			return super.processInteract(player, hand);
 		}
@@ -243,7 +245,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				it.remove();
 			}
 		}
-		setSterilized(true);
+		this.setSterilized(true);
 	}
 
 	@Override

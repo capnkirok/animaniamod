@@ -234,7 +234,7 @@ public class PoseGreyhoundSleeping extends ModelBase
 		this.neck1.addChild(this.head_base);
 		this.neck.addChild(this.neck1);
 		this.body.addChild(this.neck);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

@@ -1,6 +1,5 @@
 package com.animania.common.entities.generic.ai;
 
-
 import com.animania.api.interfaces.ISleeping;
 
 import net.minecraft.entity.CreatureEntity;
@@ -14,8 +13,8 @@ public class GenericAIWanderAvoidWater extends WanderAvoidWaterGoal
 
 	public boolean shouldExecute()
 	{
-		if(((ISleeping) entity).getSleeping())
-    		return false;
+		if (((ISleeping) entity).getSleeping())
+			return false;
 
 		return super.shouldExecute();
 	}

@@ -17,7 +17,7 @@ public class GoatsLeapAtTargetGoal extends Goal
 
 	public GoatsLeapAtTargetGoal(LivingEntity leapingEntity, float leapMotionYIn)
 	{
-		this.leaper = (LivingEntity) leapingEntity;
+		this.leaper = leapingEntity;
 		this.leapMotionY = leapMotionYIn;
 		this.setMutexBits(5);
 	}
@@ -25,33 +25,32 @@ public class GoatsLeapAtTargetGoal extends Goal
 	public boolean shouldExecute()
 	{
 
-		if (this.leaper instanceof EntityDoeBase || this.leaper instanceof EntityKidBase) {
+		if (this.leaper instanceof EntityDoeBase || this.leaper instanceof EntityKidBase || ((this.leaper instanceof EntityAnimaniaGoat AnimalEntity) && AnimalEntity.getSleeping()))
+		{
 			return false;
-		}
-
-		if (this.leaper instanceof EntityAnimaniaGoat) {
-			EntityAnimaniaGoat AnimalEntity = (EntityAnimaniaGoat) this.leaper;
-			if (AnimalEntity.getSleeping()) {
-				return false;
-			}
 		}
 
 		this.leapTarget = this.leaper.getAttackTarget();
 
-		EntityBuckBase thisBuck = (EntityBuckBase)this.leaper;
+		EntityBuckBase thisBuck = (EntityBuckBase) this.leaper;
 
 		if (!thisBuck.getFighting() || this.leapTarget == null)
 		{
 			return false;
-		} else if (thisBuck.getFighting()) {
+		}
+		else if (thisBuck.getFighting())
+		{
 			double d0 = this.leaper.getDistanceSq(this.leapTarget);
-			return d0 >= 0.0D && d0 <= 4.0D ? (!this.leaper.onGround ? false : this.leaper.getRandom().nextInt(20) == 0) : false;
+			return d0 >= 0.0D && d0 <= 4.0D ? !this.leaper.onGround ? false : this.leaper.getRandom().nextInt(20) == 0 : false;
 
-		} else {
+		}
+		else
+		{
 			double d0 = this.leaper.getDistanceSq(this.leapTarget);
-			return d0 >= 0.0D && d0 <= 46.0D ? (!this.leaper.onGround ? false : this.leaper.getRandom().nextInt(20) == 0) : false;
+			return d0 >= 0.0D && d0 <= 46.0D ? !this.leaper.onGround ? false : this.leaper.getRandom().nextInt(20) == 0 : false;
 		}
 	}
+
 	public boolean shouldContinueExecuting()
 	{
 		return !this.leaper.onGround;
@@ -63,12 +62,12 @@ public class GoatsLeapAtTargetGoal extends Goal
 		double d1 = this.leapTarget.getZ() - this.leaper.getZ();
 		float f = MathHelper.sqrt(d0 * d0 + d1 * d1);
 
-		if ((double)f >= 1.0E-4D)
+		if (f >= 1.0E-4D)
 		{
-			this.leaper.motionX += d0 / (double)f * 0.5D * 0.800000011920929D + this.leaper.motionX * 0.20000000298023224D;
-			this.leaper.motionZ += d1 / (double)f * 0.5D * 0.800000011920929D + this.leaper.motionZ * 0.20000000298023224D;
+			this.leaper.motionX += d0 / f * 0.5D * 0.800000011920929D + this.leaper.motionX * 0.20000000298023224D;
+			this.leaper.motionZ += d1 / f * 0.5D * 0.800000011920929D + this.leaper.motionZ * 0.20000000298023224D;
 		}
 
-		this.leaper.motionY = (double)this.leapMotionY;
+		this.leaper.motionY = this.leapMotionY;
 	}
 }

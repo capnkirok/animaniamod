@@ -21,17 +21,19 @@ public class NoBucketRecipe extends ShapelessOreRecipe
 	{
 		super(group, input, result);
 	}
-	
+
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
 	{
 		return NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 	}
-	
-	public static class Factory implements IRecipeFactory {
+
+	public static class Factory implements IRecipeFactory
+	{
 
 		@Override
-		public IRecipe parse(final JsonContext context, final JsonObject json) {
+		public IRecipe parse(final JsonContext context, final JsonObject json)
+		{
 			final String group = JsonUtils.getString(json, "group", "");
 			final NonNullList<Ingredient> ingredients = RecipeUtil.parseShapeless(context, json);
 			final ItemStack result = CraftingHelper.getItemStack(JsonUtils.getJsonObject(json, "result"), context);

@@ -19,29 +19,31 @@ public class WailaCowEntityProvider extends WailaAnimalEntityProviderMateable
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			CowEntityBase thisEntity = (CowEntityBase)entity;
-			
+			CowEntityBase thisEntity = (CowEntityBase) entity;
+
 			if (thisEntity.getHasKids())
 				currenttip.add(I18n.translateToLocal("text.waila.milkable"));
 
 			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{
 				currenttip.add(I18n.translateToLocal("text.waila.fertile1"));
-			} 
+			}
 
 			if (thisEntity.getPregnant())
 			{
-				if (thisEntity.getGestation() > 1) {
+				if (thisEntity.getGestation() > 1)
+				{
 					int bob = thisEntity.getGestation();
-					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
-				} else {
+					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
+				}
+				else
+				{
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));
 				}
-			} 
-			
+			}
+
 		}
 		return currenttip;
 	}
-
 
 }

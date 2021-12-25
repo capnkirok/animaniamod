@@ -27,7 +27,7 @@ public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 	{
 		super(rm, new ModelFox(), 0.5F);
 
-		this.addLayer(blinking = new LayerBlinking(this, blink, -5415620, true));
+		this.addLayer(this.blinking = new LayerBlinking(this, this.blink, -5415620, true));
 	}
 
 	protected void preRenderScale(EntityAnimaniaDog entity, float f)
@@ -41,7 +41,8 @@ public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 		{
 			float age = ((IChild) entity).getEntityAge();
 			GlStateManager.scale(0.5 + age / dividend, 0.5 + age / dividend, 0.5 + age / dividend);
-		} else
+		}
+		else
 			GlStateManager.scale(1, 1, 1);
 
 		EntityAnimaniaDog entityCat = entity;
@@ -58,7 +59,8 @@ public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 			GlStateManager.translate(-0.25F, entity.height - 1.45F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
 			GlStateManager.translate(0, -0.3, 0);
-		} else
+		}
+		else
 		{
 			this.shadowSize = 0.5F;
 			entityCat.setSleeping(false);
@@ -72,10 +74,10 @@ public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 	{
 		if (entity.getName().equalsIgnoreCase("razz"))
 		{
-			return texture_razz;
+			return this.texture_razz;
 		}
 
-		return texture;
+		return this.texture;
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 	{
 		if (LivingEntity.getName().equalsIgnoreCase("razz"))
 		{
-			blinking.setColors(0xA81348, 0xA81348);
+			this.blinking.setColors(0xA81348, 0xA81348);
 		}
 
 		this.preRenderScale(LivingEntity, f);

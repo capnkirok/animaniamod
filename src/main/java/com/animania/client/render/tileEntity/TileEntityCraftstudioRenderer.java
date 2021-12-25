@@ -19,20 +19,20 @@ public class TileEntityCraftstudioRenderer<T extends TileEntity> extends TileEnt
 
 	private final ModelCraftStudio BLOCK_MODEL;
 
-	public static TileEntityCraftstudioRenderer instance; 
+	public static TileEntityCraftstudioRenderer instance;
 
-	private double offsetX,offsetY,offsetZ;
-	
+	private double offsetX, offsetY, offsetZ;
+
 	public TileEntityCraftstudioRenderer(String name, int texHeight, int texWidth, double offsetX, double offsetY, double offsetZ)
 	{
-		BLOCK_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/" + name + ".png");
-		BLOCK_MODEL = new ModelCraftStudio(Animania.MODID, "model_" + name, texHeight, texWidth);
-		
+		this.BLOCK_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/" + name + ".png");
+		this.BLOCK_MODEL = new ModelCraftStudio(Animania.MODID, "model_" + name, texHeight, texWidth);
+
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 		this.offsetZ = offsetZ;
 	}
-	
+
 	public TileEntityCraftstudioRenderer(String name, int texHeight, int texWidth)
 	{
 		this(name, texHeight, texWidth, 0, 0, 0);
@@ -47,7 +47,7 @@ public class TileEntityCraftstudioRenderer<T extends TileEntity> extends TileEnt
 		GlStateManager.translate(x + 0.5D + this.offsetX, y + 1.5D + this.offsetY, z + 0.5D + this.offsetZ);
 		GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
 		GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
-		this.bindTexture(BLOCK_TEXTURE);
+		this.bindTexture(this.BLOCK_TEXTURE);
 		this.BLOCK_MODEL.render();
 		GlStateManager.popMatrix();
 	}

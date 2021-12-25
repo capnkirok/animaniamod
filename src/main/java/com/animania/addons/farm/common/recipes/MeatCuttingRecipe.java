@@ -39,7 +39,8 @@ public class MeatCuttingRecipe extends ShapelessOreRecipe
 				if (ForgeHooks.getCraftingPlayer() != null)
 				{
 					newstack.damageItem(1, ForgeHooks.getCraftingPlayer());
-				} else
+				}
+				else
 				{
 					newstack.setItemDamage(newstack.getItemDamage() - 1);
 				}

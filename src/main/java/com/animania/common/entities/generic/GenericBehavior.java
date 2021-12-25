@@ -111,7 +111,8 @@ public class GenericBehavior
 				}
 			}
 
-		} else if (!fed || !watered)
+		}
+		else if (!fed || !watered)
 			entity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
 		int happyTimer = entity.getHappyTimer();
@@ -162,65 +163,65 @@ public class GenericBehavior
 		ageTimer++;
 		entity.setAgeTimer(ageTimer);
 
-		if (ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
-			if (fed && watered && !entity.getSleeping())
+		if (ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick && fed && watered && !entity.getSleeping())
+		{
+			entity.setAgeTimer(0);
+			float age = entity.getEntityAge();
+			age = age + .01F;
+			entity.setEntityAge(age);
+
+			if (age >= 0.85 && !entity.level.isRemote)
 			{
-				entity.setAgeTimer(0);
-				float age = entity.getEntityAge();
-				age = age + .01F;
-				entity.setEntityAge(age);
+				entity.setDead();
 
-				if (age >= 0.85 && !entity.level.isRemote)
+				LivingEntity grownUp = null;
+
+				if (rand.nextInt(2) == 0)
 				{
-					entity.setDead();
-
-					LivingEntity grownUp = null;
-
-					if (rand.nextInt(2) == 0)
-					{
-						grownUp = (LivingEntity) entity.getAnimalType().getFemale(level);
-					} else
-					{
-						grownUp = (LivingEntity) entity.getAnimalType().getMale(level);
-					}
-
-					if (IImpregnable.class.isAssignableFrom(motherClass))
-					{
-						List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(motherClass, 15, level, entity);
-						for (LivingEntity potentialMother : entities)
-						{
-							if (potentialMother.getUUID().equals(entity.getParentUniqueId()))
-							{
-								((IImpregnable) potentialMother).setHasKids(false);
-								break;
-							}
-						}
-					}
-
-					if (grownUp != null)
-					{
-						if (entity instanceof IVariant)
-						{
-							((IVariant) grownUp).setVariant(((IVariant) entity).getVariant());
-						}
-
-						grownUp.setPosition(entity.getX(), entity.getY() + .5, entity.getZ());
-						String name = entity.getCustomNameTag();
-						if (name != "")
-							grownUp.setCustomNameTag(name);
-
-						if (grownUp instanceof IAgeable)
-							((IAgeable) grownUp).setAge(1);
-
-						if (grownUp instanceof IFoodEating)
-							((IFoodEating) grownUp).setInteracted(entity.getInteracted());
-
-						AnimaniaHelper.spawnEntity(level, grownUp);
-						grownUp.playLivingSound();
-					}
-
+					grownUp = (LivingEntity) entity.getAnimalType().getFemale(level);
 				}
+				else
+				{
+					grownUp = (LivingEntity) entity.getAnimalType().getMale(level);
+				}
+
+				if (IImpregnable.class.isAssignableFrom(motherClass))
+				{
+					List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(motherClass, 15, level, entity);
+					for (LivingEntity potentialMother : entities)
+					{
+						if (potentialMother.getUUID().equals(entity.getParentUniqueId()))
+						{
+							((IImpregnable) potentialMother).setHasKids(false);
+							break;
+						}
+					}
+				}
+
+				if (grownUp != null)
+				{
+					if (entity instanceof IVariant)
+					{
+						((IVariant) grownUp).setVariant(((IVariant) entity).getVariant());
+					}
+
+					grownUp.setPosition(entity.getX(), entity.getY() + .5, entity.getZ());
+					String name = entity.getCustomNameTag();
+					if (name != "")
+						grownUp.setCustomNameTag(name);
+
+					if (grownUp instanceof IAgeable)
+						((IAgeable) grownUp).setAge(1);
+
+					if (grownUp instanceof IFoodEating)
+						((IFoodEating) grownUp).setInteracted(entity.getInteracted());
+
+					AnimaniaHelper.spawnEntity(level, grownUp);
+					grownUp.playLivingSound();
+				}
+
 			}
+		}
 	}
 
 	public static <T extends AnimalEntity & IFoodEating & ISleeping & IMateable> void livingUpdateMateable(T entity, Class<? extends LivingEntity> partnerClass)
@@ -228,32 +229,29 @@ public class GenericBehavior
 
 		Level level = entity.level;
 
-		if (rand.nextInt(200) == 0)
+		// Mate resetter
+		if (rand.nextInt(200) == 0 && entity.getMateUniqueId() != null)
 		{
-			// Mate resetter
-			if (entity.getMateUniqueId() != null)
-			{
-				UUID mateUUID = entity.getMateUniqueId();
-				boolean mateReset = true;
+			UUID mateUUID = entity.getMateUniqueId();
+			boolean mateReset = true;
 
-				List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(partnerClass, 30, level, entity);
-				for (int k = 0; k <= entities.size() - 1; k++)
+			List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(partnerClass, 30, level, entity);
+			for (int k = 0; k <= entities.size() - 1; k++)
+			{
+				Entity mate = entities.get(k);
+				if (mate != null)
 				{
-					Entity mate = entities.get(k);
-					if (mate != null)
+					UUID id = mate.getUUID();
+					if (id.equals(entity.getMateUniqueId()) && !mate.isDead)
 					{
-						UUID id = mate.getUUID();
-						if (id.equals(entity.getMateUniqueId()) && !mate.isDead)
-						{
-							mateReset = false;
-							break;
-						}
+						mateReset = false;
+						break;
 					}
 				}
-
-				if (mateReset)
-					entity.setMateUniqueId(null);
 			}
+
+			if (mateReset)
+				entity.setMateUniqueId(null);
 		}
 	}
 
@@ -269,7 +267,8 @@ public class GenericBehavior
 		{
 			dryTimer--;
 			entity.setDryTimer(dryTimer);
-		} else
+		}
+		else
 		{
 			entity.setFertile(true);
 			entity.setDryTimer(AnimaniaConfig.careAndFeeding.gestationTimer / 9 + rand.nextInt(50));
@@ -295,21 +294,18 @@ public class GenericBehavior
 				{
 					if (potentialMate != null && potentialMate.getUUID().equals(MateID))
 					{
-						male = (LivingEntity) potentialMate;
+						male = potentialMate;
 						break;
 					}
 
 				}
 
-				if (!entity.getFed() && !entity.getWatered())
+				if (!entity.getFed() && !entity.getWatered() && rand.nextDouble() <= AnimaniaConfig.careAndFeeding.animalLossChance)
 				{
-					if (rand.nextDouble() <= AnimaniaConfig.careAndFeeding.animalLossChance)
-					{
-						entity.setPregnant(false);
-						entity.setFertile(false);
-						entity.setHasKids(false);
-						return;
-					}
+					entity.setPregnant(false);
+					entity.setFertile(false);
+					entity.setHasKids(false);
+					return;
 				}
 
 				double birthChance = 1;
@@ -339,12 +335,13 @@ public class GenericBehavior
 					entity.setFertile(false);
 					entity.setHasKids(true);
 
-					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(entity, (male == null ? entity : male), entityKid);
+					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(entity, male == null ? entity : male, entityKid);
 					MinecraftForge.EVENT_BUS.post(event);
 				}
 
 			}
-		} else if (gestationTimer < 0)
+		}
+		else if (gestationTimer < 0)
 		{
 			entity.setGestation(1);
 		}
@@ -372,7 +369,8 @@ public class GenericBehavior
 			entity.setWatered(true);
 			entity.setInLove(player);
 			return true;
-		} else if (entity.isBreedingItem(stack))
+		}
+		else if (entity.isBreedingItem(stack))
 		{
 			if (entity.getSleeping())
 				return true;
@@ -398,7 +396,8 @@ public class GenericBehavior
 
 			entity.setInLove(player);
 			return true;
-		} else if (entity instanceof TameableEntity)
+		}
+		else if (entity instanceof TameableEntity)
 		{
 			TameableEntity tame = (TameableEntity) entity;
 
@@ -408,7 +407,8 @@ public class GenericBehavior
 				tame.setJumping(false);
 				tame.getNavigation().stop();
 				return true;
-			} else if (stack.isEmpty() && tame.isTamed() && tame.isSitting() && !player.isSneaking() && !entity.getSleeping())
+			}
+			else if (stack.isEmpty() && tame.isTamed() && tame.isSitting() && !player.isSneaking() && !entity.getSleeping())
 			{
 
 				tame.setSitting(false);
@@ -430,7 +430,7 @@ public class GenericBehavior
 
 		List<LivingEntity> others = AnimaniaHelper.getEntitiesInRange(baseClass, 64, entity.level, entity.getPosition());
 
-		if ((others.size() <= 8))
+		if (others.size() <= 8)
 		{
 			LivingEntity animal = null;
 
@@ -439,7 +439,8 @@ public class GenericBehavior
 				animal = entity.getAnimalType().getMale(entity.level);
 				IMateable mateable = (IMateable) animal;
 				mateable.setMateUniqueId(entity.getUniqueID());
-			} else if (chooser == 1)
+			}
+			else if (chooser == 1)
 			{
 				animal = entity.getAnimalType().getChild(entity.level);
 				((IChild) animal).setParentUniqueId(entity.getUniqueID());
@@ -464,18 +465,16 @@ public class GenericBehavior
 		tag.putBoolean("Sleep", entity.getSleeping());
 		tag.setFloat("SleepTimer", entity.getSleepTimer());
 
-		if (entity instanceof IImpregnable)
+		if (entity instanceof IImpregnable preg)
 		{
-			IImpregnable preg = (IImpregnable) entity;
 			tag.putBoolean("Pregnant", preg.getPregnant());
 			tag.putBoolean("HasKids", preg.getHasKids());
 			tag.putBoolean("Fertile", preg.getFertile());
 			tag.putInteger("Gestation", preg.getGestation());
 		}
 
-		if (entity instanceof IMateable)
+		if (entity instanceof IMateable mateable)
 		{
-			IMateable mateable = (IMateable) entity;
 			UUID mate = mateable.getMateUniqueId();
 			if (mate != null)
 				tag.setString("MateUUID", mate.toString());
@@ -486,10 +485,8 @@ public class GenericBehavior
 			tag.putBoolean("Sterilized", ((ISterilizable) entity).getSterilized());
 		}
 
-		if (entity instanceof IChild)
+		if (entity instanceof IChild child)
 		{
-			IChild child = (IChild) entity;
-
 			tag.setFloat("Age", child.getEntityAge());
 			if (child.getParentUniqueId() != null)
 				tag.setString("ParentUUID", child.getParentUniqueId().toString());
@@ -506,19 +503,16 @@ public class GenericBehavior
 		entity.setSleeping(tag.getBoolean("Sleep"));
 		entity.setSleepTimer(tag.getFloat("SleepTimer"));
 
-		if (entity instanceof IImpregnable)
+		if (entity instanceof IImpregnable preg)
 		{
-			IImpregnable preg = (IImpregnable) entity;
 			preg.setPregnant(tag.getBoolean("Pregnant"));
 			preg.setHasKids(tag.getBoolean("HasKids"));
 			preg.setFertile(tag.getBoolean("Fertile"));
 			preg.setGestation(tag.getInteger("Gestation"));
 		}
 
-		if (entity instanceof IMateable)
+		if (entity instanceof IMateable mateable)
 		{
-			IMateable mateable = (IMateable) entity;
-
 			String s = "";
 			if (tag.hasKey("MateUUID"))
 				s = tag.getString("MateUUID");
@@ -532,9 +526,8 @@ public class GenericBehavior
 			((ISterilizable) entity).setSterilized(tag.getBoolean("Sterilized"));
 		}
 
-		if (entity instanceof IChild)
+		if (entity instanceof IChild child)
 		{
-			IChild child = (IChild) entity;
 			String s = "";
 			if (tag.hasKey("ParentUUID"))
 				s = tag.getString("ParentUUID");

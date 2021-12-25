@@ -48,7 +48,7 @@ public class RenderCalfHighland<T extends EntityCalfHighland> extends RenderLivi
 	protected void preRenderScale(T entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
+		GL11.glScalef(1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend());
 
 		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
@@ -62,7 +62,8 @@ public class RenderCalfHighland<T extends EntityCalfHighland> extends RenderLivi
 
 			GlStateManager.translate(-0.25F, entity.height - 1.15F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		} else
+		}
+		else
 		{
 			CowEntity.setSleeping(false);
 			CowEntity.setSleepTimer(0F);

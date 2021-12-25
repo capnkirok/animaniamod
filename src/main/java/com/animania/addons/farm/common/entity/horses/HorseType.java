@@ -12,7 +12,7 @@ import com.animania.api.interfaces.AnimaniaType;
 public enum HorseType implements AnimaniaType
 {
 	DRAFT(EntityStallionDraftHorse.class, EntityMareDraftHorse.class, EntityFoalDraftHorse.class);
-	
+
 	private Class stallion;
 	private Class mare;
 	private Class foal;
@@ -69,7 +69,7 @@ public enum HorseType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return mare;	
+		return mare;
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public enum HorseType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return foal;	
+		return foal;
 	}
 
 	public static HorseType breed(HorseType male, HorseType female)

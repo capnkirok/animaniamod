@@ -44,7 +44,7 @@ public class RenderDoeNigerianDwarf<T extends EntityDoeNigerianDwarf> extends Re
 		GL11.glScalef(0.42F, 0.42F, 0.42F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
+		EntityAnimaniaGoat entityGoat = entity;
 		if (entityGoat.getSleeping())
 		{
 			this.shadowSize = 0;

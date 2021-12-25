@@ -12,16 +12,17 @@ import net.minecraft.resources.ResourceLocation;
 public class TileEntitySaltLickRenderer extends TileEntitySpecialRenderer<TileEntitySaltLick>
 {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/salt_lick.png");
-	public static TileEntitySaltLickRenderer  instance;
+	public static TileEntitySaltLickRenderer instance;
 
 	private final ModelSaltLick saltLick = new ModelSaltLick();
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
+	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	{
 		super.setRendererDispatcher(rendererDispatcherIn);
 		TileEntitySaltLickRenderer.instance = this;
 	}
-	
+
 	@Override
 	public void render(TileEntitySaltLick te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
@@ -34,15 +35,15 @@ public class TileEntitySaltLickRenderer extends TileEntitySpecialRenderer<TileEn
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 		GlStateManager.enableAlpha();
 
-		float amountLeft = (float)te.usesLeft / (float)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
-		
+		float amountLeft = (float) te.usesLeft / (float) AnimaniaConfig.careAndFeeding.saltLickMaxUses;
+
 		GlStateManager.scale(1f, amountLeft, 1f);
 		GlStateManager.translate(0, -1.5, 0);
-		saltLick.render((Entity) null, partialTicks, 0.0F, 0.0F, 0, 0.0F, 0.0625F);
+		this.saltLick.render((Entity) null, partialTicks, 0.0F, 0.0F, 0, 0.0F, 0.0625F);
 		GlStateManager.popMatrix();
 
 		GlStateManager.popMatrix();
-		
+
 	}
 
 }

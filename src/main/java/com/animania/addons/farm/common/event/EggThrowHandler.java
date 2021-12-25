@@ -46,7 +46,8 @@ public class EggThrowHandler
 					AddonInjectionHandler.runInjection("extra", "rodentEggEvent", null, entity, x2, y2, z2, event);
 				}
 
-			} else
+			}
+			else
 			{
 				// event.getPlayer().swingArm(event.getHand());
 				event.isCanceled();

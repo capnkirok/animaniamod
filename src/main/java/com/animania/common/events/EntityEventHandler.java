@@ -36,17 +36,10 @@ public class EntityEventHandler
 		LivingEntity entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 
-		if (entity instanceof Animal)
+		if ((entity instanceof Animal animal) && (source == DamageSource.FALL && animal.isLeashed()))
 		{
-			Animal animal = (Animal) entity;
-
-			if (source == DamageSource.FALL)
-				if (animal.isLeashed())
-				{
-					event.setAmount(amount * AnimaniaConfig.gameRules.fallDamageReduceMultiplier);
-					animal.fallDistance = 0;
-				}
-
+			event.setAmount(amount * AnimaniaConfig.gameRules.fallDamageReduceMultiplier);
+			animal.fallDistance = 0;
 		}
 
 	}
@@ -65,25 +58,18 @@ public class EntityEventHandler
 				event.setCanceled(true);
 		}
 
-		if (entity instanceof ISleeping)
+		if ((entity instanceof ISleeping isleeping) && isleeping.getSleeping())
 		{
-			ISleeping isleeping = (ISleeping) entity;
-			if (isleeping.getSleeping())
+			if (source == DamageSource.STARVE)
 			{
-				if (source == DamageSource.STARVE)
-				{
-					event.setCanceled(true);
-				}
-
-				((ISleeping) entity).setSleeping(false);
+				event.setCanceled(true);
 			}
+
+			((ISleeping) entity).setSleeping(false);
 		}
 
-		if (entity instanceof TamableAnimal)
-		{
-			if (((TamableAnimal) entity).isInSittingPose())
-				((TamableAnimal) entity).setInSittingPose(false);;
-		}
+		if ((entity instanceof TamableAnimal) && ((TamableAnimal) entity).isInSittingPose())
+			((TamableAnimal) entity).setInSittingPose(false);
 
 	}
 
@@ -101,12 +87,8 @@ public class EntityEventHandler
 	{
 		LivingEntity entity = event.getEntityLiving();
 
-		if (entity instanceof ISleeping && entity instanceof Animal)
-		{
-			ISleeping isleeping = (ISleeping) entity;
-			if (isleeping.getSleeping() && ((Animal) entity).isLeashed())
-				isleeping.setSleeping(false);
-		}
+		if ((entity instanceof ISleeping isleeping && entity instanceof Animal) && (isleeping.getSleeping() && ((Animal) entity).isLeashed()))
+			isleeping.setSleeping(false);
 	}
 
 	@SubscribeEvent
@@ -116,17 +98,12 @@ public class EntityEventHandler
 		Level levelIn = (Level) event.getLevel();
 		Biome biome = event.getLevel().getBiome(pos);
 
-		if (!AnimaniaConfig.gameRules.spawnFreshWaterSquids && event.getEntity().getClass().equals(Squid.class) && !levelIn.isClientSide)
+		if (!AnimaniaConfig.gameRules.spawnFreshWaterSquids && event.getEntity().getClass().equals(Squid.class) && !levelIn.isClientSide && !AnimaniaHelper.hasBiomeType(biome, Type.OCEAN))
 		{
-
-			if (!AnimaniaHelper.hasBiomeType(biome, Type.OCEAN))
+			if (!event.getEntity().hasCustomName())
 			{
-				if (!event.getEntity().hasCustomName())
-				{
-					event.setResult(Result.DENY);
-				}
+				event.setResult(Result.DENY);
 			}
-
 		}
 	}
 

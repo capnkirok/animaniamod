@@ -7,12 +7,12 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
-import net.minecraft.level.level.storage.loot.RandomValueBounds;
-import net.minecraft.level.storage.loot.conditions.LootCondition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.RandomValueBounds;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.storage.loot.conditions.LootCondition;
 
 public class AddMoreFunction extends LootItemConditionalFunction
 {
@@ -37,7 +37,7 @@ public class AddMoreFunction extends LootItemConditionalFunction
 	{
 		public Serializer()
 		{
-			super(new ResourceLocation(Animania.MODID,"add_more"), AddMoreFunction.class);
+			super(new ResourceLocation(Animania.MODID, "add_more"), AddMoreFunction.class);
 		}
 
 		public void serialize(JsonObject object, AddMoreFunction functionClazz, JsonSerializationContext serializationContext)

@@ -87,12 +87,9 @@ public class InteractHandler
 		ResourceLocation loc = EntityList.getKey(target);
 		EntityEntry entry = ForgeRegistries.ENTITIES.getValue(loc);
 
-		if (player instanceof ServerPlayerEntity && target instanceof IAnimaniaAnimal)
+		if (player instanceof ServerPlayerEntity && target instanceof IAnimaniaAnimal && entry != null)
 		{
-			if (entry != null)
-			{
-				AdvancementHandler.feedAnimal.trigger((ServerPlayerEntity) player, stack, entry, target);
-			}
+			AdvancementHandler.feedAnimal.trigger((ServerPlayerEntity) player, stack, entry, target);
 		}
 	}
 

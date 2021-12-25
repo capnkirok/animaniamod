@@ -31,7 +31,7 @@ public class RenderCalfHolstein<T extends EntityCalfHolstein> extends RenderLivi
 	public RenderCalfHolstein(RenderManager rm)
 	{
 		super(rm, new ModelCalf(), 0.5F);
-		addLayer(blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x1C242B, 0xDEDEDE));
+		addLayer(this.blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x1C242B, 0xDEDEDE));
 	}
 
 	protected ResourceLocation getCowTextures(T par1CowEntity)
@@ -41,7 +41,8 @@ public class RenderCalfHolstein<T extends EntityCalfHolstein> extends RenderLivi
 		{
 			this.blinkingLayer.setColors(0x4F0AA3, 0x4F0AA3);
 			return RenderCalfHolstein.purpTextures;
-		} else
+		}
+		else
 		{
 			this.blinkingLayer.setColors(0x1C242B, 0xDEDEDE);
 			return RenderCalfHolstein.cowTextures;
@@ -53,7 +54,8 @@ public class RenderCalfHolstein<T extends EntityCalfHolstein> extends RenderLivi
 		if (par1CowEntity.getCustomNameTag().equalsIgnoreCase("purp"))
 		{
 			return RenderCalfHolstein.purpTexturesBlink;
-		} else
+		}
+		else
 		{
 			return RenderCalfHolstein.cowTexturesBlink;
 		}
@@ -68,7 +70,7 @@ public class RenderCalfHolstein<T extends EntityCalfHolstein> extends RenderLivi
 	protected void preRenderScale(T entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
+		GL11.glScalef(1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend(), 1.0F + age / entity.getSizeDividend());
 
 		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
@@ -82,7 +84,8 @@ public class RenderCalfHolstein<T extends EntityCalfHolstein> extends RenderLivi
 
 			GlStateManager.translate(-0.25F, entity.height - 1.15F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		} else
+		}
+		else
 		{
 			CowEntity.setSleeping(false);
 			CowEntity.setSleepTimer(0F);

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 public class RandomAnimalType implements AnimaniaType
 {
 
-	private static Set<Class<? extends AnimaniaType>> types = new HashSet<Class<? extends AnimaniaType>>();
+	private static Set<Class<? extends AnimaniaType>> types = new HashSet<>();
 
 	public static void addType(Class<? extends AnimaniaType> type)
 	{

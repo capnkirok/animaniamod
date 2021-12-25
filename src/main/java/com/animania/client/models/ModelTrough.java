@@ -35,7 +35,6 @@ public class ModelTrough extends ModelBase
 	ModelRenderer FeedG1;
 	ModelRenderer FeedH1;
 
-
 	ModelRenderer Slop1;
 	ModelRenderer Slop2;
 	ModelRenderer Slop3;
@@ -173,7 +172,7 @@ public class ModelTrough extends ModelBase
 		this.Water3.setTextureSize(128, 64);
 		this.Water3.addBox(-14F, -0.5F, -4F, 28, 1, 8);
 		this.Water3.setRotationPoint(8F, 20F, 0F);
-		
+
 		this.Water1 = new ModelRenderer(this, 0, 0);
 
 	}
@@ -191,7 +190,7 @@ public class ModelTrough extends ModelBase
 
 		this.setRotationAngles(0.0F, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 	}
-	
+
 	public void renderFluid(float scale, int textureWidth, int textureHeight)
 	{
 		this.Water1.setTextureSize(textureWidth, textureHeight);
@@ -202,9 +201,9 @@ public class ModelTrough extends ModelBase
 	}
 
 	public void renderFood(float scale, int count)
-	{	
+	{
 		GlStateManager.translate(0, 0.2 * (3 - count), 0);
-		
+
 		GlStateManager.rotate(-10f, 0, 1f, 0);
 		GlStateManager.scale(0.8, 0.8, 0.8);
 		GlStateManager.translate(0, 0.25, -0.1);
@@ -215,25 +214,25 @@ public class ModelTrough extends ModelBase
 		this.FeedE.render(scale);
 		this.FeedF.render(scale);
 		this.FeedG.render(scale);
-		this.FeedH.render(scale);  
-		
+		this.FeedH.render(scale);
+
 		GlStateManager.rotate(180f, 0, 1f, 0);
 		GlStateManager.translate(-1.4, -0.1, 0);
 		this.FeedA1.render(scale);
-		 this.FeedB1.render(scale);
-		 this.FeedC1.render(scale);
-		 this.FeedD1.render(scale);
-		 this.FeedE1.render(scale);
-		 this.FeedF1.render(scale);
-		 this.FeedG1.render(scale);
-		 this.FeedH1.render(scale);
+		this.FeedB1.render(scale);
+		this.FeedC1.render(scale);
+		this.FeedD1.render(scale);
+		this.FeedE1.render(scale);
+		this.FeedF1.render(scale);
+		this.FeedG1.render(scale);
+		this.FeedH1.render(scale);
 	}
-	
+
 	public void renderFeed(int count, Color color)
 	{
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(0, 0.17 * (3 - count), 0);
-		GlStateManager.color((float) color.getRed() / 255f, (float) color.getGreen() / 255f, (float) color.getBlue() / 255f);	
+		GlStateManager.color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f);
 		this.Feed.render(0.0625f);
 		GlStateManager.color(1f, 1f, 1f, 1f);
 		GlStateManager.popMatrix();
@@ -307,8 +306,6 @@ public class ModelTrough extends ModelBase
 		this.FeedH1.rotateAngleX = 0.286131F;
 		this.FeedH1.rotateAngleY = 2.831252F;
 		this.FeedH1.rotateAngleZ = 0.4113167F;
-
-	
 
 	}
 

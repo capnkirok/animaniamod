@@ -22,8 +22,8 @@ public class RenderDoeLop<T extends RabbitEntityDoeLop> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", rabbitBaseDir = "textures/entity/rabbits/";
-	private static final ResourceLocation[] RABBIT_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "black.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "brown.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "golden.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "olive.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "patch_black.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "patch_brown.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "patch_grey.png") };
-	private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C5B, 0xF6F4F4, 0xF6F4F4, 0xF6F4F4};
+	private static final ResourceLocation[] RABBIT_TEXTURES = { new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "black.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "brown.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "golden.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "olive.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "patch_black.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "patch_brown.png"), new ResourceLocation(RenderDoeLop.modid, RenderDoeLop.rabbitBaseDir + "rabbit_lop_" + "patch_grey.png") };
+	private static int[] EYE_COLORS = { 0x404040, 0x816D60, 0xD0A675, 0x7F6C5B, 0xF6F4F4, 0xF6F4F4, 0xF6F4F4 };
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
 	private static final ResourceLocation killerRabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_killer.png");
 	private LayerBlinking blinkingLayer;
@@ -31,14 +31,17 @@ public class RenderDoeLop<T extends RabbitEntityDoeLop> extends RenderLiving<T>
 	public RenderDoeLop(RenderManager rm)
 	{
 		super(rm, new ModelLop(), 0.25F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, rabbitTexturesBlink, 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, rabbitTexturesBlink, 0));
 	}
 
 	protected void preRenderScale(RabbitEntityDoeLop entity, float f)
 	{
-		if (entity.getCustomNameTag().equals("Killer")) {
+		if (entity.getCustomNameTag().equals("Killer"))
+		{
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
-		} else {	
+		}
+		else
+		{
 			GL11.glScalef(0.51F, 0.51F, 0.51F);
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
@@ -48,7 +51,7 @@ public class RenderDoeLop<T extends RabbitEntityDoeLop> extends RenderLiving<T>
 		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
+		EntityAnimaniaRabbit entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -71,15 +74,18 @@ public class RenderDoeLop<T extends RabbitEntityDoeLop> extends RenderLiving<T>
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.getCustomNameTag().trim().equals("Killer")) {
+		if (entity.getCustomNameTag().trim().equals("Killer"))
+		{
 			return RenderDoeLop.killerRabbitTextures;
-		} else {
+		}
+		else
+		{
 			if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 			{
 				return RABBIT_TEXTURES[0];
 			}
 
-			return this.RABBIT_TEXTURES[entity.getColorNumber()];
+			return RenderDoeLop.RABBIT_TEXTURES[entity.getColorNumber()];
 		}
 	}
 

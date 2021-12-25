@@ -13,13 +13,13 @@ import net.minecraft.network.syncher.SynchedEntityData;
 
 public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 {
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float>defineId(EntityPeachickBase.class, EntityEntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityPeachickBase.class, EntityEntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public EntityPeachickBase(Level levelIn)
 	{
 		super(levelIn);
-		this.setSize(1.4F, 1.6F); 
+		this.setSize(1.4F, 1.6F);
 		this.ageTimer = 0;
 		this.type = PeacockType.BLUE;
 		this.gender = EntityGender.CHILD;
@@ -31,7 +31,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	{
 		return true;
 	}
-	
+
 	@Override
 	protected boolean canDespawn()
 	{
@@ -54,20 +54,17 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 		super.onLivingUpdate();
 	}
 
-
 	@Override
 	public int getAgeTimer()
 	{
-		return ageTimer;
+		return this.ageTimer;
 	}
 
 	@Override
 	public void setAgeTimer(int i)
 	{
-		ageTimer = i;
+		this.ageTimer = i;
 	}
-	
-
 
 	@Override
 	public void playLivingSound()
@@ -81,7 +78,6 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
-		return;
 	}
 
 	@Override
@@ -93,7 +89,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	@Override
 	public void setParentUniqueId(UUID id)
 	{
-		
+
 	}
 
 	@Override
@@ -107,7 +103,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	{
 		return AGE;
 	}
-	
+
 	@Override
 	public void ageUp(int growthSeconds, boolean updateForcedAge)
 	{

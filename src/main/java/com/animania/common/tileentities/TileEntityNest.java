@@ -47,8 +47,8 @@ public class TileEntityNest extends BlockEntity implements Tickable
 		super.writeToNBT(compound);
 		CompoundTag items = this.itemHandler.serializeNBT();
 		compound.putTag("items", items);
-		if (birdType != null)
-			compound.setString("birdType", birdType.toString());
+		if (this.birdType != null)
+			compound.setString("birdType", this.birdType.toString());
 		return compound;
 	}
 
@@ -58,21 +58,21 @@ public class TileEntityNest extends BlockEntity implements Tickable
 		super.readFromNBT(compound);
 		this.itemHandler = new ItemHandlerNest(this);
 		this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
-		
-		if(AddonHandler.isAddonLoaded("farm"))
+
+		if (AddonHandler.isAddonLoaded("farm"))
 		{
 			AnimaniaType type = AnimalTypeHandler.getType(Animania.MODID + ":chicken", compound.getString("birdType"));
-			if(type != null)
+			if (type != null)
 				this.birdType = type;
 		}
-		
-		if(AddonHandler.isAddonLoaded("extra"))
+
+		if (AddonHandler.isAddonLoaded("extra"))
 		{
 			AnimaniaType type = AnimalTypeHandler.getType(Animania.MODID + ":peacock", compound.getString("birdType"));
-			if(type != null)
+			if (type != null)
 				this.birdType = type;
 		}
-		
+
 	}
 
 	@Override
@@ -106,10 +106,10 @@ public class TileEntityNest extends BlockEntity implements Tickable
 		if (!stack.isEmpty())
 		{
 			int count = stack.getCount();
-			if (count != oldItemCount)
+			if (count != this.oldItemCount)
 			{
 				this.markDirty();
-				oldItemCount = count;
+				this.oldItemCount = count;
 			}
 
 			for (NestContent c : NestContent.values())
@@ -117,7 +117,8 @@ public class TileEntityNest extends BlockEntity implements Tickable
 				if (stack.getItem() == c.item && this.nestContent != c)
 					this.nestContent = c;
 			}
-		} else if (this.nestContent != NestContent.EMPTY)
+		}
+		else if (this.nestContent != NestContent.EMPTY)
 		{
 			this.nestContent = NestContent.EMPTY;
 			this.birdType = null;
@@ -135,7 +136,7 @@ public class TileEntityNest extends BlockEntity implements Tickable
 			{
 				ItemStack newStack = stack.copy();
 				newStack.setCount(stack.getCount() + count);
-				itemHandler.setStackInSlot(0, newStack);
+				this.itemHandler.setStackInSlot(0, newStack);
 				return true;
 			}
 		}
@@ -178,11 +179,7 @@ public class TileEntityNest extends BlockEntity implements Tickable
 
 	public static enum NestContent
 	{
-		EMPTY(Items.AIR), 
-		CHICKEN_WHITE(Items.EGG), 
-		CHICKEN_BROWN(Item.getByNameOrId(Animania.MODID + ":brown_egg")), 
-		PEACOCK_WHITE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_white")), 
-		PEACOCK_BLUE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_blue"));
+		EMPTY(Items.AIR), CHICKEN_WHITE(Items.EGG), CHICKEN_BROWN(Item.getByNameOrId(Animania.MODID + ":brown_egg")), PEACOCK_WHITE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_white")), PEACOCK_BLUE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_blue"));
 
 		private Item item;
 
@@ -195,7 +192,7 @@ public class TileEntityNest extends BlockEntity implements Tickable
 
 		public Item getItem()
 		{
-			return item;
+			return this.item;
 		}
 	}
 

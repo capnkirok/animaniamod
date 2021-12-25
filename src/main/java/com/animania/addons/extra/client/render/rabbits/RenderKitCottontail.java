@@ -33,7 +33,7 @@ public class RenderKitCottontail<T extends RabbitEntityKitCottontail> extends Re
 	protected void preRenderScale(RabbitEntityKitCottontail entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.26F + (age / entity.getSizeDividend()), 0.26F + (age / entity.getSizeDividend()), 0.26F + (age / entity.getSizeDividend()));
+		GL11.glScalef(0.26F + age / entity.getSizeDividend(), 0.26F + age / entity.getSizeDividend(), 0.26F + age / entity.getSizeDividend());
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
 		double x = entity.getX();
@@ -41,7 +41,7 @@ public class RenderKitCottontail<T extends RabbitEntityKitCottontail> extends Re
 		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
+		EntityAnimaniaRabbit entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -63,7 +63,7 @@ public class RenderKitCottontail<T extends RabbitEntityKitCottontail> extends Re
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.rabbitTextures;
+		return RenderKitCottontail.rabbitTextures;
 	}
 
 	static class Factory<T extends RabbitEntityKitCottontail> implements IRenderFactory<T>

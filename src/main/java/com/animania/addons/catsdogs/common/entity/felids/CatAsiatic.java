@@ -10,13 +10,13 @@ public class CatAsiatic
 			super(levelIn);
 			this.type = CatType.ASIATIC;
 		}
-	
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x7C6450;
 		}
-	
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -24,19 +24,20 @@ public class CatAsiatic
 		}
 	}
 
-	public static class EntityQueenAsiatic extends EntityQueenBase {
+	public static class EntityQueenAsiatic extends EntityQueenBase
+	{
 		public EntityQueenAsiatic(Level levelIn)
 		{
 			super(levelIn);
 			this.type = CatType.ASIATIC;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x7C6450;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -44,19 +45,20 @@ public class CatAsiatic
 		}
 	}
 
-	public static class EntityKittenAsiatic extends EntityKittenBase {
+	public static class EntityKittenAsiatic extends EntityKittenBase
+	{
 		public EntityKittenAsiatic(Level levelIn)
 		{
 			super(levelIn);
 			this.type = CatType.ASIATIC;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x7C6450;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{

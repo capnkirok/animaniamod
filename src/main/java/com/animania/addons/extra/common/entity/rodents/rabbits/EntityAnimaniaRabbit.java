@@ -2,7 +2,6 @@ package com.animania.addons.extra.common.entity.rodents.rabbits;
 
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
@@ -81,7 +80,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.FLOAT);
 	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
 
-	private static final String[] RABBIT_TEXTURES = new String[] { "black", "brown", "golden", "olive", "patch_black", "patch_brown", "patch_grey" };
+	private static final String[] RABBIT_TEXTURES = { "black", "brown", "golden", "olive", "patch_black", "patch_brown", "patch_grey" };
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -108,54 +107,53 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	{
 		super(levelIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaRabbit>(this, false);
+		this.entityAIEatGrass = new GenericAIEatGrass<>(this, false);
 
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaRabbit>(this, 1.4D, entityAIEatGrass, EntityAnimaniaRabbit.class, true));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaRabbit>(this, 1.4D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<>(this, 1.4D, this.entityAIEatGrass, EntityAnimaniaRabbit.class, true));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.4D, this.entityAIEatGrass, true));
 		}
 
 		if (!this.getCustomNameTag().equals("Killer"))
 		{
-			this.goalSelector.addGoal(3, new GenericAIPanic<EntityAnimaniaRabbit>(this, 2.5D));
+			this.goalSelector.addGoal(3, new GenericAIPanic<>(this, 2.5D));
 			this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.8D));
 			this.goalSelector.addGoal(5, new SwimmingGoal(this));
-			this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaRabbit>(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
+			this.goalSelector.addGoal(7, new GenericAITempt<>(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
 			this.goalSelector.addGoal(8, this.entityAIEatGrass);
 			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 3.0D, 3.5D));
 			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<EntityMob>(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
 			this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-			this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaRabbit>(this));
+			this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 			if (AnimaniaConfig.gameRules.animalsSleep)
 			{
-				this.goalSelector.addGoal(12, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.rabbitBed), Block.getBlockFromName(ExtraConfig.settings.rabbitBed2), EntityAnimaniaRabbit.class, new Function<Long, Boolean>() {
+				this.goalSelector.addGoal(12, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.rabbitBed), Block.getBlockFromName(ExtraConfig.settings.rabbitBed2), EntityAnimaniaRabbit.class, leveltime -> leveltime > 20000 && leveltime < 24000 || leveltime > 10000 && leveltime < 15000));
 
-					@Override
-					public Boolean apply(Long leveltime)
-					{		
-						return (leveltime > 20000 && leveltime < 24000) || (leveltime > 10000 && leveltime < 15000);
-					}
-					
-				}));
-					
 			}
-		}else
+		}
+		else
 
-	{
-		this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.7F));
-		this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
-		this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 20.0F));
-		this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
-		this.setHealth(50);
-	}
+		{
+			this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.7F));
+			this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
+			this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
+			this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 20.0F));
+			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
+			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
+			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+			this.setHealth(50);
+		}
 
-	this.fedTimer=AnimaniaConfig.careAndFeeding.feedTimer+this.rand.nextInt(100);this.wateredTimer=AnimaniaConfig.careAndFeeding.waterTimer+this.rand.nextInt(100);this.happyTimer=60;this.blinkTimer=100+this.rand.nextInt(100);this.enablePersistence();
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
+		this.happyTimer = 60;
+		this.blinkTimer = 100 + this.rand.nextInt(100);
+		this.enablePersistence();
 
-	this.jumpHelper=new EntityAnimaniaRabbit.RabbitJumpHelper(this);this.moveHelper=new EntityAnimaniaRabbit.RabbitMoveHelper(this);this.setMovementSpeed(0.0D);
+		this.jumpHelper = new EntityAnimaniaRabbit.RabbitJumpHelper(this);
+		this.moveHelper = new EntityAnimaniaRabbit.RabbitMoveHelper(this);
+		this.setMovementSpeed(0.0D);
 	}
 
 	protected void resetAI()
@@ -250,7 +248,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			}
 
 			return this.moveHelper.getSpeed() <= 0.6D ? 0.2F : 0.3F;
-		} else
+		}
+		else
 		{
 			return 0.4F;
 		}
@@ -344,7 +343,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		if (this instanceof RabbitEntityBuckLop || this instanceof RabbitEntityKitLop || this instanceof RabbitEntityDoeLop)
 		{
 			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, Integer.valueOf(rand.nextInt(7)));
-		} else
+		}
+		else
 		{
 			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, 0);
 		}
@@ -412,7 +412,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 					this.calculateRotationYaw(vec3d.x, vec3d.z);
 					this.startJumping();
 				}
-			} else if (!RabbitEntity$rabbitjumphelper.canJump())
+			}
+			else if (!RabbitEntity$rabbitjumphelper.canJump())
 			{
 				this.enableJumpControl();
 			}
@@ -475,12 +476,12 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 
 	public ResourceLocation getResourceLocation()
 	{
-		return resourceLocation;
+		return this.resourceLocation;
 	}
 
 	public ResourceLocation getResourceLocationBlink()
 	{
-		return resourceLocationBlink;
+		return this.resourceLocationBlink;
 	}
 
 	private void calculateRotationYaw(double x, double z)
@@ -503,7 +504,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		if (this.moveHelper.getSpeed() < 2.2D)
 		{
 			this.currentMoveTypeDuration = 10;
-		} else
+		}
+		else
 		{
 			this.currentMoveTypeDuration = 1;
 		}
@@ -535,7 +537,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		if (this.jumpTicks != this.jumpDuration)
 		{
 			++this.jumpTicks;
-		} else if (this.jumpDuration != 0)
+		}
+		else if (this.jumpDuration != 0)
 		{
 			this.jumpTicks = 0;
 			this.jumpDuration = 0;
@@ -556,7 +559,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			if (!stack.hasDisplayName())
 			{
 				return false;
-			} else
+			}
+			else
 			{
 				LivingEntity LivingEntity = this;
 				LivingEntity.setCustomNameTag(stack.getDisplayName());
@@ -595,7 +599,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.putInteger("ColorNumber", getColorNumber());
+		compound.putInteger("ColorNumber", this.getColorNumber());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 
@@ -733,7 +737,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 					{
 						level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 2);
 						level.destroyBlock(blockpos, true);
-					} else
+					}
+					else
 					{
 						level.setBlock(blockpos, BlockState.withProperty(BlockCarrot.AGE, Integer.valueOf(integer.intValue() - 1)), 2);
 						level.playEvent(2001, blockpos, Block.getStateId(BlockState));
@@ -829,7 +834,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			if (this.theEntity.onGround && !this.theEntity.isJumping && !((EntityAnimaniaRabbit.RabbitJumpHelper) this.theEntity.jumpHelper).getIsJumping())
 			{
 				this.theEntity.setMovementSpeed(0.0D);
-			} else if (this.isUpdating())
+			}
+			else if (this.isUpdating())
 			{
 				this.theEntity.setMovementSpeed(this.nextJumpSpeed);
 			}
@@ -878,7 +884,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -922,13 +928,13 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
@@ -940,25 +946,25 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
 	public void setEatTimer(int i)
 	{
-		eatTimer = i;
+		this.eatTimer = i;
 	}
 
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -970,37 +976,37 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override

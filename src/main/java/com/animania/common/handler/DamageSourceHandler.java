@@ -10,7 +10,8 @@ public class DamageSourceHandler
 	public static DamageSource beeDamage;
 	public static DamageSource killerRabbitDamage;
 
-	public static void preInit() {
+	public static void preInit()
+	{
 		// DAMAGE
 		DamageSourceHandler.pepeDamage = new DamageSource("pepe");
 		DamageSourceHandler.beeDamage = new DamageSource("animania_bee");

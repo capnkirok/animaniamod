@@ -32,21 +32,14 @@ import net.minecraft.stats.StatBase;
 
 public enum GoatType implements AnimaniaType
 {
-	ALPINE(EntityBuckAlpine.class, EntityDoeAlpine.class, EntityKidAlpine.class, null, true),
-	ANGORA(EntityBuckAngora.class, EntityDoeAngora.class, EntityKidAngora.class, null, false),
-	FAINTING(EntityBuckFainting.class, EntityDoeFainting.class, EntityKidFainting.class, null, false),
-	KIKO(EntityBuckKiko.class, EntityDoeKiko.class, EntityKidKiko.class, null, true),
-	KINDER(EntityBuckKinder.class, EntityDoeKinder.class, EntityKidKinder.class, null, false),
-	NIGERIAN_DWARF(EntityBuckNigerianDwarf.class, EntityDoeNigerianDwarf.class, EntityKidNigerianDwarf.class, null, false),
-	PYGMY(EntityBuckPygmy.class, EntityDoePygmy.class, EntityKidPygmy.class, null, true);
-	
+	ALPINE(EntityBuckAlpine.class, EntityDoeAlpine.class, EntityKidAlpine.class, null, true), ANGORA(EntityBuckAngora.class, EntityDoeAngora.class, EntityKidAngora.class, null, false), FAINTING(EntityBuckFainting.class, EntityDoeFainting.class, EntityKidFainting.class, null, false), KIKO(EntityBuckKiko.class, EntityDoeKiko.class, EntityKidKiko.class, null, true), KINDER(EntityBuckKinder.class, EntityDoeKinder.class, EntityKidKinder.class, null, false), NIGERIAN_DWARF(EntityBuckNigerianDwarf.class, EntityDoeNigerianDwarf.class, EntityKidNigerianDwarf.class, null, false), PYGMY(EntityBuckPygmy.class, EntityDoePygmy.class, EntityKidPygmy.class, null, true);
 
 	private Class male;
 	private Class female;
 	private Class child;
 	private StatBase achievement;
 	public boolean isPrime;
-	
+
 	private GoatType(Class male, Class female, Class child, StatBase achievement, boolean prime)
 	{
 		this.male = male;
@@ -55,7 +48,7 @@ public enum GoatType implements AnimaniaType
 		this.achievement = achievement;
 		this.isPrime = prime;
 	}
-	
+
 	@Override
 	public EntityBuckBase getMale(Level level)
 	{
@@ -135,14 +128,13 @@ public enum GoatType implements AnimaniaType
 
 	public StatBase getAchievement()
 	{
-		return achievement;
+		return this.achievement;
 	}
-	
+
 	@Override
 	public String getTypeName()
 	{
 		return Animania.MODID + ":goat";
 	}
 
-	
 }

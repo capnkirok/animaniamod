@@ -23,18 +23,18 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", horseBaseDir = "textures/entity/horses/";
 
-	private static final ResourceLocation[] HORSE_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "black.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "bw1.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "bw2.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "grey.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "red.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "white.png") };
+	private static final ResourceLocation[] HORSE_TEXTURES = { new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "black.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "bw1.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "bw2.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "grey.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "red.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "white.png") };
 
 	private static ResourceLocation BLINK = new ResourceLocation("animania:textures/entity/horses/horse_blink.png");
 
-	private static final int[] BLINK_COLORS = new int[] { 0x1B1B1B, 0x181818, 0x171717, 0x797979, 0x8F3514, 0xC1C1C1 };
+	private static final int[] BLINK_COLORS = { 0x1B1B1B, 0x181818, 0x171717, 0x797979, 0x8F3514, 0xC1C1C1 };
 
 	private LayerBlinking blinkingLayer;
 
 	public RenderMareDraftHorse(RenderManager rm)
 	{
 		super(rm, new ModelDraftHorseMare(), 0.8F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, BLINK, 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, BLINK, 0));
 	}
 
 	protected void preRenderScale(EntityMareDraftHorse entity, float f)
@@ -53,7 +53,8 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 
 			GlStateManager.translate(-0.25F, entity.height - 1.95F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		} else
+		}
+		else
 		{
 			this.shadowSize = 0.8F;
 		}
@@ -74,8 +75,8 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 	@Override
 	protected void preRenderCallback(EntityMareDraftHorse LivingEntity, float f)
 	{
-		preRenderScale(LivingEntity, f);
-		blinkingLayer.setColors(BLINK_COLORS[LivingEntity.getColorNumber()], BLINK_COLORS[LivingEntity.getColorNumber()]);
+		this.preRenderScale(LivingEntity, f);
+		this.blinkingLayer.setColors(BLINK_COLORS[LivingEntity.getColorNumber()], BLINK_COLORS[LivingEntity.getColorNumber()]);
 	}
 
 	static class Factory<T extends EntityMareDraftHorse> implements IRenderFactory<T>

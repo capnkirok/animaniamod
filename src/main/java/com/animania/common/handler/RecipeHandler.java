@@ -69,7 +69,8 @@ public class RecipeHandler
 				if (curKey != null)
 					throw new IllegalArgumentException("Provided two char keys in a row");
 				curKey = (Character) o;
-			} else
+			}
+			else
 			{
 				if (curKey == null)
 					throw new IllegalArgumentException("Providing object without a char key");
@@ -98,7 +99,8 @@ public class RecipeHandler
 		try (FileWriter w = new FileWriter(f))
 		{
 			GSON.toJson(json, w);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -139,7 +141,8 @@ public class RecipeHandler
 		try (FileWriter w = new FileWriter(f))
 		{
 			GSON.toJson(json, w);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -156,9 +159,8 @@ public class RecipeHandler
 		{
 			return serializeItem(new ItemStack((Block) thing));
 		}
-		if (thing instanceof ItemStack)
+		if (thing instanceof ItemStack stack)
 		{
-			ItemStack stack = (ItemStack) thing;
 			Map<String, Object> ret = new HashMap<>();
 			ret.put("item", stack.getItem().getRegistryName().toString());
 			if (stack.getItem().getHasSubtypes() || stack.getItemDamage() != 0)
@@ -184,7 +186,7 @@ public class RecipeHandler
 			// OLD ret.put("item", "#" + ((String)
 			// thing).toUpperCase(Locale.ROOT));
 			ret.put("type", "forge:ore_dict");
-			ret.put("ore", (thing));
+			ret.put("ore", thing);
 			return ret;
 		}
 
@@ -207,7 +209,8 @@ public class RecipeHandler
 		try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_constants.json")))
 		{
 			GSON.toJson(json, w);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}

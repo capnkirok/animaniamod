@@ -39,7 +39,7 @@ public class RenderHogLargeWhite<T extends EntityHogLargeWhite> extends RenderLi
 	{
 		GL11.glScalef(1.16F, 1.16F, 1.16F);
 
-		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		EntityAnimaniaPig entityChk = entity;
 
 		if (entityChk.getSleeping())
 		{
@@ -128,7 +128,7 @@ public class RenderHogLargeWhite<T extends EntityHogLargeWhite> extends RenderLi
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.PIG_TEXTURES;
+		return RenderHogLargeWhite.PIG_TEXTURES;
 	}
 
 	static class Factory<T extends EntityHogLargeWhite> implements IRenderFactory<T>

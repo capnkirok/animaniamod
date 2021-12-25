@@ -10,13 +10,13 @@ public class CatAmericanShorthair
 			super(levelIn);
 			this.type = CatType.AMERICAN_SHORTHAIR;
 		}
-	
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x717171;
 		}
-	
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -24,19 +24,20 @@ public class CatAmericanShorthair
 		}
 	}
 
-	public static class EntityQueenAmericanShorthair extends EntityQueenBase {
+	public static class EntityQueenAmericanShorthair extends EntityQueenBase
+	{
 		public EntityQueenAmericanShorthair(Level levelIn)
 		{
 			super(levelIn);
 			this.type = CatType.AMERICAN_SHORTHAIR;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x717171;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -51,13 +52,13 @@ public class CatAmericanShorthair
 			super(levelIn);
 			this.type = CatType.AMERICAN_SHORTHAIR;
 		}
-	
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 0x717171;
 		}
-	
+
 		@Override
 		public int getSecondaryEggColor()
 		{

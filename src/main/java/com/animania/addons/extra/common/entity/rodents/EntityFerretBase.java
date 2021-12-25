@@ -77,7 +77,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	// protected static final EntityDataAccessor<Boolean> SITTING =
 	// SynchedEntityData.defineId(EntityFerretBase.class,
 	// EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> RIDING = EntityEntityDataSerializers.<Boolean>createKey(EntityFerretBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> RIDING = EntityEntityDataSerializers.<Boolean> createKey(EntityFerretBase.class, EntityEntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityFerretBase.class, EntityDataSerializers.VARINT);
 	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityFerretBase.class, EntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityFerretBase.class, EntityDataSerializers.FLOAT);
@@ -100,7 +100,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 		this.setSize(.75F, .40F);
 		this.stepHeight = 1.1F;
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-		this.wateredTimer = (AnimaniaConfig.careAndFeeding.waterTimer * 2) + this.rand.nextInt(200);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(200);
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + this.rand.nextInt(70);
@@ -117,20 +117,20 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 		this.goalSelector.addGoal(0, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(1, new GenericAIFindWater<EntityFerretBase>(this, 1.0D, entityAIEatGrass, EntityFerretBase.class, true));
+			this.goalSelector.addGoal(1, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityFerretBase.class, true));
 			this.goalSelector.addGoal(2, new FerretFindNestsGoal(this, 1.0D));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityFerretBase>(this, 1.0D, entityAIEatGrass, false));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.0D, this.entityAIEatGrass, false));
 		}
 		this.goalSelector.addGoal(4, this.aiSit);
 		this.goalSelector.addGoal(5, new LeapAtTargetGoal(this, 0.2F));
 		this.goalSelector.addGoal(6, new AttackMeleeGoal(this, 1.0D, true));
-		this.goalSelector.addGoal(7, new GenericAIFollowOwner<EntityFerretBase>(this, 1.0D, 10.0F, 2.0F));
-		this.goalSelector.addGoal(8, new GenericAIPanic<EntityFerretBase>(this, 1.5D));
+		this.goalSelector.addGoal(7, new GenericAIFollowOwner<>(this, 1.0D, 10.0F, 2.0F));
+		this.goalSelector.addGoal(8, new GenericAIPanic<>(this, 1.5D));
 		this.goalSelector.addGoal(9, new RodentEatGoal(this));
-		this.goalSelector.addGoal(10, new GenericAITempt<EntityFerretBase>(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(10, new GenericAITempt<>(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.addGoal(14, new GenericAILookIdle<EntityFerretBase>(this));
+		this.goalSelector.addGoal(14, new GenericAILookIdle<>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(15, new GenericAISleep<EntityFerretBase>(this, 0.8, AnimaniaHelper.getBlock(ExtraConfig.settings.ferretBed), AnimaniaHelper.getBlock(ExtraConfig.settings.ferretBed2), EntityFerretBase.class));
@@ -140,8 +140,8 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 			AddonInjectionHandler.runInjection("farm", "attackChicks", Void.class, this);
 
 			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget<SilverfishEntity>(this, SilverfishEntity.class, false));
-			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget<EntityFrogs>(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget<EntityToad>(this, EntityToad.class, false));
+			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget<>(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget<>(this, EntityToad.class, false));
 		}
 		this.targetTasks.addTask(9, new HurtByTargetGoal(this, false, new Class[0]));
 	}
@@ -368,7 +368,8 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 		{
 			this.setFerretRiding(true);
 			this.startRiding(par1Entity);
-		} else if (!this.isFerretRiding())
+		}
+		else if (!this.isFerretRiding())
 			this.dismountRidingEntity();
 
 	}
@@ -473,7 +474,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -517,37 +518,37 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
 	public void setEatTimer(int i)
 	{
-		eatTimer = i;
+		this.eatTimer = i;
 	}
 
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -559,43 +560,43 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return type;
+		return this.type;
 	}
 
 	@Override

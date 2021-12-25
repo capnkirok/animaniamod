@@ -114,7 +114,7 @@ public class PoseDachshundSleeping extends ModelBase
 		this.head.addChild(this.wolf_head);
 		this.body.addChild(this.head);
 		this.body.addChild(this.tail);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

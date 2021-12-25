@@ -12,15 +12,13 @@ import net.minecraft.advancements.CriterionTriggerInstance;
 
 public class AdvancementHandler
 {
-	
+
 	public static FeedAnimalTrigger feedAnimal;
-	
-	
+
 	public static void registerCriteria()
 	{
 		feedAnimal = (FeedAnimalTrigger) registerTrigger(new FeedAnimalTrigger());
 	}
-	
 
 	public static <T extends CriterionTriggerInstance> CriterionTrigger<T> registerTrigger(CriterionTrigger<T> trigger)
 	{

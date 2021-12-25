@@ -21,7 +21,7 @@ public enum EntityGender
 		case CHILD:
 			return type.getChild(level);
 		case RANDOM:
-			switch(Animania.RANDOM.nextInt(3))
+			switch (Animania.RANDOM.nextInt(3))
 			{
 			case 0:
 				return type.getMale(level);
@@ -34,7 +34,7 @@ public enum EntityGender
 			return type.getMale(level);
 
 		}
-		
+
 		return null;
 
 	}

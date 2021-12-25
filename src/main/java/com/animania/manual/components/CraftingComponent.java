@@ -12,8 +12,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.level.item.ItemStack;
-import net.minecraft.level.item.crafting.Recipe;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
@@ -63,16 +63,16 @@ public class CraftingComponent implements IManualComponent
 	@Override
 	public void init()
 	{
-		currentRecipe = recipes.get(recipeIndex);
-		items = getSortedIngredients(currentRecipe);
-		ingredientIndex = new int[9];
+		this.currentRecipe = this.recipes.get(this.recipeIndex);
+		this.items = this.getSortedIngredients(this.currentRecipe);
+		this.ingredientIndex = new int[9];
 	}
 
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		mc.textureManager.bind(MATRIX_TEXTURE);
-		int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
+		this.mc.textureManager.bind(MATRIX_TEXTURE);
+		int border = (GuiManual.MANUAL_MAX_X - this.objectWidth) / 2;
 
 		int getX() = absoluteX + manual.guiLeft + border;
 		int getY() = absoluteY + manual.guiTop;
@@ -80,52 +80,52 @@ public class CraftingComponent implements IManualComponent
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1, 1, 1);
 		GlStateManager.enableBlend();
-		manual.drawModalRectWithCustomSizedTexture(getX(), getY(), 0, 0, objectWidth, objectHeight, objectWidth, objectHeight);
+		this.manual.drawModalRectWithCustomSizedTexture(this.getX(), this.getY(), 0, 0, this.objectWidth, this.objectHeight, this.objectWidth, this.objectHeight);
 		GlStateManager.popMatrix();
 
 		for (int i = 0; i < 9; i++)
 		{
-			int offsetX = 1 + (18 * (i % 3));
-			int offsetY = 1 + (18 * (i / 3));
-			if (items[i].length > 0)
+			int offsetX = 1 + 18 * (i % 3);
+			int offsetY = 1 + 18 * (i / 3);
+			if (this.items[i].length > 0)
 			{
 				GlStateManager.pushMatrix();
 				RenderHelper.enableGUIStandardItemLighting();
-				manual.drawItemStack(items[i][ingredientIndex[i]], getX() + offsetX, getY() + offsetY, null);
+				this.manual.drawItemStack(this.items[i][this.ingredientIndex[i]], this.getX() + offsetX, this.getY() + offsetY, null);
 				GlStateManager.popMatrix();
 			}
 		}
 
 		GlStateManager.pushMatrix();
 		RenderHelper.enableGUIStandardItemLighting();
-		manual.drawItemStack(currentRecipe.getRecipeOutput(), getX() + 83, getY() + 19, null);
+		this.manual.drawItemStack(this.currentRecipe.getRecipeOutput(), this.getX() + 83, this.getY() + 19, null);
 		GlStateManager.popMatrix();
 
-		if (recipes.size() > 1)
+		if (this.recipes.size() > 1)
 		{
-			mc.renderEngine.bindTexture(BUTTONS);
-			manual.drawModalRectWithCustomSizedTexture(getX() + 56, getY() + 42, isHovering(mouseX, mouseY, getX() + 56, getY() + 42, 9, 11) ? 18 : 0, 0, 9, 11, 36, 11);
-			manual.drawModalRectWithCustomSizedTexture(getX() + 67, getY() + 42, isHovering(mouseX, mouseY, getX() + 67, getY() + 42, 9, 11) ? 27 : 9, 0, 9, 11, 36, 11);
+			this.mc.renderEngine.bindTexture(BUTTONS);
+			this.manual.drawModalRectWithCustomSizedTexture(this.getX() + 56, this.getY() + 42, this.isHovering(mouseX, mouseY, this.getX() + 56, this.getY() + 42, 9, 11) ? 18 : 0, 0, 9, 11, 36, 11);
+			this.manual.drawModalRectWithCustomSizedTexture(this.getX() + 67, this.getY() + 42, this.isHovering(mouseX, mouseY, this.getX() + 67, this.getY() + 42, 9, 11) ? 27 : 9, 0, 9, 11, 36, 11);
 		}
 
-		if (!(currentRecipe instanceof IShapedRecipe))
+		if (!(this.currentRecipe instanceof IShapedRecipe))
 		{
-			mc.fontRenderer.drawString(I18n.translateToLocal("manual.crafting.shapeless"), getX() + 57, getY() + 2, 0);
+			this.mc.fontRenderer.drawString(I18n.translateToLocal("manual.crafting.shapeless"), this.getX() + 57, this.getY() + 2, 0);
 		}
-		
+
 		GlStateManager.disableLighting();
 	}
 
 	@Override
 	public void update()
 	{
-		updateIngredientIndices();
+		this.updateIngredientIndices();
 	}
 
 	@Override
 	public void drawLater(int mouseX, int mouseY, float partialTicks)
 	{
-		int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
+		int border = (GuiManual.MANUAL_MAX_X - this.objectWidth) / 2;
 		int getX() = absoluteX + manual.guiLeft + border;
 		int getY() = absoluteY + manual.guiTop;
 
@@ -133,19 +133,16 @@ public class CraftingComponent implements IManualComponent
 
 		for (int i = 0; i < 9; i++)
 		{
-			int offsetX = 1 + (18 * (i % 3));
-			int offsetY = 1 + (18 * (i / 3));
-			if (isHovering(mouseX, mouseY, getX() + offsetX, getY() + offsetY, 16, 16))
+			int offsetX = 1 + 18 * (i % 3);
+			int offsetY = 1 + 18 * (i / 3);
+			if (this.isHovering(mouseX, mouseY, this.getX() + offsetX, this.getY() + offsetY, 16, 16) && this.items[i].length > 0)
 			{
-				if (items[i].length > 0)
-				{
-					manual.renderToolTip(items[i][ingredientIndex[i]], mouseX, mouseY);
-				}
+				this.manual.renderToolTip(this.items[i][this.ingredientIndex[i]], mouseX, mouseY);
 			}
 		}
 
-		if (isHovering(mouseX, mouseY, getX() + 83, getY() + 19, 16, 16))
-			manual.renderToolTip(currentRecipe.getRecipeOutput(), mouseX, mouseY);
+		if (this.isHovering(mouseX, mouseY, this.getX() + 83, this.getY() + 19, 16, 16))
+			this.manual.renderToolTip(this.currentRecipe.getRecipeOutput(), mouseX, mouseY);
 
 		GlStateManager.disableLighting();
 		GlStateManager.popMatrix();
@@ -159,24 +156,21 @@ public class CraftingComponent implements IManualComponent
 
 	private void updateIngredientIndices()
 	{
-		if (!GuiScreen.isShiftKeyDown())
+		if (!GuiScreen.isShiftKeyDown() && ITEM_TIMER == 0)
 		{
-			if (ITEM_TIMER == 0)
+			for (int i = 0; i < this.items.length; i++)
 			{
-				for (int i = 0; i < items.length; i++)
+				ItemStack[] ings = this.items[i];
+				if (ings.length > 1)
 				{
-					ItemStack[] ings = items[i];
-					if (ings.length > 1)
-					{
-						int currentIndex = ingredientIndex[i];
+					int currentIndex = this.ingredientIndex[i];
 
-						if (currentIndex == ings.length - 1)
-							currentIndex = 0;
-						else
-							currentIndex++;
+					if (currentIndex == ings.length - 1)
+						currentIndex = 0;
+					else
+						currentIndex++;
 
-						ingredientIndex[i] = currentIndex;
-					}
+					this.ingredientIndex[i] = currentIndex;
 				}
 			}
 		}
@@ -185,34 +179,33 @@ public class CraftingComponent implements IManualComponent
 	@Override
 	public void onLeftClick(int mouseX, int mouseY)
 	{
-		if (recipes.size() > 1)
+		if (this.recipes.size() > 1)
 		{
-			int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
+			int border = (GuiManual.MANUAL_MAX_X - this.objectWidth) / 2;
 
 			int getX() = absoluteX + manual.guiLeft + border;
 			int getY() = absoluteY + manual.guiTop;
 
-			if (isHovering(mouseX, mouseY, getX() + 56, getY() + 42, 9, 11))
+			if (this.isHovering(mouseX, mouseY, this.getX() + 56, this.getY() + 42, 9, 11))
 			{
-				if (recipeIndex == 0)
-					recipeIndex = recipes.size() - 1;
+				if (this.recipeIndex == 0)
+					this.recipeIndex = this.recipes.size() - 1;
 				else
-					recipeIndex--;
+					this.recipeIndex--;
 
-				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-				init();
+				this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+				this.init();
 				return;
 			}
 
-			if (isHovering(mouseX, mouseY, getX() + 67, getY() + 42, 9, 11))
+			if (this.isHovering(mouseX, mouseY, this.getX() + 67, this.getY() + 42, 9, 11))
 			{
-				if (recipeIndex == recipes.size() - 1)
-					recipeIndex = 0;
+				if (this.recipeIndex == this.recipes.size() - 1)
+					this.recipeIndex = 0;
 				else
-					recipeIndex++;
-				init();
-				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-				return;
+					this.recipeIndex++;
+				this.init();
+				this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 			}
 		}
 	}
@@ -225,25 +218,25 @@ public class CraftingComponent implements IManualComponent
 	@Override
 	public int getObjectWidth()
 	{
-		return objectWidth;
+		return this.objectWidth;
 	}
 
 	@Override
 	public int getObjectHeight()
 	{
-		return objectHeight;
+		return this.objectHeight;
 	}
 
 	@Override
 	public int getX()
 	{
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public int getY()
 	{
-		return y;
+		return this.y;
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class ImageComponent implements IManualComponent
 	private int imageWidth;
 
 	private float multiplier = 1;
-	
+
 	public ImageComponent(int x, int y, ResourceLocation image)
 	{
 		this.manual = GuiManual.INSTANCE;
@@ -49,7 +49,7 @@ public class ImageComponent implements IManualComponent
 
 		try
 		{
-			Resource resource = mc.getResourceManager().getResource(image);
+			Resource resource = this.mc.getResourceManager().getResource(image);
 			if (resource != null)
 			{
 				InputStream stream = resource.getInputStream();
@@ -57,41 +57,37 @@ public class ImageComponent implements IManualComponent
 				this.imageHeight = img.getHeight();
 				this.imageWidth = img.getWidth();
 
-				this.objectHeight = imageHeight;
-				this.objectWidth = imageWidth;
-				
-				if (imageHeight > imageWidth)
+				this.objectHeight = this.imageHeight;
+				this.objectWidth = this.imageWidth;
+
+				if (this.imageHeight > this.imageWidth)
 				{
-					if (imageHeight > GuiManual.MANUAL_MAX_Y)
+					if (this.imageHeight > GuiManual.MANUAL_MAX_Y)
 					{
-						float multiplier = (float) (GuiManual.MANUAL_MAX_Y - 12) / (float) imageHeight;
-						this.objectHeight = (int) (imageHeight * multiplier);
-						this.objectWidth = (int) (imageWidth * multiplier);
+						float multiplier = (float) (GuiManual.MANUAL_MAX_Y - 12) / (float) this.imageHeight;
+						this.objectHeight = (int) (this.imageHeight * multiplier);
+						this.objectWidth = (int) (this.imageWidth * multiplier);
 						this.multiplier = multiplier;
 					}
 				}
-				else if (imageWidth > imageHeight)
+				else if (this.imageWidth > GuiManual.MANUAL_MAX_X)
 				{
-					if (imageWidth > GuiManual.MANUAL_MAX_X)
+					if (this.imageWidth > this.imageHeight)
 					{
-						float multiplier = (float) (GuiManual.MANUAL_MAX_X - 12) / (float) imageWidth;
-						this.objectHeight = (int) (imageHeight * multiplier);
-						this.objectWidth = (int) (imageWidth * multiplier);
+						float multiplier = (float) (GuiManual.MANUAL_MAX_X - 12) / (float) this.imageWidth;
+						this.objectHeight = (int) (this.imageHeight * multiplier);
+						this.objectWidth = (int) (this.imageWidth * multiplier);
+						this.multiplier = multiplier;
+					}
+					else
+					{
+						float multiplier = (float) (GuiManual.MANUAL_MAX_X - 12) / (float) this.imageWidth;
+						this.objectHeight = (int) (this.imageHeight * multiplier);
+						this.objectWidth = (int) (this.imageWidth * multiplier);
 						this.multiplier = multiplier;
 					}
 				}
-				else
-				{
-					if (imageWidth > GuiManual.MANUAL_MAX_X)
-					{
-						float multiplier = (float) (GuiManual.MANUAL_MAX_X - 12) / (float) imageWidth;
-						this.objectHeight = (int) (imageHeight * multiplier);
-						this.objectWidth = (int) (imageWidth * multiplier);
-						this.multiplier = multiplier;
-					}
-				}
-				
-				
+
 			}
 		}
 		catch (Exception e)
@@ -109,11 +105,11 @@ public class ImageComponent implements IManualComponent
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		mc.renderEngine.bindTexture(image);
-		int border = (GuiManual.MANUAL_MAX_X - objectWidth)/2;
+		this.mc.renderEngine.bindTexture(this.image);
+		int border = (GuiManual.MANUAL_MAX_X - this.objectWidth) / 2;
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1, 1, 1);
-		manual.drawModalRectWithCustomSizedTexture((int)((absoluteX + manual.guiLeft + border)/multiplier), (int)((absoluteY + manual.guiTop)/multiplier), 0 , 0, imageWidth, imageHeight, imageWidth, imageHeight, multiplier);
+		GuiManual.drawModalRectWithCustomSizedTexture((int) ((this.absoluteX + this.manual.guiLeft + border) / this.multiplier), (int) ((this.absoluteY + this.manual.guiTop) / this.multiplier), 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight, this.multiplier);
 		GlStateManager.popMatrix();
 
 	}
@@ -133,25 +129,25 @@ public class ImageComponent implements IManualComponent
 	@Override
 	public int getObjectWidth()
 	{
-		return objectWidth;
+		return this.objectWidth;
 	}
 
 	@Override
 	public int getObjectHeight()
 	{
-		return objectHeight;
+		return this.objectHeight;
 	}
 
 	@Override
 	public int getX()
 	{
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public int getY()
 	{
-		return y;
+		return this.y;
 	}
 
 	@Override

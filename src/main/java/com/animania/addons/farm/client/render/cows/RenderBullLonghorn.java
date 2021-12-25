@@ -43,7 +43,7 @@ public class RenderBullLonghorn<T extends EntityBullLonghorn> extends RenderLivi
 	protected void preRenderScale(T entity, float f)
 	{
 		GL11.glScalef(1.5F, 1.5F, 1.5F);
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

@@ -107,7 +107,7 @@ public class PosePomeranianSleeping extends ModelBase
 		this.neck_base.addChild(this.neck);
 		this.upperbody.addChild(this.neck_base);
 		this.body.addChild(this.upperbody);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()

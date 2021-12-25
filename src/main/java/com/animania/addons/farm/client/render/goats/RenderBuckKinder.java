@@ -43,7 +43,7 @@ public class RenderBuckKinder<T extends EntityBuckKinder> extends RenderLiving<T
 	{
 		GL11.glScalef(0.52F, 0.52F, 0.52F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
+		EntityAnimaniaGoat entityGoat = entity;
 		if (entityGoat.getSleeping())
 		{
 			this.shadowSize = 0;

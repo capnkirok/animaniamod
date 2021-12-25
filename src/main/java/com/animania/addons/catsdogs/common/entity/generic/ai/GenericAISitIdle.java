@@ -13,7 +13,10 @@ public class GenericAISitIdle extends Goal
 	private double lookX;
 	/** Z offset to look at */
 	private double lookZ;
-	/** A decrementing tick that stops the entity from being idle once it reaches 0. */
+	/**
+	 * A decrementing tick that stops the entity from being idle once it reaches
+	 * 0.
+	 */
 	private int idleTime;
 
 	public GenericAISitIdle(LivingEntity LivingEntityIn)
@@ -43,7 +46,7 @@ public class GenericAISitIdle extends Goal
 	 */
 	public void startExecuting()
 	{
-		double d0 = (Math.PI * 2D) * this.idleEntity.getRandom().nextDouble();
+		double d0 = Math.PI * 2D * this.idleEntity.getRandom().nextDouble();
 		this.lookX = Math.cos(d0);
 		this.lookZ = Math.sin(d0);
 		this.idleTime = 50 + this.idleEntity.getRandom().nextInt(20);
@@ -55,14 +58,17 @@ public class GenericAISitIdle extends Goal
 	public void updateTask()
 	{
 		--this.idleTime;
-		if (this.idleEntity instanceof EntityAnimaniaCat) {
-			EntityAnimaniaCat entityCat = (EntityAnimaniaCat)this.idleEntity;
-			if (!entityCat.isSitting() && this.idleTime > 0) {
+		if (this.idleEntity instanceof EntityAnimaniaCat entityCat)
+		{
+			if (!entityCat.isSitting() && this.idleTime > 0)
+			{
 				entityCat.setSitting(true);
-			} else if (entityCat.isSitting() && this.idleTime == 0) {
+			}
+			else if (entityCat.isSitting() && this.idleTime == 0)
+			{
 				entityCat.setSitting(false);
 			}
-		} 
-		this.idleEntity.getLookHelper().setLookPosition(this.idleEntity.getX() + this.lookX, this.idleEntity.getY() + (double)this.idleEntity.getEyeHeight(), this.idleEntity.getZ() + this.lookZ, (float)this.idleEntity.getHorizontalFaceSpeed(), (float)this.idleEntity.getVerticalFaceSpeed());
+		}
+		this.idleEntity.getLookHelper().setLookPosition(this.idleEntity.getX() + this.lookX, this.idleEntity.getY() + this.idleEntity.getEyeHeight(), this.idleEntity.getZ() + this.lookZ, (float) this.idleEntity.getHorizontalFaceSpeed(), (float) this.idleEntity.getVerticalFaceSpeed());
 	}
 }

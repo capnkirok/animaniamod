@@ -23,11 +23,11 @@ public class RenderRoosterBase<T extends EntityRoosterBase> extends RenderLiving
 	public static final Factory FACTORY = new Factory();
 
 	private LayerBlinking blinkingLayer;
-	
+
 	public RenderRoosterBase(RenderManager rm)
 	{
 		super(rm, new ModelRooster(), 0.32F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png"), 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png"), 0));
 	}
 
 	@Override
@@ -42,18 +42,20 @@ public class RenderRoosterBase<T extends EntityRoosterBase> extends RenderLiving
 	protected void preRenderCallback(T LivingEntity, float f)
 	{
 		this.preRenderScale(LivingEntity, f);
-		blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
+		this.blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
 	}
 
 	protected void preRenderScale(T entity, float f)
 	{
-		if (entity.getCustomNameTag().equals("Ducktonio")) {
+		if (entity.getCustomNameTag().equals("Ducktonio"))
+		{
 			GL11.glScalef(1.5F, 1.5F, 1.5F);
-		} {
+		}
+		{
 			GL11.glScalef(1.0F, 1.0F, 1.0F);
 		}
 
-		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
+		EntityAnimaniaChicken entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			GlStateManager.translate(-0.25F, 0.35F, -0.25F);
@@ -70,14 +72,16 @@ public class RenderRoosterBase<T extends EntityRoosterBase> extends RenderLiving
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		
-		if (entity.getCustomNameTag().equals("Ducktonio")) {
+
+		if (entity.getCustomNameTag().equals("Ducktonio"))
+		{
 			return new ResourceLocation("animania:textures/entity/chickens/rooster_antonio.png");
-		} else {
+		}
+		else
+		{
 			return entity.getResourceLocation();
 		}
-		
-		
+
 	}
 
 	static class Factory<T extends EntityRoosterBase> implements IRenderFactory<T>

@@ -24,7 +24,7 @@ public class RenderDoeNewZealand<T extends RabbitEntityDoeNewZealand> extends Re
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_new_zealand.png");
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
 	private static final ResourceLocation killerRabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_killer.png");
-	
+
 	public RenderDoeNewZealand(RenderManager rm)
 	{
 		super(rm, new ModelNewZealand(), 0.25F);
@@ -33,12 +33,15 @@ public class RenderDoeNewZealand<T extends RabbitEntityDoeNewZealand> extends Re
 
 	protected void preRenderScale(RabbitEntityDoeNewZealand entity, float f)
 	{
-		if (entity.getCustomNameTag().equals("Killer")) {
+		if (entity.getCustomNameTag().equals("Killer"))
+		{
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
-		} else {	
+		}
+		else
+		{
 			GL11.glScalef(0.58F, 0.58F, 0.58F);
 		}
-		
+
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
 		double x = entity.getX();
@@ -46,7 +49,7 @@ public class RenderDoeNewZealand<T extends RabbitEntityDoeNewZealand> extends Re
 		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
+		EntityAnimaniaRabbit entityChk = entity;
 		if (entityChk.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -68,9 +71,12 @@ public class RenderDoeNewZealand<T extends RabbitEntityDoeNewZealand> extends Re
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.getCustomNameTag().trim().equals("Killer")) {
+		if (entity.getCustomNameTag().trim().equals("Killer"))
+		{
 			return RenderDoeNewZealand.killerRabbitTextures;
-		} else {
+		}
+		else
+		{
 			return RenderDoeNewZealand.rabbitTextures;
 		}
 	}

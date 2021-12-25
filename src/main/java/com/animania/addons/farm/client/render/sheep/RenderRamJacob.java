@@ -22,11 +22,11 @@ public class RenderRamJacob<T extends EntityRamJacob> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", SheepBaseDir = "textures/entity/sheep/";
 
-	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderRamJacob.modid, RenderRamJacob.SheepBaseDir + "sheep_jacob.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES = { new ResourceLocation(RenderRamJacob.modid, RenderRamJacob.SheepBaseDir + "sheep_jacob.png") };
 
 	private static final ResourceLocation SHEEP_TEXTURE_BLINK = new ResourceLocation("animania:textures/entity/sheep/sheep_blink.png");
 
-	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { new ResourceLocation(RenderRamJacob.modid, RenderRamJacob.SheepBaseDir + "sheep_jacob_sheared.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = { new ResourceLocation(RenderRamJacob.modid, RenderRamJacob.SheepBaseDir + "sheep_jacob_sheared.png") };
 
 	public RenderRamJacob(RenderManager rm)
 	{
@@ -38,7 +38,7 @@ public class RenderRamJacob<T extends EntityRamJacob> extends RenderLiving<T>
 	{
 		GL11.glScalef(0.52F, 0.52F, 0.52F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaSheep SheepEntity = (EntityAnimaniaSheep) entity;
+		EntityAnimaniaSheep SheepEntity = entity;
 		if (SheepEntity.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -70,11 +70,11 @@ public class RenderRamJacob<T extends EntityRamJacob> extends RenderLiving<T>
 
 		if (!entity.getSheared())
 		{
-			return this.SHEEP_TEXTURES[entity.getColorNumber()];
+			return RenderRamJacob.SHEEP_TEXTURES[entity.getColorNumber()];
 		}
 		else
 		{
-			return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
+			return RenderRamJacob.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 		}
 	}
 

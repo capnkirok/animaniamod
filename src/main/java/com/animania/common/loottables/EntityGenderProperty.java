@@ -10,40 +10,40 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 
-import net.minecraft.level.storage.loot.properties.EntityProperty;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.storage.loot.properties.EntityProperty;
 
-public class EntityGenderProperty implements EntityProperty	
+public class EntityGenderProperty implements EntityProperty
 {
 
 	private final boolean isMale;
 
-    public EntityGenderProperty(boolean isMale)
-    {
-        this.isMale = isMale;
-    }
+	public EntityGenderProperty(boolean isMale)
+	{
+		this.isMale = isMale;
+	}
 
-    public boolean testProperty(Random random, Entity entityIn)
-    {
-        return entityIn instanceof IGendered ? ((IGendered)entityIn).getEntityGender() == EntityGender.MALE : false;
-    }
+	public boolean testProperty(Random random, Entity entityIn)
+	{
+		return entityIn instanceof IGendered ? ((IGendered) entityIn).getEntityGender() == EntityGender.MALE : false;
+	}
 
-    public static class Serializer extends EntityProperty.Serializer<EntityGenderProperty>
-        {
-            public Serializer()
-            {
-                super(new ResourceLocation(Animania.MODID, "is_male"), EntityGenderProperty.class);
-            }
+	public static class Serializer extends EntityProperty.Serializer<EntityGenderProperty>
+	{
+		public Serializer()
+		{
+			super(new ResourceLocation(Animania.MODID, "is_male"), EntityGenderProperty.class);
+		}
 
-            public JsonElement serialize(EntityGenderProperty property, JsonSerializationContext serializationContext)
-            {
-                return new JsonPrimitive(property.isMale);
-            }
+		public JsonElement serialize(EntityGenderProperty property, JsonSerializationContext serializationContext)
+		{
+			return new JsonPrimitive(property.isMale);
+		}
 
-            public EntityGenderProperty deserialize(JsonElement element, JsonDeserializationContext deserializationContext)
-            {
-                return new EntityGenderProperty(JsonUtils.getBoolean(element, Animania.MODID + ":is_male"));
-            }
-        }
+		public EntityGenderProperty deserialize(JsonElement element, JsonDeserializationContext deserializationContext)
+		{
+			return new EntityGenderProperty(JsonUtils.getBoolean(element, Animania.MODID + ":is_male"));
+		}
+	}
 
 }

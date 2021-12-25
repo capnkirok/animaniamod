@@ -98,13 +98,16 @@ public class EntityDartFrogs extends EntityAmphibian
 			{
 				player.setHeldItem(hand, bob);
 				return true;
-			} else if (!player.inventory.addItemStackToInventory(bob))
+			}
+			else if (!player.inventory.addItemStackToInventory(bob))
 			{
 				player.dropItem(bob, false);
 				return true;
-			} else
+			}
+			else
 				return super.processInteract(player, hand);
-		} else
+		}
+		else
 			return super.processInteract(player, hand);
 
 	}
@@ -144,7 +147,7 @@ public class EntityDartFrogs extends EntityAmphibian
 
 		if (this.onGround)
 			this.squishAmount = -0.5F;
-		else if (!this.onGround)
+		else
 			this.squishAmount = 0.5F;
 
 		this.alterSquishAmount();
@@ -179,16 +182,19 @@ public class EntityDartFrogs extends EntityAmphibian
 
 		int chooser = Animania.RANDOM.nextInt(5);
 
-		if (chooser == 0)
+		switch (chooser)
+		{
+		case 0:
 			return ExtraAddonSoundHandler.dartfrogLiving1;
-		else if (chooser == 1)
+		case 1:
 			return ExtraAddonSoundHandler.dartfrogLiving2;
-		else if (chooser == 2)
+		case 2:
 			return ExtraAddonSoundHandler.dartfrogLiving3;
-		else if (chooser == 3)
+		case 3:
 			return ExtraAddonSoundHandler.dartfrogLiving4;
-		else
+		default:
 			return null;
+		}
 	}
 
 	@Override

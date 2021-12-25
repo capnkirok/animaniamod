@@ -58,7 +58,7 @@ public class AnimaniaHelper
 	public static ItemStack getItem(String name)
 	{
 		ItemStack stack = ItemStack.EMPTY;
-		int metaLoc = 0;
+		int metaLoc;
 		boolean metaFlag = false;
 		String metaVal = "";
 
@@ -80,7 +80,8 @@ public class AnimaniaHelper
 			if (metaFlag)
 			{
 				stack = new ItemStack(item, 1, Integer.parseInt(metaVal));
-			} else
+			}
+			else
 			{
 				stack = new ItemStack(item, 1);
 			}
@@ -113,7 +114,8 @@ public class AnimaniaHelper
 			try
 			{
 				meta = Integer.parseInt(name.substring(name.indexOf("#")).replace("#", ""));
-			} catch (Exception e)
+			}
+			catch (Exception e)
 			{
 			}
 
@@ -182,7 +184,8 @@ public class AnimaniaHelper
 				tmp.putInteger("Damage", JsonUtils.getInt(json, "data", 0));
 
 				return new ItemStack(tmp);
-			} catch (NBTException e)
+			}
+			catch (NBTException e)
 			{
 				throw new JsonSyntaxException("Invalid NBT Entry: " + e.toString());
 			}
@@ -213,14 +216,12 @@ public class AnimaniaHelper
 
 	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, Level level, BlockPos pos)
 	{
-		List<T> list = level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
-		return list;
+		return level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
 	}
 
 	public static <T extends Entity> List<T> getEntitiesInRangeGeneric(Class<? extends T> filterEntity, double range, Level level, Entity theEntity)
 	{
-		List<T> list = level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
-		return list;
+		return level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
 	}
 
 	public static RayTraceResult rayTrace(PlayerEntity player, double blockReachDistance)
@@ -273,7 +274,8 @@ public class AnimaniaHelper
 			if (i != null)
 			{
 				list.add(i);
-			} else
+			}
+			else
 			{
 				NonNullList<ItemStack> stacks = OreDictionary.getOres(name);
 				if (!stacks.isEmpty())
@@ -289,20 +291,20 @@ public class AnimaniaHelper
 
 	public static ItemStack[] getItemStackArray(String[] names)
 	{
-		ArrayList<ItemStack> list = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		for (String name : names)
 		{
 			ItemStack i = StringParser.getItemStack(name);
 			if (!i.isEmpty())
 			{
 				list.add(i);
-			} else
+			}
+			else
 			{
 				NonNullList<ItemStack> stacks = OreDictionary.getOres(name);
 				if (!stacks.isEmpty())
 				{
-					for (ItemStack s : stacks)
-						list.add(s);
+					list.addAll(stacks);
 				}
 			}
 		}
@@ -352,16 +354,13 @@ public class AnimaniaHelper
 					{
 						String conf = firstSplit[i];
 						String[] split2 = conf.split(";");
-						if (split2.length > 1)
+						if (split2.length > 1 && config.hasCategory(split2[0]) && config.getCategory(split2[0]).containsKey(split2[1]))
 						{
-							if (config.hasCategory(split2[0]) && config.getCategory(split2[0]).containsKey(split2[1]))
+							Property prop = config.getCategory(split2[0]).get(split2[1]);
+							if (prop != null)
 							{
-								Property prop = config.getCategory(split2[0]).get(split2[1]);
-								if (prop != null)
-								{
-									output[i] = prop.getString();
-									doReturn = true;
-								}
+								output[i] = prop.getString();
+								doReturn = true;
 							}
 						}
 					}
@@ -370,33 +369,30 @@ public class AnimaniaHelper
 				}
 
 				String[] split = configName.split(";");
-				if (split.length > 1)
+				if (split.length > 1 && config.hasCategory(split[0]) && config.getCategory(split[0]).containsKey(split[1]))
 				{
-					if (config.hasCategory(split[0]) && config.getCategory(split[0]).containsKey(split[1]))
+					Property prop = config.getCategory(split[0]).get(split[1]);
+					if (prop != null)
 					{
-						Property prop = config.getCategory(split[0]).get(split[1]);
-						if (prop != null)
-						{
-							if (prop.isBooleanList())
-								return prop.getBooleanList();
-							if (prop.isBooleanValue())
-								return prop.getBoolean();
-							if (prop.isDoubleList())
-								return prop.getDoubleList();
-							if (prop.isDoubleValue())
-								return prop.getDouble();
-							if (prop.isIntList())
-								return prop.getIntList();
-							if (prop.isIntValue())
-								return prop.getInt();
-							if (prop.isList())
-								return prop.getStringList();
-							if (prop.isLongValue())
-								return prop.getLong();
+						if (prop.isBooleanList())
+							return prop.getBooleanList();
+						if (prop.isBooleanValue())
+							return prop.getBoolean();
+						if (prop.isDoubleList())
+							return prop.getDoubleList();
+						if (prop.isDoubleValue())
+							return prop.getDouble();
+						if (prop.isIntList())
+							return prop.getIntList();
+						if (prop.isIntValue())
+							return prop.getInt();
+						if (prop.isList())
+							return prop.getStringList();
+						if (prop.isLongValue())
+							return prop.getLong();
 
-							if (prop.getString() != null)
-								return prop.getString();
-						}
+						if (prop.getString() != null)
+							return prop.getString();
 					}
 				}
 			}
@@ -419,7 +415,6 @@ public class AnimaniaHelper
 				if ((re = ForgeRegistries.RECIPES.getValue(new ResourceLocation(s))) != null)
 				{
 					recipes.add(re);
-					continue;
 				}
 				continue;
 			}
@@ -442,7 +437,7 @@ public class AnimaniaHelper
 
 	public static ItemStack[] getItemsForLoottable(ResourceLocation table)
 	{
-		List<ItemStack> stacks = new ArrayList<ItemStack>();
+		List<ItemStack> stacks = new ArrayList<>();
 
 		table = new ResourceLocation(table.getResourceDomain(), "loot_tables/" + table.getResourcePath() + ".json");
 
@@ -468,7 +463,8 @@ public class AnimaniaHelper
 					}
 				}
 			}
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

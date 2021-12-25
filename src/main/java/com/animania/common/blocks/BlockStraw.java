@@ -14,12 +14,12 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +37,7 @@ public class BlockStraw extends Block
 
 	private String name = "block_straw";
 
-	public static final PropertyEnum<BlockStraw.EnumType> VARIANT = PropertyEnum.<BlockStraw.EnumType>create("variant", BlockStraw.EnumType.class);
+	public static final PropertyEnum<BlockStraw.EnumType> VARIANT = PropertyEnum.<BlockStraw.EnumType> create("variant", BlockStraw.EnumType.class);
 
 	public BlockStraw()
 	{
@@ -50,18 +50,18 @@ public class BlockStraw extends Block
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);
-		
+
 		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		
+
 		ForgeRegistries.ITEMS.register(item);
-		
+
 	}
-	
-	 public boolean isFlammable(IBlockAccess level, BlockPos pos, Direction face)
-	    {
-	        return true;
-	    }
+
+	public boolean isFlammable(IBlockAccess level, BlockPos pos, Direction face)
+	{
+		return true;
+	}
 
 	@Override
 	public boolean isOpaqueCube(BlockState state)
@@ -111,13 +111,13 @@ public class BlockStraw extends Block
 	{
 		return Item.getItemFromBlock(BlockHandler.blockStraw);
 	}
-	
+
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return Block.NULL_AABB;
 	}
-	
+
 	@Override
 	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
@@ -129,13 +129,14 @@ public class BlockStraw extends Block
 	{
 		return 1;
 	}
-	
+
 	@Override
 	public boolean canPlaceBlockAt(Level levelIn, BlockPos pos)
 	{
 		BlockPos blockposlower = pos.down();
-		
-		if (levelIn.getBlockState(blockposlower).getBlock() == BlockHandler.blockStraw || !levelIn.getBlockState(blockposlower).getBlock().isFullBlock(levelIn.getBlockState(blockposlower)) || !levelIn.getBlockState(blockposlower).getBlock().isOpaqueCube(levelIn.getBlockState(blockposlower))) {
+
+		if (levelIn.getBlockState(blockposlower).getBlock() == BlockHandler.blockStraw || !levelIn.getBlockState(blockposlower).getBlock().isFullBlock(levelIn.getBlockState(blockposlower)) || !levelIn.getBlockState(blockposlower).getBlock().isOpaqueCube(levelIn.getBlockState(blockposlower)))
+		{
 			return false;
 		}
 
@@ -175,18 +176,17 @@ public class BlockStraw extends Block
 	@Override
 	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
 	{
-		switch(state.getValue(VARIANT))
+		switch (state.getValue(VARIANT))
 		{
 		case STRAW:
 			return new ItemStack(BlockHandler.blockStraw);
 		default:
 			return new ItemStack(BlockHandler.blockStraw);
-		
+
 		}
-			
+
 	}
-	
-	
+
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
@@ -199,35 +199,33 @@ public class BlockStraw extends Block
 	@Override
 	public int getMetaFromState(BlockState state)
 	{
-		return ((BlockStraw.EnumType)state.getValue(VARIANT)).getMetadata();
+		return ((BlockStraw.EnumType) state.getValue(VARIANT)).getMetadata();
 	}
 
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, new IProperty[] {VARIANT});
+		return new BlockStateContainer(this, new IProperty[] { VARIANT });
 	}
-	
+
 	@Override
 	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
 	{
-		return ((BlockStraw.EnumType)state.getValue(VARIANT)).getMaterialColor();
+		return ((BlockStraw.EnumType) state.getValue(VARIANT)).getMaterialColor();
 	}
 
-	
 	@Override
 	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, Direction side)
 	{
-		if(side == Direction.UP)
+		if (side == Direction.UP)
 			return true;
 		return false;
 	}
-	
-	
+
 	public static enum EnumType implements IStringSerializable
 	{
 		STRAW(0, MaterialColor.YELLOW, "straw");
-		
+
 		/** Array of the Block's BlockStates */
 		private static final BlockStraw.EnumType[] META = new BlockStraw.EnumType[values().length];
 		/** The BlockState's metadata. */
@@ -263,6 +261,7 @@ public class BlockStraw extends Block
 			return this.MaterialColor;
 		}
 
+		@Override
 		public String toString()
 		{
 			return this.name;
@@ -298,7 +297,6 @@ public class BlockStraw extends Block
 				META[blockstone$enumtype.getMetadata()] = blockstone$enumtype;
 			}
 		}
-
 
 	}
 

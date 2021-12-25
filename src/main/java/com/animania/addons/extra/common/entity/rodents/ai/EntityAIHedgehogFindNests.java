@@ -36,31 +36,18 @@ public class HedgehogFindNestsGoal extends Goal
 	@Override
 	public boolean shouldExecute()
 	{
-		delayTemptCounter++;
+		this.delayTemptCounter++;
 		if (this.delayTemptCounter < 60)
 		{
-			return false;
 		}
-		else if (delayTemptCounter > 60)
+		else if (this.delayTemptCounter > 60)
 		{
 
-			if (this.temptedEntity instanceof EntityHedgehogBase)
+			if ((this.temptedEntity instanceof EntityHedgehogBase entity) && (entity.getFed() || entity.getSleeping()))
 			{
-				EntityHedgehogBase entity = (EntityHedgehogBase) this.temptedEntity;
-				if (entity.getFed())
-				{
-					this.delayTemptCounter = 0;
-					return false;
-				}
-				
-				if (entity.getSleeping())
-				{
-					this.delayTemptCounter = 0;
-					return false;
-				}
+				this.delayTemptCounter = 0;
+				return false;
 			}
-			
-			
 
 			BlockPos currentpos = new BlockPos(this.temptedEntity.getX(), this.temptedEntity.getY(), this.temptedEntity.getZ());
 			Block poschk = this.temptedentity.level.getBlockState(currentpos).getBlock();
@@ -69,7 +56,8 @@ public class HedgehogFindNestsGoal extends Goal
 			{
 				TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(currentpos);
 
-				if (te == null ? true : te.getNestContent() == NestContent.EMPTY) {
+				if (te == null ? true : te.getNestContent() == NestContent.EMPTY)
+				{
 					this.delayTemptCounter = 0;
 					return false;
 				}
@@ -78,9 +66,8 @@ public class HedgehogFindNestsGoal extends Goal
 				{
 					te.itemHandler.extractItem(0, 1, false);
 					te.markDirty();
-					if (this.temptedEntity instanceof EntityHedgehogBase)
+					if (this.temptedEntity instanceof EntityHedgehogBase ech)
 					{
-						EntityHedgehogBase ech = (EntityHedgehogBase) this.temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 						ech.setWatered(true);
@@ -94,14 +81,14 @@ public class HedgehogFindNestsGoal extends Goal
 			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES)
 			{
 
-				if (this.temptedEntity instanceof EntityHedgehogBase)
+				if (this.temptedEntity instanceof EntityHedgehogBase ech)
 				{
-					EntityHedgehogBase ech = (EntityHedgehogBase) this.temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				}
 
-				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
+				{
 					temptedentity.level.destroyBlock(currentpos, false);
 				}
 				this.delayTemptCounter = 0;
@@ -129,15 +116,10 @@ public class HedgehogFindNestsGoal extends Goal
 						{
 							TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(pos);
 
-							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 							{
 								foodFound = true;
-								if (Animania.RANDOM.nextInt(200) == 0)
-								{
-									this.delayTemptCounter = 0;
-									return false;
-								}
-								else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
+								if (Animania.RANDOM.nextInt(200) == 0 || this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
 								{
 									this.delayTemptCounter = 0;
 									return false;
@@ -151,12 +133,7 @@ public class HedgehogFindNestsGoal extends Goal
 						{
 
 							foodFound = true;
-							if (Animania.RANDOM.nextInt(200) == 0)
-							{
-								this.delayTemptCounter = 0;
-								return false;
-							}
-							else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
+							if (Animania.RANDOM.nextInt(200) == 0 || this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
 							{
 								this.delayTemptCounter = 0;
 								return false;
@@ -166,9 +143,9 @@ public class HedgehogFindNestsGoal extends Goal
 						}
 					}
 
-			if (!foodFound) {
-				this.delayTemptCounter = 0; 
-				return false;
+			if (!foodFound)
+			{
+				this.delayTemptCounter = 0;
 			}
 		}
 
@@ -217,7 +194,7 @@ public class HedgehogFindNestsGoal extends Goal
 
 						TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(pos);
 
-						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 						{
 
 							foodFound = true;
@@ -288,15 +265,15 @@ public class HedgehogFindNestsGoal extends Goal
 			{
 				TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(foodPos);
 
-				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
-					if (this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
+				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
+					if (!this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed))
 						this.delayTemptCounter = 0;
 					else
 						this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 
 			}
 			else if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
-				if (this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false)
+				if (!this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed))
 					this.delayTemptCounter = 0;
 				else
 					this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);

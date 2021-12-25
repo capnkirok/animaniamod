@@ -46,7 +46,7 @@ public class AddonResourcePack
 			// is: " + classpath);
 
 			classpath = classpath.substring(0, classpath.indexOf("!"));
-			classpath = classpath.substring(classpath.indexOf(":") + 1, classpath.length());
+			classpath = classpath.substring(classpath.indexOf(":") + 1);
 
 			classpath = classpath.replace("/./", "/");
 			// classpath.length());
@@ -59,10 +59,9 @@ public class AddonResourcePack
 			String path = classpath;
 			// String path = ".\\mods\\" + classpath;
 
-			File f = new File(path);
-
-			return f;
-		} catch (Exception e)
+			return new File(path);
+		}
+		catch (Exception e)
 		{
 			System.out.println("Failed to get addon file!");
 			Animania.LOGGER.error(e);
@@ -87,7 +86,8 @@ public class AddonResourcePack
 				// System.out.println("Filesystem: " + fs);
 				// myPath = fs.getPath(".");
 				myPath = fs.getPath(".");
-			} else
+			}
+			else
 			{
 
 				myPath = Paths.get(classpath);
@@ -95,8 +95,9 @@ public class AddonResourcePack
 
 			// System.out.println("Edited Path classpath: " + myPath);
 
-			return new Tuple<FileSystem, Path>(fs, myPath);
-		} catch (Exception e)
+			return new Tuple<>(fs, myPath);
+		}
+		catch (Exception e)
 		{
 			System.out.println("Failed to get addon path!");
 			Animania.LOGGER.error(e);
@@ -111,7 +112,7 @@ public class AddonResourcePack
 		private AnimaniaAddon addon;
 		private ZipFile resourcePackZipFile;
 
-		public List<ResourceLocation> manualFiles = new ArrayList<ResourceLocation>();
+		public List<ResourceLocation> manualFiles = new ArrayList<>();
 
 		public Jar(AnimaniaAddon addon)
 		{
@@ -122,7 +123,7 @@ public class AddonResourcePack
 		@Override
 		public String getPackName()
 		{
-			return "AnimaniaAddonResourcePack:" + addon.getAddonID();
+			return "AnimaniaAddonResourcePack:" + this.addon.getAddonID();
 		}
 
 		@Override
@@ -130,8 +131,9 @@ public class AddonResourcePack
 		{
 			try
 			{
-				return this.getResourcePackZipFile().getEntry(name.replace("assets/", "assets/" + addon.getAddonID() + "/")) != null;
-			} catch (IOException var3)
+				return this.getResourcePackZipFile().getEntry(name.replace("assets/", "assets/" + this.addon.getAddonID() + "/")) != null;
+			}
+			catch (IOException var3)
 			{
 				var3.printStackTrace();
 				return false;
@@ -148,7 +150,8 @@ public class AddonResourcePack
 			try
 			{
 				zipfile = this.getResourcePackZipFile();
-			} catch (IOException var8)
+			}
+			catch (IOException var8)
 			{
 				var8.printStackTrace();
 				return Collections.<String> emptySet();
@@ -162,15 +165,15 @@ public class AddonResourcePack
 				ZipEntry zipentry = enumeration.nextElement();
 				String s = zipentry.getName();
 
-				if (s.startsWith("assets/" + addon.getAddonID() + "/"))
+				if (s.startsWith("assets/" + this.addon.getAddonID() + "/"))
 				{
 					String[] list = s.split("/");
 
 					if (s.contains("/manual/") && s.endsWith(".json"))
 					{
-						String resLoc = s.substring(s.indexOf("manual"), s.length());
+						String resLoc = s.substring(s.indexOf("manual"));
 						ResourceLocation loc = new ResourceLocation(Animania.MODID, resLoc.replace("\\", "/"));
-						manualFiles.add(loc);
+						this.manualFiles.add(loc);
 					}
 
 					if (list.length == 3)
@@ -180,7 +183,8 @@ public class AddonResourcePack
 						if (s1.equals(s1.toLowerCase(java.util.Locale.ROOT)))
 						{
 							set.add(s1);
-						} else
+						}
+						else
 						{
 							this.logNameNotLowercase(s1);
 						}
@@ -200,7 +204,7 @@ public class AddonResourcePack
 				return Animania.class.getResourceAsStream("/addons.mcmeta");
 			}
 
-			resourceName = resourceName.replace("assets/", "assets/" + addon.getAddonID() + "/");
+			resourceName = resourceName.replace("assets/", "assets/" + this.addon.getAddonID() + "/");
 
 			return super.getInputStreamByName(resourceName);
 
@@ -222,7 +226,7 @@ public class AddonResourcePack
 	{
 
 		private AnimaniaAddon addon;
-		public List<ResourceLocation> manualFiles = new ArrayList<ResourceLocation>();
+		public List<ResourceLocation> manualFiles = new ArrayList<>();
 
 		public Folder(AnimaniaAddon addon)
 		{
@@ -233,14 +237,12 @@ public class AddonResourcePack
 		@Override
 		public String getPackName()
 		{
-			return "AnimaniaAddonResourcePack:" + addon.getAddonID();
+			return "AnimaniaAddonResourcePack:" + this.addon.getAddonID();
 		}
 
 		private static File getAddonFile(AnimaniaAddon addon)
 		{
-			File animania = Loader.instance().activeModContainer().getSource();
-
-			return animania;
+			return Loader.instance().activeModContainer().getSource();
 		}
 
 		@Override
@@ -252,7 +254,7 @@ public class AddonResourcePack
 				return Animania.class.getResourceAsStream("/addons.mcmeta");
 			}
 
-			resourceName = resourceName.replace("assets/", "assets/" + addon.getAddonID() + "/");
+			resourceName = resourceName.replace("assets/", "assets/" + this.addon.getAddonID() + "/");
 
 			return super.getInputStreamByName(resourceName);
 
@@ -261,7 +263,7 @@ public class AddonResourcePack
 		@Override
 		protected boolean hasResourceName(String name)
 		{
-			return this.getFile(name.replace("assets/", "assets/" + addon.getAddonID() + "/")) != null;
+			return this.getFile(name.replace("assets/", "assets/" + this.addon.getAddonID() + "/")) != null;
 		}
 
 		@Nullable
@@ -275,7 +277,8 @@ public class AddonResourcePack
 				{
 					return file1;
 				}
-			} catch (IOException var3)
+			}
+			catch (IOException var3)
 			{
 
 			}
@@ -287,7 +290,7 @@ public class AddonResourcePack
 		public Set<String> getResourceDomains()
 		{
 			Set<String> set = Sets.<String> newHashSet();
-			File file1 = new File(this.resourcePackFile, "assets/" + addon.getAddonID() + "/");
+			File file1 = new File(this.resourcePackFile, "assets/" + this.addon.getAddonID() + "/");
 
 			this.manualFiles.clear();
 
@@ -303,12 +306,13 @@ public class AddonResourcePack
 						String s = it.next().toString();
 						if (s.contains("manual") && s.endsWith(".json"))
 						{
-							String resLoc = s.substring(s.indexOf("manual"), s.length());
+							String resLoc = s.substring(s.indexOf("manual"));
 							ResourceLocation loc = new ResourceLocation(Animania.MODID, resLoc.replace("\\", "/"));
-							manualFiles.add(loc);
+							this.manualFiles.add(loc);
 						}
 					}
-				} catch (IOException e)
+				}
+				catch (IOException e)
 				{
 					e.printStackTrace();
 				}
@@ -320,7 +324,8 @@ public class AddonResourcePack
 					if (s.equals(s.toLowerCase(java.util.Locale.ROOT)))
 					{
 						set.add(s.substring(0, s.length() - 1));
-					} else
+					}
+					else
 					{
 						this.logNameNotLowercase(s);
 					}

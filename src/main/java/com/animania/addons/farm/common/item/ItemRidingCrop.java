@@ -25,7 +25,6 @@ public class ItemRidingCrop extends Item
 
 	public ItemRidingCrop()
 	{
-		super();
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		ForgeRegistries.ITEMS.register(this);
@@ -79,7 +78,7 @@ public class ItemRidingCrop extends Item
 
 	public String getName()
 	{
-		return name;
+		return this.name;
 	}
 
 	@Override

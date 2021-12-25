@@ -19,9 +19,9 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", hamsterBaseDir = "textures/entity/rodents/";
-	private static final ResourceLocation[] HAMSTER_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "black.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "brown.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "darkbrown.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "darkgray.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "gray.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "plum.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "tarou.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "white.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "gold.png") };
+	private static final ResourceLocation[] HAMSTER_TEXTURES = { new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "black.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "brown.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "darkbrown.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "darkgray.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "gray.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "plum.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "tarou.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "white.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "gold.png") };
 
-	private static final int[] EYE_COLORS = new int[] {0xDEDEDE, 0xDB703B, 0xEBCFC2, 0x97918F, 0xA8A8A8, 0xAF797D, 0xFFD7AD, 0xEFEFEF, 0xD39013};
+	private static final int[] EYE_COLORS = { 0xDEDEDE, 0xDB703B, 0xEBCFC2, 0x97918F, 0xA8A8A8, 0xAF797D, 0xFFD7AD, 0xEFEFEF, 0xD39013 };
 
 	private LayerBlinking blinking;
 
@@ -34,7 +34,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 		this.modelHamsterMain = new ModelHamster();
 		this.scale = 0.5F;
 		this.shadowSize = 0.15F;
-		this.addLayer(blinking = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/rodents/hamster_blink.png"), 0));
+		this.addLayer(this.blinking = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/rodents/hamster_blink.png"), 0));
 	}
 
 	protected void preRenderScale(EntityHamster LivingEntity, float f)
@@ -70,7 +70,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	@Override
 	protected void preRenderCallback(EntityHamster LivingEntity, float f)
 	{
-		preRenderScale((EntityHamster) LivingEntity, f);
+		this.preRenderScale(LivingEntity, f);
 		this.blinking.setColors(EYE_COLORS[LivingEntity.getColorNumber()], EYE_COLORS[LivingEntity.getColorNumber()]);
 	}
 

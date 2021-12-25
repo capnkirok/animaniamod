@@ -91,7 +91,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
-		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCat>(this, false);
+		this.entityAIEatGrass = new GenericAIEatGrass<>(this, false);
 		this.goalSelector.addGoal(11, this.entityAIEatGrass);
 
 		this.initAI();
@@ -103,18 +103,18 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 		this.goalSelector.addGoal(0, new SwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(1, new GenericAIFindWater<EntityAnimaniaCat>(this, 1.0D, entityAIEatGrass, EntityAnimaniaCat.class, true));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaCat>(this, 1.0D, entityAIEatGrass, false));
+			this.goalSelector.addGoal(1, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaCat.class, true));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.0D, this.entityAIEatGrass, false));
 		}
 		this.goalSelector.addGoal(4, this.aiSit);
 		this.goalSelector.addGoal(5, new LeapAtTargetGoal(this, 0.4F));
 		this.goalSelector.addGoal(6, new CatAttackGoal(this));
 		this.goalSelector.addGoal(7, new GenericAIFollowOwner<EntityAnimaniaCat>(this, 1.5D, 5.0F, 30.0F));
-		this.goalSelector.addGoal(8, new GenericAIPanic<EntityAnimaniaCat>(this, 1.5D));
-		this.goalSelector.addGoal(3, new GenericAITempt<EntityAnimaniaCat>(this, 0.6D, true, TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(8, new GenericAIPanic<>(this, 1.5D));
+		this.goalSelector.addGoal(3, new GenericAITempt<>(this, 0.6D, true, TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.addGoal(14, new GenericAILookIdle<EntityAnimaniaCat>(this));
+		this.goalSelector.addGoal(14, new GenericAILookIdle<>(this));
 		// this.goalSelector.addGoal(14, new GenericAISitIdle(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -127,7 +127,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 			AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 
-			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof SilverfishEntity));
+			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof SilverfishEntity));
 		}
 		this.tasks.taskEntries.removeIf(task -> task.action instanceof OcelotSitGoal);
 	}
@@ -376,7 +376,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -406,25 +406,25 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
 	public void setEatTimer(int i)
 	{
-		eatTimer = i;
+		this.eatTimer = i;
 	}
 
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -436,37 +436,37 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
@@ -478,7 +478,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return type;
+		return this.type;
 	}
 
 	@Override

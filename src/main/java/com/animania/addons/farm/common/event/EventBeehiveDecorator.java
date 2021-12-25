@@ -33,7 +33,8 @@ public class EventBeehiveDecorator
 			if (frequencyBeehives < 0)
 			{
 				frequencyBeehives = 0;
-			} else if (frequencyBeehives > 10)
+			}
+			else if (frequencyBeehives > 10)
 			{
 				frequencyBeehives = 10;
 			}
@@ -48,7 +49,7 @@ public class EventBeehiveDecorator
 				}
 			}
 
-			if ((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && (event.getType() == EventType.TREE) && event.getRand().nextInt(200) < frequencyBeehives && isCorrectBiome)
+			if ((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.getType() == EventType.TREE && event.getRand().nextInt(200) < frequencyBeehives && isCorrectBiome)
 			{
 
 				int x = event.getPos().getX() + 8;
@@ -99,21 +100,24 @@ public class EventBeehiveDecorator
 									j = 3;
 									k = 7;
 									break;
-								} else if (side == 1)
+								}
+								else if (side == 1)
 								{
 									event.getLevel().setBlock(pos.west(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.WEST));
 									i = 7;
 									j = 3;
 									k = 7;
 									break;
-								} else if (side == 2)
+								}
+								else if (side == 2)
 								{
 									event.getLevel().setBlock(pos.north(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.NORTH));
 									i = 7;
 									j = 3;
 									k = 7;
 									break;
-								} else if (side == 3)
+								}
+								else if (side == 3)
 								{
 									event.getLevel().setBlock(pos.south(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.SOUTH));
 									i = 7;

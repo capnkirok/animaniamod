@@ -22,46 +22,44 @@ public class ModelRendererAnimania extends ModelPart
 	private boolean compiled;
 	private int displayList;
 
-	
 	public ModelRendererAnimania(ModelBase model, int texOffX, int texOffY)
 	{
 		super(model, texOffX, texOffY);
 	}
 
-	//Credit: CraftStudioAPI
+	// Credit: CraftStudioAPI
 	@SideOnly(Dist.CLIENT)
 	public void render(float scale)
 	{
-		if (!this.isHidden)
-			if (this.showModel)
-			{
-				if (!this.compiled)
-					this.compileDisplayList(scale);
+		if (!this.isHidden && this.showModel)
+		{
+			if (!this.compiled)
+				this.compileDisplayList(scale);
 
-				GlStateManager.pushMatrix();
+			GlStateManager.pushMatrix();
 
-				GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
-				
-				Matrix4f mat = new Matrix4f();
-				Quat4f quat = MathHelper.quatFromEuler(this.rotateAngleX * (180F / (float) Math.PI), this.rotateAngleY * (180F / (float) Math.PI), this.rotateAngleZ * (180F / (float) Math.PI));
-				mat.set(quat);
-				mat.transpose();
-								
-				FloatBuffer buf = MathHelper.makeFloatBuffer(mat);				
-				GlStateManager.multMatrix(buf);
-				GlStateManager.translate(this.offsetX * scale, this.offsetY * scale, this.offsetZ * scale);
+			GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
 
-				GlStateManager.pushMatrix();
-				GlStateManager.callList(this.displayList);
-				GlStateManager.popMatrix();
+			Matrix4f mat = new Matrix4f();
+			Quat4f quat = MathHelper.quatFromEuler(this.rotateAngleX * (180F / (float) Math.PI), this.rotateAngleY * (180F / (float) Math.PI), this.rotateAngleZ * (180F / (float) Math.PI));
+			mat.set(quat);
+			mat.transpose();
 
-				if (this.childModels != null)
-					for (int i = 0; i < this.childModels.size(); ++i)
-						this.childModels.get(i).render(scale);
+			FloatBuffer buf = MathHelper.makeFloatBuffer(mat);
+			GlStateManager.multMatrix(buf);
+			GlStateManager.translate(this.offsetX * scale, this.offsetY * scale, this.offsetZ * scale);
 
-				GlStateManager.popMatrix();
+			GlStateManager.pushMatrix();
+			GlStateManager.callList(this.displayList);
+			GlStateManager.popMatrix();
 
-			}
+			if (this.childModels != null)
+				for (int i = 0; i < this.childModels.size(); ++i)
+					this.childModels.get(i).render(scale);
+
+			GlStateManager.popMatrix();
+
+		}
 	}
 
 	@SideOnly(Dist.CLIENT)
@@ -79,13 +77,12 @@ public class ModelRendererAnimania extends ModelPart
 		GlStateManager.glEndList();
 		this.compiled = true;
 	}
-	
+
 	public void setOffset(float offsetX, float offsetY, float offsetZ)
 	{
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 		this.offsetZ = offsetZ;
 	}
-	
-	
+
 }

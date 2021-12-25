@@ -19,7 +19,7 @@ public class JEICompat extends BlankModPlugin
 	public void register(@Nonnull IModRegistry registry)
 	{
 		ItemStack slopBucket = FluidUtil.getFilledBucket(new FluidStack(BlockHandler.fluidSlop, Fluid.BUCKET_VOLUME));
-		
+
 		registry.addDescription(new ItemStack(BlockHandler.blockTrough), "text.jei.trough");
 		registry.addDescription(new ItemStack(BlockHandler.blockMud), "text.jei.mud");
 		registry.addDescription(new ItemStack(Items.WHEAT_SEEDS), "text.jei.seeds");

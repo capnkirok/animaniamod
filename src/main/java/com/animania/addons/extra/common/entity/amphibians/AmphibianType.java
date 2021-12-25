@@ -8,17 +8,14 @@ import com.animania.api.interfaces.AnimaniaType;
 
 public enum AmphibianType implements AnimaniaType
 {
-	FROG(EntityFrogs.class),
-	DART_FROG(EntityDartFrogs.class),
-	TOAD(EntityToad.class);
-	
+	FROG(EntityFrogs.class), DART_FROG(EntityDartFrogs.class), TOAD(EntityToad.class);
+
 	private Class male;
-	
+
 	private AmphibianType(Class male)
 	{
 		this.male = male;
 	}
-	
 
 	@Override
 	public EntityAmphibian getMale(Level level)
@@ -57,13 +54,11 @@ public enum AmphibianType implements AnimaniaType
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public String getTypeName()
 	{
 		return Animania.MODID + ":amphibians";
 	}
-	
-	
 
 }

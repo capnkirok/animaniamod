@@ -16,11 +16,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
@@ -44,7 +44,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 		this.setHardness(1.2f);
 		this.setResistance(1.5f);
 	}
-	
+
 	@Override
 	public boolean hasTileEntity(BlockState state)
 	{
@@ -63,7 +63,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 		TileEntityPetBowl te = (TileEntityPetBowl) levelIn.getTileEntity(pos);
 
-		if (entityIn != null && entityIn instanceof EntityItem && !levelIn.isRemote)
+		if (entityIn instanceof EntityItem && !levelIn.isRemote)
 		{
 
 			EntityItem entityitem = (EntityItem) entityIn;
@@ -106,7 +106,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 		// SOLIDS
 		if (!heldItem.isEmpty() && isFoodItem(heldItem))
 		{
-			if ((!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3) || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			if (!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3 || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				ItemStack held = heldItem.copy().splitStack(1);
 				ItemStack remaining = te.itemHandler.insertItem(0, held, false);
@@ -118,7 +118,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 		}
 		// LIQUIDS
-		else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && (te.fluidHandler.getFluid() == null || (te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000)))
+		else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && (te.fluidHandler.getFluid() == null || te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000))
 		{
 			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
 			levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
@@ -187,7 +187,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 		super.breakBlock(levelIn, pos, state);
 	}
-	
+
 	@Override
 	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
@@ -259,13 +259,12 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
-		if (te instanceof TileEntityPetBowl)
+		if (te instanceof TileEntityPetBowl bowl)
 		{
-			TileEntityPetBowl bowl = (TileEntityPetBowl) te;
 			ItemStack stack = bowl.itemHandler.getStackInSlot(0);
 			FluidStack fluid = bowl.fluidHandler.getFluid();
 

@@ -40,9 +40,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.<Boolean>defineId(EntityBullBase.class, EntityEntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean>defineId(EntityBullBase.class, EntityEntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>>defineId(EntityBullBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.<Boolean> defineId(EntityBullBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityBullBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityBullBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
 
 	public EntityBullBase(Level levelIn)
 	{
@@ -54,12 +54,12 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.getSterilized())
 		{
 			this.goalSelector.addGoal(0, new AttackMeleeBullsGoal(this, 1.8D, false));
 		}
 		// this.goalSelector.addGoal(1, new FollowMateCowsGoal(this, 1.1D));
-		if (!getSterilized())
+		if (!this.getSterilized())
 			this.goalSelector.addGoal(3, new GenericAIMate<EntityBullBase, CowEntityBase>(this, 1.0D, CowEntityBase.class, EntityCalfBase.class, EntityAnimaniaCow.class));
 	}
 
@@ -78,7 +78,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		super.entityInit();
 		this.dataManager.register(EntityBullBase.FIGHTING, false);
 		this.dataManager.register(EntityBullBase.STERILIZED, false);
-		this.dataManager.register(EntityBullBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityBullBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -166,6 +166,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		super.onLivingUpdate();
 	}
 
+	@Override
 	@SideOnly(Dist.CLIENT)
 	public float getHeadAnchorPointY(float p_70894_1_)
 	{
@@ -175,6 +176,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 			return super.getHeadAnchorPointY(p_70894_1_);
 	}
 
+	@Override
 	@SideOnly(Dist.CLIENT)
 	public float getHeadAngleX(float p_70890_1_)
 	{
@@ -207,15 +209,11 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
-		if (player.isSneaking())
-		{
-
-			if (this.getMateUniqueId() != null)
-				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
-		}
+		if (player.isSneaking() && this.getMateUniqueId() != null)
+			probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
@@ -240,7 +238,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 				it.remove();
 			}
 		}
-		setSterilized(true);
+		this.setSterilized(true);
 	}
 
 	@Override

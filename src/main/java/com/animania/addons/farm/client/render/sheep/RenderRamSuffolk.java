@@ -24,10 +24,10 @@ public class RenderRamSuffolk<T extends EntityRamSuffolk> extends RenderLiving<T
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", SheepBaseDir = "textures/entity/sheep/";
 
-	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "white_ram.png"), new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "brown_ram.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES = { new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "white_ram.png"), new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "brown_ram.png") };
 
 	private static final ResourceLocation SHEEP_TEXTURE_BLINK = new ResourceLocation("animania:textures/entity/sheep/sheep_blink.png");
-	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "white_ram_sheared.png"), new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "brown_ram_sheared.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = { new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "white_ram_sheared.png"), new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "brown_ram_sheared.png") };
 
 	public RenderRamSuffolk(RenderManager rm)
 	{
@@ -39,7 +39,7 @@ public class RenderRamSuffolk<T extends EntityRamSuffolk> extends RenderLiving<T
 	{
 		GL11.glScalef(0.68F, 0.68F, 0.68F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaSheep SheepEntity = (EntityAnimaniaSheep) entity;
+		EntityAnimaniaSheep SheepEntity = entity;
 		if (SheepEntity.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -71,11 +71,11 @@ public class RenderRamSuffolk<T extends EntityRamSuffolk> extends RenderLiving<T
 
 		if (!entity.getSheared())
 		{
-			return this.SHEEP_TEXTURES[entity.getColorNumber()];
+			return RenderRamSuffolk.SHEEP_TEXTURES[entity.getColorNumber()];
 		}
 		else
 		{
-			return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
+			return RenderRamSuffolk.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 		}
 	}
 

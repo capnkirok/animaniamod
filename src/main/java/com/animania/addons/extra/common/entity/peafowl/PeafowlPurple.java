@@ -7,7 +7,7 @@ public class PeafowlPurple
 
 	public static class EntityPeachickPurple extends EntityPeachickBase
 	{
-	
+
 		public EntityPeachickPurple(Level levelIn)
 		{
 			super(levelIn);
@@ -16,13 +16,13 @@ public class PeafowlPurple
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
 			this.lidCol = 0x8B794D;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 2373476;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -32,7 +32,7 @@ public class PeafowlPurple
 
 	public static class EntityPeacockPurple extends EntityPeacockBase
 	{
-	
+
 		public EntityPeacockPurple(Level levelIn)
 		{
 			super(levelIn);
@@ -41,13 +41,13 @@ public class PeafowlPurple
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_purple_blink.png");
 			this.lidCol = 0x846F75;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 2373476;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -57,7 +57,7 @@ public class PeafowlPurple
 
 	public static class EntityPeafowlPurple extends EntityPeafowlBase
 	{
-	
+
 		public EntityPeafowlPurple(Level levelIn)
 		{
 			super(levelIn);
@@ -66,13 +66,13 @@ public class PeafowlPurple
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_purple_blink.png");
 			this.lidCol = 0x846F75;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return 2373476;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{

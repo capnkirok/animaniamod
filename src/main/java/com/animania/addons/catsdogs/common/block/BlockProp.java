@@ -6,9 +6,9 @@ import com.animania.common.blocks.AnimaniaRotateable;
 
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
@@ -65,13 +65,13 @@ public class BlockProp extends AnimaniaRotateable implements EntityBlock
 	@Override
 	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
-		return AABB;
+		return this.AABB;
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
-		return AABB;
+		return this.AABB;
 	}
 
 }

@@ -46,35 +46,32 @@ public class FindNestGoal extends Goal
 
 	public boolean shouldExecute()
 	{
-		
-		delayTemptCounter++;
-		
-		if (this.delayTemptCounter < AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
+
+		this.delayTemptCounter++;
+
+		if (this.delayTemptCounter < AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-			return false;
 		}
-		else if (delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
+		else if (this.delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-			
-			if (!temptedentity.level.isDay() || temptedEntity.getSleeping()) {
+
+			if (!temptedentity.level.isDay() || this.temptedEntity.getSleeping())
+			{
 				this.delayTemptCounter = 0;
 				return false;
 			}
 
-			if (temptedEntity instanceof EntityHenBase)
+			if ((this.temptedEntity instanceof EntityHenBase entity) && (!entity.getWatered() || !entity.getFed()))
 			{
-				EntityHenBase entity = (EntityHenBase) temptedEntity;
-				if (!entity.getWatered() || !entity.getFed())
-				{
-					this.delayTemptCounter = 0;
-					return false;
-				}
+				this.delayTemptCounter = 0;
+				return false;
 			}
 
 			if (this.temptedEntity.getRandom().nextInt(100) == 0)
 			{
 				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
-				if (vec3d != null) {
+				if (vec3d != null)
+				{
 					this.delayTemptCounter = 0;
 					this.resetTask();
 					this.temptedEntity.getNavigation().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
@@ -82,8 +79,8 @@ public class FindNestGoal extends Goal
 				}
 				return false;
 			}
-			
-			BlockPos currentpos = new BlockPos(temptedEntity.getX(), temptedEntity.getY(), temptedEntity.getZ());
+
+			BlockPos currentpos = new BlockPos(this.temptedEntity.getX(), this.temptedEntity.getY(), this.temptedEntity.getZ());
 			Block poschk = temptedentity.level.getBlockState(currentpos).getBlock();
 
 			if (poschk == BlockHandler.blockNest)
@@ -96,34 +93,32 @@ public class FindNestGoal extends Goal
 					return false;
 				}
 
-				if (temptedEntity instanceof EntityHenLeghorn || temptedEntity instanceof EntityHenOrpington || temptedEntity instanceof EntityHenPlymouthRock)
+				if (this.temptedEntity instanceof EntityHenLeghorn || this.temptedEntity instanceof EntityHenOrpington || this.temptedEntity instanceof EntityHenPlymouthRock)
 				{
-					EntityHenBase entity = (EntityHenBase) temptedEntity;
+					EntityHenBase entity = (EntityHenBase) this.temptedEntity;
 					if (te != null && (te.getNestContent() == NestContent.EMPTY || te.getNestContent() == NestContent.CHICKEN_WHITE) && !entity.getLaid())
 					{
-						if (te.getNestContent() == NestContent.CHICKEN_WHITE ? entity.type == te.birdType : true)
-							if (te.insertItem(new ItemStack(Items.EGG)))
-							{
-								entity.setLaid(true);
-								te.birdType = entity.type;
-								this.resetTask();
-								te.markDirty();
-							}
+						if ((te.getNestContent() == NestContent.CHICKEN_WHITE ? entity.type == te.birdType : true) && te.insertItem(new ItemStack(Items.EGG)))
+						{
+							entity.setLaid(true);
+							te.birdType = entity.type;
+							this.resetTask();
+							te.markDirty();
+						}
 					}
 				}
-				else if (temptedEntity instanceof EntityHenRhodeIslandRed || temptedEntity instanceof EntityHenWyandotte)
+				else if (this.temptedEntity instanceof EntityHenRhodeIslandRed || this.temptedEntity instanceof EntityHenWyandotte)
 				{
-					EntityHenBase hen = (EntityHenBase) temptedEntity;
+					EntityHenBase hen = (EntityHenBase) this.temptedEntity;
 					if (te != null && (te.getNestContent() == NestContent.EMPTY || te.getNestContent() == NestContent.CHICKEN_BROWN) && !hen.getLaid())
 					{
-						if (te.getNestContent() == NestContent.CHICKEN_BROWN ? hen.type == te.birdType : true)
-							if (te.insertItem(new ItemStack(FarmAddonItemHandler.brownEgg)))
-							{
-								hen.setLaid(true);
-								te.birdType = hen.type;
-								this.resetTask();
-								te.markDirty();
-							}
+						if ((te.getNestContent() == NestContent.CHICKEN_BROWN ? hen.type == te.birdType : true) && te.insertItem(new ItemStack(FarmAddonItemHandler.brownEgg)))
+						{
+							hen.setLaid(true);
+							te.birdType = hen.type;
+							this.resetTask();
+							te.markDirty();
+						}
 					}
 				}
 				this.delayTemptCounter = 0;
@@ -147,7 +142,7 @@ public class FindNestGoal extends Goal
 
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
-						
+
 						List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityHenBase.class, 3, temptedentity.level, pos);
 
 						if (blockchk == BlockHandler.blockNest && others.size() == 0)
@@ -158,27 +153,17 @@ public class FindNestGoal extends Goal
 
 							if (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY)
 							{
-								if (temptedEntity instanceof EntityHenLeghorn && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
+								if (this.temptedEntity instanceof EntityHenLeghorn && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY) || this.temptedEntity instanceof EntityHenOrpington && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
 								}
-								else if (temptedEntity instanceof EntityHenOrpington && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
+								else if ((this.temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY)) || (this.temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY)))
 								{
 									nestFound = true;
 									return true;
 								}
-								else if (temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
-								{
-									nestFound = true;
-									return true;
-								}
-								else if (temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
-								{
-									nestFound = true;
-									return true;
-								}
-								else if (temptedEntity instanceof EntityHenWyandotte && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
+								else if (this.temptedEntity instanceof EntityHenWyandotte && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
@@ -194,11 +179,9 @@ public class FindNestGoal extends Goal
 			if (!nestFound)
 			{
 				this.delayTemptCounter = 0;
-				return false;
 			}
 		}
 
-		
 		return false;
 	}
 
@@ -206,7 +189,7 @@ public class FindNestGoal extends Goal
 	{
 		return !this.temptedEntity.getNavigation().noPath();
 	}
-	
+
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
@@ -242,7 +225,7 @@ public class FindNestGoal extends Goal
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
 
-						if (blockchk == BlockHandler.blockNest && !temptedEntity.hasPath())
+						if (blockchk == BlockHandler.blockNest && !this.temptedEntity.hasPath())
 						{
 
 							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
@@ -250,29 +233,21 @@ public class FindNestGoal extends Goal
 
 							if (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY)
 							{
-								if (temptedEntity instanceof EntityHenLeghorn && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
+								if (this.temptedEntity instanceof EntityHenLeghorn && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY) || this.temptedEntity instanceof EntityHenOrpington && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
-								else if (temptedEntity instanceof EntityHenOrpington && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
+								else if ((this.temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY)) || (this.temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY)))
 								{
 									nestFound = true;
 								}
-								else if (temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
-								{
-									nestFound = true;
-								}
-								else if (temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
-								{
-									nestFound = true;
-								}
-								else if (temptedEntity instanceof EntityHenWyandotte && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
+								else if (this.temptedEntity instanceof EntityHenWyandotte && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
 							}
 
-							if (nestFound == true)
+							if (nestFound)
 							{
 
 								newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
@@ -282,7 +257,7 @@ public class FindNestGoal extends Goal
 
 									loc = newloc;
 
-									if (temptedEntity.getX() < nestPos.getX())
+									if (this.temptedEntity.getX() < nestPos.getX())
 									{
 										BlockPos nestPoschk = new BlockPos(x + i + 1, y + j, z + k);
 										Block nestBlockchk = temptedentity.level.getBlockState(nestPoschk).getBlock();
@@ -292,7 +267,7 @@ public class FindNestGoal extends Goal
 										}
 									}
 
-									if (temptedEntity.getZ() < nestPos.getZ())
+									if (this.temptedEntity.getZ() < nestPos.getZ())
 									{
 										BlockPos nestPoschk = new BlockPos(x + i, y + j, z + k + 1);
 										Block nestBlockchk = temptedentity.level.getBlockState(nestPoschk).getBlock();
@@ -320,13 +295,13 @@ public class FindNestGoal extends Goal
 
 				Block nestBlockchk = temptedentity.level.getBlockState(nestPos).getBlock();
 
-				List<Entity> nestClear = temptedentity.level.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expand(1, 1, 1));
+				List<Entity> nestClear = temptedentity.level.getEntitiesWithinAABBExcludingEntity(this.temptedEntity, this.temptedEntity.getEntityBoundingBox().expand(1, 1, 1));
 
 				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{
 					this.temptedEntity.getNavigation().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
 					this.temptedEntity.getLookHelper().setLookPosition(nestPos.getX(), nestPos.getY(), nestPos.getZ(), 10.0F, 10.0F);
-					
+
 				}
 				else
 				{
@@ -334,7 +309,7 @@ public class FindNestGoal extends Goal
 					// nestPos.getY(), nestPos.getZ(), this.speed);
 
 				}
-			
+
 			}
 		}
 

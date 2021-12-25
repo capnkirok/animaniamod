@@ -18,54 +18,56 @@ import net.minecraft.world.entity.LivingEntity;
 public class WailaAnimalEntityProviderMateable extends WailaAnimalEntityProviderBase
 {
 
-    @Override
-    public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
-        currenttip = super.getWailaBody(entity, currenttip, accessor, config);
+	@Override
+	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
+	{
+		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
-        if (accessor.getPlayer().isSneaking()) {
-            
-        	if (entity instanceof IGendered)
-    		{
-        		IGendered igendered = (IGendered) entity;
-    			if (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE)
-    				currenttip.add(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
-    		}
-        	
-        	String mate = accessor.getNBTData().getString("MateUUID");
-            Level level = entity.level;
+		if (accessor.getPlayer().isSneaking())
+		{
 
-            if (!mate.equals("")) {
-                for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, level, entity)) {
-                    UUID id = e.getUUID();
-                    if (id.toString().equals(mate)) {
-                        String name = e.getCustomNameTag();
-                        if (!name.equals(""))
-                            currenttip.add(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
-                        else
-                            currenttip.add(I18n.translateToLocal("text.waila.mated"));
+			if ((entity instanceof IGendered igendered) && (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE))
+				currenttip.add(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
 
-                        return currenttip;
-                    }
-                }
+			String mate = accessor.getNBTData().getString("MateUUID");
+			Level level = entity.level;
 
-                //currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
+			if (!mate.equals(""))
+			{
+				for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, level, entity))
+				{
+					UUID id = e.getUUID();
+					if (id.toString().equals(mate))
+					{
+						String name = e.getCustomNameTag();
+						if (!name.equals(""))
+							currenttip.add(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
+						else
+							currenttip.add(I18n.translateToLocal("text.waila.mated"));
 
-            }
+						return currenttip;
+					}
+				}
 
-        }
-        return currenttip;
+				// currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
 
-    }
+			}
 
-    @Override
-    public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level) {
-        CompoundTag comp = ent.getEntityData();
+		}
+		return currenttip;
 
-        String mate = comp.getString("MateUUID");
-        if (!mate.equals(""))
-            tag.setString("MateUUID", mate);
+	}
 
-        return super.getNBTData(player, ent, tag, level);
-    }
+	@Override
+	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level)
+	{
+		CompoundTag comp = ent.getEntityData();
+
+		String mate = comp.getString("MateUUID");
+		if (!mate.equals(""))
+			tag.setString("MateUUID", mate);
+
+		return super.getNBTData(player, ent, tag, level);
+	}
 
 }

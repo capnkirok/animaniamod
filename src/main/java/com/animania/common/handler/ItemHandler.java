@@ -25,7 +25,7 @@ public class ItemHandler
 	public static Item entityeggrandomanimal;
 
 	public static List<Item> entityEggList = new ArrayList<Item>();
-	public static List<ItemStack> resourceTabItems = new ArrayList<ItemStack>();
+	public static List<ItemStack> resourceTabItems = new ArrayList<>();
 
 	public static void preInit()
 	{
@@ -41,38 +41,33 @@ public class ItemHandler
 		{
 			for (Item item : entityEggList)
 			{
-				if (item instanceof ItemEntityEgg)
+				if (item instanceof ItemEntityEgg && item != ItemHandler.entityeggrandomanimal)
 				{
-					if (item != ItemHandler.entityeggrandomanimal)
+					AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
+					LivingEntity entity = EntityGender.getEntity(animal.getType(), animal.getGender(), level);
+
+					if ((animal.getGender() != EntityGender.RANDOM) && (entity != null))
 					{
-						AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
-						LivingEntity entity = EntityGender.getEntity(animal.getType(), animal.getGender(), level);
-
-						if (animal.getGender() != EntityGender.RANDOM)
+						if (((ISpawnable) entity).usesEggColor())
 						{
-							if (entity != null)
+							ISpawnable ispawnable = (ISpawnable) entity;
+							ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
+							ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ispawnable.getPrimaryEggColor());
+							ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ispawnable.getSecondaryEggColor());
+
+							try
 							{
-								if (((ISpawnable) entity).usesEggColor())
-								{
-									ISpawnable ispawnable = (ISpawnable) entity;
-									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
-									ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ispawnable.getPrimaryEggColor());
-									ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ispawnable.getSecondaryEggColor());
-
-									try
-									{
-										EntityList.ENTITY_EGGS.put(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), new EntityEggInfo(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), ispawnable.getPrimaryEggColor(), ispawnable.getSecondaryEggColor()));
-									} catch (Exception e)
-									{
-										Animania.LOGGER.warn("Failed to insert entity egg for " + entity);
-									}
-								} else
-									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
-
+								EntityList.ENTITY_EGGS.put(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), new EntityEggInfo(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), ispawnable.getPrimaryEggColor(), ispawnable.getSecondaryEggColor()));
+							}
+							catch (Exception e)
+							{
+								Animania.LOGGER.warn("Failed to insert entity egg for " + entity);
 							}
 						}
-					}
+						else
+							ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
 
+					}
 				}
 			}
 

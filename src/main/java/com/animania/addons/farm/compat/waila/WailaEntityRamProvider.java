@@ -21,25 +21,26 @@ public class WailaEntityRamProvider extends WailaAnimalEntityProviderBase
 {
 
 	@Override
-	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
+	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
+	{
 		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
-		if (accessor.getPlayer().isSneaking()) {
-			
-			if (entity instanceof IGendered)
-    		{
-				IGendered igendered = (IGendered) entity;
-    			if (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE)
-    				currenttip.add(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
-    		}
-			
+		if (accessor.getPlayer().isSneaking())
+		{
+
+			if ((entity instanceof IGendered igendered) && (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE))
+				currenttip.add(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
+
 			String mate = accessor.getNBTData().getString("MateUUID");
 			Level level = entity.level;
 
-			if (!mate.equals("")) {
-				for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 20, level, entity)) {
+			if (!mate.equals(""))
+			{
+				for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 20, level, entity))
+				{
 					UUID id = e.getUUID();
-					if (id.toString().equals(mate)) {
+					if (id.toString().equals(mate))
+					{
 						String name = e.getCustomNameTag();
 						if (!name.equals(""))
 							currenttip.add(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
@@ -50,20 +51,24 @@ public class WailaEntityRamProvider extends WailaAnimalEntityProviderBase
 					}
 				}
 
-				//currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
+				// currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
 
 			}
 
-			if (entity instanceof EntityRamBase) {
-				
-				EntityRamBase thisEntity = (EntityRamBase)entity;
-				if (thisEntity.getSheared()) {
-					if (thisEntity.getWoolRegrowthTimer() > 0) {
+			if (entity instanceof EntityRamBase thisEntity)
+			{
+
+				if (thisEntity.getSheared())
+				{
+					if (thisEntity.getWoolRegrowthTimer() > 0)
+					{
 						int bob = thisEntity.getWoolRegrowthTimer();
-						currenttip.add(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
+						currenttip.add(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
 					}
 
-				} else if (!thisEntity.getSheared()) {
+				}
+				else if (!thisEntity.getSheared())
+				{
 					currenttip.add(I18n.translateToLocal("text.waila.wool3"));
 				}
 			}
@@ -74,7 +79,8 @@ public class WailaEntityRamProvider extends WailaAnimalEntityProviderBase
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level) {
+	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level)
+	{
 		CompoundTag comp = ent.getEntityData();
 
 		String mate = comp.getString("MateUUID");

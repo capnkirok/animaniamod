@@ -42,7 +42,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 	public static TileEntityTroughRenderer instance;
 	private final ModelTrough trough = new ModelTrough();
 
-	private static Map<TileEntityTrough, Color> cachedColors = new HashMap<TileEntityTrough, Color>();
+	private static Map<TileEntityTrough, Color> cachedColors = new HashMap<>();
 
 	@Override
 	public void render(TileEntityTrough te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
@@ -73,7 +73,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		// }
 		GlStateManager.pushMatrix();
 		GlStateManager.disableCull();
-		Float rot = 0.0F;
+		float rot = 0.0F;
 		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
 
 		if (facing == Direction.UP)
@@ -117,7 +117,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 			{
 				TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fluid.getFluid().getStill().toString());
 				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getResourceDomain() + ":textures/" + fluid.getFluid().getStill().getResourcePath() + ".png");
-				double multi = 0.3122 * (1 - ((double) fluid.amount / (double) 1000));
+				double multi = 0.3122 * (1 - (double) fluid.amount / 1000);
 				GlStateManager.pushMatrix();
 				GlStateManager.translate(0.4, 1, -0.3);
 				GlStateManager.translate(0.0, multi, 0.0);
@@ -153,22 +153,22 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 
 				if (RenderEvents.ticks % 20 == 0)
 				{
-					Color foodColor = getAverageColor(stack);
+					Color foodColor = this.getAverageColor(stack);
 					cachedColors.put(te, foodColor);
 				}
 
 				Color foodColor = cachedColors.get(te);
 				if (foodColor == null)
 				{
-					foodColor = getAverageColor(stack);
+					foodColor = this.getAverageColor(stack);
 					cachedColors.put(te, foodColor);
 				}
 
 				this.bindTexture(TROUGH_EMPTY_TEXTURE);
 				if (stack.getItem() == Items.WHEAT)
-					trough.renderFeed(stack.getCount(), new Color(160, 124, 89));
+					this.trough.renderFeed(stack.getCount(), new Color(160, 124, 89));
 				else
-					trough.renderFeed(stack.getCount(), foodColor);
+					this.trough.renderFeed(stack.getCount(), foodColor);
 
 				TextureAtlasSprite sprite = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, null, null).getParticleTexture();
 				if (stack.getItem() == Items.WHEAT)
@@ -176,7 +176,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 				else
 					this.bindTexture(new ResourceLocation(sprite.getIconName().replace(":", ":textures/") + ".png"));
 
-				trough.renderFood(0.0625F, stack.getCount());
+				this.trough.renderFood(0.0625F, stack.getCount());
 
 				GlStateManager.disableCull();
 				GlStateManager.disableBlend();
@@ -229,7 +229,8 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 
 			is = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
 			image = ImageIO.read(is);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 			return new Color(0, 0, 0);

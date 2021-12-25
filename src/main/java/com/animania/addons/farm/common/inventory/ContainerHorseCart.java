@@ -41,7 +41,8 @@ public class ContainerHorseCart extends Container
 		}
 	}
 
-	public ContainerHorseCart(IInventory chestInventory) {
+	public ContainerHorseCart(IInventory chestInventory)
+	{
 		this.lowerChestInventory = chestInventory;
 		this.numRows = chestInventory.getSizeInventory() / 9;
 		int i = (this.numRows - 4) * 18;
@@ -54,70 +55,70 @@ public class ContainerHorseCart extends Container
 			}
 		}
 
-
 	}
 
 	/**
 	 * Determines whether supplied player can use this container
 	 */
-	 public boolean canInteractWith(PlayerEntity playerIn)
+	public boolean canInteractWith(PlayerEntity playerIn)
 	{
 		return this.lowerChestInventory.isUsableByPlayer(playerIn);
 	}
 
 	/**
-	 * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-	 * inventory and the other inventory(s).
+	 * Handle when the stack in slot {@code index} is shift-clicked. Normally
+	 * this moves the stack between the player inventory and the other
+	 * inventory(s).
 	 */
-	 public ItemStack transferStackInSlot(PlayerEntity playerIn, int index)
-	 {
-		 ItemStack itemstack = ItemStack.EMPTY;
-		 Slot slot = this.inventorySlots.get(index);
+	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index)
+	{
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = this.inventorySlots.get(index);
 
-		 if (slot != null && slot.getHasStack())
-		 {
-			 ItemStack itemstack1 = slot.getStack();
-			 itemstack = itemstack1.copy();
+		if (slot != null && slot.getHasStack())
+		{
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
 
-			 if (index < this.numRows * 9)
-			 {
-				 if (!this.mergeItemStack(itemstack1, this.numRows * 9, this.inventorySlots.size(), true))
-				 {
-					 return ItemStack.EMPTY;
-				 }
-			 }
-			 else if (!this.mergeItemStack(itemstack1, 0, this.numRows * 9, false))
-			 {
-				 return ItemStack.EMPTY;
-			 }
+			if (index < this.numRows * 9)
+			{
+				if (!this.mergeItemStack(itemstack1, this.numRows * 9, this.inventorySlots.size(), true))
+				{
+					return ItemStack.EMPTY;
+				}
+			}
+			else if (!this.mergeItemStack(itemstack1, 0, this.numRows * 9, false))
+			{
+				return ItemStack.EMPTY;
+			}
 
-			 if (itemstack1.isEmpty())
-			 {
-				 slot.putStack(ItemStack.EMPTY);
-			 }
-			 else
-			 {
-				 slot.onSlotChanged();
-			 }
-		 }
+			if (itemstack1.isEmpty())
+			{
+				slot.putStack(ItemStack.EMPTY);
+			}
+			else
+			{
+				slot.onSlotChanged();
+			}
+		}
 
-		 return itemstack;
-	 }
+		return itemstack;
+	}
 
-	 /**
-	  * Called when the container is closed.
-	  */
-	 public void onContainerClosed(PlayerEntity playerIn)
-	 {
-		 super.onContainerClosed(playerIn);
-		 this.lowerChestInventory.closeInventory(playerIn);
-	 }
+	/**
+	 * Called when the container is closed.
+	 */
+	public void onContainerClosed(PlayerEntity playerIn)
+	{
+		super.onContainerClosed(playerIn);
+		this.lowerChestInventory.closeInventory(playerIn);
+	}
 
-	 /**
-	  * Return this chest container's lower chest inventory.
-	  */
-	 public IInventory getLowerChestInventory()
-	 {
-		 return this.lowerChestInventory;
-	 }
+	/**
+	 * Return this chest container's lower chest inventory.
+	 */
+	public IInventory getLowerChestInventory()
+	{
+		return this.lowerChestInventory;
+	}
 }

@@ -15,46 +15,51 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Dist.CLIENT)
 public class LayerMudHogYorkshire implements LayerRenderer<EntityHogYorkshire>
 {
-    private static final ResourceLocation TEXTURE  = new ResourceLocation("animania:textures/entity/pigs/pig_muddy.png");
-    private final RenderHogYorkshire      pigRenderer;
-    private final ModelHog                pigModel = new ModelHog(0.5F);
+	private static final ResourceLocation TEXTURE = new ResourceLocation("animania:textures/entity/pigs/pig_muddy.png");
+	private final RenderHogYorkshire pigRenderer;
+	private final ModelHog pigModel = new ModelHog(0.5F);
 
-    public LayerMudHogYorkshire(RenderHogYorkshire pigRendererIn) {
-        this.pigRenderer = pigRendererIn;
-    }
+	public LayerMudHogYorkshire(RenderHogYorkshire pigRendererIn)
+	{
+		this.pigRenderer = pigRendererIn;
+	}
 
-    @Override
-    public void doRenderLayer(EntityHogYorkshire LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
-            float netHeadYaw, float headPitch, float scale) {
+	@Override
+	public void doRenderLayer(EntityHogYorkshire LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+	{
 
-        if (LivingEntityIn.getMuddy()) {
+		if (LivingEntityIn.getMuddy())
+		{
 
-            float splashTimer = LivingEntityIn.getSplashTimer();
+			float splashTimer = LivingEntityIn.getSplashTimer();
 
-            if (splashTimer <= 0) {
-                GL11.glScalef(1.01F, 1.01F, 1.01F);
-                this.pigRenderer.bindTexture(LayerMudHogYorkshire.TEXTURE);
-                GlStateManager.enableBlend();
-                this.pigRenderer.getMainModel().render(LivingEntityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-                GlStateManager.depthMask(true);
-                GlStateManager.disableBlend();
-            }
-        }
-        else if (LivingEntityIn.getMudTimer() > 0) {
+			if (splashTimer <= 0)
+			{
+				GL11.glScalef(1.01F, 1.01F, 1.01F);
+				this.pigRenderer.bindTexture(LayerMudHogYorkshire.TEXTURE);
+				GlStateManager.enableBlend();
+				this.pigRenderer.getMainModel().render(LivingEntityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+				GlStateManager.depthMask(true);
+				GlStateManager.disableBlend();
+			}
+		}
+		else if (LivingEntityIn.getMudTimer() > 0)
+		{
 
-            float mudTimer = LivingEntityIn.getMudTimer();
-            GL11.glScalef(1.01F, 1.01F, 1.01F);
-            this.pigRenderer.bindTexture(LayerMudHogYorkshire.TEXTURE);
-            GlStateManager.enableBlend();
-            GlStateManager.color(1.0F, 1.0F, 1.0F, mudTimer);
-            this.pigRenderer.getMainModel().render(LivingEntityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-            GlStateManager.disableBlend();
+			float mudTimer = LivingEntityIn.getMudTimer();
+			GL11.glScalef(1.01F, 1.01F, 1.01F);
+			this.pigRenderer.bindTexture(LayerMudHogYorkshire.TEXTURE);
+			GlStateManager.enableBlend();
+			GlStateManager.color(1.0F, 1.0F, 1.0F, mudTimer);
+			this.pigRenderer.getMainModel().render(LivingEntityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+			GlStateManager.disableBlend();
 
-        }
-    }
+		}
+	}
 
-    @Override
-    public boolean shouldCombineTextures() {
-        return true;
-    }
+	@Override
+	public boolean shouldCombineTextures()
+	{
+		return true;
+	}
 }

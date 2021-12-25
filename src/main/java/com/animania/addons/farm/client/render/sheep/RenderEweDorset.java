@@ -24,19 +24,19 @@ public class RenderEweDorset<T extends EntityEweDorset> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", SheepBaseDir = "textures/entity/sheep/";
 
-	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderEweDorset.modid, RenderEweDorset.SheepBaseDir + "sheep_dorset_" + "white_ewe.png"), new ResourceLocation(RenderEweDorset.modid, RenderEweDorset.SheepBaseDir + "sheep_dorset_" + "brown_ewe.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES = { new ResourceLocation(RenderEweDorset.modid, RenderEweDorset.SheepBaseDir + "sheep_dorset_" + "white_ewe.png"), new ResourceLocation(RenderEweDorset.modid, RenderEweDorset.SheepBaseDir + "sheep_dorset_" + "brown_ewe.png") };
 
 	private static final ResourceLocation SHEEP_TEXTURE_BLINK = new ResourceLocation("animania:textures/entity/sheep/sheep_blink.png");
-	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { new ResourceLocation(RenderEweDorset.modid, RenderEweDorset.SheepBaseDir + "sheep_dorset_" + "white_ewe_sheared.png"), new ResourceLocation(RenderEweDorset.modid, RenderEweDorset.SheepBaseDir + "sheep_dorset_" + "brown_ewe_sheared.png") };
+	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = { new ResourceLocation(RenderEweDorset.modid, RenderEweDorset.SheepBaseDir + "sheep_dorset_" + "white_ewe_sheared.png"), new ResourceLocation(RenderEweDorset.modid, RenderEweDorset.SheepBaseDir + "sheep_dorset_" + "brown_ewe_sheared.png") };
 
-	private static int[] EYE_COLORS = new int[]{0xEDEDED, 0x1D1D1D};
-	
+	private static int[] EYE_COLORS = { 0xEDEDED, 0x1D1D1D };
+
 	private LayerBlinking blinking;
-	
+
 	public RenderEweDorset(RenderManager rm)
 	{
 		super(rm, new ModelDorsetEwe(), 0.5F);
-		this.addLayer(blinking = new LayerBlinking(this, SHEEP_TEXTURE_BLINK, 0));
+		this.addLayer(this.blinking = new LayerBlinking(this, SHEEP_TEXTURE_BLINK, 0));
 	}
 
 	protected void preRenderScale(EntityEweDorset entity, float f)
@@ -44,7 +44,7 @@ public class RenderEweDorset<T extends EntityEweDorset> extends RenderLiving<T>
 		GL11.glScalef(0.58F, 0.58F, 0.58F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
-		EntityAnimaniaSheep SheepEntity = (EntityAnimaniaSheep) entity;
+		EntityAnimaniaSheep SheepEntity = entity;
 		if (SheepEntity.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -76,11 +76,11 @@ public class RenderEweDorset<T extends EntityEweDorset> extends RenderLiving<T>
 
 		if (!entity.getSheared())
 		{
-			return this.SHEEP_TEXTURES[entity.getColorNumber()];
+			return RenderEweDorset.SHEEP_TEXTURES[entity.getColorNumber()];
 		}
 		else
 		{
-			return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
+			return RenderEweDorset.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 		}
 	}
 

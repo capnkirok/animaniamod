@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.ForgeRegistries;
 
-
 public abstract class AnimaniaContainer extends BaseEntityBlock
 {
 	public AnimaniaContainer(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn)
@@ -18,7 +17,7 @@ public abstract class AnimaniaContainer extends BaseEntityBlock
 		this.setRegistryName(Animania.MODID + ":" + name);
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
-		
+
 		BlockHandler.blocks.add(this);
 		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, name));

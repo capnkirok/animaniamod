@@ -3,7 +3,7 @@ package com.animania.addons.farm.common.entity.goats;
 import java.util.List;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.level.IBlockAccess;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.item.ItemStack;
 

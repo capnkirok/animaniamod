@@ -32,7 +32,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
 
-		if (!getSterilized())
+		if (!this.getSterilized())
 			this.goalSelector.addGoal(8, new GenericAIMate<EntityTomBase, EntityQueenBase>(this, 1.0D, EntityQueenBase.class, EntityKittenBase.class, EntityAnimaniaCat.class));
 	}
 
@@ -87,7 +87,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 				it.remove();
 			}
 		}
-		setSterilized(true);
+		this.setSterilized(true);
 	}
 
 }

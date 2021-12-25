@@ -8,7 +8,7 @@ public class TemplateAddonItemHandler
 	 */
 	public static void preInit()
 	{
-		
+
 	}
-	
+
 }

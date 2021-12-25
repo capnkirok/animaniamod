@@ -11,13 +11,11 @@ import net.minecraft.world.item.ItemStack;
 public interface IAnimaniaAnimal
 {
 	public AnimaniaType getAnimalType();
-	
-	
+
 	// ==================================================
 	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
-	
 	default boolean getBoolFromDataManager(EntityDataAccessor<Boolean> key)
 	{
 		try
@@ -30,7 +28,7 @@ public interface IAnimaniaAnimal
 			return false;
 		}
 	}
-	
+
 	default byte getByteFromDataManager(EntityDataAccessor<Byte> key)
 	{
 		try
@@ -121,6 +119,5 @@ public interface IAnimaniaAnimal
 			return null;
 		}
 	}
-	
-	
+
 }

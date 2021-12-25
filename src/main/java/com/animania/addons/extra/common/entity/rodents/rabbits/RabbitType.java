@@ -36,22 +36,14 @@ import net.minecraft.stats.StatBase;
 public enum RabbitType implements AnimaniaType
 {
 
-	LOP(RabbitEntityBuckLop.class, RabbitEntityDoeLop.class, RabbitEntityKitLop.class, null, false),
-	REX(RabbitEntityBuckRex.class, RabbitEntityDoeRex.class, RabbitEntityKitRex.class, null, true),
-	DUTCH(RabbitEntityBuckDutch.class, RabbitEntityDoeDutch.class, RabbitEntityKitDutch.class, null, false),
-	HAVANA(RabbitEntityBuckHavana.class, RabbitEntityDoeHavana.class, RabbitEntityKitHavana.class, null, false),
-	NEW_ZEALAND(RabbitEntityBuckNewZealand.class, RabbitEntityDoeNewZealand.class, RabbitEntityKitNewZealand.class, null, true),
-	JACK(RabbitEntityBuckJack.class, RabbitEntityDoeJack.class, RabbitEntityKitJack.class, null, false),
-	COTTONTAIL(RabbitEntityBuckCottontail.class, RabbitEntityDoeCottontail.class, RabbitEntityKitCottontail.class, null, false),
-	CHINCHILLA(RabbitEntityBuckChinchilla.class, RabbitEntityDoeChinchilla.class, RabbitEntityKitChinchilla.class, null, true);
-	
-	
+	LOP(RabbitEntityBuckLop.class, RabbitEntityDoeLop.class, RabbitEntityKitLop.class, null, false), REX(RabbitEntityBuckRex.class, RabbitEntityDoeRex.class, RabbitEntityKitRex.class, null, true), DUTCH(RabbitEntityBuckDutch.class, RabbitEntityDoeDutch.class, RabbitEntityKitDutch.class, null, false), HAVANA(RabbitEntityBuckHavana.class, RabbitEntityDoeHavana.class, RabbitEntityKitHavana.class, null, false), NEW_ZEALAND(RabbitEntityBuckNewZealand.class, RabbitEntityDoeNewZealand.class, RabbitEntityKitNewZealand.class, null, true), JACK(RabbitEntityBuckJack.class, RabbitEntityDoeJack.class, RabbitEntityKitJack.class, null, false), COTTONTAIL(RabbitEntityBuckCottontail.class, RabbitEntityDoeCottontail.class, RabbitEntityKitCottontail.class, null, false), CHINCHILLA(RabbitEntityBuckChinchilla.class, RabbitEntityDoeChinchilla.class, RabbitEntityKitChinchilla.class, null, true);
+
 	private Class male;
 	private Class female;
 	private Class child;
 	private StatBase achievement;
 	public boolean isPrime;
-	
+
 	private RabbitType(Class male, Class female, Class child, StatBase achievement, boolean prime)
 	{
 		this.male = male;
@@ -60,7 +52,7 @@ public enum RabbitType implements AnimaniaType
 		this.achievement = achievement;
 		this.isPrime = prime;
 	}
-	
+
 	@Override
 	public RabbitEntityBuckBase getMale(Level level)
 	{
@@ -135,12 +127,12 @@ public enum RabbitType implements AnimaniaType
 
 	public static RabbitType breed(RabbitType male, RabbitType female)
 	{
-		return Animania.RANDOM.nextBoolean() ?  male : female;
+		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
 
 	public StatBase getAchievement()
 	{
-		return achievement;
+		return this.achievement;
 	}
 
 	@Override
@@ -149,5 +141,4 @@ public enum RabbitType implements AnimaniaType
 		return Animania.MODID + ":rabbit";
 	}
 
-	
 }

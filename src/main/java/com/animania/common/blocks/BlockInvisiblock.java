@@ -19,12 +19,12 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -56,7 +56,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	@Override
 	public void onEntityCollidedWithBlock(Level levelIn, BlockPos pos, BlockState state, Entity entityIn)
 	{
-		if (entityIn != null && entityIn instanceof EntityItem)
+		if (entityIn instanceof EntityItem)
 		{
 
 			BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
@@ -133,25 +133,25 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	{
 		return BlockRenderLayer.CUTOUT;
 	}
-	
+
 	@Override
 	public boolean isTopSolid(BlockState state)
 	{
 		return false;
 	}
-	
+
 	@Deprecated
-    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
-    {
-        return BlockFaceShape.UNDEFINED;
-    }
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
+	{
+		return BlockFaceShape.UNDEFINED;
+	}
 
 	@Override
 	public boolean isFullCube(BlockState state)
 	{
 		return false;
 	}
-	
+
 	@Override
 	public boolean isFullBlock(BlockState state)
 	{
@@ -185,7 +185,6 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 		return block == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
-	
 
 	@Override
 	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
@@ -369,36 +368,31 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
-		if (te instanceof TileEntityInvisiblock)
+		if ((te instanceof TileEntityInvisiblock invis) && (invis.getTrough() != null))
 		{
-			TileEntityInvisiblock invis = (TileEntityInvisiblock) te;
-			if (invis.getTrough() != null)
+			TileEntityTrough trough = invis.getTrough();
+			ItemStack stack = trough.itemHandler.getStackInSlot(0);
+			FluidStack fluid = trough.fluidHandler.getFluid();
+
+			if (mode == ProbeMode.NORMAL)
 			{
-				TileEntityTrough trough = invis.getTrough();
-				ItemStack stack = trough.itemHandler.getStackInSlot(0);
-				FluidStack fluid = trough.fluidHandler.getFluid();
 
-				if (mode == ProbeMode.NORMAL)
+				if (!stack.isEmpty())
 				{
+					probeInfo.horizontal();
+					probeInfo.item(stack);
+				}
+				if (fluid != null)
+				{
+					ItemStack bucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid.getFluid());
+					probeInfo.horizontal().item(bucket).text(fluid.getLocalizedName() + ", " + fluid.amount + "mB");
 
-					if (!stack.isEmpty())
-					{
-						probeInfo.horizontal();
-						probeInfo.item(stack);
-					}
-					if (fluid != null)
-					{
-						ItemStack bucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid.getFluid());
-						probeInfo.horizontal().item(bucket).text(fluid.getLocalizedName() + ", " + fluid.amount + "mB");
-
-					}
 				}
 			}
-
 		}
 
 	}

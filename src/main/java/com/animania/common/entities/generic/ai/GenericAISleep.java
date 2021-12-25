@@ -24,9 +24,7 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass)
 	{
-		this(entity, speedIn, bed1, bed2, parentClass, (leveltime) -> {
-			return leveltime >= 13000;
-		});
+		this(entity, speedIn, bed1, bed2, parentClass, leveltime -> (leveltime >= 13000));
 	}
 
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass, Function<Long, Boolean> shouldSleepFunction)
@@ -43,28 +41,22 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 	@Override
 	public boolean shouldExecute()
 	{
-		if (entity instanceof TameableEntity)
-		{
-			if (((TameableEntity) entity).isSitting())
-				return false;
-		}
-
-		if (++this.delay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings + entity.getRandom().nextInt(100))
+		if (this.entity instanceof TameableEntity && ((TameableEntity) this.entity).isSitting() || ++this.delay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings + this.entity.getRandom().nextInt(100))
 		{
 			return false;
 		}
-		if (entity.getSleeping())
+		if (this.entity.getSleeping())
 		{
-			if (!this.shouldSleep.apply(level.getLevelTime() % 24000) || entity.isBurning() || (entity.level.isRainingAt(entity.getPosition()) && entity.level.canSeeSky(entity.getPosition())))
+			if (!this.shouldSleep.apply(this.level.getLevelTime() % 24000) || this.entity.isBurning() || this.entity.level.isRainingAt(this.entity.getPosition()) && this.entity.level.canSeeSky(this.entity.getPosition()))
 			{
-				entity.setSleeping(false);
-				entity.setSleepingPos(NO_POS);
+				this.entity.setSleeping(false);
+				this.entity.setSleepingPos(NO_POS);
 			}
 			this.delay = 0;
 			return false;
 		}
 
-		return shouldSleep.apply(level.getLevelTime() % 24000) && !entity.level.isRainingAt(entity.getPosition()) && this.entity.getRandom().nextInt(3) == 0 ? super.shouldExecute() : false;
+		return this.shouldSleep.apply(this.level.getLevelTime() % 24000) && !this.entity.level.isRainingAt(this.entity.getPosition()) && this.entity.getRandom().nextInt(3) == 0 ? super.shouldExecute() : false;
 	}
 
 	@Override
@@ -74,8 +66,8 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 
 		if (this.isAtDestination())
 		{
-			entity.setSleeping(true);
-			entity.setSleepingPos(entity.getPosition());
+			this.entity.setSleeping(true);
+			this.entity.setSleepingPos(this.entity.getPosition());
 
 			this.delay = 0;
 		}
@@ -84,7 +76,7 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		return super.shouldContinueExecuting() && !entity.getSleeping();
+		return super.shouldContinueExecuting() && !this.entity.getSleeping();
 	}
 
 	@Override
@@ -96,7 +88,7 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 	@Override
 	protected boolean shouldMoveTo(Level levelIn, BlockPos pos)
 	{
-		BlockState state = level.getBlockState(pos);
+		BlockState state = this.level.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block == this.bedBlock)

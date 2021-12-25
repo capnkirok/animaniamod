@@ -31,7 +31,7 @@ public class RenderCowHolstein<T extends CowEntityHolstein> extends RenderLiving
 	public RenderCowHolstein(RenderManager rm)
 	{
 		super(rm, new ModelCow(), 0.5F);
-		addLayer(blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x1C242B, 0xDEDEDE));
+		addLayer(this.blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x1C242B, 0xDEDEDE));
 	}
 
 	protected ResourceLocation getCowTextures(T par1CowEntity)
@@ -66,7 +66,7 @@ public class RenderCowHolstein<T extends CowEntityHolstein> extends RenderLiving
 	{
 		GL11.glScalef(1.24F, 1.24F, 1.24F);
 
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

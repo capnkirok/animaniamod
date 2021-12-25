@@ -13,13 +13,13 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -104,7 +104,8 @@ public class BlockHive extends BaseEntityBlock
 						{
 							heldItem.shrink(1);
 							player.inventory.addItemStackToInventory(newstack);
-						} else
+						}
+						else
 							player.setHeldItem(hand, newstack);
 
 						return true;
@@ -115,7 +116,8 @@ public class BlockHive extends BaseEntityBlock
 				level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
 				return true;
 
-			} else if (!heldItem.isEmpty() && heldItem.getItem() == Items.GLASS_BOTTLE && hive.fluidHandler.getFluid() != null && hive.fluidHandler.getFluid().amount >= 1000)
+			}
+			else if (!heldItem.isEmpty() && heldItem.getItem() == Items.GLASS_BOTTLE && hive.fluidHandler.getFluid() != null && hive.fluidHandler.getFluid().amount >= 1000)
 			{
 				FluidStack fluidStack = hive.fluidHandler.drain(1000, true);
 				ItemStack honeyBottle = new ItemStack(FarmAddonItemHandler.honeyJar);
@@ -136,7 +138,8 @@ public class BlockHive extends BaseEntityBlock
 						{
 							heldItem.shrink(1);
 							player.inventory.addItemStackToInventory(newstack);
-						} else
+						}
+						else
 							player.setHeldItem(hand, newstack);
 
 						return true;

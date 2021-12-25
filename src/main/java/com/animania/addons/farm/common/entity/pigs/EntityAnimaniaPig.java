@@ -110,20 +110,20 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 		this.goalSelector.addGoal(2, new GenericAIWanderAvoidWater(this, 1.0D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(3, new GenericAIFindWater<EntityAnimaniaPig>(this, 1.0D, entityAIEatGrass, EntityAnimaniaPig.class));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaPig>(this, 1.0D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(3, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaPig.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.0D, this.entityAIEatGrass, true));
 		}
-		this.goalSelector.addGoal(4, new GenericAIPanic<EntityAnimaniaPig>(this, 1.5D));
+		this.goalSelector.addGoal(4, new GenericAIPanic<>(this, 1.5D));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(8, new GenericAISleep<EntityAnimaniaPig>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.pigBed), AnimaniaHelper.getBlock(FarmConfig.settings.pigBed2), EntityAnimaniaPig.class));
 		}
 		this.goalSelector.addGoal(9, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, new ItemStack(Items.CARROT_ON_A_STICK), false));
-		this.goalSelector.addGoal(10, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(10, new GenericAITempt<>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(10, new TemptItemStackGoal(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
-		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaPig>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.addGoal(15, new GenericAILookIdle<EntityAnimaniaPig>(this));
+		this.goalSelector.addGoal(15, new GenericAILookIdle<>(this));
 		this.targetTasks.addTask(16, new HurtByTargetGoal(this, false, new Class[0]));
 	}
 
@@ -176,7 +176,8 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 
 				this.setAIMoveSpeed(f);
 				super.travel(0.0F, 0.0F, 1.0F);
-			} else
+			}
+			else
 			{
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
@@ -195,7 +196,8 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 
 			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
 			this.limbSwing += this.limbSwingAmount;
-		} else
+		}
+		else
 		{
 			this.stepHeight = 0.5F;
 			p_191986_3_ = this.moveForward;
@@ -301,7 +303,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 			}
 
 			this.eatTimer = 40;
-			if (entityAIEatGrass != null)
+			if (this.entityAIEatGrass != null)
 				this.entityAIEatGrass.startExecuting();
 			this.setHandFed(true);
 			this.setFed(true);
@@ -365,7 +367,8 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 		{
 			this.dataManager.set(EntityAnimaniaPig.FED, true);
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaPig.FED, false);
 	}
 
@@ -380,7 +383,8 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 		{
 			this.dataManager.set(EntityAnimaniaPig.PLAYED, true);
 			this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + this.rand.nextInt(100);
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaPig.PLAYED, false);
 	}
 
@@ -410,7 +414,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 
 	public void setMudTimer(Float timer)
 	{
-		this.dataManager.set(EntityAnimaniaPig.MUDTIMER, Float.valueOf(timer));
+		this.dataManager.set(EntityAnimaniaPig.MUDTIMER, timer);
 	}
 
 	public Float getSplashTimer()
@@ -420,7 +424,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 
 	public void setSplashTimer(Float timer)
 	{
-		this.dataManager.set(EntityAnimaniaPig.SPLASHTIMER, Float.valueOf(timer));
+		this.dataManager.set(EntityAnimaniaPig.SPLASHTIMER, timer);
 	}
 
 	@Override
@@ -510,7 +514,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
-		return new ItemStack(getSpawnEgg());
+		return new ItemStack(this.getSpawnEgg());
 	}
 
 	@Override
@@ -566,37 +570,37 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	@Override
 	public int getBlinkTimer()
 	{
-		return blinkTimer;
+		return this.blinkTimer;
 	}
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
-		blinkTimer = i;
+		this.blinkTimer = i;
 	}
 
 	@Override
 	public int getEatTimer()
 	{
-		return eatTimer;
+		return this.eatTimer;
 	}
 
 	@Override
 	public void setEatTimer(int i)
 	{
-		eatTimer = i;
+		this.eatTimer = i;
 	}
 
 	@Override
 	public int getFedTimer()
 	{
-		return fedTimer;
+		return this.fedTimer;
 	}
 
 	@Override
 	public void setFedTimer(int i)
 	{
-		fedTimer = i;
+		this.fedTimer = i;
 	}
 
 	@Override
@@ -608,43 +612,43 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	@Override
 	public int getWaterTimer()
 	{
-		return wateredTimer;
+		return this.wateredTimer;
 	}
 
 	@Override
 	public void setWaterTimer(int i)
 	{
-		wateredTimer = i;
+		this.wateredTimer = i;
 	}
 
 	@Override
 	public int getDamageTimer()
 	{
-		return damageTimer;
+		return this.damageTimer;
 	}
 
 	@Override
 	public void setDamageTimer(int i)
 	{
-		damageTimer = i;
+		this.damageTimer = i;
 	}
 
 	@Override
 	public int getHappyTimer()
 	{
-		return happyTimer;
+		return this.happyTimer;
 	}
 
 	@Override
 	public void setHappyTimer(int i)
 	{
-		happyTimer = i;
+		this.happyTimer = i;
 	}
 
 	@Override
 	public AnimaniaType getAnimalType()
 	{
-		return pigType;
+		return this.pigType;
 	}
 
 	@Override

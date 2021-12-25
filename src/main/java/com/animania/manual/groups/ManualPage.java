@@ -7,13 +7,13 @@ import com.animania.manual.components.IManualComponent;
 
 public class ManualPage
 {
-	private List<IManualComponent> components = new ArrayList<IManualComponent>();
+	private List<IManualComponent> components = new ArrayList<>();
 
 	public ManualPage(IManualComponent... components)
 	{
 		this.components = Arrays.asList(components);
 	}
-	
+
 	public ManualPage(List<IManualComponent> components)
 	{
 		this.components = components;
@@ -21,9 +21,7 @@ public class ManualPage
 
 	public List<IManualComponent> getComponents()
 	{
-		return components;
+		return this.components;
 	}
 
-	
-	
 }

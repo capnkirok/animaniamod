@@ -54,9 +54,8 @@ public class AnimationHandler
 		{
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((e == null) ? 0 : e.hashCode());
-			result = prime * result + ((p == null) ? 0 : p.hashCode());
-			return result;
+			result = prime * result + (this.e == null ? 0 : this.e.hashCode());
+			return prime * result + (this.p == null ? 0 : this.p.hashCode());
 		}
 
 		@Override
@@ -64,9 +63,7 @@ public class AnimationHandler
 		{
 			if (this == obj)
 				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
+			if (obj == null || this.getClass() != obj.getClass())
 				return false;
 			Pair other = (Pair) obj;
 			if (other.e.equals(this.e) && other.p == other.p)

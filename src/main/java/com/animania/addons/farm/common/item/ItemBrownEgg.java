@@ -21,7 +21,6 @@ public class ItemBrownEgg extends Item
 
 	public ItemBrownEgg()
 	{
-		super();
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		ForgeRegistries.ITEMS.register(this);

@@ -94,13 +94,13 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Override
 	public int getAgeTimer()
 	{
-		return ageTimer;
+		return this.ageTimer;
 	}
 
 	@Override
 	public void setAgeTimer(int i)
 	{
-		ageTimer = i;
+		this.ageTimer = i;
 	}
 
 	@Override
@@ -122,7 +122,6 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
-		return;
 	}
 
 	@Override

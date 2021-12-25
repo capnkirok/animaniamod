@@ -13,13 +13,11 @@ public class FluidHandlerHoneyBottle extends FluidHandlerItemStack.SwapEmpty
 	{
 		super(stack, new ItemStack(Items.GLASS_BOTTLE), 1000);
 	}
-	
+
 	@Override
 	public boolean canFillFluidType(FluidStack fluid)
 	{
-        return fluid.getFluid() == FarmAddonBlockHandler.fluidHoney;
+		return fluid.getFluid() == FarmAddonBlockHandler.fluidHoney;
 	}
-
-	
 
 }

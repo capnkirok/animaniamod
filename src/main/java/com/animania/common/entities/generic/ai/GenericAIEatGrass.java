@@ -19,7 +19,7 @@ public class GenericAIEatGrass<T extends PathfinderMob & ISleeping & IFoodEating
 {
 
 	private static final Predicate<BlockState> IS_TALL_GRASS = BlockStatePredicate.forBlock(Blocks.TALL_GRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	protected final T grassEaterEntity;	
+	protected final T grassEaterEntity;
 	protected final Level entityLevel;
 	public int eatingGrassTimer;
 	public boolean eatsGrass;
@@ -43,17 +43,17 @@ public class GenericAIEatGrass<T extends PathfinderMob & ISleeping & IFoodEating
 	@Override
 	public boolean shouldExecute()
 	{
-		if (++timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
+		if (++this.timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
-		if (grassEaterEntity.getSleeping() || grassEaterEntity.getFed())
+		if (this.grassEaterEntity.getSleeping() || this.grassEaterEntity.getFed())
 		{
-			timer = 0;
+			this.timer = 0;
 			return false;
 		}
 
 		if (this.grassEaterEntity.getRandom().nextInt(120) == 0)
 		{
-			timer = 0;
+			this.timer = 0;
 			return super.shouldExecute();
 		}
 
@@ -63,7 +63,7 @@ public class GenericAIEatGrass<T extends PathfinderMob & ISleeping & IFoodEating
 	@Override
 	public void startExecuting()
 	{
-		if (!this.destinationBlock.equals(GenericAISearchBlock.NO_POS) && eatsGrass)
+		if (!this.destinationBlock.equals(GenericAISearchBlock.NO_POS) && this.eatsGrass)
 			super.startExecuting();
 		else
 		{
@@ -97,15 +97,15 @@ public class GenericAIEatGrass<T extends PathfinderMob & ISleeping & IFoodEating
 	{
 		super.updateTask();
 
-		timer = 0;
+		this.timer = 0;
 		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
 
-		if (this.isAtDestination() && shouldMoveTo(level, seekingBlockPos))
+		if (this.isAtDestination() && this.shouldMoveTo(this.level, this.seekingBlockPos))
 		{
-			BlockState state = level.getBlockState(seekingBlockPos);
+			BlockState state = this.level.getBlockState(this.seekingBlockPos);
 			Block block = state.getBlock();
 
-			if (!isEating)
+			if (!this.isEating)
 			{
 				this.eatingGrassTimer = 160;
 				this.entityLevel.broadcastEntityEvent(this.grassEaterEntity, (byte) 10);
@@ -113,40 +113,40 @@ public class GenericAIEatGrass<T extends PathfinderMob & ISleeping & IFoodEating
 				this.isEating = true;
 			}
 
-			if (eatsGrass)
+			if (this.eatsGrass && this.eatingGrassTimer == 4)
 			{
-				if (this.eatingGrassTimer == 4)
+				this.entityLevel.globalLevelEvent(2001, this.seekingBlockPos, Block.getId(state));
+
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
 				{
-					this.entityLevel.globalLevelEvent(2001, this.seekingBlockPos, Block.getId(state));
+					String name = block.getRegistryName().toString();
+					boolean handled = false;
 
-					if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
+					if (ModList.get().isLoaded("desirepaths") && (name.startsWith("desirepaths:grass_worn_") && !name.endsWith("6") || block instanceof GrassBlock))
 					{
-						String name = block.getRegistryName().toString();
-						boolean handled = false;
-						
-						if (ModList.get().isLoaded("desirepaths") && ((name.startsWith("desirepaths:grass_worn_") && !name.endsWith("6")) || block instanceof GrassBlock))
+						try
 						{
-							try {
-								ReflectionUtil.findMethod(Class.forName("com.corosus.desirepaths.block.GrassBlockWorn"), "performWearTick", null, Level.class, BlockPos.class, float.class).invoke(null, this.entityLevel, this.seekingBlockPos, 20.0F);
-								handled = true;
-							} catch (Exception e) {
-								// Do nothing as handled is still false
-								e.printStackTrace();
-							}
+							ReflectionUtil.findMethod(Class.forName("com.corosus.desirepaths.block.GrassBlockWorn"), "performWearTick", null, Level.class, BlockPos.class, float.class).invoke(null, this.entityLevel, this.seekingBlockPos, 20.0F);
+							handled = true;
 						}
-						
-						if(!handled)
-							this.entityLevel.setBlock(this.seekingBlockPos, Blocks.DIRT.defaultBlockState(), 2);
+						catch (Exception e)
+						{
+							// Do nothing as handled is still false
+							e.printStackTrace();
+						}
 					}
 
-					if (grassEaterEntity instanceof IFoodEating)
-					{
-						this.startExecuting();
-						((IFoodEating) grassEaterEntity).setFed(true);
-					}
-
-					this.grassEaterEntity.eatGrassBonus();
+					if (!handled)
+						this.entityLevel.setBlock(this.seekingBlockPos, Blocks.DIRT.defaultBlockState(), 2);
 				}
+
+				if (this.grassEaterEntity instanceof IFoodEating)
+				{
+					this.startExecuting();
+					((IFoodEating) this.grassEaterEntity).setFed(true);
+				}
+
+				this.grassEaterEntity.eatGrassBonus();
 			}
 		}
 
@@ -155,10 +155,10 @@ public class GenericAIEatGrass<T extends PathfinderMob & ISleeping & IFoodEating
 	@Override
 	protected boolean shouldMoveTo(Level levelIn, BlockPos pos)
 	{
-		BlockState state = level.getBlockState(pos);
+		BlockState state = this.level.getBlockState(pos);
 		Block block = state.getBlock();
 
-		if (block instanceof GrassBlock || AddonInjectionHandler.runInjection("farm", "isMooshroom", Boolean.class, grassEaterEntity, block) || handleDesirePaths(block))
+		if (block instanceof GrassBlock || AddonInjectionHandler.runInjection("farm", "isMooshroom", Boolean.class, this.grassEaterEntity, block) || this.handleDesirePaths(block))
 			return true;
 
 		return false;

@@ -17,10 +17,10 @@ public class TileEntitySaltLick extends BlockEntity
 
 	public void useSaltLick()
 	{
-		usesLeft--;
+		this.usesLeft--;
 
-		if (usesLeft <= 0)
-			level.setBlockAndUpdate(levelPosition, Blocks.AIR.defaultBlockState());
+		if (this.usesLeft <= 0)
+			this.level.setBlockAndUpdate(levelPosition, Blocks.AIR.defaultBlockState());
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class TileEntitySaltLick extends BlockEntity
 	{
 		return this.writeToNBT(new CompoundTag());
 	}
-	
+
 	@Override
 	public void markDirty()
 	{
 		super.markDirty();
-		
+
 		AnimaniaHelper.sendTileEntityUpdate(this);
 	}
 
@@ -55,7 +55,7 @@ public class TileEntitySaltLick extends BlockEntity
 	public CompoundTag writeToNBT(CompoundTag compound)
 	{
 		CompoundTag tag = super.writeToNBT(compound);
-		tag.putInteger("usesLeft", usesLeft);
+		tag.putInteger("usesLeft", this.usesLeft);
 
 		return tag;
 

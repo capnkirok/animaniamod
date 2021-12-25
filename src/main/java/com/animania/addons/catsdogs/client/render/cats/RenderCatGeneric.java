@@ -35,17 +35,17 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 
 	protected void preRenderScale(EntityAnimaniaCat entity, float f)
 	{
-		if (entity instanceof IChild)
+		if (entity instanceof IChild child)
 		{
-			IChild child = (IChild) entity;
 			float age = child.getEntityAge();
-			double dividend = 0.85 / (0.8 * scale);
-			GlStateManager.scale(scale + (age / dividend), scale + (age / dividend), scale + (age / dividend));
-			this.shadowSize = (scale + age) / 2;
-		} else
+			double dividend = 0.85 / (0.8 * this.scale);
+			GlStateManager.scale(this.scale + age / dividend, this.scale + age / dividend, this.scale + age / dividend);
+			this.shadowSize = (this.scale + age) / 2;
+		}
+		else
 		{
-			GlStateManager.scale(scale, scale, scale);
-			this.shadowSize = scale / 2;
+			GlStateManager.scale(this.scale, this.scale, this.scale);
+			this.shadowSize = this.scale / 2;
 		}
 
 		EntityAnimaniaCat entityCat = entity;
@@ -66,7 +66,8 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 			if (entity instanceof IChild)
 				GlStateManager.translate(0, 0.4, 0);
 
-		} else
+		}
+		else
 		{
 			entityCat.setSleeping(false);
 			entityCat.setSleepTimer(0F);
@@ -76,7 +77,7 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return texture;
+		return this.texture;
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)
 		{
-			return new RenderCatGeneric(manager, model, tex, blink, eye, scale);
+			return new RenderCatGeneric(manager, this.model, this.tex, this.blink, this.eye, this.scale);
 		}
 
 	}

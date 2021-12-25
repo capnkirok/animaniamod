@@ -38,26 +38,26 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 	@Override
 	public boolean shouldExecute()
 	{
-		if (++foodDelay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
+		if (++this.foodDelay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
 
-		if (entity.getFed() || entity.isBeingRidden() || entity.getSleeping() || (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !entity.getInteracted() : false))
+		if (this.entity.getFed() || this.entity.isBeingRidden() || this.entity.getSleeping() || (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !this.entity.getInteracted() : false))
 		{
-			foodDelay = 0;
+			this.foodDelay = 0;
 			return false;
 		}
 
-		if (entity.getRandom().nextInt(3) != 0)
+		if (this.entity.getRandom().nextInt(3) != 0)
 			return false;
 
-		foodDelay = 0;
+		this.foodDelay = 0;
 		return super.shouldExecute();
 	}
 
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		return super.shouldContinueExecuting() && !entity.getFed();
+		return super.shouldContinueExecuting() && !this.entity.getFed();
 	}
 
 	@Override
@@ -67,45 +67,41 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 
 		if (this.isAtDestination())
 		{
-			this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
+			this.creature.getLookHelper().setLookPosition(this.seekingBlockPos.getX() + 0.5D, (double) this.seekingBlockPos.getY(), this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
 
-			BlockState state = level.getBlockState(seekingBlockPos);
+			BlockState state = this.level.getBlockState(this.seekingBlockPos);
 			Block block = state.getBlock();
 
 			if (block instanceof IFoodProviderBlock)
 			{
-				TileEntity te = level.getTileEntity(seekingBlockPos);
-				if (te != null && te instanceof IFoodProviderTE)
+				TileEntity te = this.level.getTileEntity(this.seekingBlockPos);
+				if ((te instanceof IFoodProviderTE trough) && trough.canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
 				{
-					IFoodProviderTE trough = (IFoodProviderTE) te;
-					if (trough.canConsume(entity.getFoodItems(), entity.getFoodFluids()))
-					{
-						trough.consumeSolidOrLiquid(100, 1);
+					trough.consumeSolidOrLiquid(100, 1);
 
-						if (eatAI != null)
-							eatAI.startExecuting();
+					if (this.eatAI != null)
+						this.eatAI.startExecuting();
 
-						entity.setLiquidFed(true);
-						entity.setFed(true);
-						entity.setHandFed(true);
-						entity.setInteracted(true);
+					this.entity.setLiquidFed(true);
+					this.entity.setFed(true);
+					this.entity.setHandFed(true);
+					this.entity.setInteracted(true);
 
-						entity.level.updateComparatorOutputLevel(seekingBlockPos, block);
+					this.entity.level.updateComparatorOutputLevel(this.seekingBlockPos, block);
 
-						this.foodDelay = 0;
-						return;
-					}
+					this.foodDelay = 0;
+					return;
 				}
 			}
 
-			if (isBlockFood(block))
+			if (this.isBlockFood(block))
 			{
-				if (eatAI != null)
-					eatAI.startExecuting();
-				entity.setFed(true);
+				if (this.eatAI != null)
+					this.eatAI.startExecuting();
+				this.entity.setFed(true);
 
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
-					entity.level.destroyBlock(seekingBlockPos, false);
+					this.entity.level.destroyBlock(this.seekingBlockPos, false);
 
 				this.foodDelay = 0;
 				return;
@@ -113,15 +109,14 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 
 			if (block instanceof BlockFluidBase)
 			{
-				if (eatAI != null)
-					eatAI.startExecuting();
-				entity.setFed(true);
-				entity.setLiquidFed(true);
+				if (this.eatAI != null)
+					this.eatAI.startExecuting();
+				this.entity.setFed(true);
+				this.entity.setLiquidFed(true);
 
-				entity.level.destroyBlock(seekingBlockPos, false);
+				this.entity.level.destroyBlock(this.seekingBlockPos, false);
 
 				this.foodDelay = 0;
-				return;
 			}
 
 		}
@@ -137,11 +132,8 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 		if (block instanceof IFoodProviderBlock)
 		{
 			TileEntity te = level.getTileEntity(pos);
-			if (te != null && te instanceof IFoodProviderTE)
-			{
-				if (((IFoodProviderTE) te).canConsume(entity.getFoodItems(), entity.getFoodFluids()))
-					return true;
-			}
+			if (te instanceof IFoodProviderTE && ((IFoodProviderTE) te).canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
+				return true;
 		}
 
 		return false;
@@ -150,12 +142,12 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 	@Override
 	protected boolean shouldMoveToSecondary(Level levelIn, BlockPos pos)
 	{
-		BlockState state = level.getBlockState(pos);
+		BlockState state = this.level.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block instanceof BlockFluidBase)
 		{
-			Fluid[] foodFluids = entity.getFoodFluids();
+			Fluid[] foodFluids = this.entity.getFoodFluids();
 			if (foodFluids != null && foodFluids.length > 0)
 			{
 				BlockFluidBase fluidBlock = (BlockFluidBase) block;
@@ -176,12 +168,9 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 
 		}
 
-		if (eatBlocks)
+		if (this.eatBlocks && this.isBlockFood(block))
 		{
-			if (isBlockFood(block))
-			{
-				return true;
-			}
+			return true;
 		}
 
 		return false;

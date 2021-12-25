@@ -19,7 +19,7 @@ import net.minecraft.server.MinecraftServer;
 
 public class AnimaniaCommand extends CommandBase
 {
-	private static Map<MinecraftServer, Long> servers = new HashMap<MinecraftServer, Long>();
+	private static Map<MinecraftServer, Long> servers = new HashMap<>();
 
 	@Override
 	public int getRequiredPermissionLevel()
@@ -42,47 +42,45 @@ public class AnimaniaCommand extends CommandBase
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
 	{
-		if (args.length > 0)
+		if (args.length > 0 && args[0].toLowerCase().equals("tovanilla"))
 		{
-			if (args[0].toLowerCase().equals("tovanilla"))
+			if (sender instanceof PlayerEntity)
 			{
-				if (sender instanceof PlayerEntity)
+				if (servers.containsKey(server))
 				{
-					if (servers.containsKey(server))
+					long time = servers.get(server);
+					long curr = System.currentTimeMillis();
+					if (time >= curr)
 					{
-						long time = servers.get(server);
-						long curr = System.currentTimeMillis();
-						if (time >= curr)
+						for (Level level : server.levels)
 						{
-							for (Level level : server.levels)
+							List<Entity> convertedEntities = new ArrayList<Entity>();
+
+							for (Entity entity : level.loadedEntityList)
 							{
-								List<Entity> convertedEntities = new ArrayList<Entity>();
-
-								for (Entity entity : level.loadedEntityList)
+								if (entity instanceof IConvertable)
 								{
-									if (entity instanceof IConvertable)
-									{
-										Entity converted = ((IConvertable) entity).convertToVanilla();
-										entity.setPosition(entity.getX(), -200, entity.getZ());
-										entity.setDead();
-										convertedEntities.add(converted);
-									}
+									Entity converted = ((IConvertable) entity).convertToVanilla();
+									entity.setPosition(entity.getX(), -200, entity.getZ());
+									entity.setDead();
+									convertedEntities.add(converted);
 								}
-
-								convertedEntities.forEach(conv -> level.spawnEntity(conv));
 							}
 
-							servers.remove(server);
-							return;
+							convertedEntities.forEach(conv -> level.spawnEntity(conv));
 						}
+
+						servers.remove(server);
+						return;
 					}
+				}
 
-					servers.put(server, System.currentTimeMillis() + 20_000);
-					throw new SyntaxErrorException("WARNING!!!! THIS IS A DESTRUCTIVE ACTION THAT CANNOT BE UNDONE! ALL YOUR ANIMANIA ANIMALS (IN LOADED CHUNKS) WILL BE CONVERTED TO VANILLA ANIMALS! TO CONFIRM, EXECUTE THIS COMMAND AGAIN.");
+				servers.put(server, System.currentTimeMillis() + 20_000);
+				throw new SyntaxErrorException("WARNING!!!! THIS IS A DESTRUCTIVE ACTION THAT CANNOT BE UNDONE! ALL YOUR ANIMANIA ANIMALS (IN LOADED CHUNKS) WILL BE CONVERTED TO VANILLA ANIMALS! TO CONFIRM, EXECUTE THIS COMMAND AGAIN.");
 
-				} else
-					throw new SyntaxErrorException("Only a player can execute this command");
 			}
+			else
+				throw new SyntaxErrorException("Only a player can execute this command");
 		}
 
 		throw new WrongUsageException(this.getUsage(sender));
@@ -91,12 +89,9 @@ public class AnimaniaCommand extends CommandBase
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos)
 	{
-		if (args.length > 0)
+		if (args.length > 0 && args.length == 1)
 		{
-			if (args.length == 1)
-			{
-				return CommandBase.getListOfStringsMatchingLastWord(args, "tovanilla");
-			}
+			return CommandBase.getListOfStringsMatchingLastWord(args, "tovanilla");
 		}
 
 		return Collections.EMPTY_LIST;

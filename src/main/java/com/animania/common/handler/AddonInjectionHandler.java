@@ -7,13 +7,13 @@ import javax.annotation.Nullable;
 
 public class AddonInjectionHandler
 {
-	private static Map<String, Map<String, AddonInjection>> injections = new HashMap<String, Map<String, AddonInjection>>();
+	private static Map<String, Map<String, AddonInjection>> injections = new HashMap<>();
 
 	public static void addInjection(String addonID, String injectionName, AddonInjection injection)
 	{
 		Map<String, AddonInjection> map = injections.get(addonID);
 		if (map == null)
-			map = new HashMap<String, AddonInjection>();
+			map = new HashMap<>();
 
 		map.put(injectionName, injection);
 
@@ -29,11 +29,11 @@ public class AddonInjectionHandler
 			if (returnType.equals(Boolean.class))
 				return (R) Boolean.FALSE;
 			if (returnType.equals(Float.class))
-				return (R) new Float(0.0f);
+				return (R) Float.valueOf(0.0f);
 			if (returnType.equals(Integer.class))
-				return (R) new Integer(0);
+				return (R) Integer.valueOf(0);
 			if (returnType.equals(Double.class))
-				return (R) new Double(0.0);
+				return (R) Double.valueOf(0.0);
 			else
 				return null;
 		}
@@ -46,11 +46,11 @@ public class AddonInjectionHandler
 			if (returnType.equals(Boolean.class))
 				return (R) Boolean.FALSE;
 			if (returnType.equals(Float.class))
-				return (R) new Float(0.0f);
+				return (R) Float.valueOf(0.0f);
 			if (returnType.equals(Integer.class))
-				return (R) new Integer(0);
+				return (R) Integer.valueOf(0);
 			if (returnType.equals(Double.class))
-				return (R) new Double(0.0);
+				return (R) Double.valueOf(0.0);
 			else
 				return null;
 		}

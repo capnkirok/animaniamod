@@ -27,8 +27,7 @@ public class TOPCompat implements Function<ITheOneProbe, Void>
 	public Void apply(ITheOneProbe input)
 	{
 		probe = input;
-		probe.registerProvider(new IProbeInfoProvider()
-		{
+		probe.registerProvider(new IProbeInfoProvider() {
 			@Override
 			public String getID()
 			{
@@ -45,33 +44,30 @@ public class TOPCompat implements Function<ITheOneProbe, Void>
 				}
 
 			}
-			
-			
+
 		});
-		
-		probe.registerEntityProvider(new IProbeInfoEntityProvider()
+
+		probe.registerEntityProvider(new IProbeInfoEntityProvider() {
+
+			@Override
+			public String getID()
+			{
+				return Animania.MODID + ":entities";
+			}
+
+			@Override
+			public void addProbeEntityInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
+			{
+
+				if (entity instanceof TOPInfoEntityProvider provider)
 				{
+					provider.addProbeInfo(mode, probeInfo, player, level, entity, data);
+				}
 
-					@Override
-					public String getID()
-					{
-						return Animania.MODID + ":entities";
-					}
+			}
 
-					@Override
-					public void addProbeEntityInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
-					{
+		});
 
-						if (entity instanceof TOPInfoEntityProvider)
-						{
-							TOPInfoEntityProvider provider = (TOPInfoEntityProvider)entity;
-							provider.addProbeInfo(mode, probeInfo, player, level, entity, data);
-						}
-						
-					}
-			
-				});
-		
 		return null;
 	}
 

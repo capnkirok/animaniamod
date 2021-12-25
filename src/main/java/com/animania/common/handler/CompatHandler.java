@@ -15,9 +15,10 @@ public class CompatHandler
 		if (ModList.get().isLoaded(THEONEPROBE_ID))
 			FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", "com.animania.compat.top.TOPCompat");
 
-		if (ModList.get().isLoaded("morph")) {
-			
-			//Chickens
+		if (ModList.get().isLoaded("morph"))
+		{
+
+			// Chickens
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.chickens.EntityAnimaniaChicken>CrowTime>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.chickens.EntityAnimaniaChicken>>CrowDuration>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.chickens.EntityAnimaniaChicken>EggLayTime>null");
@@ -25,8 +26,8 @@ public class CompatHandler
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.chickens.EntityAnimaniaChicken>LaidTimer>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.chickens.EntityAnimaniaChicken>Fed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.chickens.EntityAnimaniaChicken>Watered>null");
-			
-			//Cows
+
+			// Cows
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.cows.EntityAnimaniaCow>Fed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.cows.EntityAnimaniaCow>Watered>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.cows.EntityAnimaniaCow>Handfed>null");
@@ -36,8 +37,8 @@ public class CompatHandler
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.cows.EntityAnimaniaCow>MateUUID>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.cows.EntityAnimaniaCow>Pregnant>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.cows.EntityAnimaniaCow>Fighting>null");
-			
-			//Goats
+
+			// Goats
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.goats.EntityAnimaniaGoat>Fed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.goats.EntityAnimaniaGoat>Watered>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.goats.EntityAnimaniaGoat>Handfed>null");
@@ -49,8 +50,8 @@ public class CompatHandler
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.goats.EntityAnimaniaGoat>HasKids>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.goats.EntityAnimaniaGoat>MateUUID>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.goats.EntityAnimaniaGoat>Pregnant>null");
-			
-			//Hamsters
+
+			// Hamsters
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.EntityHamster>IsSitting>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.EntityHamster>InBall>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.EntityHamster>foodStackCount>null");
@@ -60,8 +61,8 @@ public class CompatHandler
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.EntityHamster>IsTamed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.EntityHamster>IsRiding>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.EntityHamster>Age>null");
-			
-			//Horses
+
+			// Horses
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.horses.EntityAnimaniaHorse>Fed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.horses.EntityAnimaniaHorse>Watered>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.horses.EntityAnimaniaHorse>Handfed>null");
@@ -71,14 +72,14 @@ public class CompatHandler
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.horses.EntityAnimaniaHorse>MateUUID>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.horses.EntityAnimaniaHorse>Pregnant>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.horses.EntityAnimaniaHorse>Variant>null");
-			
-			//Peacocks
+
+			// Peacocks
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.peacocks.EntityAnimaniaPeacock>Fed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.peacocks.EntityAnimaniaPeacock>Watered>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.peacocks.EntityAnimaniaPeacock>LaidTimer>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.peacocks.EntityAnimaniaPeacock>Laid>null");
-			
-			//Pigs
+
+			// Pigs
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.pigs.EntityAnimaniaPig>Fed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.pigs.EntityAnimaniaPig>Watered>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.pigs.EntityAnimaniaPig>Handfed>null");
@@ -91,8 +92,8 @@ public class CompatHandler
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.pigs.EntityAnimaniaPig>MateUUID>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.pigs.EntityAnimaniaPig>Pregnant>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.pigs.EntityAnimaniaPig>SplashTimer>null");
-			
-			//Rabbits
+
+			// Rabbits
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit>Fed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit>Watered>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit>Handfed>null");
@@ -103,8 +104,8 @@ public class CompatHandler
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit>Pregnant>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit>ColorNumber>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit>RabbitType>null");
-			
-			//Sheep
+
+			// Sheep
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.sheep.EntityAnimaniaSheep>Fed>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.sheep.EntityAnimaniaSheep>Watered>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.sheep.EntityAnimaniaSheep>Handfed>null");
@@ -116,8 +117,7 @@ public class CompatHandler
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.sheep.EntityAnimaniaSheep>HasKids>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.sheep.EntityAnimaniaSheep>MateUUID>null");
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.sheep.EntityAnimaniaSheep>Pregnant>null");
-			
-			
+
 		}
 
 	}

@@ -30,7 +30,7 @@ public class TemplateAddonRenderHandler
 	 */
 	public static void init()
 	{
-		
+
 	}
 
 	@SideOnly(Dist.CLIENT)
@@ -52,9 +52,9 @@ public class TemplateAddonRenderHandler
 		for (int meta = 0; meta < 16; meta++)
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));
 	}
-	
+
 	@SideOnly(Dist.CLIENT)
-    private static <T extends Entity> void registerEntityRender(Class<T> entityClass, IRenderFactory<? super T> renderFactory)
+	private static <T extends Entity> void registerEntityRender(Class<T> entityClass, IRenderFactory<? super T> renderFactory)
 	{
 		RenderingRegistry.registerEntityRenderingHandler(entityClass, renderFactory);
 	}
@@ -62,7 +62,7 @@ public class TemplateAddonRenderHandler
 	@SideOnly(Dist.CLIENT)
 	private static <T extends TileEntity> void registerTileEntityRender(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer)
 	{
-		 ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
+		ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
 	}
 
 }

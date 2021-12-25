@@ -32,16 +32,9 @@ import com.animania.api.interfaces.AnimaniaType;
 
 public enum CatType implements AnimaniaType
 {
-	AMERICAN_SHORTHAIR(EntityTomAmericanShorthair.class, EntityQueenAmericanShorthair.class, EntityKittenAmericanShorthair.class),
-	ASIATIC(EntityTomAsiatic.class, EntityQueenAsiatic.class, EntityKittenAsiatic.class),
-	EXOTIC(EntityTomExotic.class, EntityQueenExotic.class, EntityKittenExotic.class),
-	NORWEGIAN(EntityTomNorwegian.class, EntityQueenNorwegian.class, EntityKittenNorwegian.class),
-	OCELOT(EntityTomOcelot.class, EntityQueenOcelot.class, EntityKittenOcelot.class),
-	RAGDOLL(EntityTomRagdoll.class, EntityQueenRagdoll.class, EntityKittenRagdoll.class),
-	SIAMESE(EntityTomSiamese.class, EntityQueenSiamese.class, EntityKittenSiamese.class),
-	TABBY(EntityTomTabby.class, EntityQueenTabby.class, EntityKittenTabby.class);
-	
-	//TODO achievements to above
+	AMERICAN_SHORTHAIR(EntityTomAmericanShorthair.class, EntityQueenAmericanShorthair.class, EntityKittenAmericanShorthair.class), ASIATIC(EntityTomAsiatic.class, EntityQueenAsiatic.class, EntityKittenAsiatic.class), EXOTIC(EntityTomExotic.class, EntityQueenExotic.class, EntityKittenExotic.class), NORWEGIAN(EntityTomNorwegian.class, EntityQueenNorwegian.class, EntityKittenNorwegian.class), OCELOT(EntityTomOcelot.class, EntityQueenOcelot.class, EntityKittenOcelot.class), RAGDOLL(EntityTomRagdoll.class, EntityQueenRagdoll.class, EntityKittenRagdoll.class), SIAMESE(EntityTomSiamese.class, EntityQueenSiamese.class, EntityKittenSiamese.class), TABBY(EntityTomTabby.class, EntityQueenTabby.class, EntityKittenTabby.class);
+
+	// TODO achievements to above
 
 	private Class male;
 	private Class female;
@@ -99,7 +92,7 @@ public enum CatType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return cow;	
+		return cow;
 	}
 
 	@Override
@@ -123,14 +116,14 @@ public enum CatType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		return calf;	
+		return calf;
 	}
 
 	public static CatType breed(CatType male, CatType female)
 	{
 		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
-	
+
 	@Override
 	public String getTypeName()
 	{

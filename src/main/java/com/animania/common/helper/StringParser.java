@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
-
 public class StringParser
 {
 
@@ -63,7 +62,7 @@ public class StringParser
 		if (meta == 0)
 		{
 			Block block = getBlock(string);
-			if(block != null)
+			if (block != null)
 				return block.defaultBlockState();
 		}
 		try
@@ -93,10 +92,10 @@ public class StringParser
 	public static ItemStack getItemStack(String string)
 	{
 		Item item = getItem(string);
-		
-		if(item == null)
+
+		if (item == null)
 			return ItemStack.EMPTY;
-		
+
 		ItemStack stack = new ItemStack(item, 1, getMeta(string));
 		CompoundTag tag = getTagCompound(string);
 		if (tag != null)

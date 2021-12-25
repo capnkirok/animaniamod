@@ -38,12 +38,11 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 		{
 			entity.setPosition(-1, -1, -1);
 
-			if(entity instanceof IChild)
+			if (entity instanceof IChild)
 			{
 				((IChild) entity).setEntityAge(1.3f / ((IChild) entity).getSizeDividend());
 			}
-			
-			
+
 			float pbx = OpenGlHelper.lastBrightnessX;
 			float pby = OpenGlHelper.lastBrightnessY;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
@@ -136,7 +135,7 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 				break;
 			}
 
-			renderEntityStatic(entity);
+			this.renderEntityStatic(entity);
 
 			// RenderHelper.enableStandardItemLighting();
 			GlStateManager.popMatrix();

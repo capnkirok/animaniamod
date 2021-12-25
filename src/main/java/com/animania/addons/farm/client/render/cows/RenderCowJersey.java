@@ -34,7 +34,7 @@ public class RenderCowJersey<T extends CowEntityJersey> extends RenderLiving<T>
 	{
 		GL11.glScalef(1.34F, 1.34F, 1.34F);
 
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

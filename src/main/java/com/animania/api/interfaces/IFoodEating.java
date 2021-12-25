@@ -25,7 +25,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default void setFed(boolean fed)
 	{
-		EntityDataAccessor<Boolean> param = getFedParam();
+		EntityDataAccessor<Boolean> param = this.getFedParam();
 		if (param != null)
 		{
 			LivingEntity e = (LivingEntity) this;
@@ -39,7 +39,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default boolean getFed()
 	{
-		EntityDataAccessor<Boolean> param = getFedParam();
+		EntityDataAccessor<Boolean> param = this.getFedParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -47,7 +47,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default void setWatered(boolean watered)
 	{
-		EntityDataAccessor<Boolean> param = getWateredParam();
+		EntityDataAccessor<Boolean> param = this.getWateredParam();
 		if (param != null)
 		{
 			LivingEntity e = (LivingEntity) this;
@@ -61,7 +61,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default boolean getWatered()
 	{
-		EntityDataAccessor<Boolean> param = getWateredParam();
+		EntityDataAccessor<Boolean> param = this.getWateredParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -69,14 +69,14 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default void setHandFed(boolean handfed)
 	{
-		EntityDataAccessor<Boolean> param = getHandFedParam();
+		EntityDataAccessor<Boolean> param = this.getHandFedParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, handfed);
 	}
 
 	default boolean getHandFed()
 	{
-		EntityDataAccessor<Boolean> param = getHandFedParam();
+		EntityDataAccessor<Boolean> param = this.getHandFedParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -84,16 +84,16 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default void setInteracted(boolean interacted)
 	{
-		EntityDataAccessor<Boolean> param = getInteractedParam();
+		EntityDataAccessor<Boolean> param = this.getInteractedParam();
 		if (param != null)
-			((Entity) this).getEntityData().set(getInteractedParam(), interacted);
+			((Entity) this).getEntityData().set(this.getInteractedParam(), interacted);
 	}
 
 	default boolean getInteracted()
 	{
-		EntityDataAccessor<Boolean> param = getInteractedParam();
+		EntityDataAccessor<Boolean> param = this.getInteractedParam();
 		if (param != null)
-			return this.getBoolFromDataManager(getInteractedParam());
+			return this.getBoolFromDataManager(this.getInteractedParam());
 		return false;
 	}
 
@@ -105,8 +105,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 		}
 
 		int eatTimer = this.getEatTimer();
-		float val = eatTimer <= 0 ? 0.0F : eatTimer >= 4 && eatTimer <= 76 ? 1.0F : eatTimer < 4 ? (eatTimer - partialTicks) / 4.0F : -(eatTimer - 80 - partialTicks) / 4.0F;
-		return val;
+		return eatTimer <= 0 ? 0.0F : eatTimer >= 4 && eatTimer <= 76 ? 1.0F : eatTimer < 4 ? (eatTimer - partialTicks) / 4.0F : -(eatTimer - 80 - partialTicks) / 4.0F;
 	}
 
 	default float getHeadAngleX(float partialTicks)
@@ -121,7 +120,8 @@ public interface IFoodEating extends IAnimaniaAnimal
 		{
 			float f = (eatTimer - 4 - partialTicks) / 24.0F;
 			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
-		} else
+		}
+		else
 			return eatTimer > 0 ? (float) Math.PI / 5F : ((Entity) this).rotationPitch * 0.017453292F;
 	}
 

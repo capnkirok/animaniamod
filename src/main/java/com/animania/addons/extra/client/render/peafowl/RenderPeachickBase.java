@@ -25,11 +25,11 @@ public class RenderPeachickBase<T extends EntityPeachickBase> extends RenderLivi
 	public static final Factory FACTORY = new Factory();
 
 	private LayerBlinking blinkingLayer;
-	
+
 	public RenderPeachickBase(RenderManager rm)
 	{
 		super(rm, new ModelPeachick(), 0.15F);
-		this.addLayer(blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png"), 0));
+		this.addLayer(this.blinkingLayer = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png"), 0));
 	}
 
 	@Override
@@ -44,13 +44,13 @@ public class RenderPeachickBase<T extends EntityPeachickBase> extends RenderLivi
 	protected void preRenderCallback(T LivingEntity, float f)
 	{
 		this.preRenderScale(LivingEntity, f);
-		blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
+		this.blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
 	}
 
 	protected void preRenderScale(T entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.3F + (age / entity.getSizeDividend()), 0.3F + (age / entity.getSizeDividend()), 0.3F + (age / entity.getSizeDividend()));
+		GL11.glScalef(0.3F + age / entity.getSizeDividend(), 0.3F + age / entity.getSizeDividend(), 0.3F + age / entity.getSizeDividend());
 
 		double x = entity.getX();
 		double y = entity.getY();
@@ -59,7 +59,7 @@ public class RenderPeachickBase<T extends EntityPeachickBase> extends RenderLivi
 		BlockPos pos = new BlockPos(x, y, z);
 
 		Block blockchk = entity.level.getBlockState(pos).getBlock();
-		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
+		EntityAnimaniaPeacock entityChk = entity;
 		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())
 		{
 			GlStateManager.translate(-0.25F, 0.35F, -0.25F);

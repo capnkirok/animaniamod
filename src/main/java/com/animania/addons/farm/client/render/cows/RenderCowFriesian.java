@@ -31,7 +31,7 @@ public class RenderCowFriesian<T extends CowEntityFriesian> extends RenderLiving
 	public RenderCowFriesian(RenderManager rm)
 	{
 		super(rm, new ModelCow(), 0.5F);
-		addLayer(blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x463930, 0xDEDEDE));
+		addLayer(this.blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x463930, 0xDEDEDE));
 	}
 
 	protected ResourceLocation getCowTextures(T par1CowEntity)
@@ -65,7 +65,7 @@ public class RenderCowFriesian<T extends CowEntityFriesian> extends RenderLiving
 	{
 		GL11.glScalef(1.24F, 1.24F, 1.24F);
 
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

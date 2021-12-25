@@ -5,19 +5,19 @@ public class DogBloodHound
 
 	public static class EntityPuppyBloodHound extends EntityPuppyBase
 	{
-	
+
 		public EntityPuppyBloodHound(Level level)
 		{
 			super(level);
 			this.type = DogType.BLOOD_HOUND;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return -5938636;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -27,19 +27,19 @@ public class DogBloodHound
 
 	public static class EntityMaleBloodHound extends EntityMaleDogBase
 	{
-	
+
 		public EntityMaleBloodHound(Level level)
 		{
 			super(level);
 			this.type = DogType.BLOOD_HOUND;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return -5938636;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{
@@ -49,19 +49,19 @@ public class DogBloodHound
 
 	public static class EntityFemaleBloodHound extends EntityFemaleDogBase
 	{
-	
+
 		public EntityFemaleBloodHound(Level level)
 		{
 			super(level);
 			this.type = DogType.BLOOD_HOUND;
 		}
-		
+
 		@Override
 		public int getPrimaryEggColor()
 		{
 			return -5938636;
 		}
-		
+
 		@Override
 		public int getSecondaryEggColor()
 		{

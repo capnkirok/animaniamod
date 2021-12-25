@@ -102,7 +102,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Override
 	public int getDryTimer()
 	{
-		return dryTimerDoe;
+		return this.dryTimerDoe;
 	}
 
 	@Override
@@ -173,7 +173,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				ItemStack one = stack.copy();
 				one.setCount(1);
 				FluidActionResult result;
-				result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(milk.copy()), 1000, player, true);
+				result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(this.milk.copy()), 1000, player, true);
 
 				ItemStack filled;
 
@@ -181,19 +181,21 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				{
 					Item item = stack.getItem();
 					if (item == Items.BUCKET)
-						filled = milk.copy();
+						filled = this.milk.copy();
 					else if (ModList.get().isLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
 						filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 					else
 						return false;
-				} else
+				}
+				else
 					filled = result.result;
 				stack.shrink(1);
 				AnimaniaHelper.addItem(player, filled);
 				this.setWatered(false);
 			}
 			return true;
-		} else
+		}
+		else
 			return super.processInteract(player, hand);
 	}
 
@@ -227,7 +229,8 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				{
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
-				} else
+				}
+				else
 				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
@@ -240,7 +243,8 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 					int bob = this.getWoolRegrowthTimer();
 					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
 				}
-			} else if (this instanceof EntityDoeAngora)
+			}
+			else if (this instanceof EntityDoeAngora)
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}

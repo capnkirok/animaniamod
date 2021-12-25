@@ -43,7 +43,7 @@ public class RenderBullJersey<T extends EntityBullJersey> extends RenderLiving<T
 	protected void preRenderScale(T entity, float f)
 	{
 		GL11.glScalef(1.4F, 1.4F, 1.4F);
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();
@@ -70,7 +70,7 @@ public class RenderBullJersey<T extends EntityBullJersey> extends RenderLiving<T
 		return this.getCowTextures(entity);
 
 	}
-	
+
 	@Override
 	protected void preRenderCallback(T LivingEntity, float f)
 	{

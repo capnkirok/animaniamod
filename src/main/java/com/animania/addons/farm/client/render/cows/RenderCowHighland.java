@@ -33,7 +33,7 @@ public class RenderCowHighland<T extends CowEntityHighland> extends RenderLiving
 	{
 		GL11.glScalef(1.44F, 1.44F, 1.44F);
 
-		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow CowEntity = entity;
 		if (CowEntity.getSleeping())
 		{
 			float sleepTimer = CowEntity.getSleepTimer();

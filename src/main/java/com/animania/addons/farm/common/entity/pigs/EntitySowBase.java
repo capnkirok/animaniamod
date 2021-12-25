@@ -123,7 +123,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Override
 	public int getDryTimer()
 	{
-		return dryTimerSow;
+		return this.dryTimerSow;
 	}
 
 	@Override
@@ -176,7 +176,8 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		{
 			player.startRiding(this);
 			return true;
-		} else
+		}
+		else
 			return super.processInteract(player, hand);
 	}
 
@@ -228,7 +229,8 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				{
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
-				} else
+				}
+				else
 				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}

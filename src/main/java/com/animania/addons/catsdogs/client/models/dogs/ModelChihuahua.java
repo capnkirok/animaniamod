@@ -127,7 +127,7 @@ public class ModelChihuahua extends ModelBase
 		this.body.addChild(this.front_left);
 		this.body.addChild(this.back_left);
 		this.body.addChild(this.back_right);
-		setupAngles();
+		this.setupAngles();
 	}
 
 	public void setupAngles()
@@ -216,7 +216,7 @@ public class ModelChihuahua extends ModelBase
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
 	{
-		setupAngles();
+		this.setupAngles();
 
 		ModelPose sleepingPose = AnimationHandler.getOrCreatePose(entity, Pose.SLEEPING, () -> new ModelPose(this, PoseChihuahuaSleeping.INSTANCE));
 
@@ -243,7 +243,8 @@ public class ModelChihuahua extends ModelBase
 			this.front_left.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
 			this.front_right.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
 
-		} else
+		}
+		else
 		{
 			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}

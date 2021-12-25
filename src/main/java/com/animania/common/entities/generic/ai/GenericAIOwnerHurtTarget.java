@@ -19,11 +19,11 @@ public class GenericAIOwnerHurtTarget extends OwnerHurtTargetGoal
 	@Override
 	public boolean shouldExecute()
 	{
-		if (entity instanceof ISleeping)
-			if (((ISleeping) entity).getSleeping())
+		if (this.entity instanceof ISleeping)
+			if (((ISleeping) this.entity).getSleeping())
 				return false;
 
-		if (entity.isSitting())
+		if (this.entity.isSitting())
 			return false;
 
 		return super.shouldExecute();
@@ -32,11 +32,11 @@ public class GenericAIOwnerHurtTarget extends OwnerHurtTargetGoal
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		if (entity instanceof ISleeping)
-			if (((ISleeping) entity).getSleeping())
+		if (this.entity instanceof ISleeping)
+			if (((ISleeping) this.entity).getSleeping())
 				return false;
 
-		if (entity.isSitting())
+		if (this.entity.isSitting())
 			return false;
 
 		return super.shouldContinueExecuting();

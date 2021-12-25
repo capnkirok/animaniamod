@@ -42,9 +42,9 @@ public class RenderKidKinder<T extends EntityKidKinder> extends RenderLiving<T>
 	protected void preRenderScale(EntityKidKinder entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.27F + (age / entity.getSizeDividend()), 0.27F + (age / entity.getSizeDividend()), 0.27F + (age / entity.getSizeDividend()));
+		GL11.glScalef(0.27F + age / entity.getSizeDividend(), 0.27F + age / entity.getSizeDividend(), 0.27F + age / entity.getSizeDividend());
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
+		EntityAnimaniaGoat entityGoat = entity;
 		if (entityGoat.getSleeping())
 		{
 			this.shadowSize = 0;

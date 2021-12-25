@@ -134,26 +134,30 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 			this.setCrowDuration(50);
 
 			int crowChooser = this.rand.nextInt(3);
-			if (crowChooser == 0)
+			switch (crowChooser)
+			{
+			case 0:
 				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow1, SoundCategory.PLAYERS, 0.7F, 0.95F + modular);
-			else if (crowChooser == 1)
+				break;
+			case 1:
 				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow2, SoundCategory.PLAYERS, 0.65F, 0.9F + modular);
-			else if (crowChooser == 2)
+				break;
+			case 2:
 				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow3, SoundCategory.PLAYERS, 0.6F, 1.05F + modular);
+				break;
+			default:
+				break;
+			}
 			this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
 
-			List list = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 30, level, this.getPosition());
+			List list = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 30, this.level, this.getPosition());
 
-			for (int i = 0; i < list.size(); i++)
+			for (Object element : list)
 			{
-				if (list.get(i) instanceof EntityAnimaniaCow)
+				if ((element instanceof EntityAnimaniaCow CowEntity) && (CowEntity.getSleeping() && currentTime > 24000))
 				{
-					EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) list.get(i);
-					if (CowEntity.getSleeping() && currentTime > 24000)
-					{
-						CowEntity.setSleeping(false);
-						CowEntity.setSleepTimer(0F);
-					}
+					CowEntity.setSleeping(false);
+					CowEntity.setSleepTimer(0F);
 				}
 			}
 

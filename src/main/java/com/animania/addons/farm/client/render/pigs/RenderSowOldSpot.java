@@ -40,7 +40,7 @@ public class RenderSowOldSpot<T extends EntitySowOldSpot> extends RenderLiving<T
 
 		GL11.glScalef(1.12F, 1.12F, 1.12F);
 
-		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		EntityAnimaniaPig entityChk = entity;
 
 		if (entityChk.getSleeping())
 		{
@@ -129,7 +129,7 @@ public class RenderSowOldSpot<T extends EntitySowOldSpot> extends RenderLiving<T
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.PIG_TEXTURES;
+		return RenderSowOldSpot.PIG_TEXTURES;
 	}
 
 	static class Factory<T extends EntitySowOldSpot> implements IRenderFactory<T>

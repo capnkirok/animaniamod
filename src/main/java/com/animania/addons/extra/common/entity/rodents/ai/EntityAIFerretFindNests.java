@@ -39,32 +39,22 @@ public class FerretFindNestsGoal extends Goal
 	{
 		this.delayTemptCounter++;
 
-		if (this.delayTemptCounter < AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
+		if (this.delayTemptCounter < AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-			return false;
 		}
-		else if (delayTemptCounter >= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
+		else if (this.delayTemptCounter >= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-			if (this.temptedEntity instanceof EntityFerretBase)
+			if ((this.temptedEntity instanceof EntityFerretBase entity) && (entity.getSleeping() || entity.getFed()))
 			{
-				EntityFerretBase entity = (EntityFerretBase) this.temptedEntity;
-				if (entity.getSleeping())
-				{
-					this.delayTemptCounter = 0;
-					return false;
-				}
-				
-				if (entity.getFed())
-				{
-					this.delayTemptCounter = 0;
-					return false;
-				}
+				this.delayTemptCounter = 0;
+				return false;
 			}
-			
+
 			if (this.temptedEntity.getRandom().nextInt(100) == 0)
 			{
 				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
-				if (vec3d != null) {
+				if (vec3d != null)
+				{
 					this.delayTemptCounter = 0;
 					this.resetTask();
 					this.temptedEntity.getNavigation().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
@@ -72,14 +62,15 @@ public class FerretFindNestsGoal extends Goal
 				return false;
 			}
 
-			BlockPos currentpos = new BlockPos(temptedEntity.getX(), temptedEntity.getY(), temptedEntity.getZ());
+			BlockPos currentpos = new BlockPos(this.temptedEntity.getX(), this.temptedEntity.getY(), this.temptedEntity.getZ());
 			Block poschk = temptedentity.level.getBlockState(currentpos).getBlock();
 
 			if (poschk == BlockHandler.blockNest)
 			{
 				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(currentpos);
 
-				if (te == null ? true : te.getNestContent() == NestContent.EMPTY) {
+				if (te == null ? true : te.getNestContent() == NestContent.EMPTY)
+				{
 					this.delayTemptCounter = 0;
 					return false;
 				}
@@ -89,9 +80,8 @@ public class FerretFindNestsGoal extends Goal
 					te.itemHandler.extractItem(0, 1, false);
 					te.markDirty();
 
-					if (temptedEntity instanceof EntityFerretBase)
+					if (this.temptedEntity instanceof EntityFerretBase ech)
 					{
-						EntityFerretBase ech = (EntityFerretBase) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 						ech.setWatered(true);
@@ -125,15 +115,10 @@ public class FerretFindNestsGoal extends Goal
 						{
 							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
 
-							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 							{
 								foodFound = true;
-								if (Animania.RANDOM.nextInt(200) == 0)
-								{
-									this.delayTemptCounter = 0;
-									return false;
-								}
-								else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
+								if (Animania.RANDOM.nextInt(200) == 0 || this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
 								{
 									this.delayTemptCounter = 0;
 									return false;
@@ -151,7 +136,6 @@ public class FerretFindNestsGoal extends Goal
 			if (!foodFound)
 			{
 				this.delayTemptCounter = 0;
-				return false;
 			}
 		}
 		return false;
@@ -195,7 +179,7 @@ public class FerretFindNestsGoal extends Goal
 					{
 						TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
 
-						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 						{
 
 							foodFound = true;
@@ -206,14 +190,14 @@ public class FerretFindNestsGoal extends Goal
 
 								loc = newloc;
 
-								if (temptedEntity.getX() < foodPos.getX())
+								if (this.temptedEntity.getX() < foodPos.getX())
 								{
 									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
 									Block foodBlockchk = temptedentity.level.getBlockState(foodPoschk).getBlock();
 									i = i + 1;
 								}
 
-								if (temptedEntity.getZ() < foodPos.getZ())
+								if (this.temptedEntity.getZ() < foodPos.getZ())
 								{
 									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
 									Block foodBlockchk = temptedentity.level.getBlockState(foodPoschk).getBlock();
@@ -238,9 +222,9 @@ public class FerretFindNestsGoal extends Goal
 			{
 				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(foodPos);
 
-				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 				{
-					if (this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
+					if (!this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed))
 					{
 						this.delayTemptCounter = 0;
 					}

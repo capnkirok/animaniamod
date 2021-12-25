@@ -16,11 +16,12 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 {
 	private static final ResourceLocation NEST_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/block_nest_white.png");
 	private static final ResourceLocation NEST_TEXTURE2 = new ResourceLocation("animania:textures/entity/tileentities/block_nest_blue.png");
-	public static TileEntityNestRenderer  instance;
-	private final ModelNest               nest         = new ModelNest();
+	public static TileEntityNestRenderer instance;
+	private final ModelNest nest = new ModelNest();
 
 	@Override
-	public void render(TileEntityNest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+	public void render(TileEntityNest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	{
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
 		this.renderNest(te, (float) x, (float) y, (float) z, destroyStage, partialTicks);
@@ -28,15 +29,18 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 	}
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
+	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	{
 		super.setRendererDispatcher(rendererDispatcherIn);
 		TileEntityNestRenderer.instance = this;
 	}
 
-	public void renderNest(TileEntityNest te, float x, float y, float z, int destroyStage, float animateTicks) {
+	public void renderNest(TileEntityNest te, float x, float y, float z, int destroyStage, float animateTicks)
+	{
 		ModelBase modelbase = this.nest;
 
-		if (destroyStage >= 0) {
+		if (destroyStage >= 0)
+		{
 			this.bindTexture(TileEntitySpecialRenderer.DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
@@ -44,21 +48,22 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 			GlStateManager.matrixMode(5888);
 		}
-		
+
 		this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
-		
+
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 		GlStateManager.enableAlpha();
 
 		modelbase.render((Entity) null, animateTicks, 0.0F, 0.0F, 0, 0.0F, 0.0625F);
-		
-		if(te != null && !te.itemHandler.getStackInSlot(0).isEmpty())
+
+		if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty())
 			this.nest.renderEggs(0.0625F, te.itemHandler.getStackInSlot(0).getCount(), te.getNestContent());
-		
+
 		GlStateManager.popMatrix();
 
-		if (destroyStage >= 0) {
+		if (destroyStage >= 0)
+		{
 			GlStateManager.matrixMode(5890);
 			GlStateManager.popMatrix();
 			GlStateManager.matrixMode(5888);
