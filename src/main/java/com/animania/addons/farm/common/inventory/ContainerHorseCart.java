@@ -2,7 +2,7 @@ package com.animania.addons.farm.common.inventory;
 
 import java.awt.Container;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +12,7 @@ public class ContainerHorseCart extends Container
 	private final IInventory lowerChestInventory;
 	private final int numRows;
 
-	public ContainerHorseCart(IInventory playerInventory, IInventory chestInventory, PlayerEntity player)
+	public ContainerHorseCart(IInventory playerInventory, IInventory chestInventory, Player player)
 	{
 		this.lowerChestInventory = chestInventory;
 		this.numRows = chestInventory.getSizeInventory() / 9;
@@ -60,7 +60,7 @@ public class ContainerHorseCart extends Container
 	/**
 	 * Determines whether supplied player can use this container
 	 */
-	public boolean canInteractWith(PlayerEntity playerIn)
+	public boolean canInteractWith(Player playerIn)
 	{
 		return this.lowerChestInventory.isUsableByPlayer(playerIn);
 	}
@@ -70,7 +70,7 @@ public class ContainerHorseCart extends Container
 	 * this moves the stack between the player inventory and the other
 	 * inventory(s).
 	 */
-	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index)
+	public ItemStack transferStackInSlot(Player playerIn, int index)
 	{
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.inventorySlots.get(index);
@@ -108,7 +108,7 @@ public class ContainerHorseCart extends Container
 	/**
 	 * Called when the container is closed.
 	 */
-	public void onContainerClosed(PlayerEntity playerIn)
+	public void onContainerClosed(Player playerIn)
 	{
 		super.onContainerClosed(playerIn);
 		this.lowerChestInventory.closeInventory(playerIn);

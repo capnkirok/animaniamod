@@ -19,27 +19,27 @@ import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionResultHolderType;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemEntityEgg extends Item
+public class ItemEntityEgg extends RItem
 {
 
 	private String name = "entity_egg";
 	public AnimaniaType type;
 	public EntityGender gender;
 
-	public static Map<AnimalContainer, Item> ANIMAL_EGGS = new HashMap<AnimalContainer, Item>();
+	public static Map<AnimalContainer, RItem> ANIMAL_EGGS = new HashMap<AnimalContainer, RItem>();
 	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_PRIMARY = new HashMap<>();
 	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_SECONDARY = new HashMap<>();
 	public static Map<AnimalContainer, Boolean> ANIMAL_USES_COLOR = new HashMap<>();
@@ -60,14 +60,14 @@ public class ItemEntityEgg extends Item
 	}
 
 	@Override
-	public ActionResultType onItemUse(PlayerEntity playerIn, Level level, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public InteractionResultHolderType onItemUse(Player playerIn, Level level, BlockPos pos, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 
 		ItemStack stack = playerIn.getHeldItem(hand);
 
-		if (level.isRemote)
-			return ActionResultType.SUCCESS;
+		if (level.isClientSide)
+			return InteractionResultHolderType.SUCCESS;
 
 		LivingEntity entity = null;
 
@@ -106,11 +106,11 @@ public class ItemEntityEgg extends Item
 			}
 
 			AnimaniaHelper.spawnEntity(level, entity);
-			return ActionResultType.SUCCESS;
+			return InteractionResultHolderType.SUCCESS;
 
 		}
 
-		return ActionResultType.FAIL;
+		return InteractionResultHolderType.FAIL;
 	}
 
 	public AnimalContainer getAnimal()
@@ -132,7 +132,7 @@ public class ItemEntityEgg extends Item
 	@Override
 	public void addInformation(ItemStack stack, Level levelIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("item.animania_entity_egg.desc1") + " " + TextFormatting.DARK_GRAY + I18n.translateToLocal("item.animania_entity_egg.desc2"));
+		tooltip.add(ChatFormatting.GOLD + I18n.translateToLocal("item.animania_entity_egg.desc1") + " " + ChatFormatting.DARK_GRAY + I18n.translateToLocal("item.animania_entity_egg.desc2"));
 	}
 
 	@SideOnly(Dist.CLIENT)

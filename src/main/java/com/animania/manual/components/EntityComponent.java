@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -213,7 +213,7 @@ public class EntityComponent implements IManualComponent
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private int getBrightnessForRender(Entity entity, PlayerEntity player)
+	private int getBrightnessForRender(Entity entity, Player player)
 	{
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(player.getX()), 0, MathHelper.floor(player.getZ()));
 

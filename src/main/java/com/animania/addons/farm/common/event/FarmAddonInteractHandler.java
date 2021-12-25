@@ -76,7 +76,7 @@ public class FarmAddonInteractHandler
 	@SubscribeEvent
 	public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event)
 	{
-		PlayerEntity player = event.getPlayer();
+		Player player = event.getPlayer();
 		ItemStack stack = player.getMainHandItem();
 		Entity target = event.getTarget();
 
@@ -85,7 +85,7 @@ public class FarmAddonInteractHandler
 
 		if (stack.getItem() == FarmAddonItemHandler.carvingKnife && target instanceof ISterilizable && !((ISterilizable) target).getSterilized())
 		{
-			if (!target.level.isRemote)
+			if (!target.level.isClientSide)
 				((net.minecraft.world.LevelServer) target.level).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, false, target.getX(), target.getY() + target.height / 2.0F, target.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 			target.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			stack.damageItem(1, player);
@@ -94,9 +94,9 @@ public class FarmAddonInteractHandler
 	}
 
 	@SubscribeEvent
-	public static void missingMapping(RegistryEvent.MissingMappings<Item> event)
+	public static void missingMapping(RegistryEvent.MissingMappings<RItem> event)
 	{
-		for (MissingMappings.Mapping<Item> entry : event.getAllMappings())
+		for (MissingMappings.Mapping<RItem> entry : event.getAllMappings())
 		{
 
 			String key = entry.key.toString();

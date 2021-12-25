@@ -124,7 +124,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}

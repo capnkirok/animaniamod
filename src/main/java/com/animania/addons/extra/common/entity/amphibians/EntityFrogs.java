@@ -18,7 +18,7 @@ import com.animania.common.items.ItemEntityEgg;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
@@ -26,7 +26,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -60,7 +60,7 @@ public class EntityFrogs extends EntityAmphibian
 	{
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
-		if (this.level.isRemote)
+		if (this.level.isClientSide)
 			return null;
 
 		this.setFrogsType(this.rand.nextInt(2));
@@ -108,7 +108,7 @@ public class EntityFrogs extends EntityAmphibian
 		if (!this.getCustomNameTag().equals("Pepe"))
 		{
 			this.goalSelector.addGoal(1, new EntityAmphibian.AIPanic(this, 2.2D));
-			this.goalSelector.addGoal(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
+			this.goalSelector.addGoal(2, new AvoidEntityGoal<Player>(this, Player.class, 6.0F, 1.5D, 1.5D));
 		}
 		else if (this.getCustomNameTag().equals("Pepe"))
 		{
@@ -122,13 +122,13 @@ public class EntityFrogs extends EntityAmphibian
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}
-		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 10.0F));
 		this.goalSelector.addGoal(5, new WanderGoal(this, 0.6D));
 
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
@@ -203,7 +203,7 @@ public class EntityFrogs extends EntityAmphibian
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof PlayerEntity)
+		if (entityIn instanceof Player)
 		{
 			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 		}
@@ -237,8 +237,8 @@ public class EntityFrogs extends EntityAmphibian
 	{
 		// if (this.getCustomNameTag().equals("Pepe"))
 		// if (cause.getEntity() != null && cause.getEntity() instanceof
-		// PlayerEntity) {
-		// ((PlayerEntity)
+		// Player) {
+		// ((Player)
 		// cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
 		// AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
 		// }
@@ -259,7 +259,7 @@ public class EntityFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.FROG, EntityGender.NONE));
 	}

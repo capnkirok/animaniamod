@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -81,18 +83,18 @@ public class Animania
 		event.getRegistry().register(RegistrationHandler.itemTile);
 	}
 
-	public static final ItemGroup TabAnimaniaEntities = new ItemGroup("TabAnimaniaEntities") {
+	public static final CreativeModeTab TabAnimaniaEntities = new CreativeModeTab("TabAnimaniaEntities") {
 		@Override
 		public ItemStack makeIcon()
 		{
-			return new ItemStack();
+			return ItemStack.EMPTY;
 		}
 	};
-	public static final ItemGroup TabAnimaniaResources = new ItemGroup("TabAnimaniaResources") {
+	public static final CreativeModeTab TabAnimaniaResources = new CreativeModeTab("TabAnimaniaResources") {
 		@Override
 		public ItemStack makeIcon()
 		{
-			return new ItemStack();
+			return ItemStack.EMPTY;
 		}
 	};
 

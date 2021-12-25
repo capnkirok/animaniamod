@@ -14,8 +14,8 @@ import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -81,7 +81,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends Ta
 		{
 			return false;
 		}
-		else if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class)
+		else if (this.targetClass != Player.class && this.targetClass != ServerPlayer.class)
 		{
 			List<T> list = this.taskOwner.level.<T> getEntitiesWithinAABB(this.targetClass, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
 
@@ -98,10 +98,10 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends Ta
 		}
 		else
 		{
-			this.targetEntity = (T) this.taskOwner.level.getNearestAttackablePlayer(this.taskOwner.getX(), this.taskOwner.getY() + this.taskOwner.getEyeHeight(), this.taskOwner.getZ(), this.getTargetDistance(), this.getTargetDistance(), new Function<PlayerEntity, Double>() {
+			this.targetEntity = (T) this.taskOwner.level.getNearestAttackablePlayer(this.taskOwner.getX(), this.taskOwner.getY() + this.taskOwner.getEyeHeight(), this.taskOwner.getZ(), this.getTargetDistance(), this.getTargetDistance(), new Function<Player, Double>() {
 				@Override
 				@Nullable
-				public Double apply(@Nullable PlayerEntity p_apply_1_)
+				public Double apply(@Nullable Player p_apply_1_)
 				{
 					ItemStack itemstack = p_apply_1_.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
@@ -120,7 +120,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends Ta
 
 					return 1.0D;
 				}
-			}, (Predicate<PlayerEntity>) this.targetEntitySelector);
+			}, (Predicate<Player>) this.targetEntitySelector);
 			return this.targetEntity != null;
 		}
 	}

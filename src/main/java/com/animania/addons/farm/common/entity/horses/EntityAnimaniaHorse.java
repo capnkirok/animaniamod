@@ -35,7 +35,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -44,7 +44,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -82,8 +82,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	private ResourceLocation resourceLocationBlink;
 	protected EntityGender gender;
 	protected ContainerHorseCart cartChest;
-	protected Item dropRaw = Items.AIR;
-	protected Item dropCooked = Items.AIR;
+	protected RItem dropRaw = Items.AIR;
+	protected RItem dropCooked = Items.AIR;
 	protected boolean boosting;
 	protected int boostTime;
 	protected int totalBoostTime;
@@ -105,7 +105,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 		this.goalSelector.addGoal(4, new SwimmingGoal(this));
 		this.goalSelector.addGoal(5, new GenericAITempt<>(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(6, this.entityAIEatGrass);
-		this.goalSelector.addGoal(7, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(7, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(8, new LookIdleHorsesGoal(this));
 		this.goalSelector.addGoal(9, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
@@ -189,15 +189,15 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 
 			float f = 0.0F;
 			float f1 = (float) ((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
-			if (passenger instanceof PlayerEntity)
+			if (passenger instanceof Player)
 			{
 				f1 = (float) ((this.isDead ? 0.009999999776482582D : 1.6D) + passenger.getYOffset());
 			}
 
-			if (passenger instanceof PlayerEntity)
+			if (passenger instanceof Player)
 			{
 
-				PlayerEntity player = (PlayerEntity) passenger;
+				Player player = (Player) passenger;
 				List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, this.level, this);
 
 				if (!wagons.isEmpty())
@@ -450,7 +450,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 				this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(strafe, vertical / 8, forward);
 			}
-			else if (LivingEntity instanceof PlayerEntity)
+			else if (LivingEntity instanceof Player)
 			{
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
@@ -489,7 +489,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
 
@@ -523,7 +523,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 			super.handleStatusUpdate(id);
 	}
 
-	public void removeItem(PlayerEntity ep, ItemStack removeitem)
+	public void removeItem(Player ep, ItemStack removeitem)
 	{
 		IInventory inv = ep.inventory;
 		for (int i = 0; i < inv.getSizeInventory(); i++)
@@ -579,7 +579,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.horseType, this.gender));
 	}

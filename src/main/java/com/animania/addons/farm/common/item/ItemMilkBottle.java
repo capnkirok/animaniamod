@@ -11,15 +11,15 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.EnumAction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionResultHolder;
+import net.minecraft.util.InteractionResultHolderType;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -38,27 +38,27 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 	public ItemStack onItemUseFinish(ItemStack stack, Level levelIn, LivingEntity LivingEntity)
 	{
 
-		if (LivingEntity instanceof PlayerEntity)
+		if (LivingEntity instanceof Player)
 		{
-			PlayerEntity PlayerEntity = (PlayerEntity) LivingEntity;
-			PlayerEntity.clearActivePotions();
+			Player Player = (Player) LivingEntity;
+			Player.clearActivePotions();
 
-			if (!PlayerEntity.capabilities.isCreativeMode)
+			if (!Player.capabilities.isCreativeMode)
 			{
 
-				if (!levelIn.isRemote)
+				if (!levelIn.isClientSide)
 				{
 					EntityItem entityitem = new EntityItem(levelIn, LivingEntity.getX() + 0.5D, LivingEntity.getY() + 0.5D, LivingEntity.getZ() + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
 					AnimaniaHelper.spawnEntity(levelIn, entityitem);
 				}
 
-				if (PlayerEntity.getFoodStats() != null)
+				if (Player.getFoodStats() != null)
 				{
-					PlayerEntity.getFoodStats().addStats(this, stack);
+					Player.getFoodStats().addStats(this, stack);
 				}
-				levelIn.playSound((PlayerEntity) null, PlayerEntity.getX(), PlayerEntity.getY(), PlayerEntity.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, levelIn.rand.nextFloat() * 0.1F + 0.9F);
-				this.onFoodEaten(stack, levelIn, PlayerEntity);
-				PlayerEntity.addStat(StatList.getObjectUseStats(this));
+				levelIn.playSound((Player) null, Player.getX(), Player.getY(), Player.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, levelIn.rand.nextFloat() * 0.1F + 0.9F);
+				this.onFoodEaten(stack, levelIn, Player);
+				Player.addStat(StatList.getObjectUseStats(this));
 				stack.shrink(1);
 			}
 		}
@@ -66,14 +66,14 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 		return stack;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, Level levelIn, PlayerEntity playerIn, EnumHand hand)
+	public InteractionResultHolder<ItemStack> onItemRightClick(ItemStack itemStackIn, Level levelIn, Player playerIn, InteractionHand hand)
 	{
 		playerIn.setActiveHand(hand);
-		return new ActionResult(ActionResultType.SUCCESS, itemStackIn);
+		return new InteractionResultHolder(InteractionResultHolderType.SUCCESS, itemStackIn);
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack itemstack, Level levelObj, PlayerEntity PlayerEntity)
+	protected void onFoodEaten(ItemStack itemstack, Level levelObj, Player Player)
 	{
 
 	}
@@ -88,10 +88,10 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 	@Override
 	public void addInformation(ItemStack stack, Level levelIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
+		tooltip.add(ChatFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
 
 		if (AnimaniaConfig.gameRules.eatFoodAnytime)
-			tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+			tooltip.add(ChatFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
 }

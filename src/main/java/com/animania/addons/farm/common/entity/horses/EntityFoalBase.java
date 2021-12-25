@@ -14,7 +14,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
@@ -25,7 +25,7 @@ import net.minecraft.sounds.SoundEvents;
 public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProviderBase, IChild
 {
 	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.<Integer> defineId(EntityFoalBase.class, EntityEntityDataSerializers.INT);
-	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(Items.WHEAT, Items.APPLE, Items.CARROT);
+	private static final Set<RItem> TEMPTATION_ITEMS = Sets.newHashSet(Items.WHEAT, Items.APPLE, Items.CARROT);
 	private static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final EntityDataAccessor<Float> AGE = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
@@ -64,7 +64,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}

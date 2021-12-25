@@ -70,6 +70,6 @@ public abstract class AnimatedEntityBase extends Entity implements IAnimated
 	@Override
 	public boolean isLevelRemote()
 	{
-		return this.level.isRemote;
+		return this.level.isClientSide;
 	}
 }

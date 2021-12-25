@@ -19,7 +19,7 @@ public abstract class AnimaniaContainer extends BaseEntityBlock
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 
 		BlockHandler.blocks.add(this);
-		Item item = new BlockItem(this);
+		RItem item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		ForgeRegistries.ITEMS.register(item);
 	}
@@ -33,7 +33,7 @@ public abstract class AnimaniaContainer extends BaseEntityBlock
 		BlockHandler.blocks.add(this);
 		if (BlockItem)
 		{
-			Item item = new BlockItem(this);
+			RItem item = new BlockItem(this);
 			item.setRegistryName(new ResourceLocation(Animania.MODID, name));
 			ForgeRegistries.ITEMS.register(item);
 		}

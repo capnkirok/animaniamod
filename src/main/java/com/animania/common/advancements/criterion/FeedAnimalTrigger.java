@@ -18,7 +18,7 @@ import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.world.item.ItemStack;
@@ -156,7 +156,7 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 
 	}
 
-	public void trigger(ServerPlayerEntity player, ItemStack item, EntityEntry entry, Entity entity)
+	public void trigger(ServerPlayer player, ItemStack item, EntityEntry entry, Entity entity)
 	{
 		FeedAnimalTrigger.Listeners enterblocktrigger$listeners = this.listeners.get(player.getAdvancements());
 

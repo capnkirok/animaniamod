@@ -20,11 +20,11 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
 
@@ -143,19 +143,19 @@ public class PigEntityletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (this.getPlayed())
-			probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.played"));
+			probeInfo.text(ChatFormatting.GREEN + I18n.translateToLocal("text.waila.played"));
 		else
-			probeInfo.text(TextFormatting.YELLOW + I18n.translateToLocal("text.waila.bored"));
+			probeInfo.text(ChatFormatting.YELLOW + I18n.translateToLocal("text.waila.bored"));
 
 		TOPInfoProviderChild.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}

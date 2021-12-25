@@ -11,7 +11,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -37,7 +37,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 		this.setHardness(1.2f);
 		this.setResistance(1.7f);
 		this.hasTileEntity = true;
-		Item item = new ItemSaltLick(this);
+		RItem item = new ItemSaltLick(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "salt_lick"));
 
 		ForgeRegistries.ITEMS.register(item);
@@ -64,7 +64,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 
 	@Override
-	public void harvestBlock(Level levelIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack)
+	public void harvestBlock(Level levelIn, Player player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack)
 	{
 		if (te instanceof TileEntitySaltLick)
 		{
@@ -76,7 +76,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 
 	@Override
-	public Item getItemDropped(BlockState state, Random rand, int fortune)
+	public RItem getItemDropped(BlockState state, Random rand, int fortune)
 	{
 		return Items.AIR;
 	}

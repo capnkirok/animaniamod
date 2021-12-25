@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -29,7 +29,7 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 	@Override
 	public void renderByItem(ItemStack stack, float partialTicks)
 	{
-		PlayerEntity player = Minecraft.getMinecraft().player;
+		Player player = Minecraft.getMinecraft().player;
 		Minecraft mc = Minecraft.getMinecraft();
 
 		Entity entity = ItemEntityEggAnimated.getEntity(player.level, stack);
@@ -178,7 +178,7 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private int getBrightnessForRender(Entity entity, PlayerEntity player)
+	private int getBrightnessForRender(Entity entity, Player player)
 	{
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(player.getX()), 0, MathHelper.floor(player.getZ()));
 

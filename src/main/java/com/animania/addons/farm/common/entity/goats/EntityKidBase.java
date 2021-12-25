@@ -125,7 +125,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}

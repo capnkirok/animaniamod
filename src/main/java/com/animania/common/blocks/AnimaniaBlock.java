@@ -18,7 +18,7 @@ public abstract class AnimaniaBlock extends Block
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 
 		BlockHandler.blocks.add(this);
-		Item item = new BlockItem(this);
+		RItem item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		ForgeRegistries.ITEMS.register(item);
 	}
@@ -32,7 +32,7 @@ public abstract class AnimaniaBlock extends Block
 		BlockHandler.blocks.add(this);
 		if (BlockItem)
 		{
-			Item item = new BlockItem(this);
+			RItem item = new BlockItem(this);
 			item.setRegistryName(new ResourceLocation(Animania.MODID, name));
 			ForgeRegistries.ITEMS.register(item);
 		}

@@ -10,13 +10,13 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemHamsterBall extends Item
+public class ItemHamsterBall extends RItem
 {
 	private String name;
 
@@ -57,8 +57,8 @@ public class ItemHamsterBall extends Item
 	@Override
 	public void addInformation(ItemStack stack, Level levelIn, List<String> list, ITooltipFlag flagIn)
 	{
-		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball1"));
-		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball2"));
+		list.add(ChatFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball1"));
+		list.add(ChatFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball2"));
 	}
 
 	@SideOnly(Dist.CLIENT)

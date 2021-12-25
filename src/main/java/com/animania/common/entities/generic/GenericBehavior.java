@@ -25,10 +25,10 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -44,7 +44,7 @@ public class GenericBehavior
 
 	public static <T extends AnimalEntity & IFoodEating & ISleeping & IAgeable & IBlinking> void livingUpdateCommon(T entity)
 	{
-		if (entity.level.isRemote)
+		if (entity.level.isClientSide)
 			entity.setEatTimer(Math.max(0, entity.getEatTimer() - 1));
 
 		if (entity.getLeashed() && entity.getSleeping())
@@ -170,7 +170,7 @@ public class GenericBehavior
 			age = age + .01F;
 			entity.setEntityAge(age);
 
-			if (age >= 0.85 && !entity.level.isRemote)
+			if (age >= 0.85 && !entity.level.isClientSide)
 			{
 				entity.setDead();
 
@@ -326,7 +326,7 @@ public class GenericBehavior
 					if (entityKid instanceof IFoodEating)
 						((IFoodEating) entityKid).setInteracted(entity.getInteracted());
 
-					if (!level.isRemote)
+					if (!level.isClientSide)
 					{
 						AnimaniaHelper.spawnEntity(level, entityKid);
 					}
@@ -347,7 +347,7 @@ public class GenericBehavior
 		}
 	}
 
-	public static <T extends AnimalEntity & IFoodEating & ISleeping> boolean interactCommon(T entity, PlayerEntity player, EnumHand hand, @Nullable GenericAIEatGrass<T> eatAI)
+	public static <T extends AnimalEntity & IFoodEating & ISleeping> boolean interactCommon(T entity, Player player, InteractionHand hand, @Nullable GenericAIEatGrass<T> eatAI)
 	{
 		if (!entity.getInteracted())
 			entity.setInteracted(true);
@@ -423,7 +423,7 @@ public class GenericBehavior
 
 	public static <T extends AnimalEntity & IFoodEating & ISleeping & IImpregnable & IAnimaniaAnimal> void initialSpawnFemale(T entity, Class<? extends LivingEntity> baseClass)
 	{
-		if (entity.level.isRemote)
+		if (entity.level.isClientSide)
 			return;
 
 		int chooser = rand.nextInt(3);

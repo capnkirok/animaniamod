@@ -14,7 +14,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.SyntaxErrorException;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
 
 public class AnimaniaCommand extends CommandBase
@@ -44,7 +44,7 @@ public class AnimaniaCommand extends CommandBase
 	{
 		if (args.length > 0 && args[0].toLowerCase().equals("tovanilla"))
 		{
-			if (sender instanceof PlayerEntity)
+			if (sender instanceof Player)
 			{
 				if (servers.containsKey(server))
 				{

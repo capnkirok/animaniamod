@@ -19,7 +19,7 @@ public class PigFoodIngredient extends Ingredient
 
 	public static ItemStack[] getStacks()
 	{
-		Item[] items = AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.slopIngredients);
+		RItem[] items = AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.slopIngredients);
 		ItemStack[] stacks = new ItemStack[items.length];
 
 		for (int i = 0; i < items.length; i++)

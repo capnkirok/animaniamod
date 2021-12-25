@@ -81,7 +81,7 @@ public class FarmAddonSpawnHandler
 
 		LivingEntity replacementEntity = null;
 
-		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(Cow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !levelIn.isRemote)
+		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(Cow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !levelIn.isClientSide)
 		{
 			if (!event.getEntity().hasCustomName())
 			{
@@ -179,7 +179,7 @@ public class FarmAddonSpawnHandler
 			}
 
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaPigs && event.getEntity().getClass().equals(PigEntity.class) && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaPigs && event.getEntity().getClass().equals(PigEntity.class) && !levelIn.isClientSide)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -254,7 +254,7 @@ public class FarmAddonSpawnHandler
 
 		}
 
-		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaChickens && event.getEntity().getClass().equals(ChickenEntity.class) && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaChickens && event.getEntity().getClass().equals(ChickenEntity.class) && !levelIn.isClientSide)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -331,7 +331,7 @@ public class FarmAddonSpawnHandler
 
 		}
 
-		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaSheep && event.getEntity().getClass().equals(SheepEntity.class) && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaSheep && event.getEntity().getClass().equals(SheepEntity.class) && !levelIn.isClientSide)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -419,7 +419,7 @@ public class FarmAddonSpawnHandler
 			}
 
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !levelIn.isClientSide)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -428,7 +428,7 @@ public class FarmAddonSpawnHandler
 			}
 
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !levelIn.isClientSide)
 		{
 
 			boolean toggler = Animania.RANDOM.nextBoolean();
@@ -470,7 +470,7 @@ public class FarmAddonSpawnHandler
 		Level levelIn = event.getLevel();
 		Biome biome = event.getLevel().getBiome(pos);
 
-		if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaCows && event.getEntity() instanceof EntityAnimaniaCow && !levelIn.isRemote)
+		if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaCows && event.getEntity() instanceof EntityAnimaniaCow && !levelIn.isClientSide)
 		{
 			List<EntityAnimaniaCow> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitCows)
@@ -479,7 +479,7 @@ public class FarmAddonSpawnHandler
 				// System.out.println("Cow Denied Existence!");
 			}
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaPigs && event.getEntity() instanceof EntityAnimaniaPig && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaPigs && event.getEntity() instanceof EntityAnimaniaPig && !levelIn.isClientSide)
 		{
 			List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitPigs)
@@ -488,7 +488,7 @@ public class FarmAddonSpawnHandler
 				// System.out.println("Pig Denied Existence!");
 			}
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaChickens && event.getEntity() instanceof EntityAnimaniaChicken && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaChickens && event.getEntity() instanceof EntityAnimaniaChicken && !levelIn.isClientSide)
 		{
 			List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitChickens)
@@ -497,7 +497,7 @@ public class FarmAddonSpawnHandler
 				// System.out.println("Chicken Denied Existence!");
 			}
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaSheep && event.getEntity() instanceof EntityAnimaniaSheep && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaSheep && event.getEntity() instanceof EntityAnimaniaSheep && !levelIn.isClientSide)
 		{
 			List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitSheep)
@@ -506,7 +506,7 @@ public class FarmAddonSpawnHandler
 				// System.out.println("Sheep Denied Existence!");
 			}
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaGoats && event.getEntity() instanceof EntityAnimaniaGoat && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaGoats && event.getEntity() instanceof EntityAnimaniaGoat && !levelIn.isClientSide)
 		{
 			List<EntityAnimaniaGoat> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaGoat.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitGoats)
@@ -515,7 +515,7 @@ public class FarmAddonSpawnHandler
 				// System.out.println("Goats Denied Existence!");
 			}
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity() instanceof EntityAnimaniaHorse && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity() instanceof EntityAnimaniaHorse && !levelIn.isClientSide)
 		{
 			List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitHorses)
@@ -524,7 +524,7 @@ public class FarmAddonSpawnHandler
 				// System.out.println("Horse Denied Existence!");
 			}
 		}
-		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity() instanceof EntityAnimaniaHorse && !levelIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity() instanceof EntityAnimaniaHorse && !levelIn.isClientSide)
 		{
 			List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitHorses)

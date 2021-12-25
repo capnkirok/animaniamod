@@ -62,14 +62,14 @@ public class FarmAddonBlockHandler
 		blockCheeseGoat = new BlockCheese("cheese_goat");
 		blockCheeseSheep = new BlockCheese("cheese_sheep");
 
-		cheeseWheelFriesian = Item.byBlock(blockCheeseFriesian);
-		cheeseWheelHolstein = Item.byBlock(blockCheeseHolstein);
-		cheeseWheelJersey = Item.byBlock(blockCheeseJersey);
-		cheeseWheelGoat = Item.byBlock(blockCheeseGoat);
-		cheeseWheelSheep = Item.byBlock(blockCheeseSheep);
+		cheeseWheelFriesian = RItem.byBlock(blockCheeseFriesian);
+		cheeseWheelHolstein = RItem.byBlock(blockCheeseHolstein);
+		cheeseWheelJersey = RItem.byBlock(blockCheeseJersey);
+		cheeseWheelGoat = RItem.byBlock(blockCheeseGoat);
+		cheeseWheelSheep = RItem.byBlock(blockCheeseSheep);
 
 		blockCheeseMold = new BlockCheeseMold();
-		cheeseMold = Item.byBlock(blockCheeseMold);
+		cheeseMold = RItem.byBlock(blockCheeseMold);
 		blockAnimaniaWool = new BlockAnimaniaWool();
 		blockHive = new BlockHive();
 		blockWildHive = new BlockWildHive();

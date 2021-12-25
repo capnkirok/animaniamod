@@ -23,7 +23,7 @@ public class BlockWildHive extends BlockHive
 		this.setHardness(1.3f);
 		this.setResistance(0.3f);
 		BlockHandler.blocks.add(this);
-		Item item = new BlockItem(this);
+		RItem item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "wild_hive"));
 		ForgeRegistries.ITEMS.register(item);
 	}

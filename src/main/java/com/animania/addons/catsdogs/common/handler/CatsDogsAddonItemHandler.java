@@ -8,8 +8,8 @@ import com.animania.common.items.ItemEntityEgg;
 public class CatsDogsAddonItemHandler
 {
 
-	public static Item entityeggrandomdog;
-	public static Item entityeggrandomcat;
+	public static RItem entityeggrandomdog;
+	public static RItem entityeggrandomcat;
 
 	/**
 	 * Register Items

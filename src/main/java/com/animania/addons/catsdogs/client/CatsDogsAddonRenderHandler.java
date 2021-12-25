@@ -247,7 +247,7 @@ public class CatsDogsAddonRenderHandler
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static void register(Item item)
+	private static void register(RItem item)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 	}
@@ -255,18 +255,18 @@ public class CatsDogsAddonRenderHandler
 	@SideOnly(Dist.CLIENT)
 	private static void register(Block block)
 	{
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(RItem.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static void register(Item item, String name, int meta)
+	private static void register(RItem item, String name, int meta)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name, "inventory"));
 	}
 
 	@SideOnly(Dist.CLIENT)
 
-	private static void registerColored(Item item, String name)
+	private static void registerColored(RItem item, String name)
 	{
 		for (int meta = 0; meta < 16; meta++)
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));

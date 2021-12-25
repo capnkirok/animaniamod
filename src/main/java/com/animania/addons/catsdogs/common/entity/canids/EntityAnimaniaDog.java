@@ -38,14 +38,14 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
@@ -117,7 +117,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 		this.goalSelector.addGoal(8, new GenericAIPanic<>(this, 1.5D));
 		this.goalSelector.addGoal(10, new GenericAITempt<>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
 		this.goalSelector.addGoal(12, new GenericAIWanderAvoidWater(this, 1.2D));
-		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(14, new GenericAILookIdle<>(this));
 		this.targetTasks.addTask(1, new GenericAIOwnerHurtByTarget(this));
 		this.targetTasks.addTask(2, new GenericAIOwnerHurtTarget(this));
@@ -208,7 +208,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -251,7 +251,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		return GenericBehavior.interactCommon(this, player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
@@ -331,13 +331,13 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}
 
 	@Override
-	public boolean canBeLeashedTo(PlayerEntity player)
+	public boolean canBeLeashedTo(Player player)
 	{
 		return true;
 	}
@@ -375,7 +375,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
 	}

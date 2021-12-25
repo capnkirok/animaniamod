@@ -13,11 +13,11 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
@@ -46,7 +46,7 @@ public class BlockCheese extends Block
 		this.setSoundType(SoundType.CLOTH);
 		this.setHardness(0.6f);
 		BlockHandler.blocks.add(this);
-		Item item = new BlockItem(this);
+		RItem item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, name.substring(7) + "_cheese_wheel"));
 
 		ForgeRegistries.ITEMS.register(item);
@@ -73,15 +73,15 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, Player player)
 	{
 		return new ItemStack(this);
 	}
 
 	@Override
-	public Item getItemDropped(BlockState state, Random rand, int fortune)
+	public RItem getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		return Item.getItemFromBlock(this);
+		return RItem.getItemFromBlock(this);
 	}
 
 	@Override
@@ -97,9 +97,9 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, Player playerIn, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
-		if (!levelIn.isRemote)
+		if (!levelIn.isClientSide)
 		{
 			return this.eatCheese(levelIn, pos, state, playerIn);
 		}
@@ -110,7 +110,7 @@ public class BlockCheese extends Block
 		}
 	}
 
-	private boolean eatCheese(Level levelIn, BlockPos pos, BlockState state, PlayerEntity player)
+	private boolean eatCheese(Level levelIn, BlockPos pos, BlockState state, Player player)
 	{
 		if (!player.canEat(false))
 		{
@@ -118,7 +118,7 @@ public class BlockCheese extends Block
 		}
 		else
 		{
-			if (!levelIn.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
+			if (!levelIn.isClientSide && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 			{
 				if (this == FarmAddonBlockHandler.blockCheeseFriesian)
 					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));

@@ -12,7 +12,7 @@ import com.animania.manual.resources.ManualResourceLoader;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.PlayerEntitySP;
+import net.minecraft.client.entity.LocalPlayer;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -44,7 +44,7 @@ public class CarryRenderer
 	{
 
 		Level level = Minecraft.getMinecraft().level;
-		PlayerEntity player = Minecraft.getMinecraft().player;
+		Player player = Minecraft.getMinecraft().player;
 		AbstractClientPlayer aplayer = (AbstractClientPlayer) player;
 		ItemStack stack = player.getMainHandItem();
 		int perspective = Minecraft.getMinecraft().gameSettings.thirdPersonView;
@@ -112,9 +112,9 @@ public class CarryRenderer
 	public static void onPlayerRenderPost(RenderPlayerEvent.Post event)
 	{
 		Level level = Minecraft.getMinecraft().level;
-		PlayerEntity player = event.getPlayer();
+		Player player = event.getPlayer();
 		ModelPlayer modelPlayer = event.getRenderer().getMainModel();
-		PlayerEntitySP clientPlayer = Minecraft.getMinecraft().player;
+		LocalPlayer clientPlayer = Minecraft.getMinecraft().player;
 		ItemStack stack = player.getMainHandItem();
 		float partialticks = event.getPartialRenderTick();
 		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
@@ -176,7 +176,7 @@ public class CarryRenderer
 	@SideOnly(Dist.CLIENT)
 	public static void onModelBake(ModelBakeEvent event)
 	{
-		for (Item item : ItemHandler.entityEggList)
+		for (RItem item : ItemHandler.entityEggList)
 		{
 			if (item instanceof ItemEntityEggAnimated)
 			{
@@ -193,7 +193,7 @@ public class CarryRenderer
 	@SideOnly(Dist.CLIENT)
 	public static void onModelRegistryReady(ModelRegistryEvent event)
 	{
-		for (Item item : ItemHandler.entityEggList)
+		for (RItem item : ItemHandler.entityEggList)
 		{
 			if (item instanceof ItemEntityEggAnimated)
 			{

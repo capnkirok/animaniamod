@@ -23,7 +23,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.JsonToNBT;
@@ -36,14 +36,14 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidInteractionResultHolder;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.network.NetworkRegistry;
@@ -72,7 +72,7 @@ public class AnimaniaHelper
 			metaFlag = true;
 		}
 
-		Item item = Item.getByNameOrId(name);
+		RItem item = RItem.getByNameOrId(name);
 
 		if (item != null)
 		{
@@ -132,7 +132,7 @@ public class AnimaniaHelper
 
 	public static void sendTileEntityUpdate(TileEntity tile)
 	{
-		if (tile != null && tile.getLevel() != null && !tile.getLevel().isRemote)
+		if (tile != null && tile.getLevel() != null && !tile.getLevel().isClientSide)
 		{
 			CompoundTag compound = new CompoundTag();
 			compound = tile.writeToNBT(compound);
@@ -151,7 +151,7 @@ public class AnimaniaHelper
 	{
 		String itemName = JsonUtils.getString(json, "item");
 
-		Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
+		RItem item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
 
 		if (item == null)
 			throw new JsonSyntaxException("Unknown item '" + itemName + "'");
@@ -194,7 +194,7 @@ public class AnimaniaHelper
 		return new ItemStack(item, JsonUtils.getInt(json, "count", 1), JsonUtils.getInt(json, "data", 0));
 	}
 
-	public static void addItem(PlayerEntity player, ItemStack stack)
+	public static void addItem(Player player, ItemStack stack)
 	{
 		if (!player.inventory.addItemStackToInventory(stack))
 			player.dropItem(stack, false);
@@ -224,7 +224,7 @@ public class AnimaniaHelper
 		return level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
 	}
 
-	public static RayTraceResult rayTrace(PlayerEntity player, double blockReachDistance)
+	public static RayTraceResult rayTrace(Player player, double blockReachDistance)
 	{
 		Vec3d vec3d = player.getPositionEyes(1f);
 		Vec3d vec3d1 = player.getLook(1f);
@@ -251,7 +251,7 @@ public class AnimaniaHelper
 	{
 		ItemStack copy = stack.copy();
 		copy.setCount(1);
-		FluidActionResult result = FluidUtil.tryEmptyContainer(copy, FluidUtil.getFluidHandler(new ItemStack(Items.BUCKET)), 1000, null, true);
+		FluidInteractionResultHolder result = FluidUtil.tryEmptyContainer(copy, FluidUtil.getFluidHandler(new ItemStack(Items.BUCKET)), 1000, null, true);
 		return result.result;
 	}
 
@@ -265,12 +265,12 @@ public class AnimaniaHelper
 		return false;
 	}
 
-	public static Item[] getItemArray(String[] names)
+	public static RItem[] getItemArray(String[] names)
 	{
-		ArrayList<Item> list = new ArrayList<Item>();
+		ArrayList<RItem> list = new ArrayList<RItem>();
 		for (String name : names)
 		{
-			Item i = StringParser.getItem(name);
+			RItem i = StringParser.getItem(name);
 			if (i != null)
 			{
 				list.add(i);
@@ -286,7 +286,7 @@ public class AnimaniaHelper
 			}
 		}
 
-		return list.toArray(new Item[list.size()]);
+		return list.toArray(new RItem[list.size()]);
 	}
 
 	public static ItemStack[] getItemStackArray(String[] names)
@@ -330,7 +330,7 @@ public class AnimaniaHelper
 		String result = s;
 		for (String ss : split)
 		{
-			String stripped = TextFormatting.getTextWithoutFormattingCodes(ss);
+			String stripped = ChatFormatting.getTextWithoutFormattingCodes(ss);
 			String translated = I18n.translateToLocal(stripped);
 			result = result.replace(stripped, translated);
 		}
@@ -453,11 +453,11 @@ public class AnimaniaHelper
 				for (int k = 0; k < entries.size(); k++)
 				{
 					String name = entries.get(k).getAsJsonObject().get("name").getAsString();
-					Item item = Item.getByNameOrId(name);
+					RItem item = RItem.getByNameOrId(name);
 					if (item != null)
 					{
 						ItemStack stack = new ItemStack(item);
-						if (item == Item.getItemFromBlock(Blocks.WOOL))
+						if (item == RItem.getItemFromBlock(Blocks.WOOL))
 							stack = addTooltipToStack(stack, I18n.translateToLocal("manual.blocks.wool.colored"));
 						stacks.add(stack);
 					}
@@ -477,7 +477,7 @@ public class AnimaniaHelper
 		CompoundTag tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundTag();
 		CompoundTag display = new CompoundTag();
 		NBTTagList lore = new NBTTagList();
-		lore.appendTag(new NBTTagString(TextFormatting.GRAY + tooltip));
+		lore.appendTag(new NBTTagString(ChatFormatting.GRAY + tooltip));
 		display.putTag("Lore", lore);
 		tag.putTag("display", display);
 		stack.putTagCompound(tag);
@@ -512,7 +512,7 @@ public class AnimaniaHelper
 	 */
 	public static boolean spawnEntity(Level level, Entity entity)
 	{
-		if (!level.isRemote)
+		if (!level.isClientSide)
 		{
 			LevelServer ws = (LevelServer) level;
 			while (ws.getEntityFromUuid(entity.getUniqueID()) != null)

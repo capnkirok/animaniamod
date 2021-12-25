@@ -42,7 +42,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.monster.SilverfishEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -51,16 +51,20 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.network.NetworkRegistry;
@@ -131,7 +135,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		this.goalSelector.addGoal(10, new GenericAIPanic<>(this, 1.5D));
 		this.goalSelector.addGoal(11, new GenericAIFollowOwner<>(this, 1.0D, 10.0F, 2.0F));
 		this.goalSelector.addGoal(13, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.goalSelector.addGoal(14, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(14, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(15, new GenericAILookIdle<>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -177,7 +181,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -284,13 +288,13 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.5F);
 	}
 
-	private boolean interactRide(PlayerEntity PlayerEntity)
+	private boolean interactRide(Player Player)
 	{
-		this.isRemoteMountEntity(PlayerEntity);
+		this.isClientSideMountEntity(Player);
 		return true;
 	}
 
-	private void isRemoteMountEntity(Entity par1Entity)
+	private void isClientSideMountEntity(Entity par1Entity)
 	{
 
 		if (this.isHedgehogRiding())
@@ -305,10 +309,10 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && !this.getSleeping())
 		{
@@ -319,8 +323,8 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 				props.setCarrying(true);
 				props.setType(EntityList.getKey(this).getResourcePath());
 				this.setDead();
-				player.swingArm(EnumHand.MAIN_HAND);
-				if (!player.level.isRemote)
+				player.swingArm(InteractionHand.MAIN_HAND);
+				if (!player.level.isClientSide)
 					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.level.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 				return true;
 			}
@@ -343,7 +347,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof PlayerEntity)
+		if (entityIn instanceof Player)
 			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 
 		return flag;

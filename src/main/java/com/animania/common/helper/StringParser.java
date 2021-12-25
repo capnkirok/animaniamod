@@ -77,7 +77,7 @@ public class StringParser
 	}
 
 	@Nullable
-	public static Item getItem(String string)
+	public static RItem getItem(String string)
 	{
 		CompoundTag tag = getTagCompound(string);
 		if (tag != null)
@@ -86,12 +86,12 @@ public class StringParser
 		if (string.contains("#"))
 			string = string.replace(string.substring(string.indexOf("#")), "");
 
-		return Item.getByNameOrId(string);
+		return RItem.getByNameOrId(string);
 	}
 
 	public static ItemStack getItemStack(String string)
 	{
-		Item item = getItem(string);
+		RItem item = getItem(string);
 
 		if (item == null)
 			return ItemStack.EMPTY;

@@ -16,7 +16,7 @@ import com.google.common.base.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -67,7 +67,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -109,7 +109,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}
@@ -148,7 +148,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	private boolean isCowBreedingItem(ItemStack itemIn)
 	{
-		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER);
+		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override

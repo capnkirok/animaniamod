@@ -25,7 +25,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
@@ -83,7 +83,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		if (!this.getFighting() && !this.getSleeping())
 		{
@@ -133,7 +133,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 				this.applyEnchantments(this, entityIn);
 
 			// Custom Knockback
-			if (entityIn instanceof PlayerEntity)
+			if (entityIn instanceof Player)
 				((LivingEntity) entityIn).knockBack(this, 1, (this.getX() - entityIn.getX()) / 2, (this.getZ() - entityIn.getZ()) / 2);
 		}
 
@@ -210,7 +210,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking() && this.getMateUniqueId() != null)
 			probeInfo.text(I18n.translateToLocal("text.waila.mated"));

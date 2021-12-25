@@ -14,7 +14,7 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
@@ -64,7 +64,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 		AddonInjectionHandler.runInjection("extra", "eatFrogs", null, entityIn, this);
 
 		// Custom Knockback
-		if (entityIn instanceof PlayerEntity)
+		if (entityIn instanceof Player)
 			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 
 		int i = 0b0011;

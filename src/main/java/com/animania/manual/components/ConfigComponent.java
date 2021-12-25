@@ -5,7 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 
 public class ConfigComponent implements IManualComponent
 {
@@ -51,7 +51,7 @@ public class ConfigComponent implements IManualComponent
 	{
 		boolean isBool = this.text.equalsIgnoreCase("true") || this.text.equalsIgnoreCase("false");
 
-		this.mc.font.drawString((isBool ? Boolean.parseBoolean(this.text) ? TextFormatting.GREEN : TextFormatting.RED : TextFormatting.DARK_PURPLE) + this.text, this.absoluteX + this.manual.guiLeft, this.absoluteY + this.manual.guiTop, 0);
+		this.mc.font.drawString((isBool ? Boolean.parseBoolean(this.text) ? ChatFormatting.GREEN : ChatFormatting.RED : ChatFormatting.DARK_PURPLE) + this.text, this.absoluteX + this.manual.guiLeft, this.absoluteY + this.manual.guiTop, 0);
 	}
 
 	@Override

@@ -1,8 +1,8 @@
 package com.animania.addons.extra.common.capabilities;
 
 import NBTBase;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTBase;
 import net.minecraftforge.common.capabilities.Capability;
@@ -38,9 +38,9 @@ public class CapabilityPlayerHandler
 		}
 	}
 
-	public static void onUpdate(PlayerEntity player)
+	public static void onUpdate(Player player)
 	{
-		if (!(player instanceof ServerPlayerEntity))
+		if (!(player instanceof ServerPlayer))
 			return;
 		final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 
@@ -48,7 +48,7 @@ public class CapabilityPlayerHandler
 
 	}
 
-	public static void processNBTData(PlayerEntity player, CompoundTag nbt)
+	public static void processNBTData(Player player, CompoundTag nbt)
 	{
 		ICapabilityPlayer instance = CapabilityRefs.getPlayerCaps(player);
 		if (instance == null)

@@ -103,7 +103,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}

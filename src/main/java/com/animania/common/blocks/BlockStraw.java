@@ -13,7 +13,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
@@ -51,7 +51,7 @@ public class BlockStraw extends Block
 		this.setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);
 
-		Item item = new BlockItem(this);
+		RItem item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 
 		ForgeRegistries.ITEMS.register(item);
@@ -107,9 +107,9 @@ public class BlockStraw extends Block
 
 	@Override
 	@Nullable
-	public Item getItemDropped(BlockState state, Random rand, int fortune)
+	public RItem getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		return Item.getItemFromBlock(BlockHandler.blockStraw);
+		return RItem.getItemFromBlock(BlockHandler.blockStraw);
 	}
 
 	@Override
@@ -174,7 +174,7 @@ public class BlockStraw extends Block
 	}
 
 	@Override
-	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, Player player)
 	{
 		switch (state.getValue(VARIANT))
 		{

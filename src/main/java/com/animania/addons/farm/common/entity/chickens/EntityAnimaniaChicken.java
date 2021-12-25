@@ -32,14 +32,14 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -90,7 +90,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 
 		this.goalSelector.addGoal(4, new GenericAITempt<>(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(6, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.goalSelector.addGoal(7, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(7, new WatchClosestFromSideGoal(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -117,7 +117,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -128,7 +128,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		return GenericBehavior.interactCommon(this, player, hand, null) ? true : super.processInteract(player, hand);
 	}
@@ -209,7 +209,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 
 		this.fallDistance = 0;
 
-		if (!this.level.isRemote && !this.isChild() && AnimaniaConfig.gameRules.birdsDropFeathers && !this.isChickenJockey() && --this.featherTimer <= 0)
+		if (!this.level.isClientSide && !this.isChild() && AnimaniaConfig.gameRules.birdsDropFeathers && !this.isChickenJockey() && --this.featherTimer <= 0)
 		{
 			this.playSound(FarmAddonSoundHandler.chickenCluck2, 0.5F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 			this.dropItem(Items.FEATHER, 1);
@@ -284,7 +284,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	{
 		if (!this.isSilent() && !this.getSleeping())
 		{
-			this.level.playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), soundIn, this.getSoundCategory(), volume, pitch);
+			this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(), soundIn, this.getSoundCategory(), volume, pitch);
 		}
 	}
 
@@ -298,7 +298,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	 * Get the experience points the entity currently has.
 	 */
 	@Override
-	protected int getExperiencePoints(PlayerEntity player)
+	protected int getExperiencePoints(Player player)
 	{
 		return this.isChickenJockey() ? 10 : super.getExperiencePoints(player);
 	}
@@ -342,7 +342,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
 	}

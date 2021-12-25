@@ -55,7 +55,7 @@ public class CatsDogsVillagerProfessions
 		event.getRegistry().register(petSeller);
 	}
 
-	private static ListItemForEmeralds t(Item i, int a, int b)
+	private static ListItemForEmeralds t(RItem i, int a, int b)
 	{
 		PriceInfo p = new PriceInfo(a, b);
 		return new ListItemForEmeralds(i, p);

@@ -5,8 +5,8 @@ import com.animania.addons.farm.common.entity.cows.EntityBullBase;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.entity.player.Player;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -69,7 +69,7 @@ public class AttackMeleeBullsGoal extends Goal
 	public boolean shouldContinueExecuting()
 	{
 		LivingEntity LivingEntity = this.attacker.getAttackTarget();
-		return LivingEntity == null ? false : !LivingEntity.isAlive() ? false : !this.longMemory ? !this.attacker.getNavigation().noPath() : !this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(LivingEntity)) ? false : !(LivingEntity instanceof PlayerEntity) || !((PlayerEntity) LivingEntity).isSpectator() && !((PlayerEntity) LivingEntity).isCreative();
+		return LivingEntity == null ? false : !LivingEntity.isAlive() ? false : !this.longMemory ? !this.attacker.getNavigation().noPath() : !this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(LivingEntity)) ? false : !(LivingEntity instanceof Player) || !((Player) LivingEntity).isSpectator() && !((Player) LivingEntity).isCreative();
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class AttackMeleeBullsGoal extends Goal
 	{
 		LivingEntity LivingEntity = this.attacker.getAttackTarget();
 
-		if (LivingEntity instanceof PlayerEntity && (((PlayerEntity) LivingEntity).isSpectator() || ((PlayerEntity) LivingEntity).isCreative()))
+		if (LivingEntity instanceof Player && (((Player) LivingEntity).isSpectator() || ((Player) LivingEntity).isCreative()))
 			this.attacker.setAttackTarget((LivingEntity) null);
 
 		this.attacker.getNavigation().stop();
@@ -150,7 +150,7 @@ public class AttackMeleeBullsGoal extends Goal
 		if (p_190102_2_ <= d0 && this.attackTick <= 0)
 		{
 			this.attackTick = 20;
-			this.attacker.swingArm(EnumHand.MAIN_HAND);
+			this.attacker.swingArm(InteractionHand.MAIN_HAND);
 			this.attacker.attackEntityAsMob(p_190102_1_);
 		}
 	}

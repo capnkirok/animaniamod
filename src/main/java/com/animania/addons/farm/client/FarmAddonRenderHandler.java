@@ -431,13 +431,13 @@ public class FarmAddonRenderHandler
 
 		register(FarmAddonItemHandler.entityeggrandomsheep);
 
-		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseFriesian));
-		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseHolstein));
-		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseJersey));
-		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseGoat));
-		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseSheep));
-		register(Item.byBlock(FarmAddonBlockHandler.blockHive));
-		register(Item.byBlock(FarmAddonBlockHandler.blockWildHive));
+		register(RItem.byBlock(FarmAddonBlockHandler.blockCheeseFriesian));
+		register(RItem.byBlock(FarmAddonBlockHandler.blockCheeseHolstein));
+		register(RItem.byBlock(FarmAddonBlockHandler.blockCheeseJersey));
+		register(RItem.byBlock(FarmAddonBlockHandler.blockCheeseGoat));
+		register(RItem.byBlock(FarmAddonBlockHandler.blockCheeseSheep));
+		register(RItem.byBlock(FarmAddonBlockHandler.blockHive));
+		register(RItem.byBlock(FarmAddonBlockHandler.blockWildHive));
 
 		regSpecial(FarmAddonBlockHandler.blockAnimaniaWool);
 		if (!FarmConfig.settings.disableRollingVehicles)
@@ -486,20 +486,20 @@ public class FarmAddonRenderHandler
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static void register(Item item)
+	private static void register(RItem item)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static void register(Item item, String name, int meta)
+	private static void register(RItem item, String name, int meta)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name, "inventory"));
 	}
 
 	@SideOnly(Dist.CLIENT)
 
-	private static void registerColored(Item item, String name)
+	private static void registerColored(RItem item, String name)
 	{
 		for (int meta = 0; meta < 16; meta++)
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));
@@ -528,8 +528,8 @@ public class FarmAddonRenderHandler
 		{
 			ItemStack stack = list.get(i);
 
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName) block).getSpecialName(stack), "inventory"));
-			ModelBakery.registerItemVariants(Item.getItemFromBlock(block), new ResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName) block).getSpecialName(stack)));
+			ModelLoader.setCustomModelResourceLocation(RItem.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName) block).getSpecialName(stack), "inventory"));
+			ModelBakery.registerItemVariants(RItem.getItemFromBlock(block), new ResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName) block).getSpecialName(stack)));
 
 		}
 

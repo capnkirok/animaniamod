@@ -39,7 +39,7 @@ public class FoodValueHandler
 					String values = name.substring(name.indexOf("("));
 					name = name.replace(values, "");
 
-					Item item = StringParser.getItem(name);
+					RItem item = StringParser.getItem(name);
 
 					if (!(item instanceof ItemAnimaniaFood))
 					{
@@ -87,12 +87,12 @@ public class FoodValueHandler
 		}
 	}
 
-	public static boolean hasOverride(Item item)
+	public static boolean hasOverride(RItem item)
 	{
 		return food_values.containsKey(item);
 	}
 
-	public static int getHealAmount(Item item)
+	public static int getHealAmount(RItem item)
 	{
 		String s = food_values.get(item);
 		String[] values = s.split(",");
@@ -100,7 +100,7 @@ public class FoodValueHandler
 		return Integer.parseInt(values[0]);
 	}
 
-	public static float getSaturation(Item item)
+	public static float getSaturation(RItem item)
 	{
 		String s = food_values.get(item);
 		String[] values = s.split(",");

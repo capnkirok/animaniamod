@@ -23,16 +23,16 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidInteractionResultHolder;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.ModList;
@@ -159,31 +159,31 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack) && this.getHasKids())
 		{
-			if (!level.isRemote)
+			if (!level.isClientSide)
 			{
 				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 
 				ItemStack one = stack.copy();
 				one.setCount(1);
-				FluidActionResult result;
+				FluidInteractionResultHolder result;
 				result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(this.milk.copy()), 1000, player, true);
 
 				ItemStack filled;
 
 				if (!result.success)
 				{
-					Item item = stack.getItem();
+					RItem item = stack.getItem();
 					if (item == Items.BUCKET)
 						filled = this.milk.copy();
-					else if (ModList.get().isLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
-						filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
+					else if (ModList.get().isLoaded("ceramics") && item == RItem.getByNameOrId("ceramics:clay_bucket"))
+						filled = new ItemStack(RItem.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 					else
 						return false;
 				}
@@ -207,7 +207,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{

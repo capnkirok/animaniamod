@@ -44,13 +44,13 @@ import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -124,7 +124,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			this.goalSelector.addGoal(8, this.entityAIEatGrass);
 			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 3.0D, 3.5D));
 			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<EntityMob>(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
-			this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+			this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, Player.class, 6.0F));
 			this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 			if (AnimaniaConfig.gameRules.animalsSleep)
 			{
@@ -138,9 +138,9 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.7F));
 			this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
 			this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
-			this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 20.0F));
+			this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 20.0F));
 			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
+			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<Player>(this, Player.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 			this.setHealth(50);
 		}
@@ -163,9 +163,9 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.7F));
 		this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
 		this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 10.0F));
 		this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
+		this.targetTasks.addTask(2, new NearestAttackableTargetGoal(this, Player.class, true));
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.setHealth(50);
 	}
@@ -222,7 +222,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof PlayerEntity)
+		if (entityIn instanceof Player)
 		{
 			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 		}
@@ -289,7 +289,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			}
 		}
 
-		if (!this.level.isRemote)
+		if (!this.level.isClientSide)
 		{
 			this.level.broadcastEntityEvent(this, (byte) 1);
 		}
@@ -549,10 +549,10 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG)
 		{
@@ -581,7 +581,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 
 		}
 
-		return GenericBehavior.interactCommon(this, PlayerEntity, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, Player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -876,7 +876,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.rabbitType, this.gender));
 	}

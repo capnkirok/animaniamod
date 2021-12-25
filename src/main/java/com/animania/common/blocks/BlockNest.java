@@ -19,11 +19,11 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -135,13 +135,13 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@Nullable
-	public Item getItemDropped(BlockState state, Random rand, int fortune)
+	public RItem getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		return Item.getItemFromBlock(BlockHandler.blockNest);
+		return RItem.getItemFromBlock(BlockHandler.blockNest);
 	}
 
 	@Override
-	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, Player playerIn, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
@@ -166,7 +166,7 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityNest nest)

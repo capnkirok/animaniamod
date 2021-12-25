@@ -22,7 +22,7 @@ public class ExtraAddonBlockHandler
 	{
 		blockHamsterWheel = new BlockHamsterWheel();
 
-		Item item = new BlockItem(blockHamsterWheel);
+		RItem item = new BlockItem(blockHamsterWheel);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "block_hamster_wheel"));
 		ForgeRegistries.ITEMS.register(item);
 

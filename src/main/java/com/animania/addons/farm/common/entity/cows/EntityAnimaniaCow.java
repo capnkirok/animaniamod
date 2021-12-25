@@ -37,7 +37,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemShears;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -46,7 +46,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.effect.MobEffects;
@@ -99,13 +99,13 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 		{
 			this.goalSelector.addGoal(9, new GenericAISleep<EntityAnimaniaCow>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.cowBed), AnimaniaHelper.getBlock(FarmConfig.settings.cowBed2), EntityAnimaniaCow.class));
 		}
-		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		this.targetTasks.addTask(14, new HurtByTargetGoal(this, false, new Class[0]));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, PlayerEntity.class));
+			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, Player.class));
 		}
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
@@ -188,10 +188,10 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if ((this instanceof EntityBullBase ebb) && ebb.getFighting())
 		{
@@ -206,7 +206,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 			this.setDead();
 			this.level.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.getX(), this.getY() + this.height / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D, new int[0]);
 
-			if (!this.level.isRemote)
+			if (!this.level.isClientSide)
 			{
 				EntityAnimaniaCow CowEntity = null;
 
@@ -235,7 +235,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 			return true;
 		}
 
-		return GenericBehavior.interactCommon(this, PlayerEntity, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, Player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -256,7 +256,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 
 	private boolean isCowBreedingItem(ItemStack itemIn)
 	{
-		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER);
+		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override
@@ -276,7 +276,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.cowType, this.gender));
 	}

@@ -45,7 +45,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.monster.SilverfishEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -54,7 +54,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -129,7 +129,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 		this.goalSelector.addGoal(9, new RodentEatGoal(this));
 		this.goalSelector.addGoal(10, new GenericAITempt<>(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(12, new GenericAIWanderAvoidWater(this, 1.2D));
-		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(14, new GenericAILookIdle<>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -174,7 +174,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	}
 
 	@Override
-	protected void consumeItemFromStack(PlayerEntity player, ItemStack stack)
+	protected void consumeItemFromStack(Player player, ItemStack stack)
 	{
 		this.setFed(true);
 		if (!this.isTamed())
@@ -195,7 +195,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -214,10 +214,10 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && !this.getSleeping())
 		{
@@ -228,8 +228,8 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 				props.setCarrying(true);
 				props.setType(EntityList.getKey(this).getResourcePath());
 				this.setDead();
-				player.swingArm(EnumHand.MAIN_HAND);
-				if (!player.level.isRemote)
+				player.swingArm(InteractionHand.MAIN_HAND);
+				if (!player.level.isClientSide)
 					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.level.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 				return true;
 			}
@@ -252,7 +252,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof PlayerEntity)
+		if (entityIn instanceof Player)
 			((LivingEntity) entityIn).knockBack(this, 0.3f, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 
 		return flag;
@@ -317,7 +317,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	}
 
 	@Override
-	public boolean canBeLeashedTo(PlayerEntity player)
+	public boolean canBeLeashedTo(Player player)
 	{
 		return true;
 	}
@@ -355,13 +355,13 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.5F);
 	}
 
-	private boolean interactRide(PlayerEntity PlayerEntity)
+	private boolean interactRide(Player Player)
 	{
-		this.isRemoteMountEntity(PlayerEntity);
+		this.isClientSideMountEntity(Player);
 		return true;
 	}
 
-	private void isRemoteMountEntity(Entity par1Entity)
+	private void isClientSideMountEntity(Entity par1Entity)
 	{
 
 		if (this.isFerretRiding())
@@ -466,7 +466,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, EntityGender.NONE));
 	}

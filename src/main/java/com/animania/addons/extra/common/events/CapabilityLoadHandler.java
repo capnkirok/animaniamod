@@ -48,7 +48,7 @@ public class CapabilityLoadHandler
 		{
 			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps((Player) target);
 			if (caps != null)
-				Animania.network.sendTo(new CapSyncPacket(caps, target.getEntityId()), (ServerPlayerEntity) viewer);
+				Animania.network.sendTo(new CapSyncPacket(caps, target.getEntityId()), (ServerPlayer) viewer);
 		}
 	}
 
@@ -56,9 +56,9 @@ public class CapabilityLoadHandler
 	public static void entityJoinLevel(EntityJoinLevelEvent event)
 	{
 		Entity e = event.getEntity();
-		if (e instanceof ServerPlayerEntity)
+		if (e instanceof ServerPlayer)
 		{
-			ServerPlayerEntity player = (ServerPlayerEntity) e;
+			ServerPlayer player = (ServerPlayer) e;
 			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps(player);
 			if (caps != null)
 				Animania.network.sendTo(new CapSyncPacket(caps, player.getEntityId()), player);

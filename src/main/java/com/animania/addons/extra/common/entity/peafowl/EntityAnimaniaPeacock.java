@@ -32,14 +32,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -90,7 +90,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 		this.goalSelector.addGoal(2, new GenericAIPanic<>(this, 1.4D));
 		this.goalSelector.addGoal(3, new GenericAITempt<>(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.goalSelector.addGoal(5, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(5, new WatchClosestFromSideGoal(this, Player.class, 6.0F));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(6, new GenericAISleep<EntityAnimaniaPeacock>(this, 0.8, AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed), AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed2), EntityAnimaniaPeacock.class));
@@ -129,7 +129,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -146,7 +146,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		return GenericBehavior.interactCommon(this, player, hand, null) ? true : super.processInteract(player, hand);
 	}
@@ -167,7 +167,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof PlayerEntity)
+		if (entityIn instanceof Player)
 		{
 			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 		}
@@ -275,7 +275,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 			if (this.featherCounter <= 0)
 			{
 				this.featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
-				Item feather;
+				RItem feather;
 
 				feather = switch (this.type)
 				{
@@ -288,7 +288,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 				default -> ExtraAddonItemHandler.peacockFeatherWhite;
 				};
 
-				if (!this.level.isRemote)
+				if (!this.level.isClientSide)
 				{
 					ItemStack item = new ItemStack(feather, 1);
 					EntityItem entityitem = new EntityItem(this.level, this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, item);
@@ -370,7 +370,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
 	}

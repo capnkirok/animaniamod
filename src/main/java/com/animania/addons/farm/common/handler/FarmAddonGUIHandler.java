@@ -79,7 +79,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 	}
 
 	@Override
-	public Object getClientGuiElement(int id, PlayerEntity player, Level level, int x, int y, int z)
+	public Object getClientGuiElement(int id, Player player, Level level, int x, int y, int z)
 	{
 		int esize;
 		Entity entity;

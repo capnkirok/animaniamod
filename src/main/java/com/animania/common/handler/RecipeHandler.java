@@ -151,9 +151,9 @@ public class RecipeHandler
 
 	private static Map<String, Object> serializeItem(Object thing)
 	{
-		if (thing instanceof Item)
+		if (thing instanceof RItem)
 		{
-			return serializeItem(new ItemStack((Item) thing));
+			return serializeItem(new ItemStack((RItem) thing));
 		}
 		if (thing instanceof Block)
 		{

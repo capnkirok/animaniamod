@@ -6,11 +6,11 @@ import com.animania.Animania;
 import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionResultHolder;
+import net.minecraft.util.InteractionResultHolderType;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -18,7 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemWagon extends Item
+public class ItemWagon extends RItem
 {
 	public ItemWagon()
 	{
@@ -30,7 +30,7 @@ public class ItemWagon extends Item
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(Level levelIn, PlayerEntity playerIn, EnumHand handIn)
+	public InteractionResultHolder<ItemStack> onItemRightClick(Level levelIn, Player playerIn, InteractionHand handIn)
 	{
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		float f = 1.0F;
@@ -52,7 +52,7 @@ public class ItemWagon extends Item
 
 		if (raytraceresult == null)
 		{
-			return new ActionResult(ActionResultType.PASS, itemstack);
+			return new InteractionResultHolder(InteractionResultHolderType.PASS, itemstack);
 		}
 		else
 		{
@@ -77,7 +77,7 @@ public class ItemWagon extends Item
 
 			if (flag || raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK)
 			{
-				return new ActionResult(ActionResultType.PASS, itemstack);
+				return new InteractionResultHolder(InteractionResultHolderType.PASS, itemstack);
 
 			}
 			else
@@ -88,7 +88,7 @@ public class ItemWagon extends Item
 				EntityWagon.rotationYaw = playerIn.rotationYaw;
 				EntityWagon.setLocationAndAngles(d0, d1, d2, MathHelper.wrapDegrees(levelIn.rand.nextFloat() * 360.0F), 0.0F);
 
-				if (!levelIn.isRemote)
+				if (!levelIn.isClientSide)
 				{
 					AnimaniaHelper.spawnEntity(levelIn, EntityWagon);
 				}
@@ -99,7 +99,7 @@ public class ItemWagon extends Item
 				}
 
 				playerIn.addStat(StatList.getObjectUseStats(this));
-				return new ActionResult(ActionResultType.SUCCESS, itemstack);
+				return new InteractionResultHolder(InteractionResultHolderType.SUCCESS, itemstack);
 			}
 		}
 	}

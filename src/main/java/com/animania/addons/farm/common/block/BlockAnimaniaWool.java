@@ -12,7 +12,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemShears;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
@@ -53,7 +53,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public float getPlayerRelativeBlockHardness(BlockState state, PlayerEntity player, Level levelIn, BlockPos pos)
+	public float getPlayerRelativeBlockHardness(BlockState state, Player player, Level levelIn, BlockPos pos)
 	{
 		ItemStack stack = player.getMainHandItem();
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemShears)

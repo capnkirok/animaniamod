@@ -16,37 +16,37 @@ import net.minecraft.world.effect.MobEffects;
 public class ExtraAddonItemHandler
 {
 
-	public static Item hamsterBallClear;
-	public static Item hamsterBallColored;
-	public static Item hamsterFood;
-	public static Item peacockFeatherBlue;
-	public static Item peacockFeatherWhite;
-	public static Item peacockFeatherCharcoal;
-	public static Item peacockFeatherOpal;
-	public static Item peacockFeatherPeach;
-	public static Item peacockFeatherPurple;
-	public static Item peacockFeatherTaupe;
+	public static RItem hamsterBallClear;
+	public static RItem hamsterBallColored;
+	public static RItem hamsterFood;
+	public static RItem peacockFeatherBlue;
+	public static RItem peacockFeatherWhite;
+	public static RItem peacockFeatherCharcoal;
+	public static RItem peacockFeatherOpal;
+	public static RItem peacockFeatherPeach;
+	public static RItem peacockFeatherPurple;
+	public static RItem peacockFeatherTaupe;
 
-	public static Item peacockEggBlue;
-	public static Item peacockEggWhite;
+	public static RItem peacockEggBlue;
+	public static RItem peacockEggWhite;
 
 	// Frogs
-	public static Item rawFrogLegs;
-	public static Item cookedFrogLegs;
+	public static RItem rawFrogLegs;
+	public static RItem cookedFrogLegs;
 
 	// Peacock
-	public static Item rawPeacock;
-	public static Item cookedPeacock;
-	public static Item rawPrimePeacock;
-	public static Item cookedPrimePeacock;
+	public static RItem rawPeacock;
+	public static RItem cookedPeacock;
+	public static RItem rawPrimePeacock;
+	public static RItem cookedPrimePeacock;
 
 	// Rabbit
-	public static Item rawPrimeRabbit;
-	public static Item cookedPrimeRabbit;
+	public static RItem rawPrimeRabbit;
+	public static RItem cookedPrimeRabbit;
 
-	public static Item entityeggrandompeacock;
-	public static Item entityeggrandomrabbit;
-	public static Item entityeggdartfrog;
+	public static RItem entityeggrandompeacock;
+	public static RItem entityeggrandomrabbit;
+	public static RItem entityeggdartfrog;
 
 	/**
 	 * Register Items

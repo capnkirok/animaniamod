@@ -11,7 +11,7 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import mcp.mobius.waila.api.IWailaEntityProvider;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 
 public class WailaAnimalEntityProviderBase implements IWailaEntityProvider
@@ -76,7 +76,7 @@ public class WailaAnimalEntityProviderBase implements IWailaEntityProvider
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level)
+	public CompoundTag getNBTData(ServerPlayer player, Entity ent, CompoundTag tag, Level level)
 	{
 		CompoundTag comp = ent.getEntityData();
 

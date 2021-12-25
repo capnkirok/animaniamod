@@ -10,9 +10,9 @@ import com.animania.common.helper.AnimaniaHelper;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.entity.LivingEntity;
 
 public class WailaAnimalEntityProviderMateable extends WailaAnimalEntityProviderBase
@@ -27,7 +27,7 @@ public class WailaAnimalEntityProviderMateable extends WailaAnimalEntityProvider
 		{
 
 			if ((entity instanceof IGendered igendered) && (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE))
-				currenttip.add(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
+				currenttip.add(igendered.getEntityGender() == EntityGender.MALE ? ChatFormatting.AQUA + "\u2642" : ChatFormatting.LIGHT_PURPLE + "\u2640");
 
 			String mate = accessor.getNBTData().getString("MateUUID");
 			Level level = entity.level;
@@ -59,7 +59,7 @@ public class WailaAnimalEntityProviderMateable extends WailaAnimalEntityProvider
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level)
+	public CompoundTag getNBTData(ServerPlayer player, Entity ent, CompoundTag tag, Level level)
 	{
 		CompoundTag comp = ent.getEntityData();
 

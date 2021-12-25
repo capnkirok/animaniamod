@@ -10,12 +10,12 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -43,7 +43,7 @@ public class ItemAnimaniaFood extends ItemFood
 	@Override
 	public int getHealAmount(ItemStack stack)
 	{
-		Item item = stack.getItem();
+		RItem item = stack.getItem();
 		if (FoodValueHandler.hasOverride(item))
 			return FoodValueHandler.getHealAmount(item);
 		else
@@ -53,7 +53,7 @@ public class ItemAnimaniaFood extends ItemFood
 	@Override
 	public float getSaturationModifier(ItemStack stack)
 	{
-		Item item = stack.getItem();
+		RItem item = stack.getItem();
 		if (FoodValueHandler.hasOverride(item))
 			return FoodValueHandler.getSaturation(item);
 		else
@@ -92,16 +92,16 @@ public class ItemAnimaniaFood extends ItemFood
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack itemstack, Level levelObj, PlayerEntity PlayerEntity)
+	protected void onFoodEaten(ItemStack itemstack, Level levelObj, Player Player)
 	{
-		if (!levelObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
+		if (!levelObj.isClientSide && AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
 			for (PotionEffect effect : this.effects.clone())
 			{
 				Potion pot = effect.getPotion();
 				int duration = effect.getDuration();
 				int amplifier = effect.getAmplifier();
 				boolean isAmbient = effect.getIsAmbient();
-				PlayerEntity.addPotionEffect(new PotionEffect(pot, duration, amplifier, isAmbient, false));
+				Player.addPotionEffect(new PotionEffect(pot, duration, amplifier, isAmbient, false));
 			}
 	}
 
@@ -118,11 +118,11 @@ public class ItemAnimaniaFood extends ItemFood
 				boolean isPositive = pot.isBeneficial();
 				String name = pot.getRegistryName().getResourcePath().replace("_", "");
 				if (isPositive)
-					tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + (!isInstant ? " (" + TimeHelper.getTime(duration) + ")" : ""));
+					tooltip.add(ChatFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + (!isInstant ? " (" + TimeHelper.getTime(duration) + ")" : ""));
 			}
 
 		if (AnimaniaConfig.gameRules.eatFoodAnytime)
-			tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+			tooltip.add(ChatFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
 

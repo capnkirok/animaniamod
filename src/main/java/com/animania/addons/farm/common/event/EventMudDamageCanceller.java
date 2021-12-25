@@ -17,7 +17,7 @@ public class EventMudDamageCanceller
 		// || event.getLivingEntity() instanceof EntityChickRhodeIslandRed ||
 		// event.getLivingEntity() instanceof EntityChickWyandotte)
 		// && event.getSource().damageType.contains("Wall"))
-		// if (!event.getLivingEntity().level.isRemote) {
+		// if (!event.getLivingEntity().level.isClientSide) {
 		//
 		// BlockPos poschk = new BlockPos(event.getLivingEntity().getX() +
 		// event.getLivingEntity().motionX / 1.5,

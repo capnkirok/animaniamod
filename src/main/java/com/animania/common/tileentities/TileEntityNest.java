@@ -179,18 +179,18 @@ public class TileEntityNest extends BlockEntity implements Tickable
 
 	public static enum NestContent
 	{
-		EMPTY(Items.AIR), CHICKEN_WHITE(Items.EGG), CHICKEN_BROWN(Item.getByNameOrId(Animania.MODID + ":brown_egg")), PEACOCK_WHITE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_white")), PEACOCK_BLUE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_blue"));
+		EMPTY(Items.AIR), CHICKEN_WHITE(Items.EGG), CHICKEN_BROWN(RItem.getByNameOrId(Animania.MODID + ":brown_egg")), PEACOCK_WHITE(RItem.getByNameOrId(Animania.MODID + ":peacock_egg_white")), PEACOCK_BLUE(RItem.getByNameOrId(Animania.MODID + ":peacock_egg_blue"));
 
-		private Item item;
+		private RItem item;
 
-		private NestContent(Item item)
+		private NestContent(RItem item)
 		{
 			if (item == null)
 				item = Items.AIR;
 			this.item = item;
 		}
 
-		public Item getItem()
+		public RItem getItem()
 		{
 			return this.item;
 		}

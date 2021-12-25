@@ -29,76 +29,76 @@ public class FarmAddonItemHandler
 {
 
 	// Items
-	public static Item truffle;
-	public static Item carvingKnife;
-	public static Item cheeseMold;
-	public static Item salt;
-	public static Item ridingCrop;
-	public static Item milkBottle;
-	public static Item honeyJar;
-	public static Item brownEgg;
+	public static RItem truffle;
+	public static RItem carvingKnife;
+	public static RItem cheeseMold;
+	public static RItem salt;
+	public static RItem ridingCrop;
+	public static RItem milkBottle;
+	public static RItem honeyJar;
+	public static RItem brownEgg;
 
 	// Beef
-	public static Item rawPrimeSteak;
-	public static Item rawPrimeBeef;
-	public static Item cookedPrimeSteak;
-	public static Item cookedPrimeBeef;
+	public static RItem rawPrimeSteak;
+	public static RItem rawPrimeBeef;
+	public static RItem cookedPrimeSteak;
+	public static RItem cookedPrimeBeef;
 
 	// Horse
-	public static Item rawHorse;
-	public static Item cookedHorse;
+	public static RItem rawHorse;
+	public static RItem cookedHorse;
 
 	// Pork
-	public static Item rawPrimePork;
-	public static Item rawPrimeBacon;
-	public static Item cookedPrimePork;
-	public static Item cookedPrimeBacon;
+	public static RItem rawPrimePork;
+	public static RItem rawPrimeBacon;
+	public static RItem cookedPrimePork;
+	public static RItem cookedPrimeBacon;
 
 	// Chicken
-	public static Item rawPrimeChicken;
-	public static Item cookedPrimeChicken;
+	public static RItem rawPrimeChicken;
+	public static RItem cookedPrimeChicken;
 
 	// Goats
-	public static Item rawChevon;
-	public static Item cookedChevon;
-	public static Item rawPrimeChevon;
-	public static Item cookedPrimeChevon;
+	public static RItem rawChevon;
+	public static RItem cookedChevon;
+	public static RItem rawPrimeChevon;
+	public static RItem cookedPrimeChevon;
 
 	// Sheep
-	public static Item rawPrimeMutton;
-	public static Item cookedPrimeMutton;
+	public static RItem rawPrimeMutton;
+	public static RItem cookedPrimeMutton;
 
 	// Other Foods
-	public static Item plainOmelette;
-	public static Item cheeseOmelette;
-	public static Item baconOmelette;
-	public static Item truffleOmelette;
-	public static Item ultimateOmelette;
-	public static Item cheeseWheelFriesian;
-	public static Item cheeseWedgeFriesian;
-	public static Item cheeseWheelHolstein;
-	public static Item cheeseWedgeHolstein;
-	public static Item cheeseWheelJersey;
-	public static Item cheeseWedgeJersey;
-	public static Item cheeseWheelGoat;
-	public static Item cheeseWedgeGoat;
-	public static Item cheeseWheelSheep;
-	public static Item cheeseWedgeSheep;
-	public static Item truffleSoup;
-	public static Item chocolateTruffle;
+	public static RItem plainOmelette;
+	public static RItem cheeseOmelette;
+	public static RItem baconOmelette;
+	public static RItem truffleOmelette;
+	public static RItem ultimateOmelette;
+	public static RItem cheeseWheelFriesian;
+	public static RItem cheeseWedgeFriesian;
+	public static RItem cheeseWheelHolstein;
+	public static RItem cheeseWedgeHolstein;
+	public static RItem cheeseWheelJersey;
+	public static RItem cheeseWedgeJersey;
+	public static RItem cheeseWheelGoat;
+	public static RItem cheeseWedgeGoat;
+	public static RItem cheeseWheelSheep;
+	public static RItem cheeseWedgeSheep;
+	public static RItem truffleSoup;
+	public static RItem chocolateTruffle;
 
 	// Eggs
-	public static Item entityeggrandomcow;
-	public static Item entityeggrandomchicken;
-	public static Item entityeggrandompig;
-	public static Item entityeggrandomgoat;
-	public static Item entityeggrandomsheep;
+	public static RItem entityeggrandomcow;
+	public static RItem entityeggrandomchicken;
+	public static RItem entityeggrandompig;
+	public static RItem entityeggrandomgoat;
+	public static RItem entityeggrandomsheep;
 
 	// Moving Objects
-	public static Item cart;
-	public static Item wagon;
-	public static Item tiller;
-	public static Item wheel;
+	public static RItem cart;
+	public static RItem wagon;
+	public static RItem tiller;
+	public static RItem wheel;
 
 	/**
 	 * Register Items

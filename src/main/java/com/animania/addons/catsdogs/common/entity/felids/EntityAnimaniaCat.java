@@ -36,14 +36,14 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -113,7 +113,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 		this.goalSelector.addGoal(8, new GenericAIPanic<>(this, 1.5D));
 		this.goalSelector.addGoal(3, new GenericAITempt<>(this, 0.6D, true, TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(12, new GenericAIWanderAvoidWater(this, 1.2D));
-		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(14, new GenericAILookIdle<>(this));
 		// this.goalSelector.addGoal(14, new GenericAISitIdle(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
@@ -194,7 +194,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -237,7 +237,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		return GenericBehavior.interactCommon(this, player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
@@ -293,7 +293,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	{
 		if (this.avoidEntity == null)
 		{
-			this.avoidEntity = new GenericAIAvoidEntity<PlayerEntity>(this, PlayerEntity.class, 16.0F, 0.8D, 1.33D);
+			this.avoidEntity = new GenericAIAvoidEntity<Player>(this, Player.class, 16.0F, 0.8D, 1.33D);
 		}
 
 		this.tasks.removeTask(this.avoidEntity);
@@ -324,13 +324,13 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}
 
 	@Override
-	public boolean canBeLeashedTo(PlayerEntity player)
+	public boolean canBeLeashedTo(Player player)
 	{
 		return true;
 	}
@@ -368,7 +368,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
 	}

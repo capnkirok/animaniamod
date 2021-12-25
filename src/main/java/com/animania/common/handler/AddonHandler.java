@@ -40,7 +40,7 @@ import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.AdvancementList;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementTreeNode;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
@@ -178,7 +178,7 @@ public class AddonHandler
 		guiHandlerCounter += 1000;
 	}
 
-	public static Object openAddonGui(PlayerEntity player, int guiId, Level level, int x, int y, int z, Side side)
+	public static Object openAddonGui(Player player, int guiId, Level level, int x, int y, int z, Side side)
 	{
 		Object returnObject = null;
 
@@ -515,7 +515,7 @@ public class AddonHandler
 	public static void onLevelLoad(LevelEvent.Load event)
 	{
 		Level level = event.getLevel();
-		if (!level.isRemote)
+		if (!level.isClientSide)
 		{
 			try
 			{

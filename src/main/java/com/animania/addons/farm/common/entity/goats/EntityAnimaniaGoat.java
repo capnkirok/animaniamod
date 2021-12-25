@@ -42,7 +42,7 @@ import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -54,7 +54,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.datasync.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -110,7 +110,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 		this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaGoat>(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(8, this.entityAIEatGrass);
 		this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 20.0F, 2.2D, 2.2D));
-		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaGoat>(this));
 		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaGoat>(this, 1.0, this.entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
@@ -189,7 +189,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 
 	private boolean isGoatBreedingItem(ItemStack itemIn)
 	{
-		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER);
+		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	public boolean getSpooked()
@@ -250,7 +250,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return Items.LEATHER;
 	}
@@ -332,23 +332,23 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora)) // Forge:
 																																										// //
 																																										// onSheared
 		{
-			if (!this.level.isRemote)
+			if (!this.level.isClientSide)
 			{
 				this.setSheared(true);
 				int i = 1 + this.rand.nextInt(2);
 
 				for (int j = 0; j < i; ++j)
 				{
-					EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+					EntityItem entityitem = this.entityDropItem(new ItemStack(RItem.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
 					entityitem.motionY += this.rand.nextFloat() * 0.05F;
 					entityitem.motionX += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
 					entityitem.motionZ += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
@@ -369,7 +369,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 			return true;
 		}
 
-		return GenericBehavior.interactCommon(this, PlayerEntity, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, Player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -379,7 +379,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 
 		if (!this.getSleeping())
@@ -453,7 +453,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.goatType, this.gender));
 	}

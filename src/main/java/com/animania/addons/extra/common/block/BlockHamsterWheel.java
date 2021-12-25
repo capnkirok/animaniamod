@@ -21,7 +21,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -81,7 +81,7 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	}
 
 	@Override
-	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		TileEntityHamsterWheel te = (TileEntityHamsterWheel) level.getTileEntity(pos);
 
@@ -103,7 +103,7 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 					cap.setAnimal(new CompoundTag());
 					cap.setCarrying(false);
 					cap.setType("");
-					player.swingArm(EnumHand.MAIN_HAND);
+					player.swingArm(InteractionHand.MAIN_HAND);
 					player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 
 					return true;
@@ -122,7 +122,7 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 			return true;
 		}
 
-		if (!level.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND)
+		if (!level.isClientSide && player.isSneaking() && hand == InteractionHand.MAIN_HAND)
 		{
 			ItemStack food = te.getItemHandler().getStackInSlot(0);
 			if (food.isEmpty())
@@ -149,7 +149,7 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
 
 		TileEntity te = level.getTileEntity(data.getPos());

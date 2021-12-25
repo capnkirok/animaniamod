@@ -40,7 +40,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -48,7 +48,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -103,7 +103,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	private float field_25048_b;
 	private float field_25054_c;
 	private static List hamsterColorList;
-	private PlayerEntity givemeEntity;
+	private Player givemeEntity;
 	private boolean mountFlag;
 	private double yOffset;
 	private ResourceLocation resourceLocation;
@@ -149,7 +149,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		this.goalSelector.addGoal(5, new GenericAIWanderAvoidWater(this, 1.1D));
 		this.goalSelector.addGoal(6, new GenericAITempt<>(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(7, new GenericAIFollowOwner<>(this, 1.0D, 10.0F, 2.0F));
-		this.goalSelector.addGoal(8, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(8, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(9, new LookIdleRodentGoal(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -172,7 +172,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -289,7 +289,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -311,8 +311,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 				props.setCarrying(true);
 				props.setType("hamster");
 				this.setDead();
-				player.swingArm(EnumHand.MAIN_HAND);
-				if (!player.level.isRemote)
+				player.swingArm(InteractionHand.MAIN_HAND);
+				if (!player.level.isClientSide)
 					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.level.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 				return true;
 			}
@@ -392,9 +392,9 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	public boolean canBeCollidedWith()
 	{
 
-		if (this.getRidingEntity() != null && this.getRidingEntity() instanceof PlayerEntity)
+		if (this.getRidingEntity() != null && this.getRidingEntity() instanceof Player)
 		{
-			PlayerEntity player = (PlayerEntity) this.getRidingEntity();
+			Player player = (Player) this.getRidingEntity();
 			ItemStack itemstack = player.inventory.getCurrentItem();
 			if (itemstack != null)
 				return false;
@@ -466,10 +466,10 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		if (!this.hasPath())
 		{
 			Entity entity = this.getAttackTarget();
-			if (entity instanceof PlayerEntity)
+			if (entity instanceof Player)
 			{
-				PlayerEntity PlayerEntity = (PlayerEntity) entity;
-				ItemStack itemstack = PlayerEntity.inventory.getCurrentItem();
+				Player Player = (Player) entity;
+				ItemStack itemstack = Player.inventory.getCurrentItem();
 				if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.WHEAT_SEEDS)
 					this.looksWithInterest = true;
 			}
@@ -523,7 +523,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		if (this.rand.nextInt(10) == 5)
 			this.ticksExisted++;
 
-		// Animania.mDebug("levelObj.isRemote="+levelObj.isRemote+"
+		// Animania.mDebug("levelObj.isClientSide="+levelObj.isClientSide+"
 		// getX()="+getX()+" getY()="+getY()+" poxZ="+getZ());
 	}
 
@@ -758,7 +758,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.8F);
 	}
 
-	private void doPatreonCheck(PlayerEntity player)
+	private void doPatreonCheck(Player player)
 	{
 		if (player.isSneaking() && PatreonHandler.isPlayerPatreon(player))
 		{

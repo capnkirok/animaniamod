@@ -21,13 +21,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.item.ItemStack;
 
@@ -92,7 +92,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
@@ -164,12 +164,12 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public void openGUI(PlayerEntity playerEntity)
+	public void openGUI(Player Player)
 	{
-		if (!this.level.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
+		if (!this.level.isClientSide && (!this.isBeingRidden() || this.isPassenger(Player)))
 		{
 			this.horseChest.setCustomName(this.getName());
-			playerEntity.openGuiHorseInventory(this, this.horseChest);
+			Player.openGuiHorseInventory(this, this.horseChest);
 		}
 	}
 
@@ -191,7 +191,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof PlayerEntity) || !this.isHorseSaddled())
+		if (!(entity instanceof Player) || !this.isHorseSaddled())
 		{
 			return false;
 		}
@@ -202,7 +202,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -257,7 +257,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{

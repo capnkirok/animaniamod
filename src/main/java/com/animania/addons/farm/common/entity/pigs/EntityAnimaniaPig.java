@@ -33,7 +33,7 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.PigZombieEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -41,7 +41,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -122,7 +122,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 		this.goalSelector.addGoal(10, new GenericAITempt<>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(10, new TemptItemStackGoal(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
 		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
-		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(15, new GenericAILookIdle<>(this));
 		this.targetTasks.addTask(16, new HurtByTargetGoal(this, false, new Class[0]));
 	}
@@ -207,7 +207,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
@@ -286,10 +286,10 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if (!stack.isEmpty() && stack.getItem() == Items.SADDLE)
 			return true;
@@ -311,7 +311,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 			return true;
 		}
 
-		return GenericBehavior.interactCommon(this, PlayerEntity, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, Player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -430,7 +430,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	@Override
 	public void onStruckByLightning(EntityLightningBolt lightningBolt)
 	{
-		if (!this.level.isRemote && !this.isDead)
+		if (!this.level.isClientSide && !this.isDead)
 		{
 			PigZombieEntity PigZombieEntity = new PigZombieEntity(this.level);
 			PigZombieEntity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
@@ -494,7 +494,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}
@@ -506,7 +506,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.pigType, this.gender));
 	}

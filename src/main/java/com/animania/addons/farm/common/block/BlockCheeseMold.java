@@ -20,12 +20,12 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -60,7 +60,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 		this.setHardness(0.9f);
 		this.setResistance(1.2f);
 		BlockHandler.blocks.add(this);
-		Item item = new BlockItem(this);
+		RItem item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "cheese_mold"));
 
 		ForgeRegistries.ITEMS.register(item);
@@ -81,7 +81,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, Player player)
 	{
 		return new ItemStack(FarmAddonItemHandler.cheeseMold);
 	}
@@ -144,12 +144,12 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
 		TileEntityCheeseMold te = (TileEntityCheeseMold) level.getTileEntity(pos);
-		if (!level.isRemote)
+		if (!level.isClientSide)
 		{
 			if (!stack.isEmpty() && te != null)
 			{
@@ -268,7 +268,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityCheeseMold mold)

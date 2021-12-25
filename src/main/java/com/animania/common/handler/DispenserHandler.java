@@ -30,9 +30,9 @@ public class DispenserHandler
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.MELON_SEEDS, SEEDS_DISPENSER_BEHAVIOUR);
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BEETROOT_SEEDS, SEEDS_DISPENSER_BEHAVIOUR);
 
-		for (ResourceLocation path : Item.REGISTRY.getKeys())
+		for (ResourceLocation path : RItem.REGISTRY.getKeys())
 		{
-			Item item = Item.getByNameOrId(path.toString());
+			RItem item = RItem.getByNameOrId(path.toString());
 			if (item instanceof ItemEntityEgg)
 			{
 				BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, SPAWNEGG_DISPENSER_BEHAVIOUR);
@@ -50,7 +50,7 @@ public class DispenserHandler
 			Level level = source.getLevel();
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			BlockPos below = pos.offset(Direction.DOWN);
-			Item item = stack.getItem();
+			RItem item = stack.getItem();
 
 			if (level.getBlockState(pos).getBlock() != BlockHandler.blockSeeds && level.getBlockState(below).isFullBlock() && level.getBlockState(below).isOpaqueCube() && !(level.getBlockState(below).getBlock() instanceof BlockFarmland) && !(level.getBlockState(below).getBlock() instanceof IPlantable) && AnimaniaConfig.gameRules.allowSeedDispenserPlacement)
 			{

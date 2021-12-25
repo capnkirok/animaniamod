@@ -18,18 +18,18 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionResultHolder;
+import net.minecraft.util.InteractionResultHolderType;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -82,40 +82,40 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(Level levelIn, PlayerEntity playerIn, EnumHand handIn)
+	public InteractionResultHolder<ItemStack> onItemRightClick(Level levelIn, Player playerIn, InteractionHand handIn)
 	{
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (playerIn.canEat(AnimaniaConfig.gameRules.eatFoodAnytime))
 		{
 			playerIn.setActiveHand(handIn);
-			return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
+			return new InteractionResultHolder<ItemStack>(InteractionResultHolderType.SUCCESS, itemstack);
 		}
 		else
 		{
-			return new ActionResult<ItemStack>(ActionResultType.FAIL, itemstack);
+			return new InteractionResultHolder<ItemStack>(InteractionResultHolderType.FAIL, itemstack);
 		}
 	}
 
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, Level levelIn, LivingEntity LivingEntity)
 	{
-		if (LivingEntity instanceof PlayerEntity)
+		if (LivingEntity instanceof Player)
 		{
-			PlayerEntity PlayerEntity = (PlayerEntity) LivingEntity;
-			PlayerEntity.getFoodStats().addStats(10, 1.5f);
+			Player Player = (Player) LivingEntity;
+			Player.getFoodStats().addStats(10, 1.5f);
 
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-				PlayerEntity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 1));
+				Player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 1));
 
-			PlayerEntity.addStat(StatList.getObjectUseStats(this));
-			levelIn.playSound((PlayerEntity) null, PlayerEntity.getX(), PlayerEntity.getY(), PlayerEntity.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, levelIn.rand.nextFloat() * 0.1F + 0.9F);
+			Player.addStat(StatList.getObjectUseStats(this));
+			levelIn.playSound((Player) null, Player.getX(), Player.getY(), Player.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, levelIn.rand.nextFloat() * 0.1F + 0.9F);
 
-			if (PlayerEntity instanceof ServerPlayerEntity)
+			if (Player instanceof ServerPlayer)
 			{
-				CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) PlayerEntity, stack);
+				CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) Player, stack);
 			}
-			AnimaniaHelper.addItem((PlayerEntity) LivingEntity, new ItemStack(Items.GLASS_BOTTLE));
+			AnimaniaHelper.addItem((Player) LivingEntity, new ItemStack(Items.GLASS_BOTTLE));
 		}
 
 		stack.shrink(1);
@@ -132,11 +132,11 @@ public class ItemHoneyBottle extends AnimaniaItem
 			int amplifier = 1;
 			String name = pot.getRegistryName().getResourcePath().replace("_", "");
 
-			tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + " (" + TimeHelper.getTime(duration) + ")");
+			tooltip.add(ChatFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + " (" + TimeHelper.getTime(duration) + ")");
 		}
 
 		if (AnimaniaConfig.gameRules.eatFoodAnytime)
-			tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+			tooltip.add(ChatFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
 
@@ -147,7 +147,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public Item getContainerItem()
+	public RItem getContainerItem()
 	{
 		return Items.GLASS_BOTTLE;
 	}

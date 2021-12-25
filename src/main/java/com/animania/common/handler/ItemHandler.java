@@ -20,11 +20,11 @@ public class ItemHandler
 {
 	public static boolean hasSetEggColors = false;
 
-	public static Item animaniaManual;
+	public static RItem animaniaManual;
 
-	public static Item entityeggrandomanimal;
+	public static RItem entityeggrandomanimal;
 
-	public static List<Item> entityEggList = new ArrayList<Item>();
+	public static List<RItem> entityEggList = new ArrayList<RItem>();
 	public static List<ItemStack> resourceTabItems = new ArrayList<>();
 
 	public static void preInit()
@@ -39,7 +39,7 @@ public class ItemHandler
 	{
 		if (!hasSetEggColors)
 		{
-			for (Item item : entityEggList)
+			for (RItem item : entityEggList)
 			{
 				if (item instanceof ItemEntityEgg && item != ItemHandler.entityeggrandomanimal)
 				{

@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 
 public class LinkComponent implements IManualComponent
 {
@@ -54,7 +54,7 @@ public class LinkComponent implements IManualComponent
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		this.mc.font.drawString((this.isHovering(mouseX, mouseY) ? TextFormatting.BLUE + "" + TextFormatting.UNDERLINE : TextFormatting.BLUE) + this.text, this.absoluteX + this.manual.guiLeft, this.absoluteY + this.manual.guiTop, 0);
+		this.mc.font.drawString((this.isHovering(mouseX, mouseY) ? ChatFormatting.BLUE + "" + ChatFormatting.UNDERLINE : ChatFormatting.BLUE) + this.text, this.absoluteX + this.manual.guiLeft, this.absoluteY + this.manual.guiTop, 0);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class LinkComponent implements IManualComponent
 		if (this.isHovering(mouseX, mouseY))
 		{
 			ManualTopic t = this.manual.manualContent.get(this.link);
-			String name = TextFormatting.DARK_RED + "INVALID LINK";
+			String name = ChatFormatting.DARK_RED + "INVALID LINK";
 			if (t != null)
 				name = t.getName();
 			GlStateManager.pushMatrix();

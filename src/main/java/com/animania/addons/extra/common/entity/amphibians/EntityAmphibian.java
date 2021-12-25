@@ -13,7 +13,7 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -90,10 +90,10 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 		this.goalSelector.addGoal(1, new EntityAmphibian.AIPanic(this, 2.2D));
 		if (!this.getCustomNameTag().equals("Pepe"))
 		{
-			this.goalSelector.addGoal(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
+			this.goalSelector.addGoal(2, new AvoidEntityGoal<Player>(this, Player.class, 6.0F, 1.5D, 1.5D));
 		}
 		this.goalSelector.addGoal(3, new WanderAvoidWaterGoal(this, 0.6D));
-		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 10.0F));
 		this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
 
 		AddonInjectionHandler.runInjection("farm", "avoidChicken", Void.class, this.tasks, this);
@@ -146,7 +146,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 				this.moveRelative(0.0F, 1.0F, 0.1F, 0f);
 		}
 
-		if (!this.level.isRemote)
+		if (!this.level.isClientSide)
 			this.level.broadcastEntityEvent(this, (byte) 1);
 	}
 
@@ -485,7 +485,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return null;
 	}

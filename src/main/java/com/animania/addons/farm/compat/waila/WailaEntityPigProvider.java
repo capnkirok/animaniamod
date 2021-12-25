@@ -8,7 +8,7 @@ import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 
 public class WailaPigEntityProvider extends WailaAnimalEntityProviderMateable
@@ -31,7 +31,7 @@ public class WailaPigEntityProvider extends WailaAnimalEntityProviderMateable
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level)
+	public CompoundTag getNBTData(ServerPlayer player, Entity ent, CompoundTag tag, Level level)
 	{
 
 		tag.putBoolean("Played", ent.getEntityData().getBoolean("Played"));

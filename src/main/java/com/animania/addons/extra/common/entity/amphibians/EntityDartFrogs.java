@@ -11,7 +11,7 @@ import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,7 +20,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -80,11 +80,11 @@ public class EntityDartFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if (!stack.isEmpty() && stack.getItem() == Items.ARROW && this.poisonTimer <= 1)
 		{
@@ -116,9 +116,9 @@ public class EntityDartFrogs extends EntityAmphibian
 	protected void collideWithEntity(Entity entityIn)
 	{
 
-		if (entityIn instanceof PlayerEntity && entityIn != this)
+		if (entityIn instanceof Player && entityIn != this)
 		{
-			PlayerEntity player = (PlayerEntity) entityIn;
+			Player player = (Player) entityIn;
 			player.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 1, false, false));
 		}
 		entityIn.applyEntityCollision(this);
@@ -231,7 +231,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.DART_FROG, EntityGender.NONE));
 	}

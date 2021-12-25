@@ -22,11 +22,11 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
@@ -79,18 +79,18 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof PlayerEntity))
+		if (!(entity instanceof Player))
 			return false;
 		else
 		{
-			PlayerEntity PlayerEntity = (PlayerEntity) entity;
-			ItemStack itemstack = PlayerEntity.getMainHandItem();
+			Player Player = (Player) entity;
+			ItemStack itemstack = Player.getMainHandItem();
 
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK)
 				return true;
 			else
 			{
-				itemstack = PlayerEntity.getHeldItemOffhand();
+				itemstack = Player.getHeldItemOffhand();
 				return itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK;
 			}
 		}
@@ -169,7 +169,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && !this.isBeingRidden() && this.getWatered() && this.getFed())
@@ -209,7 +209,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 
 		if (player.isSneaking())

@@ -117,7 +117,7 @@ public class EntityToad extends EntityAmphibian
 			metaVal = moditem.substring(metaLoc + 1);
 		}
 
-		Item bob = Item.getByNameOrId(item);
+		RItem bob = RItem.getByNameOrId(item);
 
 		if (bob != null)
 		{
@@ -140,7 +140,7 @@ public class EntityToad extends EntityAmphibian
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.TOAD, EntityGender.NONE));
 	}

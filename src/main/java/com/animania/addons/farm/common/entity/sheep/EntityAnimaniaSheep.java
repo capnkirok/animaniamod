@@ -50,7 +50,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemShears;
@@ -60,7 +60,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.Shearable;
@@ -123,7 +123,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.RED_FLOWER), false));
 		this.goalSelector.addGoal(8, this.entityAIEatGrass);
 		this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 2.0D, 2.2D));
-		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
@@ -135,7 +135,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 			AddonInjectionHandler.runInjection("catsdogs", "addHerdingBehavior", null, this, 1);
 		}
 		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
-		this.targetTasks.addTask(1, new HurtByTargetGoal(this, true, PlayerEntity.class));
+		this.targetTasks.addTask(1, new HurtByTargetGoal(this, true, Player.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -294,7 +294,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return Items.LEATHER;
 	}
@@ -366,14 +366,14 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		PlayerEntity PlayerEntity = player;
+		Player Player = player;
 
 		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild())
 		{
-			if (!this.level.isRemote)
+			if (!this.level.isClientSide)
 			{
 				this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
 			}
@@ -417,7 +417,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public void setInLove(PlayerEntity player)
+	public void setInLove(Player player)
 	{
 		if (!this.getSleeping())
 			this.level.broadcastEntityEvent(this, (byte) 18);
@@ -431,7 +431,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 	private boolean isSheepBreedingItem(ItemStack itemIn)
 	{
-		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER);
+		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override
@@ -476,7 +476,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public Item getSpawnEgg()
+	public RItem getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.sheepType, this.gender));
 	}

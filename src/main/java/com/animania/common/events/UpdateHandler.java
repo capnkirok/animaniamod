@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.animania.Animania;
 
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 
 /*
  * Original Code VozValden, updated by Purplicious_Cow
@@ -34,14 +34,14 @@ public class UpdateHandler
 			else
 			{
 				UpdateHandler.show = true;
-				UpdateHandler.updateStatus = TextFormatting.WHITE + I18n.translateToLocal("animania.updatetext.1") + " " + TextFormatting.GOLD + UpdateHandler.newestVersion + TextFormatting.RESET + " " + I18n.translateToLocal("animania.updatetext.2");
+				UpdateHandler.updateStatus = ChatFormatting.WHITE + I18n.translateToLocal("animania.updatetext.1") + " " + ChatFormatting.GOLD + UpdateHandler.newestVersion + ChatFormatting.RESET + " " + I18n.translateToLocal("animania.updatetext.2");
 			}
 		}
 		else
 		{
 			// UpdateHandler.show = false;
 			UpdateHandler.show = true;
-			UpdateHandler.updateStatus = TextFormatting.WHITE + I18n.translateToLocal("animania.updatetext.3");
+			UpdateHandler.updateStatus = ChatFormatting.WHITE + I18n.translateToLocal("animania.updatetext.3");
 		}
 	}
 

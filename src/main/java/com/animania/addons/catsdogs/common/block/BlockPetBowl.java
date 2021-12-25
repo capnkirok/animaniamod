@@ -14,11 +14,11 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
@@ -63,7 +63,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 		TileEntityPetBowl te = (TileEntityPetBowl) levelIn.getTileEntity(pos);
 
-		if (entityIn instanceof EntityItem && !levelIn.isRemote)
+		if (entityIn instanceof EntityItem && !levelIn.isClientSide)
 		{
 
 			EntityItem entityitem = (EntityItem) entityIn;
@@ -97,7 +97,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
-	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, Player playerIn, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
@@ -260,7 +260,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityPetBowl bowl)

@@ -7,11 +7,11 @@ import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.client.render.layer.LayerBlinking;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.entity.PlayerEntitySP;
+import net.minecraft.client.entity.LocalPlayer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
@@ -43,10 +43,10 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 
 		if (LivingEntity.isPassenger())
 		{
-			if (LivingEntity.getRidingEntity() instanceof PlayerEntitySP)
+			if (LivingEntity.getRidingEntity() instanceof LocalPlayer)
 			{
 
-				PlayerEntity player = (PlayerEntity) LivingEntity.getRidingEntity();
+				Player player = (Player) LivingEntity.getRidingEntity();
 				LivingEntity.rotationYaw = player.rotationYaw;
 
 				if (player.isSneaking())

@@ -26,7 +26,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class RegistryHelper
 {
 
-	public static class Item
+	public static class RItem
 	{
 
 		// TODO Fix actual bug on this way to load textures

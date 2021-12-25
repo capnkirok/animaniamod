@@ -11,7 +11,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
@@ -31,10 +31,10 @@ public class CarryInteractHandler
 
 		if (props.isCarrying() && player.isSneaking())
 		{
-			player.swingArm(EnumHand.MAIN_HAND);
+			player.swingArm(InteractionHand.MAIN_HAND);
 			player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 
-			if (!level.isRemote)
+			if (!level.isClientSide)
 			{
 				Entity e = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), level);
 
@@ -60,9 +60,9 @@ public class CarryInteractHandler
 	}
 
 	@SubscribeEvent
-	public static void missingMapping(RegistryEvent.MissingMappings<Item> event)
+	public static void missingMapping(RegistryEvent.MissingMappings<RItem> event)
 	{
-		for (MissingMappings.Mapping<Item> entry : event.getAllMappings())
+		for (MissingMappings.Mapping<RItem> entry : event.getAllMappings())
 		{
 
 			String key = entry.key.toString();

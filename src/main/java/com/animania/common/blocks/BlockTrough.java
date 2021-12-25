@@ -26,12 +26,12 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -149,7 +149,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 		if (!tile instanceof TileEntityTrough te)
 			return;
 
-		if (entityIn instanceof EntityItem && !levelIn.isRemote)
+		if (entityIn instanceof EntityItem && !levelIn.isClientSide)
 		{
 
 			EntityItem entityitem = (EntityItem) entityIn;
@@ -273,12 +273,12 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	@Override
 	public boolean canPlaceBlockAt(Level levelIn, BlockPos pos)
 	{
-		PlayerEntity PlayerEntity = levelIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false);
+		Player Player = levelIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false);
 
 		String dir = "";
 
-		if (PlayerEntity != null)
-			dir = PlayerEntity.getHorizontalFacing().toString().trim();
+		if (Player != null)
+			dir = Player.getHorizontalFacing().toString().trim();
 
 		BlockPos blockpos = pos.west();
 		BlockPos blockpos1 = pos.east();
@@ -349,9 +349,9 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 
 	@Override
 	@Nullable
-	public Item getItemDropped(BlockState state, Random rand, int fortune)
+	public RItem getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		return Item.getItemFromBlock(BlockHandler.blockTrough);
+		return RItem.getItemFromBlock(BlockHandler.blockTrough);
 	}
 
 	public boolean canDispenserPlace(Level levelIn, BlockPos pos, ItemStack stack)
@@ -373,7 +373,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	@Override
-	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, Player playerIn, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
@@ -591,7 +591,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityTrough trough)

@@ -16,7 +16,7 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -78,8 +78,8 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 
 		if (this.blockType == FarmAddonBlockHandler.blockWildHive && Animania.RANDOM.nextInt(10) == 0)
 		{
-			List<PlayerEntity> players = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 2, this.level, pos);
-			for (PlayerEntity p : players)
+			List<Player> players = AnimaniaHelper.getEntitiesInRange(Player.class, 2, this.level, pos);
+			for (Player p : players)
 			{
 				if (Animania.RANDOM.nextInt(3) == 0)
 					p.attackEntityFrom(DamageSourceHandler.beeDamage, 2.5f);

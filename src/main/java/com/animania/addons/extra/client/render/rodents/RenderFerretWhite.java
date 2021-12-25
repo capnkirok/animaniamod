@@ -7,11 +7,11 @@ import com.animania.addons.extra.common.entity.rodents.EntityFerretWhite;
 import com.animania.client.render.layer.LayerBlinking;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.entity.PlayerEntitySP;
+import net.minecraft.client.entity.LocalPlayer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -36,10 +36,10 @@ public class RenderFerretWhite<T extends EntityFerretWhite> extends RenderLiving
 		if (entity.isPassenger())
 		{
 
-			if (entity.getRidingEntity() instanceof PlayerEntitySP)
+			if (entity.getRidingEntity() instanceof LocalPlayer)
 			{
 				GL11.glScalef(0.3F, 0.3F, 0.3F);
-				PlayerEntity player = (PlayerEntity) entity.getRidingEntity();
+				Player player = (Player) entity.getRidingEntity();
 				entity.rotationYaw = player.rotationYaw;
 				if (player.isSneaking())
 					GlStateManager.translate(-1.2F, entity.height + .0F, .5F);

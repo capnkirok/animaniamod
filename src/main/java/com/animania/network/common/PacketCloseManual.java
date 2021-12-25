@@ -5,7 +5,7 @@ import javax.xml.ws.handler.MessageContext;
 import com.animania.common.handler.ItemHandler;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IThreadListener;
@@ -50,7 +50,7 @@ public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseM
 		IThreadListener mainThread = (LevelServer) ctx.getServerHandler().player.level;
 
 		mainThread.addScheduledTask(new Runnable() {
-			ServerPlayerEntity player = ctx.getServerHandler().player;
+			ServerPlayer player = ctx.getServerHandler().player;
 
 			@Override
 			public void run()

@@ -24,7 +24,7 @@ public class ExtraAddonCraftingHandler
 		GameRegistry.addSmelting(rawFrogLegs, new ItemStack(cookedFrogLegs, 1), .3F);
 		GameRegistry.addSmelting(rawPrimeRabbit, new ItemStack(cookedPrimeRabbit, 1), .3F);
 
-		Item plainOmelette = Item.getByNameOrId("animania:plain_omelette");
+		RItem plainOmelette = RItem.getByNameOrId("animania:plain_omelette");
 
 		if (plainOmelette != null)
 		{

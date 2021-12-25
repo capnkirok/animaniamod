@@ -12,7 +12,7 @@ import com.animania.common.helper.ItemHelper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -76,7 +76,7 @@ public class PigSnuffleGoal extends GenericAIEatGrass<EntityAnimaniaPig>
 
 		if (this.shouldMoveTo(this.level, blockpos1))
 		{
-			if (this.eatingGrassTimer > 80 && BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() && this.grassEaterEntity.getLeashHolder() instanceof PlayerEntity)
+			if (this.eatingGrassTimer > 80 && BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() && this.grassEaterEntity.getLeashHolder() instanceof Player)
 			{
 				this.entityLevel.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
 				if (!this.hasSpawned)

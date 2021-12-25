@@ -3,16 +3,14 @@ package com.animania.common.items;
 import com.animania.Animania;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.item.Item;
 
 public class AnimaniaItem extends Item
 {
-	public AnimaniaItem(String name)
+	public AnimaniaItem(String name, Item.Properties props)
 	{
+		super(props.tab(Animania.TabAnimaniaResources));
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
-		ForgeRegistries.ITEMS.register(this);
-		this.setUnlocalizedName(Animania.MODID + "_" + name);
-		this.setCreativeTab(Animania.TabAnimaniaResources);
-
+//		this.setUnlocalizedName(Animania.MODID + "_" + name);
 	}
 }

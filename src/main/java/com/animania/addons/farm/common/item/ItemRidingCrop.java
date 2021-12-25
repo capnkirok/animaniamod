@@ -7,19 +7,19 @@ import com.animania.addons.farm.common.entity.horses.EntityAnimaniaHorse;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.InteractionResultHolder;
+import net.minecraft.util.InteractionResultHolderType;
+import net.minecraft.util.InteractionHand;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemRidingCrop extends Item
+public class ItemRidingCrop extends RItem
 {
 	private String name = "riding_crop";
 
@@ -48,7 +48,7 @@ public class ItemRidingCrop extends Item
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(Level levelIn, PlayerEntity playerIn, EnumHand hand)
+	public InteractionResultHolder<ItemStack> onItemRightClick(Level levelIn, Player playerIn, InteractionHand hand)
 	{
 
 		ItemStack itemStackIn = playerIn.getHeldItem(hand);
@@ -66,13 +66,13 @@ public class ItemRidingCrop extends Item
 					itemStackIn.shrink(1);
 				}
 
-				return new ActionResult(ActionResultType.SUCCESS, itemStackIn);
+				return new InteractionResultHolder(InteractionResultHolderType.SUCCESS, itemStackIn);
 			}
 
 		}
 
 		playerIn.addStat(StatList.getObjectUseStats(this));
-		return new ActionResult(ActionResultType.PASS, itemStackIn);
+		return new InteractionResultHolder(InteractionResultHolderType.PASS, itemStackIn);
 
 	}
 
@@ -84,8 +84,8 @@ public class ItemRidingCrop extends Item
 	@Override
 	public void addInformation(ItemStack stack, Level levelIn, List<String> list, ITooltipFlag flagIn)
 	{
-		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.ridingcrop1"));
-		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.ridingcrop2"));
+		list.add(ChatFormatting.GREEN + I18n.translateToLocal("tooltip.an.ridingcrop1"));
+		list.add(ChatFormatting.GREEN + I18n.translateToLocal("tooltip.an.ridingcrop2"));
 
 	}
 

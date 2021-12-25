@@ -165,7 +165,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	public void ejectHamster()
 	{
-		if (this.hamster != null && !level.isRemote)
+		if (this.hamster != null && !level.isClientSide)
 		{
 			if (this.findPositionForHamster())
 			{

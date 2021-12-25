@@ -94,7 +94,7 @@ public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	}
 
 	@Override
-	protected Item getDropItem()
+	protected RItem getDropItem()
 	{
 		return null;
 	}

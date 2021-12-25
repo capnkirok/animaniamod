@@ -18,7 +18,7 @@ import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
 import com.animania.network.NetworkHandler;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.MultipleModsErrored;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -92,16 +92,16 @@ public class CommonProxy
 	}
 
 	// Sleep
-	public void Sleep(PlayerEntity PlayerEntity)
+	public void Sleep(Player Player)
 	{
 		long currentTime = 0;
 		int factorTime = 0;
 
-		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().levels.length; ++j)
+		for (int j = 0; j < Player.level.getMinecraftServer().getServer().levels.length; ++j)
 		{
-			currentTime = Playerentity.level.getMinecraftServer().getServer().levels[j].getLevelTime() % 24000;
+			currentTime = Player.level.getMinecraftServer().getServer().levels[j].getLevelTime() % 24000;
 			factorTime = 24000 - (int) currentTime;
-			Playerentity.level.getMinecraftServer().getServer().levels[j].setLevelTime(Playerentity.level.getMinecraftServer().getServer().levels[j].getLevelTime() + factorTime);
+			Player.level.getMinecraftServer().getServer().levels[j].setLevelTime(Player.level.getMinecraftServer().getServer().levels[j].getLevelTime() + factorTime);
 		}
 	}
 

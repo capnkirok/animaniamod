@@ -18,11 +18,11 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
@@ -203,7 +203,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 		if (block1 == BlockHandler.blockTrough)
 		{
 			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos1);
-			if (te != null && te.getTroughRotation() == 1 && !levelIn.isRemote)
+			if (te != null && te.getTroughRotation() == 1 && !levelIn.isClientSide)
 			{
 				levelIn.setBlockToAir(pos1);
 				super.breakBlock(levelIn, pos1, state);
@@ -213,7 +213,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 		if (block2 == BlockHandler.blockTrough)
 		{
 			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos2);
-			if (te != null && te.getTroughRotation() == 0 && !levelIn.isRemote)
+			if (te != null && te.getTroughRotation() == 0 && !levelIn.isClientSide)
 			{
 				levelIn.setBlockToAir(pos2);
 				super.breakBlock(levelIn, pos2, state);
@@ -223,7 +223,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 		if (block3 == BlockHandler.blockTrough)
 		{
 			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos3);
-			if (te != null && te.getTroughRotation() == 2 && !levelIn.isRemote)
+			if (te != null && te.getTroughRotation() == 2 && !levelIn.isClientSide)
 			{
 				levelIn.setBlockToAir(pos3);
 				super.breakBlock(levelIn, pos3, state);
@@ -234,7 +234,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 		if (block4 == BlockHandler.blockTrough)
 		{
 			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos4);
-			if (te != null && te.getTroughRotation() == 3 && !levelIn.isRemote)
+			if (te != null && te.getTroughRotation() == 3 && !levelIn.isClientSide)
 			{
 				levelIn.setBlockToAir(pos4);
 				super.breakBlock(levelIn, pos4, state);
@@ -252,7 +252,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, Player playerIn, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
@@ -325,9 +325,9 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@Nullable
-	public Item getItemDropped(BlockState state, Random rand, int fortune)
+	public RItem getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		return Item.getItemFromBlock(BlockHandler.blockTrough);
+		return RItem.getItemFromBlock(BlockHandler.blockTrough);
 	}
 
 	@Override
@@ -337,7 +337,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, Player player)
 	{
 		return new ItemStack(BlockHandler.blockTrough);
 	}
@@ -369,7 +369,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = level.getTileEntity(data.getPos());
 		if ((te instanceof TileEntityInvisiblock invis) && (invis.getTrough() != null))

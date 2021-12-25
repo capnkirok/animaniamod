@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.nbt.CompoundTag;
@@ -29,7 +29,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -122,7 +122,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 	}
 
 	@Override
-	public boolean processInitialInteract(PlayerEntity player, EnumHand hand)
+	public boolean processInitialInteract(Player player, InteractionHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		boolean isPulling = false;
@@ -181,13 +181,13 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 		if (player.isSneaking())
 		{
-			if (!this.level.isRemote && this.getHasChest())
+			if (!this.level.isClientSide && this.getHasChest())
 			{
 				this.cartChest.setCustomName(this.getName());
 				player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
 				level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
 			}
-			else if (!this.getHasChest() && stack.getItem() != Item.getItemFromBlock(Blocks.CHEST) && player.getRidingEntity() != this)
+			else if (!this.getHasChest() && stack.getItem() != RItem.getItemFromBlock(Blocks.CHEST) && player.getRidingEntity() != this)
 			{
 				player.startRiding(this);
 
@@ -204,7 +204,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		else if (!player.isSneaking())
 		{
 
-			if (stack.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !this.getHasChest() && !this.isBeingRidden())
+			if (stack.getItem() == RItem.getItemFromBlock(Blocks.CHEST) && !this.getHasChest() && !this.isBeingRidden())
 			{
 				this.setHasChest(true);
 				if (!player.isCreative())
@@ -212,7 +212,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 					stack.shrink(1);
 				}
 
-				if (!level.isRemote)
+				if (!level.isClientSide)
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.PLAYERS, 0.7F, 1.0F);
 				}
@@ -230,7 +230,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				{
 					this.setPullerType(3);
 				}
-				if (!level.isRemote)
+				if (!level.isClientSide)
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
@@ -240,7 +240,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!level.isRemote)
+				if (!level.isClientSide)
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
@@ -256,7 +256,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				{
 					player.inventory.addItemStackToInventory(new ItemStack(Items.LEAD, 1));
 				}
-				if (!level.isRemote)
+				if (!level.isClientSide)
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
@@ -271,12 +271,12 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				{
 					player.inventory.addItemStackToInventory(new ItemStack(Items.LEAD, 1));
 				}
-				if (!level.isRemote)
+				if (!level.isClientSide)
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 			}
-			else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isRemote && !isPulling)
+			else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isClientSide && !isPulling)
 			{
 
 				double diffx = Math.abs(this.getX() - player.getX());
@@ -288,19 +288,19 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 					this.pulled = true;
 					this.puller = player;
 					this.setPullerType(2);
-					if (!level.isRemote)
+					if (!level.isClientSide)
 					{
 						level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 
 					}
 				}
 			}
-			else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isRemote)
+			else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isClientSide)
 			{
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!level.isRemote)
+				if (!level.isClientSide)
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
@@ -311,7 +311,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!level.isRemote)
+				if (!level.isClientSide)
 				{
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
@@ -383,9 +383,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 	{
 
 		// Dismount if sneak pressed and riding this
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown == 0)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof Player && this.rideCooldown == 0)
 		{
-			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
+			Player player = (Player) this.getControllingPassenger();
 			if (player.isSneaking())
 			{
 				player.applyEntityCollision(this);
@@ -401,7 +401,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		{
 
 			AnimalEntity AnimalEntity = (AnimalEntity) this.getControllingPassenger();
-			if (AnimalEntity.isBeingRidden() && AnimalEntity.getControllingPassenger() instanceof PlayerEntity)
+			if (AnimalEntity.isBeingRidden() && AnimalEntity.getControllingPassenger() instanceof Player)
 			{
 				AnimalEntity.applyEntityCollision(this);
 				AnimalEntity.dismountRidingEntity();
@@ -414,14 +414,14 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		}
 
 		// Dismount text
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && level.isRemote)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof Player && this.rideCooldown > 10 && level.isClientSide)
 		{
-			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
+			Player player = (Player) this.getControllingPassenger();
 			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
 		// Determine animation direction based on previous pos
-		if (this.pulled && this.puller != null && level.isRemote)
+		if (this.pulled && this.puller != null && level.isClientSide)
 		{
 
 			double movX = Math.abs(this.getX() - this.prevgetX());
@@ -522,11 +522,11 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		}
 
 		// Add slowness if multiple carts being pulled
-		if (this.pulled && this.puller instanceof PlayerEntity)
+		if (this.pulled && this.puller instanceof Player)
 		{
 			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, level, this);
 
-			PlayerEntity player = (PlayerEntity) this.puller;
+			Player player = (Player) this.puller;
 			int totPulling = 0;
 			if (!carts.isEmpty())
 			{
@@ -608,7 +608,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 		// Stop Animation if not pulling or moving
 
-		if (this.level.isRemote && this.pulled)
+		if (this.level.isClientSide && this.pulled)
 		{
 			double diffX = this.getX() - this.prevgetX();
 			double diffZ = this.getZ() - this.prevgetZ();
@@ -654,7 +654,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 			}
 			else if (this.getPullerType() == 2)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.level, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(Player.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -718,7 +718,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 		if (!list.isEmpty())
 		{
-			boolean flag = !this.level.isRemote;
+			boolean flag = !this.level.isClientSide;
 
 			for (int j = 0; j < list.size(); ++j)
 			{
@@ -730,7 +730,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 					AnimalEntity AnimalEntity = (AnimalEntity) entity;
 					if (!entity.isPassenger(this))
 					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof PlayerEntity && !entity.isPassenger() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof PlayerEntity))
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof Player && !entity.isPassenger() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof Player))
 						{
 							entity.startRiding(this);
 						}
@@ -846,7 +846,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		entityToUpdate.setRenderYawOffset(this.rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
 		float f1 = MathHelper.clamp(f, 0.0F, 0.0F);
-		if (entityToUpdate instanceof PlayerEntity)
+		if (entityToUpdate instanceof Player)
 		{
 			f1 = MathHelper.clamp(f, -105.0F, 105.0F);
 		}
@@ -868,7 +868,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		{
 			return false;
 		}
-		else if (!this.level.isRemote && !this.isDead)
+		else if (!this.level.isClientSide && !this.isDead)
 		{
 			if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null)
 			{
@@ -880,7 +880,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				this.setTimeSinceHit(10);
 				this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
 				this.markVelocityChanged();
-				boolean flag = source.getTrueSource() instanceof PlayerEntity && ((PlayerEntity) source.getTrueSource()).capabilities.isCreativeMode;
+				boolean flag = source.getTrueSource() instanceof Player && ((Player) source.getTrueSource()).capabilities.isCreativeMode;
 
 				if (flag || this.getDamageTaken() > 40.0F)
 				{
@@ -891,7 +891,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 						if (this.getHasChest())
 						{
 							InventoryHelper.dropInventoryItems(level, this.getPosition(), this.cartChest);
-							this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
+							this.dropItemWithOffset(RItem.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
 						}
 					}
 
@@ -1011,7 +1011,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		{
 			pullerType = 1;
 		}
-		else if (entity instanceof PlayerEntity)
+		else if (entity instanceof Player)
 		{
 			pullerType = 2;
 		}

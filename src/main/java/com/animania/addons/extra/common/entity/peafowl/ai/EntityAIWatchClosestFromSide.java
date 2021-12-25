@@ -2,7 +2,7 @@ package com.animania.addons.extra.common.entity.peafowl.ai;
 
 import com.animania.addons.extra.common.entity.peafowl.EntityAnimaniaPeacock;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -55,7 +55,7 @@ public class WatchClosestFromSideGoal extends Goal
 			if (this.theWatcher.getAttackTarget() != null)
 				this.closestEntity = this.theWatcher.getAttackTarget();
 
-			if (this.watchedClass == PlayerEntity.class)
+			if (this.watchedClass == Player.class)
 				this.closestEntity = this.theWatcher.level.getClosestPlayerToEntity(this.theWatcher, this.maxDistanceForPlayer);
 			else
 				this.closestEntity = this.theWatcher.level.findNearestEntityWithinAABB(this.watchedClass, this.theWatcher.getEntityBoundingBox().expand(this.maxDistanceForPlayer, 3.0D, this.maxDistanceForPlayer), this.theWatcher);

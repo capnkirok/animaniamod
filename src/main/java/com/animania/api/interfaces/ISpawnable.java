@@ -3,7 +3,7 @@ package com.animania.api.interfaces;
 public interface ISpawnable
 {
 
-	public Item getSpawnEgg();
+	public RItem getSpawnEgg();
 
 	public int getPrimaryEggColor();
 

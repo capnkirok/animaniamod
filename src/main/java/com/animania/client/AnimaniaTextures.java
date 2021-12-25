@@ -31,11 +31,11 @@ public class AnimaniaTextures
 		register(ItemHandler.entityeggrandomanimal);
 
 		// Blocks
-		register(Item.byBlock(BlockHandler.blockMud));
-		register(Item.byBlock(BlockHandler.blockTrough));
-		register(Item.byBlock(BlockHandler.blockNest));
-		register(Item.byBlock(BlockHandler.blockStraw));
-		register(Item.byBlock(BlockHandler.blockSaltLick));
+		register(RItem.byBlock(BlockHandler.blockMud));
+		register(RItem.byBlock(BlockHandler.blockTrough));
+		register(RItem.byBlock(BlockHandler.blockNest));
+		register(RItem.byBlock(BlockHandler.blockStraw));
+		register(RItem.byBlock(BlockHandler.blockSaltLick));
 
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
 	}
@@ -45,17 +45,17 @@ public class AnimaniaTextures
 	 *
 	 * @param item
 	 */
-	public static void register(Item item)
+	public static void register(RItem item)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 	}
 
-	public static void register(Item item, String name, int meta)
+	public static void register(RItem item, String name, int meta)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name, "inventory"));
 	}
 
-	public static void registerColored(Item item, String name)
+	public static void registerColored(RItem item, String name)
 	{
 		for (int meta = 0; meta < 16; meta++)
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));
@@ -71,8 +71,8 @@ public class AnimaniaTextures
 		{
 			ItemStack stack = list.get(i);
 
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName) block).getSpecialName(stack), "inventory"));
-			ModelBakery.registerItemVariants(Item.getItemFromBlock(block), new ResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName) block).getSpecialName(stack)));
+			ModelLoader.setCustomModelResourceLocation(RItem.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName) block).getSpecialName(stack), "inventory"));
+			ModelBakery.registerItemVariants(RItem.getItemFromBlock(block), new ResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName) block).getSpecialName(stack)));
 
 		}
 
@@ -80,7 +80,7 @@ public class AnimaniaTextures
 
 	public static void registerEntityEggs()
 	{
-		for (Item item : ItemHandler.entityEggList)
+		for (RItem item : ItemHandler.entityEggList)
 		{
 			if (item instanceof ItemEntityEgg && !(item instanceof ItemEntityEggAnimated))
 			{

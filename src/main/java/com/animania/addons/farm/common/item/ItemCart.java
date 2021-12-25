@@ -6,15 +6,15 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.EnumHand;
+import net.minecraft.entity.player.Player;
+import net.minecraft.util.InteractionResultHolderType;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemCart extends Item
+public class ItemCart extends RItem
 {
 	public ItemCart()
 	{
@@ -26,8 +26,8 @@ public class ItemCart extends Item
 	}
 
 	/*
-	 * public ActionResult<ItemStack> onItemRightClick(Level levelIn,
-	 * PlayerEntity playerIn, EnumHand handIn) { ItemStack itemstack =
+	 * public InteractionResultHolder<ItemStack> onItemRightClick(Level levelIn,
+	 * Player playerIn, InteractionHand handIn) { ItemStack itemstack =
 	 * playerIn.getHeldItem(handIn); float f = 1.0F; float f1 =
 	 * playerIn.prevRotationPitch + (playerIn.rotationPitch -
 	 * playerIn.prevRotationPitch) * 1.0F; float f2 = playerIn.prevRotationYaw +
@@ -46,7 +46,7 @@ public class ItemCart extends Item
 	 * vec3d1, true);
 	 *
 	 * if (raytraceresult == null) { return new
-	 * ActionResult(ActionResultType.PASS, itemstack); } else { Vec3d vec3d2 =
+	 * InteractionResultHolder(InteractionResultHolderType.PASS, itemstack); } else { Vec3d vec3d2 =
 	 * playerIn.getLook(1.0F); boolean flag = false; List<Entity> list =
 	 * levelIn.getEntitiesWithinAABBExcludingEntity(playerIn,
 	 * playerIn.getEntityBoundingBox().grow(vec3d2.x * 5.0D, vec3d2.y * 5.0D,
@@ -61,34 +61,34 @@ public class ItemCart extends Item
 	 *
 	 * if (axisalignedbb.contains(vec3d)) { flag = true; } } }
 	 *
-	 * if (flag) { return new ActionResult(ActionResultType.PASS, itemstack);
+	 * if (flag) { return new InteractionResultHolder(InteractionResultHolderType.PASS, itemstack);
 	 *
 	 * } else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK) {
-	 * return new ActionResult(ActionResultType.PASS, itemstack); } else { Block
+	 * return new InteractionResultHolder(InteractionResultHolderType.PASS, itemstack); } else { Block
 	 * block = levelIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
 	 * boolean flag1 = false; EntityCart EntityCart = new EntityCart(levelIn);
 	 * EntityCart.rotationYaw = playerIn.rotationYaw;
 	 * EntityCart.setLocationAndAngles(d0, d1, d2,
 	 * MathHelper.wrapDegrees(levelIn.rand.nextFloat() * 360.0F), 0.0F);
 	 *
-	 * if (!levelIn.isRemote) {AnimaniaHelper.spawnEntity( levelIn, EntityCart);
+	 * if (!levelIn.isClientSide) {AnimaniaHelper.spawnEntity( levelIn, EntityCart);
 	 * }
 	 *
 	 * if (!playerIn.capabilities.isCreativeMode) { itemstack.shrink(1); }
 	 *
 	 * playerIn.addStat(StatList.getObjectUseStats(this)); return new
-	 * ActionResult(ActionResultType.SUCCESS, itemstack); } } }
+	 * InteractionResultHolder(InteractionResultHolderType.SUCCESS, itemstack); } } }
 	 */
 
 	@Override
-	public ActionResultType onItemUse(PlayerEntity playerIn, Level level, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public InteractionResultHolderType onItemUse(Player playerIn, Level level, BlockPos pos, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 
 		ItemStack stack = playerIn.getHeldItem(hand);
 
-		if (level.isRemote)
-			return ActionResultType.SUCCESS;
+		if (level.isClientSide)
+			return InteractionResultHolderType.SUCCESS;
 
 		EntityCart entity = new EntityCart(level);
 
@@ -104,7 +104,7 @@ public class ItemCart extends Item
 		entity.rotationYaw = entity.rotationYaw;
 		entity.deltaRotation = entity.rotationYaw;
 		AnimaniaHelper.spawnEntity(level, entity);
-		return ActionResultType.SUCCESS;
+		return InteractionResultHolderType.SUCCESS;
 
 	}
 

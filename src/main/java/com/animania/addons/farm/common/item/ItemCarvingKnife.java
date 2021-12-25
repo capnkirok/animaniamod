@@ -6,11 +6,11 @@ import com.animania.Animania;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemSword;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -61,7 +61,7 @@ public class ItemCarvingKnife extends ItemSword
 		return new ItemStack(stack.getItem(), n, stack.getItemDamage());
 	}
 
-	public void removeItem(PlayerEntity ep, ItemStack removeitem)
+	public void removeItem(Player ep, ItemStack removeitem)
 	{
 		IInventory inv = ep.inventory;
 		for (int i = 0; i < inv.getSizeInventory(); i++)
@@ -84,7 +84,7 @@ public class ItemCarvingKnife extends ItemSword
 	@Override
 	public void addInformation(ItemStack stack, Level levelIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("item.animania_carving_knife.desc"));
+		tooltip.add(ChatFormatting.GOLD + I18n.translateToLocal("item.animania_carving_knife.desc"));
 	}
 
 }

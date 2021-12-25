@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.IResourcePack;
 import net.minecraft.server.packs.resources.SimpleReloadableResourceManager;
@@ -54,7 +54,7 @@ public class ClientProxy extends CommonProxy
 		super.init(event);
 		RenderHandler.init();
 
-		for (Item item : ForgeRegistries.ITEMS.getValues())
+		for (RItem item : ForgeRegistries.ITEMS.getValues())
 		{
 			if (item instanceof ItemEntityEgg)
 			{
@@ -79,7 +79,7 @@ public class ClientProxy extends CommonProxy
 		super.registerFluidBlockRendering(block, name);
 		FluidStateMapper mapper = new FluidStateMapper(name);
 
-		Item item = Item.getItemFromBlock(block);
+		RItem item = RItem.getItemFromBlock(block);
 		ModelBakery.registerItemVariants(item);
 		ModelLoader.setCustomMeshDefinition(item, mapper);
 
@@ -123,17 +123,17 @@ public class ClientProxy extends CommonProxy
 
 	// Sleep
 	@Override
-	public void Sleep(PlayerEntity PlayerEntity)
+	public void Sleep(Player Player)
 	{
 
 		long currentTime = 0;
 		int factorTime = 0;
 
-		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().levels.length; ++j)
+		for (int j = 0; j < Player.level.getMinecraftServer().getServer().levels.length; ++j)
 		{
-			currentTime = Playerentity.level.getMinecraftServer().getServer().levels[j].getLevelTime() % 24000;
+			currentTime = Player.level.getMinecraftServer().getServer().levels[j].getLevelTime() % 24000;
 			factorTime = 24000 - (int) currentTime;
-			Playerentity.level.getMinecraftServer().getServer().levels[j].setLevelTime(Playerentity.level.getMinecraftServer().getServer().levels[j].getLevelTime() + factorTime);
+			Player.level.getMinecraftServer().getServer().levels[j].setLevelTime(Player.level.getMinecraftServer().getServer().levels[j].getLevelTime() + factorTime);
 		}
 
 	}
