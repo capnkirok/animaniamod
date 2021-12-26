@@ -1,6 +1,7 @@
 package com.animania.common.recipes.ingredients;
 
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.config.AnimaniaConfig;
 import com.google.gson.JsonObject;
 

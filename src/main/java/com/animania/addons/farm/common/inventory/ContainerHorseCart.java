@@ -2,8 +2,8 @@ package com.animania.addons.farm.common.inventory;
 
 import java.awt.Container;
 
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 

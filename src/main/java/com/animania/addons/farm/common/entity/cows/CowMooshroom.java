@@ -4,7 +4,7 @@ import com.animania.Animania;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -52,7 +52,7 @@ public class CowMooshroom
 		@Override
 		public boolean processInteract(Player player, InteractionHand hand)
 		{
-			ItemStack stack = player.getHeldItem(hand);
+			ItemStack stack = player.getItemInHand(hand);
 
 			if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack) && this.getHasKids())
 			{

@@ -8,8 +8,8 @@ import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 
 public class WailaEntityPeafowlProvider extends WailaAnimalEntityProviderBase
 {

@@ -9,6 +9,7 @@ import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
 import com.animania.config.AnimaniaConfig;
@@ -26,18 +27,18 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Mirror;
@@ -376,7 +377,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, Player playerIn, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
-		ItemStack heldItem = playerIn.getHeldItem(hand);
+		ItemStack heldItem = playerIn.getItemInHand(hand);
 		TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 
 		// SOLIDS
@@ -461,7 +462,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 
 		}
 		// EMPTY SOLIDS
-		else if (playerIn.getHeldItemOffhand().isEmpty() && playerIn.getMainHandItem().isEmpty() && !te.itemHandler.getStackInSlot(0).isEmpty())
+		else if (playerIn.getItemInHandOffhand().isEmpty() && playerIn.getMainHandItem().isEmpty() && !te.itemHandler.getStackInSlot(0).isEmpty())
 		{
 			ItemStack extract = te.itemHandler.extractItem(0, 1, false);
 			playerIn.inventory.addItemStackToInventory(extract);

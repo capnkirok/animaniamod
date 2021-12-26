@@ -9,6 +9,7 @@ import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
 import com.animania.compat.top.providers.TOPInfoProvider;
@@ -19,13 +20,13 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -144,7 +145,7 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, Player playerIn, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
-		ItemStack heldItem = playerIn.getHeldItem(hand);
+		ItemStack heldItem = playerIn.getItemInHand(hand);
 		TileEntityNest te = (TileEntityNest) levelIn.getTileEntity(pos);
 
 		if (te != null && heldItem.isEmpty() && !playerIn.isSneaking())

@@ -9,9 +9,9 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 
 public interface TOPInfoProviderChild extends TOPInfoProviderBase
 {

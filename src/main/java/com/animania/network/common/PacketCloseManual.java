@@ -5,9 +5,9 @@ import javax.xml.ws.handler.MessageContext;
 import com.animania.common.handler.ItemHandler;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -56,7 +56,7 @@ public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseM
 			public void run()
 			{
 				ItemStack main = this.player.getMainHandItem();
-				ItemStack off = this.player.getHeldItemOffhand();
+				ItemStack off = this.player.getItemInHandOffhand();
 				ItemStack stack = ItemStack.EMPTY;
 
 				if (main.getItem() == ItemHandler.animaniaManual)

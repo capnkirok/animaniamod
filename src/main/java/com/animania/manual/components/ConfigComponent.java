@@ -3,9 +3,9 @@ package com.animania.manual.components;
 import com.animania.manual.gui.GuiManual;
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.util.text.ChatFormatting;
 
 public class ConfigComponent implements IManualComponent
 {

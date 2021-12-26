@@ -4,11 +4,11 @@ import com.animania.manual.groups.ManualTopic;
 import com.animania.manual.gui.GuiManual;
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.text.ChatFormatting;
 
 public class LinkComponent implements IManualComponent
 {

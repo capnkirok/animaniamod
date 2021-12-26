@@ -100,6 +100,7 @@ import com.animania.addons.catsdogs.common.handler.CatsDogsAddonBlockHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonItemHandler;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 import com.leviathanstudio.craftstudio.client.util.EnumRenderType;

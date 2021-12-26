@@ -5,12 +5,13 @@ import com.animania.addons.extra.common.entity.peafowl.PeacockType;
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitType;
 import com.animania.addons.extra.common.item.ItemHamsterBall;
 import com.animania.api.data.EntityGender;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.AnimaniaItem;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.common.items.ItemAnimaniaFoodRaw;
 import com.animania.common.items.ItemEntityEgg;
 
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 
 public class ExtraAddonItemHandler
@@ -73,17 +74,17 @@ public class ExtraAddonItemHandler
 
 		// RABBIT ITEMS
 		rawPrimeRabbit = new ItemAnimaniaFoodRaw("raw_prime_rabbit");
-		cookedPrimeRabbit = new ItemAnimaniaFood(8, 0.5f, "cooked_prime_rabbit", new PotionEffect(MobEffects.JUMP_BOOST, 600, 3, false, false));
+		cookedPrimeRabbit = new ItemAnimaniaFood(8, 0.5f, "cooked_prime_rabbit", new MobEffectInstance(MobEffects.JUMP_BOOST, 600, 3, false, false));
 
 		// FROG ITEMS
 		rawFrogLegs = new ItemAnimaniaFoodRaw("raw_frog_legs");
-		cookedFrogLegs = new ItemAnimaniaFood(7, 0.5f, "cooked_frog_legs", new PotionEffect(MobEffects.JUMP_BOOST, 1200, 2, false, false));
+		cookedFrogLegs = new ItemAnimaniaFood(7, 0.5f, "cooked_frog_legs", new MobEffectInstance(MobEffects.JUMP_BOOST, 1200, 2, false, false));
 
 		// PEACOCK ITEMS
 		rawPeacock = new ItemAnimaniaFoodRaw("raw_peacock");
-		cookedPeacock = new ItemAnimaniaFood(6, 0.5f, "cooked_peacock", new PotionEffect(MobEffects.LUCK, 600, 0, false, false));
+		cookedPeacock = new ItemAnimaniaFood(6, 0.5f, "cooked_peacock", new MobEffectInstance(MobEffects.LUCK, 600, 0, false, false));
 		rawPrimePeacock = new ItemAnimaniaFoodRaw("raw_prime_peacock");
-		cookedPrimePeacock = new ItemAnimaniaFood(9, 0.5f, "cooked_prime_peacock", new PotionEffect(MobEffects.LUCK, 1200, 1, false, false));
+		cookedPrimePeacock = new ItemAnimaniaFood(9, 0.5f, "cooked_prime_peacock", new MobEffectInstance(MobEffects.LUCK, 1200, 1, false, false));
 
 		entityeggrandompeacock = new ItemEntityEgg("peacock_random", PeacockType.BLUE, EntityGender.RANDOM);
 		entityeggrandomrabbit = new ItemEntityEgg("rabbit_random", RabbitType.LOP, EntityGender.RANDOM);

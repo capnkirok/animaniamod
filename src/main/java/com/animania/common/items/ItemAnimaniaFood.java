@@ -2,88 +2,88 @@ package com.animania.common.items;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.animania.Animania;
 import com.animania.common.handler.FoodValueHandler;
 import com.animania.common.helper.RomanNumberHelper;
 import com.animania.common.helper.TimeHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemFood;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.ChatFormatting;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
 
-public class ItemAnimaniaFood extends ItemFood
+public class ItemAnimaniaFood extends Item
 {
 
-	private PotionEffect[] effects;
+	private MobEffectInstance[] effects;
 	private String name;
 
-	public ItemAnimaniaFood(int amount, float saturation, boolean isWolfFood, String name, boolean creativeTab, PotionEffect... potionEffects)
+	public ItemAnimaniaFood(int amount, float saturation, boolean isWolfFood, String name, MobEffectInstance... MobEffectInstances)
 	{
-		super(amount, saturation, isWolfFood);
+		super(props(name, amount, saturation, isWolfFood, MobEffectInstances));
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
-		ForgeRegistries.ITEMS.register(this);
-		this.setUnlocalizedName(Animania.MODID + "_" + name);
-		this.effects = potionEffects;
+		this.effects = MobEffectInstances;
 		this.name = name;
+	}
+
+	private static Item.Properties props(String name, int amount, float saturation, boolean isWolfFood, MobEffectInstance... MobEffectInstances)
+	{
+		var food = new FoodProperties.Builder();
 		if (AnimaniaConfig.gameRules.eatFoodAnytime)
-			this.setAlwaysEdible();
-		this.setCreativeTab(Animania.TabAnimaniaResources);
+			food.alwaysEat();
+		if (isWolfFood)
+			food.meat();
+		food.nutrition(FoodValueHandler.hasOverride(name) ? FoodValueHandler.getHealAmount(name) : amount);
+		food.saturationMod(FoodValueHandler.hasOverride(name) ? FoodValueHandler.getSaturation(name) : saturation);
 
-	}
+		for (var m : MobEffectInstances)
+		{
+			food.effect(() -> {
+				return new MobEffectInstance(m);
+			}, 1.0f);
+		}
 
-	@Override
-	public int getHealAmount(ItemStack stack)
-	{
-		RItem item = stack.getItem();
-		if (FoodValueHandler.hasOverride(item))
-			return FoodValueHandler.getHealAmount(item);
-		else
-			return super.getHealAmount(stack);
-	}
+		var prop = new Item.Properties().tab(Animania.TabAnimaniaResources).food(food.build());
 
-	@Override
-	public float getSaturationModifier(ItemStack stack)
-	{
-		RItem item = stack.getItem();
-		if (FoodValueHandler.hasOverride(item))
-			return FoodValueHandler.getSaturation(item);
-		else
-			return super.getSaturationModifier(stack);
+		return prop;
 	}
 
 	public ItemAnimaniaFood(int amount, float saturation, boolean isWolfFood, String name)
 	{
-		this(amount, saturation, isWolfFood, name, true);
+		this(amount, saturation, isWolfFood, name, new MobEffectInstance[0]);
 	}
 
 	public ItemAnimaniaFood(int amount, float saturation, String name)
 	{
-		this(amount, saturation, true, name, true);
+		this(amount, saturation, true, name);
 	}
 
-	public ItemAnimaniaFood(int amount, float saturation, String name, boolean creativeTab, PotionEffect... potionEffects)
+	public ItemAnimaniaFood(int amount, float saturation, String name, boolean isWolfFood, MobEffectInstance... MobEffectInstances)
 	{
-		this(amount, saturation, true, name, creativeTab, potionEffects);
+		this(amount, saturation, isWolfFood, name, MobEffectInstances);
 	}
-
-	public ItemAnimaniaFood(int amount, float saturation, String name, PotionEffect... potionEffects)
+	
+	public ItemAnimaniaFood(int amount, float saturation, String name, MobEffectInstance... MobEffectInstances)
 	{
-		this(amount, saturation, true, name, true, potionEffects);
+		this(amount, saturation, true, name, MobEffectInstances);
 	}
 
 	@Override
-	public EnumAction getItemUseAction(ItemStack itemstack)
+	public UseAnim getUseAnimation(ItemStack pStack)
 	{
-		return EnumAction.EAT;
+		return UseAnim.EAT;
 	}
 
 	public String getName()
@@ -92,37 +92,23 @@ public class ItemAnimaniaFood extends ItemFood
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack itemstack, Level levelObj, Player Player)
-	{
-		if (!levelObj.isClientSide && AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
-			for (PotionEffect effect : this.effects.clone())
-			{
-				Potion pot = effect.getPotion();
-				int duration = effect.getDuration();
-				int amplifier = effect.getAmplifier();
-				boolean isAmbient = effect.getIsAmbient();
-				Player.addPotionEffect(new PotionEffect(pot, duration, amplifier, isAmbient, false));
-			}
-	}
-
-	@Override
-	public void addInformation(ItemStack stack, Level levelIn, List<String> tooltip, ITooltipFlag flagIn)
+	public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced)
 	{
 		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
-			for (PotionEffect effect : this.effects.clone())
+			for (MobEffectInstance effect : this.effects.clone())
 			{
-				Potion pot = effect.getPotion();
+				MobEffect pot = effect.getEffect();
 				int duration = effect.getDuration();
 				int amplifier = effect.getAmplifier();
-				boolean isInstant = pot.isInstant();
+				boolean isInstant = pot.isInstantenous();
 				boolean isPositive = pot.isBeneficial();
-				String name = pot.getRegistryName().getResourcePath().replace("_", "");
+				String name = pot.getRegistryName().getPath().replace("_", "");
 				if (isPositive)
-					tooltip.add(ChatFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + (!isInstant ? " (" + TimeHelper.getTime(duration) + ")" : ""));
+					pTooltipComponents.add(new TranslatableComponent("tooltip.an." + name).withStyle(ChatFormatting.GREEN).append(new TextComponent(" " + RomanNumberHelper.toRoman(amplifier + 1) + (!isInstant ? " (" + TimeHelper.getTime(duration) + ")" : ""))));
 			}
 
 		if (AnimaniaConfig.gameRules.eatFoodAnytime)
-			tooltip.add(ChatFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+			pTooltipComponents.add(new TranslatableComponent("tooltip.an.edibleanytime"));
 
 	}
 

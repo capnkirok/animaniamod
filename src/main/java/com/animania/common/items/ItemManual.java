@@ -3,10 +3,9 @@ package com.animania.common.items;
 import com.animania.Animania;
 import com.animania.manual.resources.ManualResourceLoader;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.util.InteractionResultHolderType;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.ChatFormatting;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +24,7 @@ public class ItemManual extends AnimaniaItem
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		if (level.isClientSide && player instanceof LocalPlayer)
 		{
 			if (!ManualResourceLoader.errored)
@@ -33,7 +32,7 @@ public class ItemManual extends AnimaniaItem
 				Animania.proxy.openManualGui(stack);
 			}
 			else
-				player.sendMessage(new TextComponentString(ChatFormatting.RED + "Error while building the book! Please double-check your json files!"));
+				player.displayClientMessage(new TextComponent(ChatFormatting.RED + "Error while building the book! Please double-check your json files!"), false);
 		}
 
 		return InteractionResultHolder.pass(stack);

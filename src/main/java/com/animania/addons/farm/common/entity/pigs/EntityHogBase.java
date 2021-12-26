@@ -19,14 +19,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.player.Player;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable, ISterilizable
@@ -85,7 +85,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				return true;
 			else
 			{
-				itemstack = Player.getHeldItemOffhand();
+				itemstack = Player.getItemInHandOffhand();
 				return itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK;
 			}
 		}
@@ -143,7 +143,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	public boolean processInteract(Player player, InteractionHand hand)
 	{
 
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && !this.isBeingRidden() && this.getWatered() && this.getFed())
 		{

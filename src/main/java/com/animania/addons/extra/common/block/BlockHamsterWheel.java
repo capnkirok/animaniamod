@@ -21,15 +21,16 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponent;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Mirror;
@@ -111,9 +112,9 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 			}
 		}
 
-		if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ExtraAddonItemHandler.hamsterFood)
+		if (!player.getItemInHand(hand).isEmpty() && player.getItemInHand(hand).getItem() == ExtraAddonItemHandler.hamsterFood)
 		{
-			ItemStack held = player.getHeldItem(hand);
+			ItemStack held = player.getItemInHand(hand);
 			ItemStack remainder = te.getItemHandler().insertItem(0, new ItemStack(ExtraAddonItemHandler.hamsterFood), false);
 
 			if (!player.isCreative() && remainder.isEmpty())
@@ -126,9 +127,9 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 		{
 			ItemStack food = te.getItemHandler().getStackInSlot(0);
 			if (food.isEmpty())
-				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF"), true);
+				player.sendStatusMessage(new TextComponent(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF"), true);
 			else
-				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
+				player.sendStatusMessage(new TextComponent(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
 
 		}
 

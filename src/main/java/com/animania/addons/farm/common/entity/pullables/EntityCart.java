@@ -12,34 +12,35 @@ import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.addons.farm.common.inventory.CartChest;
 import com.animania.client.handler.AnimationHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -124,7 +125,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 	@Override
 	public boolean processInitialInteract(Player player, InteractionHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		boolean isPulling = false;
 		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, level, player);
 		List pigs = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, level, player);
@@ -417,7 +418,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		if (this.isBeingRidden() && this.getControllingPassenger() instanceof Player && this.rideCooldown > 10 && level.isClientSide)
 		{
 			Player player = (Player) this.getControllingPassenger();
-			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
+			player.sendStatusMessage(new TextComponent(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
 		// Determine animation direction based on previous pos
@@ -543,7 +544,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				}
 				if (totPulling > 0)
 				{
-					player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
+					player.addMobEffectInstance(new MobEffectInstance(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
 				}
 			}
 		}

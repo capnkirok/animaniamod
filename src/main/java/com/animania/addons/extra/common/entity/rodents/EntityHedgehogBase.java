@@ -42,17 +42,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.monster.SilverfishEntity;
-import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -61,6 +60,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -311,7 +311,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	@Override
 	public boolean processInteract(Player player, InteractionHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		Player Player = player;
 
 		if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && !this.getSleeping())
@@ -374,11 +374,11 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		GenericBehavior.livingUpdateCommon(this);
 
 		if (this.getCustomNameTag().equals("Sonic"))
-			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 2, 4, false, false));
+			this.addMobEffectInstance(new MobEffectInstance(MobEffects.SPEED, 2, 4, false, false));
 		else if (this.getCustomNameTag().equals("Sanic"))
 		{
-			this.addPotionEffect(new PotionEffect(MobEffects.GLOWING, 2, 3, false, false));
-			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 2, 6, false, false));
+			this.addMobEffectInstance(new MobEffectInstance(MobEffects.GLOWING, 2, 3, false, false));
+			this.addMobEffectInstance(new MobEffectInstance(MobEffects.SPEED, 2, 6, false, false));
 		}
 
 		if (this.tamedTimer > -1)

@@ -11,6 +11,5 @@ public class AnimaniaItem extends Item
 	{
 		super(props.tab(Animania.TabAnimaniaResources));
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
-//		this.setUnlocalizedName(Animania.MODID + "_" + name);
 	}
 }

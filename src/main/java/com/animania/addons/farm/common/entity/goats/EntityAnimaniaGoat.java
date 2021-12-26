@@ -334,7 +334,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	@Override
 	public boolean processInteract(Player player, InteractionHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		Player Player = player;
 
 		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora)) // Forge:

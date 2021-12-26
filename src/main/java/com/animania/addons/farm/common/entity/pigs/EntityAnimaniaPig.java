@@ -24,6 +24,7 @@ import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -33,21 +34,21 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.PigZombieEntity;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeModContainer;
@@ -288,7 +289,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	@Override
 	public boolean processInteract(Player player, InteractionHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		Player Player = player;
 
 		if (!stack.isEmpty() && stack.getItem() == Items.SADDLE)
@@ -478,7 +479,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 		Block poschk = this.level.getBlockState(currentpos).getBlock();
 
 		if (poschk != null && (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")))
-			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 4, false, false));
+			this.addMobEffectInstance(new MobEffectInstance(MobEffects.SLOWNESS, 2, 4, false, false));
 
 		super.onLivingUpdate();
 	}

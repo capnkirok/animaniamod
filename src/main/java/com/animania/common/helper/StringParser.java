@@ -5,7 +5,9 @@ import javax.annotation.Nullable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class StringParser
@@ -77,7 +79,7 @@ public class StringParser
 	}
 
 	@Nullable
-	public static RItem getItem(String string)
+	public static Item getItem(String string)
 	{
 		CompoundTag tag = getTagCompound(string);
 		if (tag != null)
@@ -86,12 +88,12 @@ public class StringParser
 		if (string.contains("#"))
 			string = string.replace(string.substring(string.indexOf("#")), "");
 
-		return RItem.getByNameOrId(string);
+		return Item.getByNameOrId(string);
 	}
 
 	public static ItemStack getItemStack(String string)
 	{
-		RItem item = getItem(string);
+		Item item = getItem(string);
 
 		if (item == null)
 			return ItemStack.EMPTY;

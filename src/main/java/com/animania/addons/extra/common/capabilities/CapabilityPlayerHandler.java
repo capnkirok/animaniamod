@@ -1,10 +1,10 @@
 package com.animania.addons.extra.common.capabilities;
 
 import NBTBase;
-import net.minecraft.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class CapabilityPlayerHandler

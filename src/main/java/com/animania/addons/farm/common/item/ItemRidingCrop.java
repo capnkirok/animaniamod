@@ -4,16 +4,17 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.horses.EntityAnimaniaHorse;
+import com.animania.common.helper.RegistryHelper.RItem;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.InteractionResultHolder;
 import net.minecraft.util.InteractionResultHolderType;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.text.ChatFormatting;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,7 +52,7 @@ public class ItemRidingCrop extends RItem
 	public InteractionResultHolder<ItemStack> onItemRightClick(Level levelIn, Player playerIn, InteractionHand hand)
 	{
 
-		ItemStack itemStackIn = playerIn.getHeldItem(hand);
+		ItemStack itemStackIn = playerIn.getItemInHand(hand);
 
 		if (playerIn.isPassenger() && playerIn.getRidingEntity() instanceof EntityAnimaniaHorse)
 		{

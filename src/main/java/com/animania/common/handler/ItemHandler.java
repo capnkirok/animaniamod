@@ -8,6 +8,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.ISpawnable;
 import com.animania.common.entities.RandomAnimalType;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemManual;
 

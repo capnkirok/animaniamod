@@ -16,10 +16,10 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.BiomeDictionary;

@@ -8,9 +8,11 @@ import com.animania.common.helper.StringParser;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.world.item.Item;
+
 public class FoodValueHandler
 {
-	private static Map<ItemAnimaniaFood, String> food_values = new HashMap<>();
+	private static Map<String, String> food_values = new HashMap<>();
 
 	public static void init()
 	{
@@ -39,7 +41,7 @@ public class FoodValueHandler
 					String values = name.substring(name.indexOf("("));
 					name = name.replace(values, "");
 
-					RItem item = StringParser.getItem(name);
+					Item item = StringParser.getItem(name);
 
 					if (!(item instanceof ItemAnimaniaFood))
 					{
@@ -80,19 +82,19 @@ public class FoodValueHandler
 						}
 
 						if (!errored)
-							food_values.put((ItemAnimaniaFood) item, values);
+							food_values.put(name, values);
 					}
 				}
 			}
 		}
 	}
 
-	public static boolean hasOverride(RItem item)
+	public static boolean hasOverride(String item)
 	{
 		return food_values.containsKey(item);
 	}
 
-	public static int getHealAmount(RItem item)
+	public static int getHealAmount(String item)
 	{
 		String s = food_values.get(item);
 		String[] values = s.split(",");
@@ -100,7 +102,7 @@ public class FoodValueHandler
 		return Integer.parseInt(values[0]);
 	}
 
-	public static float getSaturation(RItem item)
+	public static float getSaturation(String item)
 	{
 		String s = food_values.get(item);
 		String[] values = s.split(",");

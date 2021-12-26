@@ -25,14 +25,14 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
@@ -94,7 +94,7 @@ public class GenericBehavior
 
 		if (!fed && !watered)
 		{
-			entity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
+			entity.addMobEffectInstance(new MobEffectInstance(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve)
 			{
 				int damageTimer = entity.getDamageTimer();
@@ -113,7 +113,7 @@ public class GenericBehavior
 
 		}
 		else if (!fed || !watered)
-			entity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
+			entity.addMobEffectInstance(new MobEffectInstance(MobEffects.WEAKNESS, 2, 0, false, false));
 
 		int happyTimer = entity.getHappyTimer();
 
@@ -352,7 +352,7 @@ public class GenericBehavior
 		if (!entity.getInteracted())
 			entity.setInteracted(true);
 
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !entity.getSleeping())
 		{

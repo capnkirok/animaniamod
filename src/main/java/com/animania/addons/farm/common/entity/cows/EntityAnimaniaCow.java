@@ -31,27 +31,28 @@ import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemShears;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -179,7 +180,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 
 		if (this.getCustomNameTag().toLowerCase().trim().equals("purp") && (this instanceof CowEntityFriesian || this instanceof EntityBullFriesian || this instanceof CowEntityHolstein || this instanceof EntityBullHolstein || this instanceof EntityCalfFriesian || this instanceof EntityCalfHolstein))
 		{
-			this.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 4, 2, false, false));
+			this.addMobEffectInstance(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 4, 2, false, false));
 			if (!this.isWet() && !this.isInWater())
 				this.setOnFireFromLava();
 		}
@@ -190,7 +191,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	@Override
 	public boolean processInteract(Player player, InteractionHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		Player Player = player;
 
 		if ((this instanceof EntityBullBase ebb) && ebb.getFighting())

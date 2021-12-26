@@ -5,11 +5,11 @@ import com.animania.addons.farm.common.entity.cows.EntityBullBase;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 
 public class AttackMeleeBullsGoal extends Goal
 {

@@ -8,19 +8,19 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.Player;
 import net.minecraft.item.EnumAction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.InteractionResultHolder;
 import net.minecraft.util.InteractionResultHolderType;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.ChatFormatting;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemMilkBottle extends ItemAnimaniaFood

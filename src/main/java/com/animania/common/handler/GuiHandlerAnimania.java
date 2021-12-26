@@ -1,6 +1,6 @@
 package com.animania.common.handler;
 
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 

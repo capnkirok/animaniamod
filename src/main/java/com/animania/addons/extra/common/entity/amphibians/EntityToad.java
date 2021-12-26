@@ -5,6 +5,7 @@ import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.core.BlockPos;

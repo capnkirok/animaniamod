@@ -5,6 +5,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 

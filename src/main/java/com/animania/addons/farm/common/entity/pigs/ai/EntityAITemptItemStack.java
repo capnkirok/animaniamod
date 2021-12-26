@@ -48,7 +48,7 @@ public class TemptItemStackGoal extends Goal
 		{
 
 			this.temptingPlayer = this.temptedentity.level.getClosestPlayerToEntity(this.temptedEntity, 10.0D);
-			return this.temptingPlayer == null ? false : this.isTempting(this.temptingPlayer.getMainHandItem()) || this.isTempting(this.temptingPlayer.getHeldItemOffhand());
+			return this.temptingPlayer == null ? false : this.isTempting(this.temptingPlayer.getMainHandItem()) || this.isTempting(this.temptingPlayer.getItemInHandOffhand());
 		}
 	}
 

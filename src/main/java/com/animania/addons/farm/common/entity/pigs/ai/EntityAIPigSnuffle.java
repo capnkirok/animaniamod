@@ -12,7 +12,7 @@ import com.animania.common.helper.ItemHelper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;

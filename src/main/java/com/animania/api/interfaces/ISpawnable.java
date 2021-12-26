@@ -1,5 +1,7 @@
 package com.animania.api.interfaces;
 
+import com.animania.common.helper.RegistryHelper.RItem;
+
 public interface ISpawnable
 {
 

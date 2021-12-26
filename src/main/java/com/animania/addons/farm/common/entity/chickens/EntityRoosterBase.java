@@ -14,7 +14,6 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
@@ -24,6 +23,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.player.Player;
 
 public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {

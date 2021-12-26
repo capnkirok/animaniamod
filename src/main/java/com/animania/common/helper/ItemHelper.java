@@ -3,10 +3,12 @@ package com.animania.common.helper;
 import java.util.Arrays;
 import java.util.List;
 
+import com.animania.common.helper.RegistryHelper.RItem;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemHelper

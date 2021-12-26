@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.animania.Animania;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemSword;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.ChatFormatting;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 

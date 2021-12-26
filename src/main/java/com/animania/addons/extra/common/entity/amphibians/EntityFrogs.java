@@ -13,21 +13,21 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.handler.DamageSourceHandler;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,6 +35,7 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class EntityFrogs extends EntityAmphibian
@@ -131,7 +132,7 @@ public class EntityFrogs extends EntityAmphibian
 	public boolean processInteract(Player player, InteractionHand hand)
 	{
 
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG)
 		{
@@ -169,7 +170,7 @@ public class EntityFrogs extends EntityAmphibian
 		int chooser = Animania.RANDOM.nextInt(4);
 		if (this.getCustomNameTag().equals("Pepe") && 0.1 > Animania.RANDOM.nextDouble())
 		{
-			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 4, true, false));
+			this.addMobEffectInstance(new MobEffectInstance(MobEffects.SPEED, 5, 4, true, false));
 			return ExtraAddonSoundHandler.reeee;
 		}
 

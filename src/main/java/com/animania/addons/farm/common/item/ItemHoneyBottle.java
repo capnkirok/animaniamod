@@ -8,30 +8,31 @@ import javax.annotation.Nullable;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.addons.farm.common.item.handler.FluidHandlerHoneyBottle;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.helper.RomanNumberHelper;
 import com.animania.common.helper.TimeHelper;
 import com.animania.common.items.AnimaniaItem;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.InteractionResultHolder;
 import net.minecraft.util.InteractionResultHolderType;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.ChatFormatting;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -84,7 +85,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	@Override
 	public InteractionResultHolder<ItemStack> onItemRightClick(Level levelIn, Player playerIn, InteractionHand handIn)
 	{
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		ItemStack itemstack = playerIn.getItemInHand(handIn);
 
 		if (playerIn.canEat(AnimaniaConfig.gameRules.eatFoodAnytime))
 		{
@@ -106,7 +107,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 			Player.getFoodStats().addStats(10, 1.5f);
 
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-				Player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 1));
+				Player.addMobEffectInstance(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
 
 			Player.addStat(StatList.getObjectUseStats(this));
 			levelIn.playSound((Player) null, Player.getX(), Player.getY(), Player.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, levelIn.rand.nextFloat() * 0.1F + 0.9F);

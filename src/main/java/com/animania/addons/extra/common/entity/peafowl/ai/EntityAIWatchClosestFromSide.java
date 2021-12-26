@@ -2,9 +2,9 @@ package com.animania.addons.extra.common.entity.peafowl.ai;
 
 import com.animania.addons.extra.common.entity.peafowl.EntityAnimaniaPeacock;
 
-import net.minecraft.entity.player.Player;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 
 public class WatchClosestFromSideGoal extends Goal
 {

@@ -18,7 +18,7 @@ import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
 import com.animania.network.NetworkHandler;
 
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.MultipleModsErrored;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

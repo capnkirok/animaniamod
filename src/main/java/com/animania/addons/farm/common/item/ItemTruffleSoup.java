@@ -6,24 +6,24 @@ import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.InteractionResultHolder;
 import net.minecraft.util.InteractionResultHolderType;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemTruffleSoup extends ItemAnimaniaFood
 {
 	public ItemTruffleSoup()
 	{
-		super(10, 0.6f, "truffle_soup", new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
+		super(10, 0.6f, "truffle_soup", new MobEffectInstance(MobEffects.REGENERATION, 1200, 1, false, false));
 		this.setMaxStackSize(1);
 		this.setContainerItem(Items.BOWL);
 	}
@@ -37,7 +37,7 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 		{
 			Player Player = (Player) LivingEntity;
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-				Player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
+				Player.addMobEffectInstance(new MobEffectInstance(MobEffects.REGENERATION, 1200, 1, false, false));
 
 			if (Player.getFoodStats() != null)
 			{

@@ -93,6 +93,7 @@ import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitE
 import com.animania.addons.extra.common.handler.ExtraAddonBlockHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 import com.animania.addons.extra.common.tileentity.TileEntityHamsterWheel;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 import com.leviathanstudio.craftstudio.client.util.EnumRenderType;

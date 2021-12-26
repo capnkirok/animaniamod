@@ -26,7 +26,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemSeeds;
@@ -34,21 +33,22 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraftforge.api.distmarker.Dist;
@@ -137,7 +137,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 	@Override
 	public boolean processInitialInteract(Player player, InteractionHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, level, player);
 		List cows = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 3, level, player);
 		List tillers = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, level, this);
@@ -431,7 +431,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 		if (this.isBeingRidden() && this.getControllingPassenger() instanceof Player && this.rideCooldown > 10 && level.isClientSide)
 		{
 			Player player = (Player) this.getControllingPassenger();
-			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
+			player.sendStatusMessage(new TextComponent(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
 		// Determine animation direction based on previous pos
@@ -556,7 +556,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				}
 				if (totPulling > 0)
 				{
-					player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
+					player.addMobEffectInstance(new MobEffectInstance(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
 				}
 			}
 		}
@@ -581,7 +581,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				}
 				if (totPulling > 0)
 				{
-					animal.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
+					animal.addMobEffectInstance(new MobEffectInstance(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
 				}
 			}
 		}

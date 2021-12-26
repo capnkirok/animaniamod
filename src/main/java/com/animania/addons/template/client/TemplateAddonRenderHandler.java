@@ -1,6 +1,7 @@
 package com.animania.addons.template.client;
 
 import com.animania.Animania;
+import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;

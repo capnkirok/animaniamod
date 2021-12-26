@@ -5,13 +5,14 @@ import com.animania.addons.extra.common.capabilities.CapabilityRefs;
 import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.network.CapSyncPacket;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;

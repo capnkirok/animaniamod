@@ -7,23 +7,24 @@ import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.player.Player;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 
@@ -83,7 +84,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	public boolean processInteract(Player player, InteractionHand hand)
 	{
 
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		Player Player = player;
 
 		if (!stack.isEmpty() && stack.getItem() == Items.ARROW && this.poisonTimer <= 1)
@@ -119,7 +120,7 @@ public class EntityDartFrogs extends EntityAmphibian
 		if (entityIn instanceof Player && entityIn != this)
 		{
 			Player player = (Player) entityIn;
-			player.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 1, false, false));
+			player.addMobEffectInstance(new MobEffectInstance(MobEffects.POISON, 200, 1, false, false));
 		}
 		entityIn.applyEntityCollision(this);
 	}

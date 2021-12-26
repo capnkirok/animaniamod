@@ -7,6 +7,7 @@ import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.AnimalTypeHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.tileentities.handler.ItemHandlerNest;
 
 import net.minecraft.client.renderer.texture.Tickable;

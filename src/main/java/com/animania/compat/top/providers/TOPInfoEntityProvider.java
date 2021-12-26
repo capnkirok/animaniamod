@@ -5,7 +5,7 @@ import com.animania.common.handler.CompatHandler;
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 
 public interface TOPInfoEntityProvider
 {

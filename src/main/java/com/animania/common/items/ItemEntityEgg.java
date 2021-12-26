@@ -13,20 +13,21 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.InteractionResultHolderType;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ChatFormatting;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -64,7 +65,7 @@ public class ItemEntityEgg extends RItem
 	{
 		pos = pos.offset(facing);
 
-		ItemStack stack = playerIn.getHeldItem(hand);
+		ItemStack stack = playerIn.getItemInHand(hand);
 
 		if (level.isClientSide)
 			return InteractionResultHolderType.SUCCESS;

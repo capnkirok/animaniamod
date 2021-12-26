@@ -8,6 +8,7 @@ import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
 import PropertyEnum;
@@ -20,17 +21,17 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponent;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -147,7 +148,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		TileEntityCheeseMold te = (TileEntityCheeseMold) level.getTileEntity(pos);
 		if (!level.isClientSide)
 		{
@@ -174,7 +175,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 				}
 
 				if (stack.getItem() == Items.MILK_BUCKET)
-					player.sendStatusMessage(new TextComponentString(I18n.translateToLocal("text.cheesemold.milk")), true);
+					player.sendStatusMessage(new TextComponent(I18n.translateToLocal("text.cheesemold.milk")), true);
 			}
 
 			if (te != null)
@@ -189,9 +190,9 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 				{
 					int progress = te.getProgress();
 					if (te.getItemHandler().getStackInSlot(0).isEmpty())
-						player.sendStatusMessage(new TextComponentString((int) ((float) progress / (float) FarmConfig.settings.cheeseMaturityTime * 100) + "%"), true);
+						player.sendStatusMessage(new TextComponent((int) ((float) progress / (float) FarmConfig.settings.cheeseMaturityTime * 100) + "%"), true);
 					else
-						player.sendStatusMessage(new TextComponentString("100%"), true);
+						player.sendStatusMessage(new TextComponent("100%"), true);
 				}
 			}
 		}

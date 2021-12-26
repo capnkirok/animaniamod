@@ -4,7 +4,7 @@ import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
@@ -29,7 +29,7 @@ public class BlockFluidHoney extends BlockFluidBase
 		Vec3d vec = this.getFlowVector(level, pos);
 		entity.addVelocity(vec.x / 2000, vec.y / 2000, vec.z / 2000);
 		if (entity instanceof LivingEntity)
-			((LivingEntity) entity).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1, 0, false, false));
+			((LivingEntity) entity).addMobEffectInstance(new MobEffectInstance(MobEffects.REGENERATION, 1, 0, false, false));
 	}
 
 	@Override

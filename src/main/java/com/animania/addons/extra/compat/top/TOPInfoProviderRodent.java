@@ -6,10 +6,10 @@ import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.text.ChatFormatting;
+import net.minecraft.world.entity.player.Player;
 
 public interface TOPInfoProviderRodent extends TOPInfoProviderBase
 {

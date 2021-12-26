@@ -4,13 +4,14 @@ import com.animania.Animania;
 import com.animania.addons.farm.common.entity.pullables.EntityTiller;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.Player;
 import net.minecraft.util.InteractionResultHolderType;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -30,7 +31,7 @@ public class ItemTiller extends RItem
 	{
 		pos = pos.offset(facing);
 
-		ItemStack stack = playerIn.getHeldItem(hand);
+		ItemStack stack = playerIn.getItemInHand(hand);
 
 		if (level.isClientSide)
 			return InteractionResultHolderType.SUCCESS;

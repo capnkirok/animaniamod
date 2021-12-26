@@ -14,8 +14,8 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.SyntaxErrorException;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.player.Player;
 
 public class AnimaniaCommand extends CommandBase
 {

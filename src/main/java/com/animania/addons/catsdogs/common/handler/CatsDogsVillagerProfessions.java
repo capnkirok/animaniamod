@@ -10,6 +10,7 @@ import com.animania.addons.catsdogs.common.entity.felids.CatType;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.entity.merchant.villager.VillagerEntity.ListItemForEmeralds;

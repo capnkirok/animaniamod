@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import com.animania.Animania;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.TileEntitySyncPacket;
 import com.google.gson.Gson;
@@ -19,11 +20,11 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.entity.player.Player;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.JsonToNBT;
@@ -36,8 +37,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.ChatFormatting;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
@@ -330,8 +331,8 @@ public class AnimaniaHelper
 		String result = s;
 		for (String ss : split)
 		{
-			String stripped = ChatFormatting.getTextWithoutFormattingCodes(ss);
-			String translated = I18n.translateToLocal(stripped);
+			String stripped = ChatFormatting.stripFormatting(ss);
+			String translated = I18n.get(stripped);
 			result = result.replace(stripped, translated);
 		}
 		return result;

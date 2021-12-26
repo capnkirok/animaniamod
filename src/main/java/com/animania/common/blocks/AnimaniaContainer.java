@@ -2,6 +2,7 @@ package com.animania.common.blocks;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;

@@ -2,9 +2,9 @@ package com.animania.addons.farm.common.entity.chickens.ai;
 
 import com.animania.addons.farm.common.entity.chickens.EntityAnimaniaChicken;
 
-import net.minecraft.entity.player.Player;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 
 public class WatchClosestFromSideGoal extends Goal
 {

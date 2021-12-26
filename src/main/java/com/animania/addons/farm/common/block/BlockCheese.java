@@ -5,6 +5,7 @@ import java.util.Random;
 import com.animania.Animania;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.config.AnimaniaConfig;
 
 import PropertyInteger;
@@ -13,15 +14,15 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.player.Player;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -105,7 +106,7 @@ public class BlockCheese extends Block
 		}
 		else
 		{
-			ItemStack itemstack = playerIn.getHeldItem(hand);
+			ItemStack itemstack = playerIn.getItemInHand(hand);
 			return this.eatCheese(levelIn, pos, state, playerIn) || itemstack.isEmpty();
 		}
 	}
@@ -121,13 +122,13 @@ public class BlockCheese extends Block
 			if (!levelIn.isClientSide && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 			{
 				if (this == FarmAddonBlockHandler.blockCheeseFriesian)
-					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
+					player.addMobEffectInstance(new MobEffectInstance(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
 				else if (this == FarmAddonBlockHandler.blockCheeseGoat)
-					player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
+					player.addMobEffectInstance(new MobEffectInstance(MobEffects.RESISTANCE, 1200, 0, false, false));
 				else if (this == FarmAddonBlockHandler.blockCheeseSheep)
-					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 0, false, false));
+					player.addMobEffectInstance(new MobEffectInstance(MobEffects.INSTANT_HEALTH, 10, 0, false, false));
 				else
-					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
+					player.addMobEffectInstance(new MobEffectInstance(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
 
 			}
 			player.getFoodStats().addStats(2, 1.2F);

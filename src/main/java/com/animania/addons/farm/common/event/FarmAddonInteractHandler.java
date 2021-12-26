@@ -7,6 +7,7 @@ import com.animania.addons.farm.common.entity.pigs.EntitySowBase;
 import com.animania.addons.farm.common.entity.sheep.EntityAnimaniaSheep;
 import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.api.interfaces.ISterilizable;
+import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.item.ItemDye;
 import net.minecraft.resources.ResourceLocation;

@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 import com.animania.Animania;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.util.text.ChatFormatting;
 
 /*
  * Original Code VozValden, updated by Purplicious_Cow

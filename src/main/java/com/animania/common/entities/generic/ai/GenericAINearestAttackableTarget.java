@@ -14,14 +14,14 @@ import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class GenericAINearestAttackableTarget<T extends LivingEntity> extends TargetGoal

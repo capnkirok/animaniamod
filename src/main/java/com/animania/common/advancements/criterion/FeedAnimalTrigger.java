@@ -18,9 +18,9 @@ import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
-import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.PlayerAdvancements;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.EntityEntry;
 import net.minecraftforge.registries.ForgeRegistries;

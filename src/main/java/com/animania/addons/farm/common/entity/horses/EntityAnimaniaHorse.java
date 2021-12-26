@@ -28,6 +28,7 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -35,24 +36,24 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -167,7 +168,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 
 		if (this.boosting)
 		{
-			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 1, 3, false, false));
+			this.addMobEffectInstance(new MobEffectInstance(MobEffects.SPEED, 1, 3, false, false));
 		}
 
 		this.boostTime++;
@@ -425,7 +426,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 
 				if (this.isPotionActive(MobEffects.JUMP_BOOST))
 				{
-					this.motionY += (this.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F;
+					this.motionY += (this.getActiveMobEffectInstance(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F;
 				}
 
 				this.setHorseJumping(true);
@@ -491,7 +492,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	@Override
 	public boolean processInteract(Player player, InteractionHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getItemInHand(hand);
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.SADDLE && !this.isHorseSaddled() && !this.getSleeping())
 		{
