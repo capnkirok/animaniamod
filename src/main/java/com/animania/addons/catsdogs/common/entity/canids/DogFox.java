@@ -6,6 +6,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.world.level.Level;
 
 public class DogFox
 {

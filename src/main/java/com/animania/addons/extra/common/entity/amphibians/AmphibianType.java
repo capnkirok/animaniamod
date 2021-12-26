@@ -6,6 +6,8 @@ import java.lang.reflect.InvocationTargetException;
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
+import net.minecraft.world.level.Level;
+
 public enum AmphibianType implements AnimaniaType
 {
 	FROG(EntityFrogs.class), DART_FROG(EntityDartFrogs.class), TOAD(EntityToad.class);

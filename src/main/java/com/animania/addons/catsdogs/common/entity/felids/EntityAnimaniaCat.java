@@ -51,6 +51,7 @@ import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -294,7 +295,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	{
 		if (this.avoidEntity == null)
 		{
-			this.avoidEntity = new GenericAIAvoidEntity<Player>(this, Player.class, 16.0F, 0.8D, 1.33D);
+			this.avoidEntity = new GenericAIAvoidEntity<>(this, Player.class, 16.0F, 0.8D, 1.33D);
 		}
 
 		this.tasks.removeTask(this.avoidEntity);

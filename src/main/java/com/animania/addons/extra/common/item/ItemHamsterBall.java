@@ -13,6 +13,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -58,8 +59,8 @@ public class ItemHamsterBall extends Item
 	@Override
 	public void addInformation(ItemStack stack, Level levelIn, List<String> list, ITooltipFlag flagIn)
 	{
-		list.add(ChatFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball1"));
-		list.add(ChatFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball2"));
+		list.add(ChatFormatting.GOLD + I18n.translateToLocal("tooltip.an.hamsterball1"));
+		list.add(ChatFormatting.GOLD + I18n.translateToLocal("tooltip.an.hamsterball2"));
 	}
 
 	@SideOnly(Dist.CLIENT)

@@ -231,7 +231,7 @@ public class FindMudGoal extends Goal
 							else
 								this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
 					}
-					else if ((this.entityIn instanceof EntityHogBase te) && !te.getMuddy())
+					else if (this.entityIn instanceof EntityHogBase te && !te.getMuddy())
 						if (te.getX() - mudPos.getX() < 0 && te.getZ() - mudPos.getZ() < 0)
 							this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX() + 3, mudPos.getY(), mudPos.getZ() + 3, this.speed);
 						else if (te.getX() - mudPos.getX() > 0 && te.getZ() - mudPos.getZ() > 0)

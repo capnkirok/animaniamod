@@ -5,6 +5,7 @@ import com.animania.Animania;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.registries.ForgeRegistries;

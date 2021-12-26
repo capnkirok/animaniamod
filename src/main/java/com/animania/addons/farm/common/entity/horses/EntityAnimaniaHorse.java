@@ -55,6 +55,7 @@ import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -195,10 +196,9 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 				f1 = (float) ((this.isDead ? 0.009999999776482582D : 1.6D) + passenger.getYOffset());
 			}
 
-			if (passenger instanceof Player)
+			if (passenger instanceof Player player)
 			{
 
-				Player player = (Player) passenger;
 				List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, this.level, this);
 
 				if (!wagons.isEmpty())

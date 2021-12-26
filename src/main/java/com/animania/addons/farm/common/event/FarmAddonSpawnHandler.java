@@ -64,6 +64,7 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;

@@ -13,6 +13,7 @@ import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 
 public class WailaEntityBuckProvider extends WailaAnimalEntityProviderBase
 {

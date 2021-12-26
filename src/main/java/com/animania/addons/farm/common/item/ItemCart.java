@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemCart extends Item
@@ -47,8 +48,9 @@ public class ItemCart extends Item
 	 * vec3d1, true);
 	 *
 	 * if (raytraceresult == null) { return new
-	 * InteractionResultHolder(InteractionResultHolderType.PASS, itemstack); } else { Vec3d vec3d2 =
-	 * playerIn.getLook(1.0F); boolean flag = false; List<Entity> list =
+	 * InteractionResultHolder(InteractionResultHolderType.PASS, itemstack); }
+	 * else { Vec3d vec3d2 = playerIn.getLook(1.0F); boolean flag = false;
+	 * List<Entity> list =
 	 * levelIn.getEntitiesWithinAABBExcludingEntity(playerIn,
 	 * playerIn.getEntityBoundingBox().grow(vec3d2.x * 5.0D, vec3d2.y * 5.0D,
 	 * vec3d2.z * 5.0D).grow(1.0D));
@@ -62,23 +64,26 @@ public class ItemCart extends Item
 	 *
 	 * if (axisalignedbb.contains(vec3d)) { flag = true; } } }
 	 *
-	 * if (flag) { return new InteractionResultHolder(InteractionResultHolderType.PASS, itemstack);
+	 * if (flag) { return new
+	 * InteractionResultHolder(InteractionResultHolderType.PASS, itemstack);
 	 *
 	 * } else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK) {
-	 * return new InteractionResultHolder(InteractionResultHolderType.PASS, itemstack); } else { Block
-	 * block = levelIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
-	 * boolean flag1 = false; EntityCart EntityCart = new EntityCart(levelIn);
+	 * return new InteractionResultHolder(InteractionResultHolderType.PASS,
+	 * itemstack); } else { Block block =
+	 * levelIn.getBlockState(raytraceresult.getBlockPos()).getBlock(); boolean
+	 * flag1 = false; EntityCart EntityCart = new EntityCart(levelIn);
 	 * EntityCart.rotationYaw = playerIn.rotationYaw;
 	 * EntityCart.setLocationAndAngles(d0, d1, d2,
 	 * MathHelper.wrapDegrees(levelIn.rand.nextFloat() * 360.0F), 0.0F);
 	 *
-	 * if (!levelIn.isClientSide) {AnimaniaHelper.spawnEntity( levelIn, EntityCart);
-	 * }
+	 * if (!levelIn.isClientSide) {AnimaniaHelper.spawnEntity( levelIn,
+	 * EntityCart); }
 	 *
 	 * if (!playerIn.capabilities.isCreativeMode) { itemstack.shrink(1); }
 	 *
 	 * playerIn.addStat(StatList.getObjectUseStats(this)); return new
-	 * InteractionResultHolder(InteractionResultHolderType.SUCCESS, itemstack); } } }
+	 * InteractionResultHolder(InteractionResultHolderType.SUCCESS, itemstack);
+	 * } } }
 	 */
 
 	@Override

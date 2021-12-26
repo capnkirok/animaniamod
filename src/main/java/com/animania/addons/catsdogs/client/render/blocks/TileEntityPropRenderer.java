@@ -1,5 +1,7 @@
 package com.animania.addons.catsdogs.client.render.blocks;
 
+import net.minecraft.world.level.Level;
+
 import java.util.HashMap;
 import java.util.Map;
 

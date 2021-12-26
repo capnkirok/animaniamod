@@ -9,6 +9,8 @@ import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityMareDraftH
 import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.api.interfaces.AnimaniaType;
 
+import net.minecraft.world.level.Level;
+
 public enum HorseType implements AnimaniaType
 {
 	DRAFT(EntityStallionDraftHorse.class, EntityMareDraftHorse.class, EntityFoalDraftHorse.class);

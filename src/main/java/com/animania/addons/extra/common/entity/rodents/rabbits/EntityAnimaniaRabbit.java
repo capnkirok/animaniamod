@@ -64,6 +64,7 @@ import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -141,7 +142,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
 			this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 20.0F));
 			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<Player>(this, Player.class, true));
+			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 			this.setHealth(50);
 		}

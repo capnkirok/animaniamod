@@ -54,6 +54,7 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -194,7 +195,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 		ItemStack stack = player.getItemInHand(hand);
 		Player Player = player;
 
-		if ((this instanceof EntityBullBase ebb) && ebb.getFighting())
+		if (this instanceof EntityBullBase ebb && ebb.getFighting())
 		{
 			return true;
 		}

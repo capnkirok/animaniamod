@@ -42,6 +42,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -59,7 +60,6 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	private double lerpZ;
 	public double wagonYaw;
 	private double lerpXRot;
-	private boolean allSleeping = false;
 	private int lastLighting = 60;
 	private int sleepTimer = 0;
 	public int blinkTimer;
@@ -190,7 +190,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 				{
 					boolean sleepFlag = false;
-					this.allSleeping = true;
+					boolean allSleeping = true;
 					Player player1 = null;
 					Iterator iterator = level.playerEntities.iterator();
 					while (iterator.hasNext())
@@ -199,13 +199,13 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 						if (player2 != player && !player2.isPlayerSleeping())
 						{
-							this.allSleeping = false;
+							allSleeping = false;
 						}
 					}
 
 					Player.SleepResult player$sleepresult = this.trySleep(new BlockPos(player.getX(), player.getY(), player.getZ()), player);
 
-					if (player$sleepresult == Player.SleepResult.OK && this.allSleeping)
+					if (player$sleepresult == Player.SleepResult.OK && allSleeping)
 					{
 
 						sleepFlag = true;

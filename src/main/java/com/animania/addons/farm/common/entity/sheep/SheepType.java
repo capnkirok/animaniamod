@@ -26,6 +26,7 @@ import com.animania.api.interfaces.AnimaniaType;
 
 import StatBase;
 import net.minecraft.stats.StatBase;
+import net.minecraft.world.level.Level;
 
 public enum SheepType implements AnimaniaType
 {

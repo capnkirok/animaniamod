@@ -9,6 +9,7 @@ import com.animania.api.addons.IAddonGuiHandler;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public class FarmAddonGUIHandler implements IAddonGuiHandler
 {

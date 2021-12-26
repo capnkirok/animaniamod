@@ -28,6 +28,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 

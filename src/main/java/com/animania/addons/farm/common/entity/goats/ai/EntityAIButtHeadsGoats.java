@@ -12,6 +12,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.Level;
 
 public class ButtHeadsGoatsGoal extends Goal
 {

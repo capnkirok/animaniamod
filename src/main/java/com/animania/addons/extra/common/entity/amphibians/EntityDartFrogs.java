@@ -27,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.level.Level;
 
 public class EntityDartFrogs extends EntityAmphibian
 {
@@ -117,9 +118,8 @@ public class EntityDartFrogs extends EntityAmphibian
 	protected void collideWithEntity(Entity entityIn)
 	{
 
-		if (entityIn instanceof Player && entityIn != this)
+		if (entityIn instanceof Player player && entityIn != this)
 		{
-			Player player = (Player) entityIn;
 			player.addMobEffectInstance(new MobEffectInstance(MobEffects.POISON, 200, 1, false, false));
 		}
 		entityIn.applyEntityCollision(this);

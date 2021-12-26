@@ -12,6 +12,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -75,7 +76,7 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 			if (block instanceof IFoodProviderBlock)
 			{
 				BlockEntity te = this.level.getBlockEntity(this.seekingBlockPos);
-				if ((te instanceof IFoodProviderTE trough) && trough.canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
+				if (te instanceof IFoodProviderTE trough && trough.canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
 				{
 					trough.consumeSolidOrLiquid(100, 1);
 

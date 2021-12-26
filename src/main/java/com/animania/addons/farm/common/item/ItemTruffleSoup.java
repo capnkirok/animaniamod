@@ -18,6 +18,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ItemTruffleSoup extends ItemAnimaniaFood
 {
@@ -33,9 +34,8 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 	public ItemStack onItemUseFinish(ItemStack stack, Level levelIn, LivingEntity LivingEntity)
 	{
 
-		if (LivingEntity instanceof Player)
+		if (LivingEntity instanceof Player Player)
 		{
-			Player Player = (Player) LivingEntity;
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 				Player.addMobEffectInstance(new MobEffectInstance(MobEffects.REGENERATION, 1200, 1, false, false));
 

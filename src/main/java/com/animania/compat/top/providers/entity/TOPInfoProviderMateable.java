@@ -13,6 +13,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 {
@@ -24,7 +25,7 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 
 		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 
-		if ((player.isSneaking() && entity instanceof ISterilizable) && ((ISterilizable) entity).getSterilized())
+		if (player.isSneaking() && entity instanceof ISterilizable && ((ISterilizable) entity).getSterilized())
 			probeInfo.text(I18n.translateToLocal("text.waila.sterilized"));
 
 		if (mode == ProbeMode.EXTENDED)

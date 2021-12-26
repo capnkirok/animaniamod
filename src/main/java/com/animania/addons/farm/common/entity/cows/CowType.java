@@ -30,6 +30,8 @@ import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshr
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCalfMooshroom;
 import com.animania.api.interfaces.AnimaniaType;
 
+import net.minecraft.world.level.Level;
+
 public enum CowType implements AnimaniaType
 {
 	ANGUS(EntityBullAngus.class, CowEntityAngus.class, EntityCalfAngus.class, true), FRIESIAN(EntityBullFriesian.class, CowEntityFriesian.class, EntityCalfFriesian.class, false), HEREFORD(EntityBullHereford.class, CowEntityHereford.class, EntityCalfHereford.class, true), HOLSTEIN(EntityBullHolstein.class, CowEntityHolstein.class, EntityCalfHolstein.class, false), LONGHORN(EntityBullLonghorn.class, CowEntityLonghorn.class, EntityCalfLonghorn.class, true), HIGHLAND(EntityBullHighland.class, CowEntityHighland.class, EntityCalfHighland.class, true), JERSEY(EntityBullJersey.class, CowEntityJersey.class, EntityCalfJersey.class, true), MOOSHROOM(EntityBullMooshroom.class, CowEntityMooshroom.class, EntityCalfMooshroom.class, false);

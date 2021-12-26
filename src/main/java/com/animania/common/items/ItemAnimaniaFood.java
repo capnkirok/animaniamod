@@ -50,14 +50,10 @@ public class ItemAnimaniaFood extends Item
 
 		for (var m : MobEffectInstances)
 		{
-			food.effect(() -> {
-				return new MobEffectInstance(m);
-			}, 1.0f);
+			food.effect(() -> new MobEffectInstance(m), 1.0f);
 		}
 
-		var prop = new Item.Properties().tab(Animania.TabAnimaniaResources).food(food.build());
-
-		return prop;
+		return new Item.Properties().tab(Animania.TabAnimaniaResources).food(food.build());
 	}
 
 	public ItemAnimaniaFood(int amount, float saturation, boolean isWolfFood, String name)
@@ -74,7 +70,7 @@ public class ItemAnimaniaFood extends Item
 	{
 		this(amount, saturation, isWolfFood, name, MobEffectInstances);
 	}
-	
+
 	public ItemAnimaniaFood(int amount, float saturation, String name, MobEffectInstance... MobEffectInstances)
 	{
 		this(amount, saturation, true, name, MobEffectInstances);

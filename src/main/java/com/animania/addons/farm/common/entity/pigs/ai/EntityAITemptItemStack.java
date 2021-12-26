@@ -12,7 +12,6 @@ public class TemptItemStackGoal extends Goal
 {
 	private final EntityAnimaniaPig temptedEntity;
 	private final double speed;
-	private double targetZ;
 	private double pitch;
 	private double yaw;
 	private Player temptingPlayer;
@@ -68,7 +67,7 @@ public class TemptItemStackGoal extends Goal
 	{
 		double targetX = this.temptingPlayer.getX();
 		double targetY = this.temptingPlayer.getY();
-		this.targetZ = this.temptingPlayer.getZ();
+		double targetZ = this.temptingPlayer.getZ();
 		this.isRunning = true;
 	}
 

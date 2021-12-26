@@ -23,7 +23,7 @@ public class ItemHandlerHamsterWheel extends ItemStackHandler
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate)
 	{
 
-		if (!stack.isEmpty() && (stack.getItem() == ExtraAddonItemHandler.hamsterFood))
+		if (!stack.isEmpty() && stack.getItem() == ExtraAddonItemHandler.hamsterFood)
 			return super.insertItem(slot, stack, simulate);
 
 		return stack;

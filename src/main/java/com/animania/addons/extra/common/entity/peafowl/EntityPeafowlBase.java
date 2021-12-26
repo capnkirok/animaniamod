@@ -15,6 +15,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoProviderBase
 {

@@ -1,5 +1,7 @@
 package com.animania.addons.farm.common.entity.cows;
 
+import net.minecraft.world.level.Level;
+
 public class CowLonghorn
 {
 

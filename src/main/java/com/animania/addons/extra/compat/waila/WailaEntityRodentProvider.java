@@ -11,6 +11,7 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public class WailaEntityRodentProvider extends WailaAnimalEntityProviderBase
 {

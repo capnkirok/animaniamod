@@ -25,7 +25,7 @@ public class GoatsLeapAtTargetGoal extends Goal
 	public boolean shouldExecute()
 	{
 
-		if (this.leaper instanceof EntityDoeBase || this.leaper instanceof EntityKidBase || ((this.leaper instanceof EntityAnimaniaGoat AnimalEntity) && AnimalEntity.getSleeping()))
+		if (this.leaper instanceof EntityDoeBase || this.leaper instanceof EntityKidBase || this.leaper instanceof EntityAnimaniaGoat AnimalEntity && AnimalEntity.getSleeping())
 		{
 			return false;
 		}

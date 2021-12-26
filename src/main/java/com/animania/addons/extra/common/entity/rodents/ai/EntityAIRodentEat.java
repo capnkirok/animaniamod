@@ -11,6 +11,7 @@ import net.minecraft.block.BlockTallGrass;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
@@ -33,17 +34,17 @@ public class RodentEatGoal extends Goal
 	public boolean shouldExecute()
 	{
 
-		if ((this.grassEaterEntity instanceof EntityAnimaniaRabbit er) && (er.getFed() || er.getSleeping()))
+		if (this.grassEaterEntity instanceof EntityAnimaniaRabbit er && (er.getFed() || er.getSleeping()))
 		{
 			return false;
 		}
 
-		if ((this.grassEaterEntity instanceof EntityFerretBase er) && (er.getFed() || er.getSleeping()))
+		if (this.grassEaterEntity instanceof EntityFerretBase er && (er.getFed() || er.getSleeping()))
 		{
 			return false;
 		}
 
-		if ((this.grassEaterEntity instanceof EntityHedgehogBase er) && (er.getFed() || er.getSleeping()))
+		if (this.grassEaterEntity instanceof EntityHedgehogBase er && (er.getFed() || er.getSleeping()))
 		{
 			return false;
 		}

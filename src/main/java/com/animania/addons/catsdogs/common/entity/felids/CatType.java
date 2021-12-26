@@ -30,6 +30,8 @@ import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityQueenTab
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityTomTabby;
 import com.animania.api.interfaces.AnimaniaType;
 
+import net.minecraft.world.level.Level;
+
 public enum CatType implements AnimaniaType
 {
 	AMERICAN_SHORTHAIR(EntityTomAmericanShorthair.class, EntityQueenAmericanShorthair.class, EntityKittenAmericanShorthair.class), ASIATIC(EntityTomAsiatic.class, EntityQueenAsiatic.class, EntityKittenAsiatic.class), EXOTIC(EntityTomExotic.class, EntityQueenExotic.class, EntityKittenExotic.class), NORWEGIAN(EntityTomNorwegian.class, EntityQueenNorwegian.class, EntityKittenNorwegian.class), OCELOT(EntityTomOcelot.class, EntityQueenOcelot.class, EntityKittenOcelot.class), RAGDOLL(EntityTomRagdoll.class, EntityQueenRagdoll.class, EntityKittenRagdoll.class), SIAMESE(EntityTomSiamese.class, EntityQueenSiamese.class, EntityKittenSiamese.class), TABBY(EntityTomTabby.class, EntityQueenTabby.class, EntityKittenTabby.class);

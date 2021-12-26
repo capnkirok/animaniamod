@@ -35,6 +35,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -101,9 +102,8 @@ public class ItemHoneyBottle extends AnimaniaItem
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, Level levelIn, LivingEntity LivingEntity)
 	{
-		if (LivingEntity instanceof Player)
+		if (LivingEntity instanceof Player Player)
 		{
-			Player Player = (Player) LivingEntity;
 			Player.getFoodStats().addStats(10, 1.5f);
 
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)

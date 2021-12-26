@@ -24,6 +24,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
@@ -154,7 +155,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 			for (Object element : list)
 			{
-				if ((element instanceof EntityAnimaniaCow CowEntity) && (CowEntity.getSleeping() && currentTime > 24000))
+				if (element instanceof EntityAnimaniaCow CowEntity && CowEntity.getSleeping() && currentTime > 24000)
 				{
 					CowEntity.setSleeping(false);
 					CowEntity.setSleepTimer(0F);

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -36,7 +37,7 @@ public class EntityEventHandler
 		LivingEntity entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 
-		if ((entity instanceof Animal animal) && (source == DamageSource.FALL && animal.isLeashed()))
+		if (entity instanceof Animal animal && source == DamageSource.FALL && animal.isLeashed())
 		{
 			event.setAmount(amount * AnimaniaConfig.gameRules.fallDamageReduceMultiplier);
 			animal.fallDistance = 0;
@@ -58,7 +59,7 @@ public class EntityEventHandler
 				event.setCanceled(true);
 		}
 
-		if ((entity instanceof ISleeping isleeping) && isleeping.getSleeping())
+		if (entity instanceof ISleeping isleeping && isleeping.getSleeping())
 		{
 			if (source == DamageSource.STARVE)
 			{
@@ -68,7 +69,7 @@ public class EntityEventHandler
 			((ISleeping) entity).setSleeping(false);
 		}
 
-		if ((entity instanceof TamableAnimal) && ((TamableAnimal) entity).isInSittingPose())
+		if (entity instanceof TamableAnimal && ((TamableAnimal) entity).isInSittingPose())
 			((TamableAnimal) entity).setInSittingPose(false);
 
 	}
@@ -87,7 +88,7 @@ public class EntityEventHandler
 	{
 		LivingEntity entity = event.getEntityLiving();
 
-		if ((entity instanceof ISleeping isleeping && entity instanceof Animal) && (isleeping.getSleeping() && ((Animal) entity).isLeashed()))
+		if (entity instanceof ISleeping isleeping && entity instanceof Animal && isleeping.getSleeping() && ((Animal) entity).isLeashed())
 			isleeping.setSleeping(false);
 	}
 

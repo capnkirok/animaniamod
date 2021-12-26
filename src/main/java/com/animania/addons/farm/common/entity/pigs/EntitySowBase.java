@@ -30,6 +30,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable, IImpregnable
 {
@@ -79,11 +80,10 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof Player))
+		if (!(entity instanceof Player Player))
 			return false;
 		else
 		{
-			Player Player = (Player) entity;
 			ItemStack itemstack = Player.getMainHandItem();
 
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK)

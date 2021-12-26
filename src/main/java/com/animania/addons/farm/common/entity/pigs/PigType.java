@@ -24,6 +24,8 @@ import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntitySowYorkshi
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.PigEntityletYorkshire;
 import com.animania.api.interfaces.AnimaniaType;
 
+import net.minecraft.world.level.Level;
+
 public enum PigType implements AnimaniaType
 {
 	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, PigEntityletDuroc.class, true), HAMPSHIRE(EntityHogHampshire.class, EntitySowHampshire.class, PigEntityletHampshire.class, true), LARGE_BLACK(EntityHogLargeBlack.class, EntitySowLargeBlack.class, PigEntityletLargeBlack.class, true), LARGE_WHITE(EntityHogLargeWhite.class, EntitySowLargeWhite.class, PigEntityletLargeWhite.class, false), OLD_SPOT(EntityHogOldSpot.class, EntitySowOldSpot.class, PigEntityletOldSpot.class, true), YORKSHIRE(EntityHogYorkshire.class, EntitySowYorkshire.class, PigEntityletYorkshire.class, false);

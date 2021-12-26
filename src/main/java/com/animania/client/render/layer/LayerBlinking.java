@@ -63,7 +63,7 @@ public class LayerBlinking<E extends LivingEntity> implements RenderLayer
 
 		boolean drawBlink = false;
 
-		if ((entity instanceof IBlinking iblinking) && (iblinking.getBlinkTimer() < 7 && iblinking.getBlinkTimer() >= 0))
+		if (entity instanceof IBlinking iblinking && iblinking.getBlinkTimer() < 7 && iblinking.getBlinkTimer() >= 0)
 			drawBlink = true;
 
 		if (entity instanceof ISleeping)

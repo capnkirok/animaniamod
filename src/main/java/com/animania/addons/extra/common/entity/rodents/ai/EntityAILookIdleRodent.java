@@ -24,12 +24,12 @@ public class LookIdleRodentGoal extends Goal
 	public boolean shouldExecute()
 	{
 
-		if (((this.idleEntity instanceof EntityHamster er) && er.getSleeping()) || ((this.idleEntity instanceof EntityFerretBase er) && er.getSleeping()))
+		if (this.idleEntity instanceof EntityHamster er && er.getSleeping() || this.idleEntity instanceof EntityFerretBase er && er.getSleeping())
 		{
 			return false;
 		}
 
-		if ((this.idleEntity instanceof EntityHedgehogBase er) && er.getSleeping())
+		if (this.idleEntity instanceof EntityHedgehogBase er && er.getSleeping())
 		{
 			return false;
 		}

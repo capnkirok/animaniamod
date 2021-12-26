@@ -28,6 +28,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -91,7 +92,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 		this.goalSelector.addGoal(1, new EntityAmphibian.AIPanic(this, 2.2D));
 		if (!this.getCustomNameTag().equals("Pepe"))
 		{
-			this.goalSelector.addGoal(2, new AvoidEntityGoal<Player>(this, Player.class, 6.0F, 1.5D, 1.5D));
+			this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.5D, 1.5D));
 		}
 		this.goalSelector.addGoal(3, new WanderAvoidWaterGoal(this, 0.6D));
 		this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 10.0F));

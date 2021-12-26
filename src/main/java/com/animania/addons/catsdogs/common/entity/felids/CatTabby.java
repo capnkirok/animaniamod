@@ -1,5 +1,7 @@
 package com.animania.addons.catsdogs.common.entity.felids;
 
+import net.minecraft.world.level.Level;
+
 public class CatTabby
 {
 

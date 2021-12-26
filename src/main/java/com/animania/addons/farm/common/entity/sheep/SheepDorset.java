@@ -8,6 +8,7 @@ import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class SheepDorset
 {

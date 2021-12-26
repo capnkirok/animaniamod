@@ -61,7 +61,7 @@ public class FindNestGoal extends Goal
 				return false;
 			}
 
-			if ((this.temptedEntity instanceof EntityHenBase entity) && (!entity.getWatered() || !entity.getFed()))
+			if (this.temptedEntity instanceof EntityHenBase entity && (!entity.getWatered() || !entity.getFed()))
 			{
 				this.delayTemptCounter = 0;
 				return false;
@@ -158,7 +158,7 @@ public class FindNestGoal extends Goal
 									nestFound = true;
 									return true;
 								}
-								else if ((this.temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY)) || (this.temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY)))
+								else if (this.temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY) || this.temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
@@ -237,7 +237,7 @@ public class FindNestGoal extends Goal
 								{
 									nestFound = true;
 								}
-								else if ((this.temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY)) || (this.temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY)))
+								else if (this.temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY) || this.temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}

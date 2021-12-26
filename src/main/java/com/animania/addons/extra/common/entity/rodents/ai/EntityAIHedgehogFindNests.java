@@ -43,7 +43,7 @@ public class HedgehogFindNestsGoal extends Goal
 		else if (this.delayTemptCounter > 60)
 		{
 
-			if ((this.temptedEntity instanceof EntityHedgehogBase entity) && (entity.getFed() || entity.getSleeping()))
+			if (this.temptedEntity instanceof EntityHedgehogBase entity && (entity.getFed() || entity.getSleeping()))
 			{
 				this.delayTemptCounter = 0;
 				return false;

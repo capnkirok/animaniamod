@@ -7,6 +7,7 @@ import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public class RandomAnimalType implements AnimaniaType
 {

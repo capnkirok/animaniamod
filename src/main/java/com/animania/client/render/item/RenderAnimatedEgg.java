@@ -1,5 +1,7 @@
 package com.animania.client.render.item;
 
+import net.minecraft.world.level.Level;
+
 import com.animania.api.interfaces.IChild;
 import com.animania.client.models.item.AnimatedEggModelWrapper;
 import com.animania.common.items.ItemEntityEggAnimated;

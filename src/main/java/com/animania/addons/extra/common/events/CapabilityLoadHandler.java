@@ -56,9 +56,8 @@ public class CapabilityLoadHandler
 	public static void entityJoinLevel(EntityJoinLevelEvent event)
 	{
 		Entity e = event.getEntity();
-		if (e instanceof ServerPlayer)
+		if (e instanceof ServerPlayer player)
 		{
-			ServerPlayer player = (ServerPlayer) e;
 			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps(player);
 			if (caps != null)
 				Animania.network.sendTo(new CapSyncPacket(caps, player.getEntityId()), player);

@@ -15,6 +15,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 
 public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase, IChild
 {

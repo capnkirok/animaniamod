@@ -1,5 +1,7 @@
 package com.animania.addons.extra.common.entity.rodents;
 
+import net.minecraft.world.level.Level;
+
 public class EntityFerretWhite extends EntityFerretBase
 {
 

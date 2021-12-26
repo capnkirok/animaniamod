@@ -10,6 +10,7 @@ import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.Level;
 
 public class ButtHeadsSheepGoal extends Goal
 {

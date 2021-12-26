@@ -11,6 +11,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class GenericAIFindSaltLick<T extends PathfinderMob & ISleeping> extends GenericAISearchBlock

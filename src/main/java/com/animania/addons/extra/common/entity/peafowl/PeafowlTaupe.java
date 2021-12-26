@@ -1,6 +1,7 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class PeafowlTaupe
 {

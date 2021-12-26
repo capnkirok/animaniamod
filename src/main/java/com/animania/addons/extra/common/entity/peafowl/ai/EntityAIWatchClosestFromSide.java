@@ -38,7 +38,7 @@ public class WatchClosestFromSideGoal extends Goal
 	{
 
 		boolean isSleeping = false;
-		if ((this.theWatcher instanceof EntityAnimaniaPeacock entityChk) && entityChk.getSleeping())
+		if (this.theWatcher instanceof EntityAnimaniaPeacock entityChk && entityChk.getSleeping())
 		{
 			isSleeping = true;
 		}

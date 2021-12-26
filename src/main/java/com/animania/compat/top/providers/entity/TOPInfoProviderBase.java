@@ -13,6 +13,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 {
@@ -24,7 +25,7 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 		CompoundTag tag = new CompoundTag();
 		entity.writeToNBT(tag);
 
-		if ((player.isSneaking() && entity instanceof IGendered igendered) && (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE))
+		if (player.isSneaking() && entity instanceof IGendered igendered && (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE))
 			probeInfo.text(igendered.getEntityGender() == EntityGender.MALE ? ChatFormatting.AQUA + "\u2642" : ChatFormatting.LIGHT_PURPLE + "\u2640");
 
 		boolean fed = tag.getBoolean("Fed");

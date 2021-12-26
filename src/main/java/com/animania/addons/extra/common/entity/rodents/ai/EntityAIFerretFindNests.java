@@ -44,7 +44,7 @@ public class FerretFindNestsGoal extends Goal
 		}
 		else if (this.delayTemptCounter >= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-			if ((this.temptedEntity instanceof EntityFerretBase entity) && (entity.getSleeping() || entity.getFed()))
+			if (this.temptedEntity instanceof EntityFerretBase entity && (entity.getSleeping() || entity.getFed()))
 			{
 				this.delayTemptCounter = 0;
 				return false;

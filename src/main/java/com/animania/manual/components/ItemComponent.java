@@ -1,5 +1,7 @@
 package com.animania.manual.components;
 
+import net.minecraft.world.level.Level;
+
 import com.animania.manual.gui.GuiManual;
 
 import net.minecraft.client.Minecraft;

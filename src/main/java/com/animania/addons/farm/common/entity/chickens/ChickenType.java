@@ -21,6 +21,8 @@ import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityHe
 import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 import com.animania.api.interfaces.AnimaniaType;
 
+import net.minecraft.world.level.Level;
+
 public enum ChickenType implements AnimaniaType
 {
 

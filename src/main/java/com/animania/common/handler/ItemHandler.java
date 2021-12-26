@@ -24,12 +24,12 @@ public class ItemHandler
 	public static RegistryObject<Item> animaniaManual;
 	public static RegistryObject<Item> entityeggrandomanimal;
 
-	public static List<Item> entityEggList = new ArrayList<Item>();
+	public static List<Item> entityEggList = new ArrayList<>();
 	public static List<ItemStack> resourceTabItems = new ArrayList<>();
 
 	public static void preInit()
 	{
-		ItemHandler.animaniaManual = ITEMS.register("animania_manual", () -> new ItemManual());
+		ItemHandler.animaniaManual = ITEMS.register("animania_manual", ItemManual::new);
 		ItemHandler.entityeggrandomanimal = ITEMS.register("entity_egg_random", () -> new ItemEntityEgg("random", new RandomAnimalType(), EntityGender.RANDOM));
 	}
 

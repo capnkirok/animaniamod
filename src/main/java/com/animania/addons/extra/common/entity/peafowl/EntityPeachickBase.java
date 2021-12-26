@@ -10,6 +10,7 @@ import com.google.common.base.Optional;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.level.Level;
 
 public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 {

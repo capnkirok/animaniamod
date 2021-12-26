@@ -1,5 +1,7 @@
 package com.animania.manual.resources;
 
+import net.minecraft.world.level.Level;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

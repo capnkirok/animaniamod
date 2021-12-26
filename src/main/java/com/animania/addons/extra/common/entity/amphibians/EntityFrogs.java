@@ -37,6 +37,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class EntityFrogs extends EntityAmphibian
 {
@@ -109,7 +110,7 @@ public class EntityFrogs extends EntityAmphibian
 		if (!this.getCustomNameTag().equals("Pepe"))
 		{
 			this.goalSelector.addGoal(1, new EntityAmphibian.AIPanic(this, 2.2D));
-			this.goalSelector.addGoal(2, new AvoidEntityGoal<Player>(this, Player.class, 6.0F, 1.5D, 1.5D));
+			this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.5D, 1.5D));
 		}
 		else if (this.getCustomNameTag().equals("Pepe"))
 		{

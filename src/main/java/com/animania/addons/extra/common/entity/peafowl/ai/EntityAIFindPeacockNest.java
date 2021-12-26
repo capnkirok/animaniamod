@@ -56,7 +56,7 @@ public class FindPeacockNestGoal extends Goal
 				return false;
 			}
 
-			if ((this.temptedEntity instanceof EntityPeafowlBase entity) && (!entity.getWatered() || !entity.getFed()))
+			if (this.temptedEntity instanceof EntityPeafowlBase entity && (!entity.getWatered() || !entity.getFed()))
 			{
 				this.delayTemptCounter = 0;
 				return false;

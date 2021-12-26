@@ -34,6 +34,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 
@@ -178,11 +179,11 @@ public class GenericBehavior
 
 				if (rand.nextInt(2) == 0)
 				{
-					grownUp = (LivingEntity) entity.getAnimalType().getFemale(level);
+					grownUp = entity.getAnimalType().getFemale(level);
 				}
 				else
 				{
-					grownUp = (LivingEntity) entity.getAnimalType().getMale(level);
+					grownUp = entity.getAnimalType().getMale(level);
 				}
 
 				if (IImpregnable.class.isAssignableFrom(motherClass))

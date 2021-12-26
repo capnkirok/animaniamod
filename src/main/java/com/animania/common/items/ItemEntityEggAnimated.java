@@ -7,6 +7,7 @@ import com.animania.api.interfaces.AnimaniaType;
 import net.minecraft.entity.EntityList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ItemEntityEggAnimated extends ItemEntityEgg
 {

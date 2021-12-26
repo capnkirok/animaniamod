@@ -26,6 +26,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -373,7 +374,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
 		BlockEntity te = level.getBlockEntity(data.getPos());
-		if ((te instanceof BlockEntityInvisiblock invis) && (invis.getTrough() != null))
+		if (te instanceof BlockEntityInvisiblock invis && invis.getTrough() != null)
 		{
 			BlockEntityTrough trough = invis.getTrough();
 			ItemStack stack = trough.itemHandler.getStackInSlot(0);

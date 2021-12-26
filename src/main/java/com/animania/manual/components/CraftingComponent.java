@@ -1,5 +1,7 @@
 package com.animania.manual.components;
 
+import net.minecraft.world.level.Level;
+
 import java.util.Iterator;
 import java.util.List;
 

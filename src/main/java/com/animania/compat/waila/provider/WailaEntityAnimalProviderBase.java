@@ -13,6 +13,7 @@ import mcp.mobius.waila.api.IWailaEntityProvider;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 
 public class WailaAnimalEntityProviderBase implements IWailaEntityProvider
 {
@@ -63,7 +64,7 @@ public class WailaAnimalEntityProviderBase implements IWailaEntityProvider
 		if (sleeping)
 			currenttip.add(I18n.translateToLocal("text.waila.sleeping"));
 
-		if ((accessor.getPlayer().isSneaking() && entity instanceof ISterilizable) && ((ISterilizable) entity).getSterilized())
+		if (accessor.getPlayer().isSneaking() && entity instanceof ISterilizable && ((ISterilizable) entity).getSterilized())
 			currenttip.add(I18n.translateToLocal("text.waila.sterilized"));
 
 		return currenttip;

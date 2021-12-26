@@ -50,6 +50,8 @@ import com.animania.addons.catsdogs.common.entity.canids.DogWolf.EntityMaleWolf;
 import com.animania.addons.catsdogs.common.entity.canids.DogWolf.EntityPuppyWolf;
 import com.animania.api.interfaces.AnimaniaType;
 
+import net.minecraft.world.level.Level;
+
 public enum DogType implements AnimaniaType
 {
 	BLOOD_HOUND(EntityMaleBloodHound.class, EntityFemaleBloodHound.class, EntityPuppyBloodHound.class), CHIHUAHUA(EntityMaleChihuahua.class, EntityFemaleChihuahua.class, EntityPuppyChihuahua.class), COLLIE(EntityMaleCollie.class, EntityFemaleCollie.class, EntityPuppyCollie.class), CORGI(EntityMaleCorgi.class, EntityFemaleCorgi.class, EntityPuppyCorgi.class), DACHSHUND(EntityMaleDachshund.class, EntityFemaleDachshund.class, EntityPuppyDachshund.class), FOX(EntityMaleFox.class, EntityFemaleFox.class, EntityPuppyFox.class), GERMAN_SHEPHERD(EntityMaleGermanShepherd.class, EntityFemaleGermanShepherd.class, EntityPuppyGermanShepherd.class), GREAT_DANE(EntityMaleGreatDane.class, EntityFemaleGreatDane.class, EntityPuppyGreatDane.class), GREYHOUND(EntityMaleGreyhound.class, EntityFemaleGreyhound.class, EntityPuppyGreyhound.class), HUSKY(EntityMaleHusky.class, EntityFemaleHusky.class, EntityPuppyHusky.class), LABRADOR(EntityMaleLabrador.class, EntityFemaleLabrador.class, EntityPuppyLabrador.class), POMERANIAN(EntityMalePomeranian.class, EntityFemalePomeranian.class, EntityPuppyPomeranian.class), POODLE(EntityMalePoodle.class, EntityFemalePoodle.class, EntityPuppyPoodle.class), PUG(EntityMalePug.class, EntityFemalePug.class, EntityPuppyPug.class), WOLF(EntityMaleWolf.class, EntityFemaleWolf.class, EntityPuppyWolf.class);

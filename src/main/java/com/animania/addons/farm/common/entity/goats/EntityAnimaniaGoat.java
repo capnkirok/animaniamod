@@ -1,5 +1,7 @@
 package com.animania.addons.farm.common.entity.goats;
 
+import net.minecraft.world.level.Level;
+
 import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
@@ -98,21 +100,21 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	{
 		super(levelIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaGoat>(this);
-		this.goalSelector.addGoal(0, new GenericAIPanic<EntityAnimaniaGoat>(this, 1.4D));
+		this.entityAIEatGrass = new GenericAIEatGrass<>(this);
+		this.goalSelector.addGoal(0, new GenericAIPanic<>(this, 1.4D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaGoat>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaGoat.class));
-			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaGoat>(this, 1.0D, this.entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaGoat.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.0D, this.entityAIEatGrass, true));
 		}
 		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.goalSelector.addGoal(5, new SwimmingGoal(this));
-		this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaGoat>(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(7, new GenericAITempt<>(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(8, this.entityAIEatGrass);
 		this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 20.0F, 2.2D, 2.2D));
 		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, Player.class, 6.0F));
-		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaGoat>(this));
-		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaGoat>(this, 1.0, this.entityAIEatGrass));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(10, new GenericAISleep<EntityAnimaniaGoat>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.goatBed), AnimaniaHelper.getBlock(FarmConfig.settings.goatBed2), EntityAnimaniaGoat.class));

@@ -39,6 +39,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -289,7 +290,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 		if (dir.equals("north") && !levelIn.getBlockState(blockpos).getBlock().isReplaceable(levelIn, blockpos) || dir.equals("east") && !levelIn.getBlockState(blockpos2).getBlock().isReplaceable(levelIn, blockpos2))
 			return false;
 
-		if ((dir.equals("south") && !levelIn.getBlockState(blockpos1).getBlock().isReplaceable(levelIn, blockpos1)) || (dir.equals("west") && !levelIn.getBlockState(blockpos3).getBlock().isReplaceable(levelIn, blockpos3)))
+		if (dir.equals("south") && !levelIn.getBlockState(blockpos1).getBlock().isReplaceable(levelIn, blockpos1) || dir.equals("west") && !levelIn.getBlockState(blockpos3).getBlock().isReplaceable(levelIn, blockpos3))
 			return false;
 
 		return true;

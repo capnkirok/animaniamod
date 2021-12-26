@@ -466,9 +466,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		if (!this.hasPath())
 		{
 			Entity entity = this.getAttackTarget();
-			if (entity instanceof Player)
+			if (entity instanceof Player Player)
 			{
-				Player Player = (Player) entity;
 				ItemStack itemstack = Player.inventory.getCurrentItem();
 				if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.WHEAT_SEEDS)
 					this.looksWithInterest = true;

@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -88,7 +89,7 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 			if (block instanceof IFoodProviderBlock)
 			{
 				BlockEntity te = this.level.getBlockEntity(this.seekingBlockPos);
-				if ((te instanceof IFoodProviderTE trough) && trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
+				if (te instanceof IFoodProviderTE trough && trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
 				{
 					trough.consumeLiquid(this.halfAmount ? 50 : 100);
 

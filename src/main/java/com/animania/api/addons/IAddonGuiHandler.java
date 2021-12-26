@@ -3,6 +3,7 @@ package com.animania.api.addons;
 import javax.annotation.Nullable;
 
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public interface IAddonGuiHandler
 {

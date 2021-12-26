@@ -14,6 +14,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public class WailaAnimalEntityProviderMateable extends WailaAnimalEntityProviderBase
 {
@@ -26,7 +27,7 @@ public class WailaAnimalEntityProviderMateable extends WailaAnimalEntityProvider
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			if ((entity instanceof IGendered igendered) && (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE))
+			if (entity instanceof IGendered igendered && (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE))
 				currenttip.add(igendered.getEntityGender() == EntityGender.MALE ? ChatFormatting.AQUA + "\u2642" : ChatFormatting.LIGHT_PURPLE + "\u2640");
 
 			String mate = accessor.getNBTData().getString("MateUUID");

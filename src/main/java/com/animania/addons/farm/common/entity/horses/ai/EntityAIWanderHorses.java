@@ -37,7 +37,7 @@ public class WanderHorsesGoal extends WanderGoal
 		}
 
 		boolean isSleeping = false;
-		if ((this.entity instanceof EntityAnimaniaHorse entityAV) && entityAV.getSleeping())
+		if (this.entity instanceof EntityAnimaniaHorse entityAV && entityAV.getSleeping())
 		{
 			isSleeping = true;
 		}

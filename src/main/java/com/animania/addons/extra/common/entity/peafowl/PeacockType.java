@@ -27,15 +27,17 @@ import com.animania.addons.extra.common.entity.peafowl.PeafowlWhite.EntityPeacoc
 import com.animania.addons.extra.common.entity.peafowl.PeafowlWhite.EntityPeafowlWhite;
 import com.animania.api.interfaces.AnimaniaType;
 
+import net.minecraft.world.level.Level;
+
 public enum PeacockType implements AnimaniaType
 {
 	BLUE(EntityPeacockBlue.class, EntityPeafowlBlue.class, EntityPeachickBlue.class), WHITE(EntityPeacockWhite.class, EntityPeafowlWhite.class, EntityPeachickWhite.class), TAUPE(EntityPeacockTaupe.class, EntityPeafowlTaupe.class, EntityPeachickTaupe.class), PURPLE(EntityPeacockPurple.class, EntityPeafowlPurple.class, EntityPeachickPurple.class), PEACH(EntityPeacockPeach.class, EntityPeafowlPeach.class, EntityPeachickPeach.class), OPAL(EntityPeacockOpal.class, EntityPeafowlOpal.class, EntityPeachickOpal.class), CHARCOAL(EntityPeacockCharcoal.class, EntityPeafowlCharcoal.class, EntityPeachickCharcoal.class);
 
-	private Class male;
-	private Class female;
-	private Class child;
+	private Class<?> male;
+	private Class<?> female;
+	private Class<?> child;
 
-	private PeacockType(Class male, Class female, Class child)
+	private PeacockType(Class<?> male, Class<?> female, Class<?> child)
 	{
 		this.male = male;
 		this.female = female;

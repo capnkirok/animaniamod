@@ -1,5 +1,7 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
+import net.minecraft.world.level.Level;
+
 public class DogHusky
 {
 

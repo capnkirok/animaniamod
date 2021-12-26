@@ -113,17 +113,17 @@ public class FarmAddonItemHandler
 
 		if (!FarmConfig.settings.disableRollingVehicles)
 		{
-			cart = ITEMS.register("TODO", () -> new ItemCart());
-			wagon = ITEMS.register("TODO", () -> new ItemWagon());
-			tiller = ITEMS.register("TODO", () -> new ItemTiller());
+			cart = ITEMS.register("TODO", ItemCart::new);
+			wagon = ITEMS.register("TODO", ItemWagon::new);
+			tiller = ITEMS.register("TODO", ItemTiller::new);
 		}
 
 		carvingKnife = ITEMS.register("TODO", () -> new ItemCarvingKnife(ToolMaterial.IRON));
 		salt = ITEMS.register("TODO", () -> new AnimaniaItem("salt"));
 
-		ridingCrop = ITEMS.register("TODO", () -> new ItemRidingCrop());
-		milkBottle = ITEMS.register("TODO", () -> new ItemMilkBottle());
-		brownEgg = ITEMS.register("TODO", () -> new ItemBrownEgg());
+		ridingCrop = ITEMS.register("TODO", ItemRidingCrop::new);
+		milkBottle = ITEMS.register("TODO", ItemMilkBottle::new);
+		brownEgg = ITEMS.register("TODO", ItemBrownEgg::new);
 		wheel = ITEMS.register("TODO", () -> new AnimaniaItem("wheel"));
 
 		// Other foods
@@ -133,10 +133,10 @@ public class FarmAddonItemHandler
 		cheeseOmelette = ITEMS.register("cheese_omelette", () -> new ItemAnimaniaFood(5, 0.7f, "cheese_omelette", new MobEffectInstance(MobEffects.HEAL, 1, 1, false, false)));
 		plainOmelette = ITEMS.register("plain_omelette", () -> new ItemAnimaniaFood(5, 0.6f, "plain_omelette"));
 		truffle = ITEMS.register("truffle", () -> new ItemAnimaniaFood(2, 0.7f, "truffle"));
-		truffleSoup = ITEMS.register("truffle_soup", () -> new ItemTruffleSoup());
+		truffleSoup = ITEMS.register("truffle_soup", ItemTruffleSoup::new);
 		chocolateTruffle = ITEMS.register("chocolate_truffle", () -> new ItemAnimaniaFood(6, 0.7f, "chocolate_truffle", true, new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 3, false, false)));
 
-		honeyJar = ITEMS.register("honey_bottle", () -> new ItemHoneyBottle());
+		honeyJar = ITEMS.register("honey_bottle", ItemHoneyBottle::new);
 
 		// ITEMS produced by Animals
 		// COW ITEMS

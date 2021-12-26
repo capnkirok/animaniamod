@@ -14,6 +14,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 
 public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & ISleeping, O extends PathfinderMob & IMateable & IFoodEating & ISleeping & IImpregnable> extends Goal
 {
@@ -64,7 +65,7 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 			}
 
 			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(this.base, AnimaniaConfig.gameRules.animalCapSearchRange, this.theLevel, this.entity);
-			if ((similarAnimalsInRange.size() + 1 >= AnimaniaConfig.careAndFeeding.entityBreedingLimit) || (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !this.entity.getInteracted() : false) || (AnimaniaConfig.careAndFeeding.feedToBreed && !this.entity.getHandFed()))
+			if (similarAnimalsInRange.size() + 1 >= AnimaniaConfig.careAndFeeding.entityBreedingLimit || (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !this.entity.getInteracted() : false) || AnimaniaConfig.careAndFeeding.feedToBreed && !this.entity.getHandFed())
 			{
 				this.delayCounter = 0;
 				return false;
