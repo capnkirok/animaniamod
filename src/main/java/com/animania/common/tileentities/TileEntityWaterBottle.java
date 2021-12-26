@@ -3,7 +3,7 @@ package com.animania.common.tileentities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class TileEntityWaterBottle extends BlockEntity
+public class BlockEntityWaterBottle extends BlockEntity
 {
 	public int rotation;
 
@@ -21,9 +21,9 @@ public class TileEntityWaterBottle extends BlockEntity
 	 *
 	 * @Override public Packet getDescriptionPacket() { CompoundTag CompoundTag
 	 * = new CompoundTag(); this.writeToNBT(CompoundTag); return new
-	 * S35PacketUpdateTileEntity(this.x, this.y, this.z, -1, CompoundTag); }
+	 * S35PacketUpdateBlockEntity(this.x, this.y, this.z, -1, CompoundTag); }
 	 *
 	 * @Override public void onDataPacket(NetworkManager net,
-	 * S35PacketUpdateTileEntity pkt) { readFromNBT(pkt.getTag()); }
+	 * S35PacketUpdateBlockEntity pkt) { readFromNBT(pkt.getTag()); }
 	 */
 }

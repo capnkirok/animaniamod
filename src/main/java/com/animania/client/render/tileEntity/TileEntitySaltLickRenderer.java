@@ -1,30 +1,30 @@
-package com.animania.client.render.tileEntity;
+package com.animania.client.render.BlockEntity;
 
 import com.animania.client.models.blocks.ModelSaltLick;
-import com.animania.common.tileentities.TileEntitySaltLick;
+import com.animania.common.tileentities.BlockEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-public class TileEntitySaltLickRenderer extends TileEntitySpecialRenderer<TileEntitySaltLick>
+public class BlockEntitySaltLickRenderer extends BlockEntitySpecialRenderer<BlockEntitySaltLick>
 {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/salt_lick.png");
-	public static TileEntitySaltLickRenderer instance;
+	public static BlockEntitySaltLickRenderer instance;
 
 	private final ModelSaltLick saltLick = new ModelSaltLick();
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	public void setRendererDispatcher(BlockEntityRendererDispatcher rendererDispatcherIn)
 	{
 		super.setRendererDispatcher(rendererDispatcherIn);
-		TileEntitySaltLickRenderer.instance = this;
+		BlockEntitySaltLickRenderer.instance = this;
 	}
 
 	@Override
-	public void render(TileEntitySaltLick te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	public void render(BlockEntitySaltLick te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F, (float) y, (float) z + 0.5F);

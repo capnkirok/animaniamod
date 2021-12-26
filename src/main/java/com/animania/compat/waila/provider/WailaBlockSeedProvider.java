@@ -10,8 +10,8 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class WailaBlockSeedProvider implements IWailaDataProvider
 {
@@ -69,7 +69,7 @@ public class WailaBlockSeedProvider implements IWailaDataProvider
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayer player, TileEntity te, CompoundTag tag, Level level, BlockPos pos)
+	public CompoundTag getNBTData(ServerPlayer player, BlockEntity te, CompoundTag tag, Level level, BlockPos pos)
 	{
 		return tag;
 	}

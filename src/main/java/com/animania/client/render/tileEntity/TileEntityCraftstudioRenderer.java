@@ -1,29 +1,29 @@
-package com.animania.client.render.tileEntity;
+package com.animania.client.render.BlockEntity;
 
 import com.animania.Animania;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
-import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSTileEntitySpecialRenderer;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSBlockEntitySpecialRenderer;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class TileEntityCraftstudioRenderer<T extends TileEntity> extends TileEntitySpecialRenderer<T>
+public class BlockEntityCraftstudioRenderer<T extends BlockEntity> extends BlockEntitySpecialRenderer<T>
 {
 	private final ResourceLocation BLOCK_TEXTURE;
 
 	private final ModelCraftStudio BLOCK_MODEL;
 
-	public static TileEntityCraftstudioRenderer instance;
+	public static BlockEntityCraftstudioRenderer instance;
 
 	private double offsetX, offsetY, offsetZ;
 
-	public TileEntityCraftstudioRenderer(String name, int texHeight, int texWidth, double offsetX, double offsetY, double offsetZ)
+	public BlockEntityCraftstudioRenderer(String name, int texHeight, int texWidth, double offsetX, double offsetY, double offsetZ)
 	{
 		this.BLOCK_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/" + name + ".png");
 		this.BLOCK_MODEL = new ModelCraftStudio(Animania.MODID, "model_" + name, texHeight, texWidth);
@@ -33,7 +33,7 @@ public class TileEntityCraftstudioRenderer<T extends TileEntity> extends TileEnt
 		this.offsetZ = offsetZ;
 	}
 
-	public TileEntityCraftstudioRenderer(String name, int texHeight, int texWidth)
+	public BlockEntityCraftstudioRenderer(String name, int texHeight, int texWidth)
 	{
 		this(name, texHeight, texWidth, 0, 0, 0);
 	}
@@ -45,7 +45,7 @@ public class TileEntityCraftstudioRenderer<T extends TileEntity> extends TileEnt
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5D + this.offsetX, y + 1.5D + this.offsetY, z + 0.5D + this.offsetZ);
-		GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
+		GlStateManager.multMatrix(CSBlockEntitySpecialRenderer.ROTATION_CORRECTOR);
 		GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
 		this.bindTexture(this.BLOCK_TEXTURE);
 		this.BLOCK_MODEL.render();
@@ -53,9 +53,9 @@ public class TileEntityCraftstudioRenderer<T extends TileEntity> extends TileEnt
 	}
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	public void setRendererDispatcher(BlockEntityRendererDispatcher rendererDispatcherIn)
 	{
 		super.setRendererDispatcher(rendererDispatcherIn);
-		TileEntityCraftstudioRenderer.instance = this;
+		BlockEntityCraftstudioRenderer.instance = this;
 	}
 }

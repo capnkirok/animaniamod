@@ -6,15 +6,15 @@ import IMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IThreadListener;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class TileEntitySyncPacketHandler
+public class BlockEntitySyncPacketHandler
 {
 
 	@Override
-	public IMessage handle(TileEntitySyncPacket message, MessageContext ctx)
+	public IMessage handle(BlockEntitySyncPacket message, MessageContext ctx)
 	{
 		IThreadListener mainThread = Minecraft.getMinecraft();
 
@@ -28,7 +28,7 @@ public class TileEntitySyncPacketHandler
 				BlockPos pos = new BlockPos(data.getInteger("x"), data.getInteger("y"), data.getInteger("z"));
 				CompoundTag tileData = data.getCompoundTag("data");
 
-				TileEntity tile = Minecraft.getMinecraft().level.getTileEntity(pos);
+				BlockEntity tile = Minecraft.getMinecraft().level.getBlockEntity(pos);
 
 				if (tile != null)
 				{

@@ -2,7 +2,7 @@ package com.animania.addons.extra.compat.waila;
 
 import java.util.List;
 
-import com.animania.addons.extra.common.tileentity.TileEntityHamsterWheel;
+import com.animania.addons.extra.common.tileentity.BlockEntityHamsterWheel;
 import com.animania.addons.extra.config.ExtraConfig;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -11,8 +11,8 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class WailaBlockHamsterWheelProvider implements IWailaDataProvider
 {
@@ -51,9 +51,9 @@ public class WailaBlockHamsterWheelProvider implements IWailaDataProvider
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayer player, TileEntity te, CompoundTag tag, Level level, BlockPos pos)
+	public CompoundTag getNBTData(ServerPlayer player, BlockEntity te, CompoundTag tag, Level level, BlockPos pos)
 	{
-		TileEntityHamsterWheel tile = (TileEntityHamsterWheel) te;
+		BlockEntityHamsterWheel tile = (BlockEntityHamsterWheel) te;
 
 		ItemStack stack = tile.getItemHandler().getStackInSlot(0);
 		int energy = tile.getEnergy();

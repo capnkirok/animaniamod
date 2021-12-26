@@ -1,4 +1,4 @@
-package com.animania.addons.extra.common.tileentity.handler;
+package com.animania.addons.extra.common.BlockEntity.handler;
 
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 

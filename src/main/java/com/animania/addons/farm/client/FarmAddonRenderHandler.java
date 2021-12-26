@@ -91,7 +91,7 @@ import com.animania.addons.farm.client.render.sheep.RenderRamFriesian;
 import com.animania.addons.farm.client.render.sheep.RenderRamJacob;
 import com.animania.addons.farm.client.render.sheep.RenderRamMerino;
 import com.animania.addons.farm.client.render.sheep.RenderRamSuffolk;
-import com.animania.addons.farm.client.render.tileentity.TileEntityHiveRenderer;
+import com.animania.addons.farm.client.render.tileentity.BlockEntityHiveRenderer;
 import com.animania.addons.farm.common.entity.chickens.ChickenLeghorn.EntityChickLeghorn;
 import com.animania.addons.farm.common.entity.chickens.ChickenLeghorn.EntityHenLeghorn;
 import com.animania.addons.farm.common.entity.chickens.ChickenLeghorn.EntityRoosterLeghorn;
@@ -196,7 +196,7 @@ import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityLambSuffo
 import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityRamSuffolk;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
-import com.animania.addons.farm.common.tileentity.TileEntityHive;
+import com.animania.addons.farm.common.tileentity.BlockEntityHive;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.blocks.IMetaBlockName;
 import com.animania.common.helper.RegistryHelper.RItem;
@@ -205,14 +205,14 @@ import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 import com.leviathanstudio.craftstudio.client.util.EnumRenderType;
 import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.NonNullList;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.model.ModelLoader;
@@ -461,7 +461,7 @@ public class FarmAddonRenderHandler
 	 */
 	public static void init()
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHive.class, new TileEntityHiveRenderer());
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityHive.class, new BlockEntityHiveRenderer());
 
 	}
 
@@ -513,9 +513,9 @@ public class FarmAddonRenderHandler
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static <T extends TileEntity> void registerTileEntityRender(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer)
+	private static <T extends BlockEntity> void registerBlockEntityRender(Class<T> BlockEntityClass, BlockEntitySpecialRenderer<? super T> specialRenderer)
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityClass, specialRenderer);
 	}
 
 	@SideOnly(Dist.CLIENT)

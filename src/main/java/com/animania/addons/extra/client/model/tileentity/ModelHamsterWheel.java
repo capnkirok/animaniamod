@@ -1,4 +1,4 @@
-package com.animania.addons.extra.client.model.tileentity;
+package com.animania.addons.extra.client.model.BlockEntity;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.model.ModelRenderer;

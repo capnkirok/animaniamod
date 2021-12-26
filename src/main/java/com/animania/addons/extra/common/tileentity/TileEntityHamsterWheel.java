@@ -1,4 +1,4 @@
-package com.animania.addons.extra.common.tileentity;
+package com.animania.addons.extra.common.BlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -11,18 +11,18 @@ import com.animania.addons.extra.config.ExtraConfig;
 import com.animania.client.handler.AnimationHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
-import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedBlockEntity;
 
 import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -31,9 +31,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable
+public class BlockEntityHamsterWheel extends AnimatedBlockEntity implements ITickable
 {
-	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(TileEntityHamsterWheel.class);
+	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(BlockEntityHamsterWheel.class);
 
 	static
 	{
@@ -49,7 +49,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	private EnergyStorage power;
 	private int nbtSyncTimer;
 
-	public TileEntityHamsterWheel()
+	public BlockEntityHamsterWheel()
 	{
 		this.itemHandler = new ItemHandlerHamsterWheel();
 		this.power = new EnergyStorage(ExtraConfig.settings.hamsterWheelCapacity);
@@ -102,7 +102,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		for (Direction facing : Direction.VALUES)
 		{
-			TileEntity tile = this.getSurroundingTE(facing);
+			BlockEntity tile = this.getSurroundingTE(facing);
 			if (tile != null)
 			{
 				if (ModList.get().isLoaded("redstoneflux") && tile instanceof IEnergyReceiver)
@@ -252,7 +252,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	public void onDataPacket(NetworkManager net, SPacketUpdateBlockEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)
@@ -262,11 +262,11 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	@Override
 	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket()
+	public SPacketUpdateBlockEntity getUpdatePacket()
 	{
 		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
-		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
+		return new SPacketUpdateBlockEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
@@ -275,10 +275,10 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		return this.writeToNBT(new CompoundTag());
 	}
 
-	private TileEntity getSurroundingTE(Direction facing)
+	private BlockEntity getSurroundingTE(Direction facing)
 	{
 		BlockPos pos = this.pos.offset(facing);
-		return level.getTileEntity(pos);
+		return level.getBlockEntity(pos);
 	}
 
 	public ItemHandlerHamsterWheel getItemHandler()
@@ -319,13 +319,13 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		if (this.nbtSyncTimer > 50)
 		{
 			super.markDirty();
-			AnimaniaHelper.sendTileEntityUpdate(this);
+			AnimaniaHelper.sendBlockEntityUpdate(this);
 			this.nbtSyncTimer = 0;
 		}
 	}
 
 	@Override
-	public AnimationHandler<TileEntityHamsterWheel> getAnimationHandler()
+	public AnimationHandler<BlockEntityHamsterWheel> getAnimationHandler()
 	{
 		return animHandler;
 	}

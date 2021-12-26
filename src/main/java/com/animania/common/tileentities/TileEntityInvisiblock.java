@@ -18,9 +18,9 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoodProviderTE
+public class BlockEntityInvisiblock extends BlockEntity implements Tickable, IFoodProviderTE
 {
-	public TileEntityInvisiblock()
+	public BlockEntityInvisiblock()
 	{
 
 	}
@@ -59,7 +59,7 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 
 	}
 
-	private TileEntityTrough getPlacedTrough()
+	private BlockEntityTrough getPlacedTrough()
 	{
 		BlockPos pos1 = new BlockPos(this.pos.getX() + 1, this.pos.getY(), this.pos.getZ());
 		BlockPos pos2 = new BlockPos(this.pos.getX() - 1, this.pos.getY(), this.pos.getZ());
@@ -73,21 +73,21 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 
 		if (block1 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) this.level.getTileEntity(pos1);
+			BlockEntityTrough te = (BlockEntityTrough) this.level.getBlockEntity(pos1);
 			if (te != null && te.getTroughRotation() == 1)
 				return te;
 		}
 
 		if (block2 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) this.level.getTileEntity(pos2);
+			BlockEntityTrough te = (BlockEntityTrough) this.level.getBlockEntity(pos2);
 			if (te != null && te.getTroughRotation() == 0)
 				return te;
 		}
 
 		if (block3 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) this.level.getTileEntity(pos3);
+			BlockEntityTrough te = (BlockEntityTrough) this.level.getBlockEntity(pos3);
 			if (te != null && te.getTroughRotation() == 2)
 				return te;
 
@@ -95,7 +95,7 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 
 		if (block4 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) this.level.getTileEntity(pos4);
+			BlockEntityTrough te = (BlockEntityTrough) this.level.getBlockEntity(pos4);
 			if (te != null && te.getTroughRotation() == 3)
 				return te;
 
@@ -108,7 +108,7 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 		return null;
 	}
 
-	public TileEntityTrough getTrough()
+	public BlockEntityTrough getTrough()
 	{
 		return this.getPlacedTrough();
 	}
@@ -124,18 +124,18 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 	{
 		super.markDirty();
 
-		TileEntityTrough trough = this.getPlacedTrough();
+		BlockEntityTrough trough = this.getPlacedTrough();
 
 		if (trough != null)
 		{
-			AnimaniaHelper.sendTileEntityUpdate(this.getPlacedTrough());
+			AnimaniaHelper.sendBlockEntityUpdate(this.getPlacedTrough());
 		}
 	}
 
 	@Override
 	public boolean canConsume(Set<ItemStack> fooditems, Fluid[] fluid)
 	{
-		TileEntityTrough trough = this.getTrough();
+		BlockEntityTrough trough = this.getTrough();
 
 		if (trough != null)
 		{
@@ -148,7 +148,7 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 	@Override
 	public boolean canConsume(FluidStack fluid, Set<ItemStack> fooditems)
 	{
-		TileEntityTrough trough = this.getTrough();
+		BlockEntityTrough trough = this.getTrough();
 
 		if (trough != null)
 		{
@@ -161,7 +161,7 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 	@Override
 	public void consumeSolidOrLiquid(int liquidAmount, int itemAmount)
 	{
-		TileEntityTrough trough = this.getTrough();
+		BlockEntityTrough trough = this.getTrough();
 
 		if (trough != null)
 		{
@@ -172,7 +172,7 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 	@Override
 	public void consumeSolid(int amount)
 	{
-		TileEntityTrough trough = this.getTrough();
+		BlockEntityTrough trough = this.getTrough();
 
 		if (trough != null)
 		{
@@ -183,7 +183,7 @@ public class TileEntityInvisiblock extends BlockEntity implements Tickable, IFoo
 	@Override
 	public void consumeLiquid(int amount)
 	{
-		TileEntityTrough trough = this.getTrough();
+		BlockEntityTrough trough = this.getTrough();
 
 		if (trough != null)
 		{

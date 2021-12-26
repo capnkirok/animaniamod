@@ -4,6 +4,7 @@ import com.animania.api.addons.AnimaniaAddon;
 import com.animania.common.events.UpdateHandler;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.AdvancementHandler;
+import com.animania.common.handler.BlockEntityHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.handler.DamageSourceHandler;
@@ -15,7 +16,6 @@ import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.LootTableHandler;
 import com.animania.common.handler.PatreonHandler;
 import com.animania.common.handler.RecipeHandler;
-import com.animania.common.handler.TileEntityHandler;
 import com.animania.network.NetworkHandler;
 
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +34,7 @@ public class CommonProxy
 
 		ItemHandler.preInit();
 		BlockHandler.preInit();
-		TileEntityHandler.preInit();
+		BlockEntityHandler.preInit();
 		DamageSourceHandler.preInit();
 		PatreonHandler.initList();
 		NetworkHandler.init();

@@ -1,20 +1,20 @@
 package com.animania.common.handler;
 
-import com.animania.common.tileentities.TileEntityInvisiblock;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntitySaltLick;
-import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.common.tileentities.BlockEntityInvisiblock;
+import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.tileentities.BlockEntitySaltLick;
+import com.animania.common.tileentities.BlockEntityTrough;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class TileEntityHandler
+public class BlockEntityHandler
 {
 
 	public static void preInit()
 	{
-		GameRegistry.registerTileEntity(TileEntityTrough.class, "TileEntityTrough");
-		GameRegistry.registerTileEntity(TileEntityNest.class, "TileEntityNest");
-		GameRegistry.registerTileEntity(TileEntityInvisiblock.class, "TileEntityInvisiblock");
-		GameRegistry.registerTileEntity(TileEntitySaltLick.class, "TileEntitySaltLick");
+		GameRegistry.registerBlockEntity(BlockEntityTrough.class, "BlockEntityTrough");
+		GameRegistry.registerBlockEntity(BlockEntityNest.class, "BlockEntityNest");
+		GameRegistry.registerBlockEntity(BlockEntityInvisiblock.class, "BlockEntityInvisiblock");
+		GameRegistry.registerBlockEntity(BlockEntitySaltLick.class, "BlockEntitySaltLick");
 	}
 }

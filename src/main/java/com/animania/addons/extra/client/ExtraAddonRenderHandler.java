@@ -36,7 +36,7 @@ import com.animania.addons.extra.client.render.rodents.RenderFerretWhite;
 import com.animania.addons.extra.client.render.rodents.RenderHamster;
 import com.animania.addons.extra.client.render.rodents.RenderHedgehog;
 import com.animania.addons.extra.client.render.rodents.RenderHedgehogAlbino;
-import com.animania.addons.extra.client.render.tileentity.TileEntityHamsterWheelRenderer;
+import com.animania.addons.extra.client.render.tileentity.BlockEntityHamsterWheelRenderer;
 import com.animania.addons.extra.common.entity.amphibians.EntityDartFrogs;
 import com.animania.addons.extra.common.entity.amphibians.EntityFrogs;
 import com.animania.addons.extra.common.entity.amphibians.EntityToad;
@@ -92,17 +92,17 @@ import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitE
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityKitRex;
 import com.animania.addons.extra.common.handler.ExtraAddonBlockHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
-import com.animania.addons.extra.common.tileentity.TileEntityHamsterWheel;
+import com.animania.addons.extra.common.tileentity.BlockEntityHamsterWheel;
 import com.animania.common.helper.RegistryHelper.RItem;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 import com.leviathanstudio.craftstudio.client.util.EnumRenderType;
 import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.model.ModelLoader;
@@ -246,7 +246,7 @@ public class ExtraAddonRenderHandler
 	 */
 	public static void init()
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHamsterWheel.class, new TileEntityHamsterWheelRenderer());
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityHamsterWheel.class, new BlockEntityHamsterWheelRenderer());
 	}
 
 	@SideOnly(Dist.CLIENT)
@@ -276,9 +276,9 @@ public class ExtraAddonRenderHandler
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static <T extends TileEntity> void registerTileEntityRender(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer)
+	private static <T extends BlockEntity> void registerBlockEntityRender(Class<T> BlockEntityClass, BlockEntitySpecialRenderer<? super T> specialRenderer)
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityClass, specialRenderer);
 	}
 
 }

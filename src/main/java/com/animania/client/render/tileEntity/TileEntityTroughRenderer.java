@@ -1,4 +1,4 @@
-package com.animania.client.render.tileEntity;
+package com.animania.client.render.BlockEntity;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -13,8 +13,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.events.RenderEvents;
 import com.animania.client.models.ModelTrough;
-import com.animania.common.tileentities.TileEntityTrough;
-import com.animania.common.tileentities.TileEntityTrough.TroughContent;
+import com.animania.common.tileentities.BlockEntityTrough;
+import com.animania.common.tileentities.BlockEntityTrough.TroughContent;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
@@ -22,11 +22,11 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -35,36 +35,36 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEntityTrough>
+public class BlockEntityTroughRenderer extends BlockEntitySpecialRenderer<BlockEntityTrough>
 {
 	private static final ResourceLocation TROUGH_EMPTY_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/block_trough.png");
 	private static final ResourceLocation WHEAT = new ResourceLocation("animania:textures/entity/tileentities/wheat.png");
-	public static TileEntityTroughRenderer instance;
+	public static BlockEntityTroughRenderer instance;
 	private final ModelTrough trough = new ModelTrough();
 
-	private static Map<TileEntityTrough, Color> cachedColors = new HashMap<>();
+	private static Map<BlockEntityTrough, Color> cachedColors = new HashMap<>();
 
 	@Override
-	public void render(TileEntityTrough te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	public void render(BlockEntityTrough te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
 		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 		this.renderTrough(te, (float) x, (float) y, (float) z, enumfacing, destroyStage, partialTicks);
 	}
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	public void setRendererDispatcher(BlockEntityRendererDispatcher rendererDispatcherIn)
 	{
 		super.setRendererDispatcher(rendererDispatcherIn);
-		TileEntityTroughRenderer.instance = this;
+		BlockEntityTroughRenderer.instance = this;
 	}
 
-	public void renderTrough(TileEntityTrough te, float x, float y, float z, Direction facing, int destroyStage, float animateTicks)
+	public void renderTrough(BlockEntityTrough te, float x, float y, float z, Direction facing, int destroyStage, float animateTicks)
 	{
 		ModelBase modelbase = this.trough;
 
 		// if (destroyStage >= 0)
 		// {
-		// this.bindTexture(TileEntitySpecialRenderer.DESTROY_STAGES[destroyStage]);
+		// this.bindTexture(BlockEntitySpecialRenderer.DESTROY_STAGES[destroyStage]);
 		// GlStateManager.matrixMode(5890);
 		// GlStateManager.pushMatrix();
 		// GlStateManager.scale(4.0F, 2.0F, 1.0F);
@@ -107,7 +107,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		// GlStateManager.enableAlpha();
 		// GlStateManager.enableCull();
 
-		this.bindTexture(TileEntityTroughRenderer.TROUGH_EMPTY_TEXTURE);
+		this.bindTexture(BlockEntityTroughRenderer.TROUGH_EMPTY_TEXTURE);
 		modelbase.render((Entity) null, animateTicks, 0.0F, 0.0F, 0, 0.0F, 0.0625F);
 
 		if (te.getTroughContent() == TroughContent.LIQUID)

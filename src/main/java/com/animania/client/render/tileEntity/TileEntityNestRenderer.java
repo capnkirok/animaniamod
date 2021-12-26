@@ -1,26 +1,26 @@
-package com.animania.client.render.tileEntity;
+package com.animania.client.render.BlockEntity;
 
 import com.animania.client.models.ModelNest;
-import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.BlockEntityNest;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntityNest>
+public class BlockEntityNestRenderer extends BlockEntitySpecialRenderer<BlockEntityNest>
 {
 	private static final ResourceLocation NEST_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/block_nest_white.png");
 	private static final ResourceLocation NEST_TEXTURE2 = new ResourceLocation("animania:textures/entity/tileentities/block_nest_blue.png");
-	public static TileEntityNestRenderer instance;
+	public static BlockEntityNestRenderer instance;
 	private final ModelNest nest = new ModelNest();
 
 	@Override
-	public void render(TileEntityNest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	public void render(BlockEntityNest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
@@ -29,19 +29,19 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 	}
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	public void setRendererDispatcher(BlockEntityRendererDispatcher rendererDispatcherIn)
 	{
 		super.setRendererDispatcher(rendererDispatcherIn);
-		TileEntityNestRenderer.instance = this;
+		BlockEntityNestRenderer.instance = this;
 	}
 
-	public void renderNest(TileEntityNest te, float x, float y, float z, int destroyStage, float animateTicks)
+	public void renderNest(BlockEntityNest te, float x, float y, float z, int destroyStage, float animateTicks)
 	{
 		ModelBase modelbase = this.nest;
 
 		if (destroyStage >= 0)
 		{
-			this.bindTexture(TileEntitySpecialRenderer.DESTROY_STAGES[destroyStage]);
+			this.bindTexture(BlockEntitySpecialRenderer.DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(4.0F, 2.0F, 1.0F);
@@ -49,7 +49,7 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 			GlStateManager.matrixMode(5888);
 		}
 
-		this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+		this.bindTexture(BlockEntityNestRenderer.NEST_TEXTURE);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);

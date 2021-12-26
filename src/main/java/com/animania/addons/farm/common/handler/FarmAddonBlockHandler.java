@@ -14,8 +14,8 @@ import com.animania.addons.farm.common.block.BlockHive;
 import com.animania.addons.farm.common.block.BlockWildHive;
 import com.animania.addons.farm.common.block.fluids.BlockFluidHoney;
 import com.animania.addons.farm.common.block.fluids.BlockFluidMilk;
-import com.animania.addons.farm.common.tileentity.TileEntityCheeseMold;
-import com.animania.addons.farm.common.tileentity.TileEntityHive;
+import com.animania.addons.farm.common.tileentity.BlockEntityCheeseMold;
+import com.animania.addons.farm.common.tileentity.BlockEntityHive;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.common.blocks.fluids.FluidBase;
 import com.animania.common.helper.RegistryHelper.RItem;
@@ -100,8 +100,8 @@ public class FarmAddonBlockHandler
 		blockHoney = new BlockFluidHoney();
 
 		// Te's
-		GameRegistry.registerTileEntity(TileEntityCheeseMold.class, "TileEntityCheeseMold");
-		GameRegistry.registerTileEntity(TileEntityHive.class, "TileEntityHive");
+		GameRegistry.registerBlockEntity(BlockEntityCheeseMold.class, "BlockEntityCheeseMold");
+		GameRegistry.registerBlockEntity(BlockEntityHive.class, "BlockEntityHive");
 
 	}
 

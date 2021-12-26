@@ -199,7 +199,7 @@ public class CarryRenderer
 			if (item instanceof ItemEntityEggAnimated)
 			{
 				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("animania:fancy_egg", "inventory"));
-				item.setTileEntityItemStackRenderer(new RenderAnimatedEgg());
+				item.setBlockEntityItemStackRenderer(new RenderAnimatedEgg());
 			}
 		}
 	}

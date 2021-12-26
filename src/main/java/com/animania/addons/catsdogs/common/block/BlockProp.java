@@ -1,15 +1,15 @@
 package com.animania.addons.catsdogs.common.block;
 
 import com.animania.Animania;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
+import com.animania.addons.catsdogs.common.tileentity.BlockEntityProp;
 import com.animania.common.blocks.AnimaniaRotateable;
 
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
@@ -21,7 +21,7 @@ public class BlockProp extends AnimaniaRotateable implements EntityBlock
 	public BlockProp(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn, SoundType sound)
 	{
 		super(name, blockMaterialIn, blockMaterialColorIn);
-		this.hasTileEntity = true;
+		this.hasBlockEntity = true;
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setSoundType(sound);
 	}
@@ -33,9 +33,9 @@ public class BlockProp extends AnimaniaRotateable implements EntityBlock
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(Level levelIn, int meta)
+	public BlockEntity createNewBlockEntity(Level levelIn, int meta)
 	{
-		return new TileEntityProp();
+		return new BlockEntityProp();
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.BlockEntityNest;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -10,8 +10,8 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class WailaBlockNestProvider implements IWailaDataProvider
 {
@@ -32,7 +32,7 @@ public class WailaBlockNestProvider implements IWailaDataProvider
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
-		TileEntityNest tile = (TileEntityNest) accessor.getTileEntity();
+		BlockEntityNest tile = (BlockEntityNest) accessor.getBlockEntity();
 		CompoundTag tag = new CompoundTag();
 		tile.writeToNBT(tag);
 		String from = tag.getString("birdType");
@@ -56,7 +56,7 @@ public class WailaBlockNestProvider implements IWailaDataProvider
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayer player, TileEntity te, CompoundTag tag, Level level, BlockPos pos)
+	public CompoundTag getNBTData(ServerPlayer player, BlockEntity te, CompoundTag tag, Level level, BlockPos pos)
 	{
 		// TODO Auto-generated method stub
 		return null;

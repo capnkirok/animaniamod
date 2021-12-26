@@ -7,19 +7,19 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemSaltLick;
-import com.animania.common.tileentities.TileEntitySaltLick;
+import com.animania.common.tileentities.BlockEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
@@ -37,7 +37,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 
 		this.setHardness(1.2f);
 		this.setResistance(1.7f);
-		this.hasTileEntity = true;
+		this.hasBlockEntity = true;
 		RItem item = new ItemSaltLick(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "salt_lick"));
 
@@ -46,10 +46,10 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 
 	public void useSaltLick(Level level, BlockPos pos, @Nullable LivingEntity entity)
 	{
-		TileEntity te = level.getTileEntity(pos);
-		if (te instanceof TileEntitySaltLick)
+		BlockEntity te = level.getBlockEntity(pos);
+		if (te instanceof BlockEntitySaltLick)
 		{
-			((TileEntitySaltLick) te).useSaltLick();
+			((BlockEntitySaltLick) te).useSaltLick();
 			if (entity != null)
 			{
 				entity.heal(2f);
@@ -65,11 +65,11 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 
 	@Override
-	public void harvestBlock(Level levelIn, Player player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack)
+	public void harvestBlock(Level levelIn, Player player, BlockPos pos, BlockState state, BlockEntity te, ItemStack stack)
 	{
-		if (te instanceof TileEntitySaltLick)
+		if (te instanceof BlockEntitySaltLick)
 		{
-			int left = ((TileEntitySaltLick) te).usesLeft;
+			int left = ((BlockEntitySaltLick) te).usesLeft;
 			int damage = AnimaniaConfig.careAndFeeding.saltLickMaxUses - left;
 
 			Block.spawnAsEntity(levelIn, pos, new ItemStack(this, 1, damage));
@@ -87,10 +87,10 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	{
 		int left = AnimaniaConfig.careAndFeeding.saltLickMaxUses - stack.getItemDamage();
 
-		TileEntity te = levelIn.getTileEntity(pos);
-		if (te instanceof TileEntitySaltLick)
+		BlockEntity te = levelIn.getBlockEntity(pos);
+		if (te instanceof BlockEntitySaltLick)
 		{
-			((TileEntitySaltLick) te).usesLeft = left;
+			((BlockEntitySaltLick) te).usesLeft = left;
 		}
 	}
 
@@ -99,10 +99,10 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	{
 		if (level != null)
 		{
-			TileEntity te = level.getTileEntity(pos);
-			if (te instanceof TileEntitySaltLick)
+			BlockEntity te = level.getBlockEntity(pos);
+			if (te instanceof BlockEntitySaltLick)
 			{
-				double usesLeft = (double) ((TileEntitySaltLick) te).usesLeft / (double) AnimaniaConfig.careAndFeeding.saltLickMaxUses;
+				double usesLeft = (double) ((BlockEntitySaltLick) te).usesLeft / (double) AnimaniaConfig.careAndFeeding.saltLickMaxUses;
 				return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft, 0.8125);
 			}
 		}
@@ -114,10 +114,10 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	{
 		if (level != null)
 		{
-			TileEntity te = level.getTileEntity(pos);
-			if (te instanceof TileEntitySaltLick)
+			BlockEntity te = level.getBlockEntity(pos);
+			if (te instanceof BlockEntitySaltLick)
 			{
-				double usesLeft = (double) ((TileEntitySaltLick) te).usesLeft / (double) AnimaniaConfig.careAndFeeding.saltLickMaxUses;
+				double usesLeft = (double) ((BlockEntitySaltLick) te).usesLeft / (double) AnimaniaConfig.careAndFeeding.saltLickMaxUses;
 				return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft, 0.8125);
 			}
 		}
@@ -149,15 +149,15 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	// }
 
 	@Override
-	public boolean hasTileEntity()
+	public boolean hasBlockEntity()
 	{
 		return true;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(Level levelIn, int meta)
+	public BlockEntity createNewBlockEntity(Level levelIn, int meta)
 	{
-		return new TileEntitySaltLick();
+		return new BlockEntitySaltLick();
 	}
 
 	@Override

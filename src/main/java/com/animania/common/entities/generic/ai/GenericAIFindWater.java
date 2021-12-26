@@ -10,10 +10,10 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -87,7 +87,7 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 
 			if (block instanceof IFoodProviderBlock)
 			{
-				TileEntity te = this.level.getTileEntity(this.seekingBlockPos);
+				BlockEntity te = this.level.getBlockEntity(this.seekingBlockPos);
 				if ((te instanceof IFoodProviderTE trough) && trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
 				{
 					trough.consumeLiquid(this.halfAmount ? 50 : 100);
@@ -126,7 +126,7 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 
 		if (block instanceof IFoodProviderBlock)
 		{
-			TileEntity te = level.getTileEntity(pos);
+			BlockEntity te = level.getBlockEntity(pos);
 			if (te instanceof IFoodProviderTE && ((IFoodProviderTE) te).canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
 				return true;
 		}

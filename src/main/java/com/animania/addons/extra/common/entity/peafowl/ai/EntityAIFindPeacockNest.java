@@ -7,8 +7,8 @@ import com.animania.addons.extra.common.entity.peafowl.EntityPeafowlBase;
 import com.animania.addons.extra.common.entity.peafowl.PeafowlBlue.EntityPeafowlBlue;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.tileentities.BlockEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
@@ -79,7 +79,7 @@ public class FindPeacockNestGoal extends Goal
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(currentpos);
+				BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(currentpos);
 
 				if (te.itemHandler.getStackInSlot(0).getCount() >= 3)
 				{
@@ -137,7 +137,7 @@ public class FindPeacockNestGoal extends Goal
 						if (blockchk == BlockHandler.blockNest)
 						{
 
-							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
+							BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(pos);
 							NestContent nestType = te.getNestContent();
 
 							if (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
@@ -213,7 +213,7 @@ public class FindPeacockNestGoal extends Goal
 						if (blockchk == BlockHandler.blockNest && !this.temptedEntity.hasPath())
 						{
 
-							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
+							BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(pos);
 							NestContent nestType = te.getNestContent();
 
 							if (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)

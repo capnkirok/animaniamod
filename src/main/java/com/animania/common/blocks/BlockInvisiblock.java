@@ -9,8 +9,8 @@ import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.RegistryHelper.RItem;
-import com.animania.common.tileentities.TileEntityInvisiblock;
-import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.common.tileentities.BlockEntityInvisiblock;
+import com.animania.common.tileentities.BlockEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
@@ -20,7 +20,6 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
@@ -28,6 +27,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
@@ -203,7 +203,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 		if (block1 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos1);
+			BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos1);
 			if (te != null && te.getTroughRotation() == 1 && !levelIn.isClientSide)
 			{
 				levelIn.setBlockToAir(pos1);
@@ -213,7 +213,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 		if (block2 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos2);
+			BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos2);
 			if (te != null && te.getTroughRotation() == 0 && !levelIn.isClientSide)
 			{
 				levelIn.setBlockToAir(pos2);
@@ -223,7 +223,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 		if (block3 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos3);
+			BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos3);
 			if (te != null && te.getTroughRotation() == 2 && !levelIn.isClientSide)
 			{
 				levelIn.setBlockToAir(pos3);
@@ -234,7 +234,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 		if (block4 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos4);
+			BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos4);
 			if (te != null && te.getTroughRotation() == 3 && !levelIn.isClientSide)
 			{
 				levelIn.setBlockToAir(pos4);
@@ -344,16 +344,16 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(Level levelIn, int meta)
+	public BlockEntity createNewBlockEntity(Level levelIn, int meta)
 	{
-		return new TileEntityInvisiblock();
+		return new BlockEntityInvisiblock();
 	}
 
 	@Override
 	public int getComparatorInputOverride(BlockState blockState, Level levelIn, BlockPos pos)
 	{
 
-		TileEntityInvisiblock te = (TileEntityInvisiblock) levelIn.getTileEntity(pos);
+		BlockEntityInvisiblock te = (BlockEntityInvisiblock) levelIn.getBlockEntity(pos);
 		if (te.getTrough() != null)
 		{
 			if (!te.getTrough().itemHandler.getStackInSlot(0).isEmpty())
@@ -372,10 +372,10 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = level.getTileEntity(data.getPos());
-		if ((te instanceof TileEntityInvisiblock invis) && (invis.getTrough() != null))
+		BlockEntity te = level.getBlockEntity(data.getPos());
+		if ((te instanceof BlockEntityInvisiblock invis) && (invis.getTrough() != null))
 		{
-			TileEntityTrough trough = invis.getTrough();
+			BlockEntityTrough trough = invis.getTrough();
 			ItemStack stack = trough.itemHandler.getStackInSlot(0);
 			FluidStack fluid = trough.fluidHandler.getFluid();
 

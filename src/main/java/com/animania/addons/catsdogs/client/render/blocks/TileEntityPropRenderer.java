@@ -4,20 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.animania.Animania;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityProp.PropType;
+import com.animania.addons.catsdogs.common.BlockEntity.BlockEntityProp;
+import com.animania.addons.catsdogs.common.BlockEntity.BlockEntityProp.PropType;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
-import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSTileEntitySpecialRenderer;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSBlockEntitySpecialRenderer;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class TileEntityPropRenderer extends TileEntitySpecialRenderer<TileEntityProp>
+public class BlockEntityPropRenderer extends BlockEntitySpecialRenderer<BlockEntityProp>
 {
 
 	private static Map<PropType, ModelCraftStudio> models = new HashMap<PropType, ModelCraftStudio>();
@@ -58,10 +58,10 @@ public class TileEntityPropRenderer extends TileEntitySpecialRenderer<TileEntity
 		}
 	}
 
-	public static TileEntityPropRenderer instance;
+	public static BlockEntityPropRenderer instance;
 
 	@Override
-	public void render(TileEntityProp te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	public void render(BlockEntityProp te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
 		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 
@@ -70,7 +70,7 @@ public class TileEntityPropRenderer extends TileEntitySpecialRenderer<TileEntity
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5, y + 1.5D, z + 0.5);
-		GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
+		GlStateManager.multMatrix(CSBlockEntitySpecialRenderer.ROTATION_CORRECTOR);
 		GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
 		this.bindTexture(texture);
 		model.render();
@@ -78,9 +78,9 @@ public class TileEntityPropRenderer extends TileEntitySpecialRenderer<TileEntity
 	}
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	public void setRendererDispatcher(BlockEntityRendererDispatcher rendererDispatcherIn)
 	{
 		super.setRendererDispatcher(rendererDispatcherIn);
-		TileEntityPropRenderer.instance = this;
+		BlockEntityPropRenderer.instance = this;
 	}
 }

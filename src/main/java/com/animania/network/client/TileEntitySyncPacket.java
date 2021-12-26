@@ -8,16 +8,16 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
-public class TileEntitySyncPacket
+public class BlockEntitySyncPacket
 {
 
 	public CompoundTag data;
 
-	public TileEntitySyncPacket()
+	public BlockEntitySyncPacket()
 	{
 	}
 
-	public TileEntitySyncPacket(FriendlyByteBuf buf)
+	public BlockEntitySyncPacket(FriendlyByteBuf buf)
 	{
 	}
 

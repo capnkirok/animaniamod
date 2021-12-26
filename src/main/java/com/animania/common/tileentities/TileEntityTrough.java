@@ -13,7 +13,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProviderTE
+public class BlockEntityTrough extends BlockEntity implements Tickable, IFoodProviderTE
 {
 	protected TroughContent troughType;
 	private int troughRotation;
@@ -32,7 +32,7 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 	private int oldItemCount = 0;
 	private int oldFluidCount = 0;
 
-	public TileEntityTrough()
+	public BlockEntityTrough()
 	{
 
 		this.itemHandler = new ItemHandlerTrough();
@@ -40,7 +40,7 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 	}
 
 	@Override
-	public void onDataPacket(Connection net, SPacketUpdateTileEntity pkt)
+	public void onDataPacket(Connection net, SPacketUpdateBlockEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)
@@ -50,11 +50,11 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 
 	@Override
 	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket()
+	public SPacketUpdateBlockEntity getUpdatePacket()
 	{
 		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
-		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
+		return new SPacketUpdateBlockEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
@@ -187,7 +187,7 @@ public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProv
 	{
 		super.markDirty();
 
-		AnimaniaHelper.sendTileEntityUpdate(this);
+		AnimaniaHelper.sendBlockEntityUpdate(this);
 	}
 
 	@Override

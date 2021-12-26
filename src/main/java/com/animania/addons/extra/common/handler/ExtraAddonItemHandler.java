@@ -11,7 +11,7 @@ import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.common.items.ItemAnimaniaFoodRaw;
 import com.animania.common.items.ItemEntityEgg;
 
-import net.minecraft.potion.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 
 public class ExtraAddonItemHandler

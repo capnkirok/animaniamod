@@ -3,7 +3,7 @@ package com.animania.addons.farm.common.block;
 import com.animania.Animania;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
-import com.animania.addons.farm.common.tileentity.TileEntityCheeseMold;
+import com.animania.addons.farm.common.tileentity.BlockEntityCheeseMold;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
@@ -23,18 +23,17 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextComponent;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.ForgeModContainer;
@@ -76,9 +75,9 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(Level levelIn, int meta)
+	public BlockEntity createNewBlockEntity(Level levelIn, int meta)
 	{
-		return new TileEntityCheeseMold();
+		return new BlockEntityCheeseMold();
 	}
 
 	@Override
@@ -149,7 +148,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	{
 
 		ItemStack stack = player.getItemInHand(hand);
-		TileEntityCheeseMold te = (TileEntityCheeseMold) level.getTileEntity(pos);
+		BlockEntityCheeseMold te = (BlockEntityCheeseMold) level.getBlockEntity(pos);
 		if (!level.isClientSide)
 		{
 			if (!stack.isEmpty() && te != null)
@@ -203,7 +202,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	@Override
 	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
 	{
-		TileEntityCheeseMold te = (TileEntityCheeseMold) levelIn.getTileEntity(pos);
+		BlockEntityCheeseMold te = (BlockEntityCheeseMold) levelIn.getBlockEntity(pos);
 		if (te != null)
 			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
 		super.breakBlock(levelIn, pos, state);
@@ -271,8 +270,8 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = level.getTileEntity(data.getPos());
-		if (te instanceof TileEntityCheeseMold mold)
+		BlockEntity te = level.getBlockEntity(data.getPos());
+		if (te instanceof BlockEntityCheeseMold mold)
 		{
 			ItemStack stack = mold.getItemHandler().getStackInSlot(0);
 			FluidStack fluid = mold.getFluidHandler().getFluid();

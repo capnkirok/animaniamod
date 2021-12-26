@@ -1,15 +1,15 @@
 package com.animania.common.tileentities.handler;
 
-import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.BlockEntityNest;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemHandlerNest extends ItemStackHandler
 {
-	TileEntityNest te;
+	BlockEntityNest te;
 
-	public ItemHandlerNest(TileEntityNest nest)
+	public ItemHandlerNest(BlockEntityNest nest)
 	{
 		this.setSize(1);
 		this.te = nest;

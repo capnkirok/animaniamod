@@ -2,8 +2,8 @@ package com.animania.addons.catsdogs.common.handler;
 
 import com.animania.addons.catsdogs.common.block.BlockPetBowl;
 import com.animania.addons.catsdogs.common.block.BlockProp;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
+import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl;
+import com.animania.addons.catsdogs.common.tileentity.BlockEntityProp;
 
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -38,8 +38,8 @@ public class CatsDogsAddonBlockHandler
 
 	private static void preInitTe()
 	{
-		GameRegistry.registerTileEntity(TileEntityPetBowl.class, "animania:pet_bowl");
-		GameRegistry.registerTileEntity(TileEntityProp.class, "animania:pet_prop");
+		GameRegistry.registerBlockEntity(BlockEntityPetBowl.class, "animania:pet_bowl");
+		GameRegistry.registerBlockEntity(BlockEntityProp.class, "animania:pet_prop");
 
 	}
 

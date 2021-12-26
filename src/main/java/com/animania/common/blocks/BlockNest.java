@@ -10,8 +10,8 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.helper.RegistryHelper.RItem;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.tileentities.BlockEntityNest.NestContent;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
@@ -22,13 +22,13 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -93,7 +93,7 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	@Override
 	public void updateTick(Level levelIn, BlockPos pos, BlockState state, Random rand)
 	{
-		TileEntityNest te = (TileEntityNest) levelIn.getTileEntity(pos);
+		BlockEntityNest te = (BlockEntityNest) levelIn.getBlockEntity(pos);
 		if (te != null && te.getNestContent() != NestContent.EMPTY)
 		{
 
@@ -111,9 +111,9 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(Level levelIn, int meta)
+	public BlockEntity createNewBlockEntity(Level levelIn, int meta)
 	{
-		return new TileEntityNest();
+		return new BlockEntityNest();
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
 	{
 
-		TileEntityNest te = (TileEntityNest) levelIn.getTileEntity(pos);
+		BlockEntityNest te = (BlockEntityNest) levelIn.getBlockEntity(pos);
 
 		if (te != null)
 			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
@@ -146,7 +146,7 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	{
 
 		ItemStack heldItem = playerIn.getItemInHand(hand);
-		TileEntityNest te = (TileEntityNest) levelIn.getTileEntity(pos);
+		BlockEntityNest te = (BlockEntityNest) levelIn.getBlockEntity(pos);
 
 		if (te != null && heldItem.isEmpty() && !playerIn.isSneaking())
 		{
@@ -169,8 +169,8 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = level.getTileEntity(data.getPos());
-		if (te instanceof TileEntityNest nest)
+		BlockEntity te = level.getBlockEntity(data.getPos());
+		if (te instanceof BlockEntityNest nest)
 		{
 			ItemStack stack = nest.itemHandler.getStackInSlot(0);
 

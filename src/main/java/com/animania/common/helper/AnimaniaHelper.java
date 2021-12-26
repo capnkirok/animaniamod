@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 import com.animania.Animania;
 import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.config.AnimaniaConfig;
-import com.animania.network.client.TileEntitySyncPacket;
+import com.animania.network.client.BlockEntitySyncPacket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -32,7 +32,6 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -41,6 +40,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -131,7 +131,7 @@ public class AnimaniaHelper
 		return b.getStateFromMeta(meta);
 	}
 
-	public static void sendTileEntityUpdate(TileEntity tile)
+	public static void sendBlockEntityUpdate(BlockEntity tile)
 	{
 		if (tile != null && tile.getLevel() != null && !tile.getLevel().isClientSide)
 		{
@@ -143,7 +143,7 @@ public class AnimaniaHelper
 			data.putInteger("x", tile.getPos().getX());
 			data.putInteger("y", tile.getPos().getY());
 			data.putInteger("z", tile.getPos().getZ());
-			Animania.network.sendToAllAround(new TileEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getLevel().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
+			Animania.network.sendToAllAround(new BlockEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getLevel().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
 		}
 
 	}

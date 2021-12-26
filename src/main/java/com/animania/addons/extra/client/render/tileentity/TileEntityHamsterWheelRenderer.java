@@ -1,22 +1,22 @@
-package com.animania.addons.extra.client.render.tileentity;
+package com.animania.addons.extra.client.render.BlockEntity;
 
 import com.animania.Animania;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
-import com.animania.addons.extra.common.tileentity.TileEntityHamsterWheel;
+import com.animania.addons.extra.common.tileentity.BlockEntityHamsterWheel;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
-import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSTileEntitySpecialRenderer;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSBlockEntitySpecialRenderer;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class TileEntityHamsterWheelRenderer extends TileEntitySpecialRenderer<TileEntityHamsterWheel>
+public class BlockEntityHamsterWheelRenderer extends BlockEntitySpecialRenderer<BlockEntityHamsterWheel>
 {
 	private static final ResourceLocation WHEEL_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/hamster_wheel.png");
 
@@ -25,16 +25,16 @@ public class TileEntityHamsterWheelRenderer extends TileEntitySpecialRenderer<Ti
 	private ModelCraftStudio modelWheel = new ModelCraftStudio(Animania.MODID, "model_hamster_wheel", 64, 32);
 	private ModelCraftStudio modelHamster = new ModelCraftStudio(Animania.MODID, "hamster", 64, 32);
 
-	public static TileEntityHamsterWheelRenderer instance;
+	public static BlockEntityHamsterWheelRenderer instance;
 
 	@Override
-	public void render(TileEntityHamsterWheel te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	public void render(BlockEntityHamsterWheel te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
 		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5D, y + 1.5D, z + 0.5D);
-		GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
+		GlStateManager.multMatrix(CSBlockEntitySpecialRenderer.ROTATION_CORRECTOR);
 		GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
 		GlStateManager.enableAlpha();
 		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -57,9 +57,9 @@ public class TileEntityHamsterWheelRenderer extends TileEntitySpecialRenderer<Ti
 	}
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	public void setRendererDispatcher(BlockEntityRendererDispatcher rendererDispatcherIn)
 	{
 		super.setRendererDispatcher(rendererDispatcherIn);
-		TileEntityHamsterWheelRenderer.instance = this;
+		BlockEntityHamsterWheelRenderer.instance = this;
 	}
 }

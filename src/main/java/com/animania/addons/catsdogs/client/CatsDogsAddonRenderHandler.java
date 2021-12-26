@@ -22,8 +22,8 @@ import com.animania.addons.catsdogs.client.models.dogs.ModelPomeranian;
 import com.animania.addons.catsdogs.client.models.dogs.ModelPoodle;
 import com.animania.addons.catsdogs.client.models.dogs.ModelPug;
 import com.animania.addons.catsdogs.client.models.dogs.ModelWolf;
-import com.animania.addons.catsdogs.client.render.blocks.TileEntityPetBowlRenderer;
-import com.animania.addons.catsdogs.client.render.blocks.TileEntityPropRenderer;
+import com.animania.addons.catsdogs.client.render.blocks.BlockEntityPetBowlRenderer;
+import com.animania.addons.catsdogs.client.render.blocks.BlockEntityPropRenderer;
 import com.animania.addons.catsdogs.client.render.cats.RenderCatGeneric;
 import com.animania.addons.catsdogs.client.render.dogs.RenderDogGeneric;
 import com.animania.addons.catsdogs.client.render.dogs.RenderFox;
@@ -98,19 +98,19 @@ import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityQueenTab
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityTomTabby;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonBlockHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonItemHandler;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
+import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl;
+import com.animania.addons.catsdogs.common.tileentity.BlockEntityProp;
 import com.animania.common.helper.RegistryHelper.RItem;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 import com.leviathanstudio.craftstudio.client.util.EnumRenderType;
 import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.model.ModelLoader;
@@ -146,8 +146,8 @@ public class CatsDogsAddonRenderHandler
 	 */
 	public static void init()
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPetBowl.class, new TileEntityPetBowlRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityProp.class, new TileEntityPropRenderer());
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityPetBowl.class, new BlockEntityPetBowlRenderer());
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityProp.class, new BlockEntityPropRenderer());
 	}
 
 	@CraftStudioLoader
@@ -280,9 +280,9 @@ public class CatsDogsAddonRenderHandler
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static <T extends TileEntity> void registerTileEntityRender(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer)
+	private static <T extends BlockEntity> void registerBlockEntityRender(Class<T> BlockEntityClass, BlockEntitySpecialRenderer<? super T> specialRenderer)
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityClass, specialRenderer);
 	}
 
 	private static ResourceLocation r(String s)

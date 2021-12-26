@@ -1,4 +1,4 @@
-package com.animania.addons.farm.common.tileentity.handler;
+package com.animania.addons.farm.common.BlockEntity.handler;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 

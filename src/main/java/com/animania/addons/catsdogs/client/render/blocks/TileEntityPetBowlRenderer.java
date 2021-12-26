@@ -12,8 +12,8 @@ import javax.imageio.ImageIO;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.catsdogs.client.models.blocks.ModelPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl.BowlContent;
+import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl;
+import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl.BowlContent;
 import com.animania.client.events.RenderEvents;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
@@ -21,26 +21,26 @@ import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEntityPetBowl>
+public class BlockEntityPetBowlRenderer extends BlockEntitySpecialRenderer<BlockEntityPetBowl>
 {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/pet_bowl.png");
-	public static TileEntityPetBowlRenderer instance;
+	public static BlockEntityPetBowlRenderer instance;
 	private final ModelPetBowl pet_bowl = new ModelPetBowl();
 
-	private static Map<TileEntityPetBowl, Color> cachedColors = new HashMap<>();
+	private static Map<BlockEntityPetBowl, Color> cachedColors = new HashMap<>();
 
 	@Override
-	public void render(TileEntityPetBowl te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	public void render(BlockEntityPetBowl te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
 		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 
@@ -120,10 +120,10 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 	}
 
 	@Override
-	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
+	public void setRendererDispatcher(BlockEntityRendererDispatcher rendererDispatcherIn)
 	{
 		super.setRendererDispatcher(rendererDispatcherIn);
-		TileEntityPetBowlRenderer.instance = this;
+		BlockEntityPetBowlRenderer.instance = this;
 	}
 
 	private static void drawOctagon(double x, double y, TextureAtlasSprite textureSprite, double len)

@@ -7,10 +7,10 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class TileEntitySaltLick extends BlockEntity
+public class BlockEntitySaltLick extends BlockEntity
 {
 
 	public int usesLeft = AnimaniaConfig.careAndFeeding.saltLickMaxUses;
@@ -24,7 +24,7 @@ public class TileEntitySaltLick extends BlockEntity
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	public void onDataPacket(NetworkManager net, SPacketUpdateBlockEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 
@@ -32,9 +32,9 @@ public class TileEntitySaltLick extends BlockEntity
 
 	@Override
 	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket()
+	public SPacketUpdateBlockEntity getUpdatePacket()
 	{
-		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
+		return new SPacketUpdateBlockEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class TileEntitySaltLick extends BlockEntity
 	{
 		super.markDirty();
 
-		AnimaniaHelper.sendTileEntityUpdate(this);
+		AnimaniaHelper.sendBlockEntityUpdate(this);
 	}
 
 	@Override

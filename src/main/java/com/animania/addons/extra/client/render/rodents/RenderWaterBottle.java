@@ -3,22 +3,22 @@ package com.animania.addons.extra.client.render.rodents;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelWaterBottle;
-import com.animania.common.tileentities.TileEntityWaterBottle;
+import com.animania.common.tileentities.BlockEntityWaterBottle;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class RenderWaterBottle extends TileEntitySpecialRenderer
+public class RenderWaterBottle extends BlockEntitySpecialRenderer
 {
 	public ModelWaterBottle model = new ModelWaterBottle();
 	public static ResourceLocation location = new ResourceLocation("hamstermod:mob/ball/waterbottle.png");
 
 	// @Override
-	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float f)
+	public void renderBlockEntityAt(BlockEntity BlockEntity, double x, double y, double z, float f)
 	{
 		this.bindTexture(RenderWaterBottle.location);
-		float rotation = ((TileEntityWaterBottle) tileentity).rotation * 360 / 16.0F;
+		float rotation = ((BlockEntityWaterBottle) BlockEntity).rotation * 360 / 16.0F;
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x + 0.5f, (float) y + 1.8f, (float) z + 0.5f);
 		GL11.glEnable(GL11.GL_NORMALIZE);

@@ -2,7 +2,7 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.common.tileentities.BlockEntityTrough;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -10,8 +10,8 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fluids.FluidStack;
 
 public class WailaBlockTroughProvider implements IWailaDataProvider
@@ -32,7 +32,7 @@ public class WailaBlockTroughProvider implements IWailaDataProvider
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
-		TileEntityTrough tile = (TileEntityTrough) accessor.getTileEntity();
+		BlockEntityTrough tile = (BlockEntityTrough) accessor.getBlockEntity();
 
 		ItemStack stack = tile.itemHandler.getStackInSlot(0);
 		FluidStack fluid = tile.fluidHandler.getFluid();
@@ -53,7 +53,7 @@ public class WailaBlockTroughProvider implements IWailaDataProvider
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayer player, TileEntity te, CompoundTag tag, Level level, BlockPos pos)
+	public CompoundTag getNBTData(ServerPlayer player, BlockEntity te, CompoundTag tag, Level level, BlockPos pos)
 	{
 		return null;
 	}

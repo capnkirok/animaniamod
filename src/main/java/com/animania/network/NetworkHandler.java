@@ -1,8 +1,8 @@
 package com.animania.network;
 
 import com.animania.Animania;
-import com.animania.network.client.TileEntitySyncPacket;
-import com.animania.network.client.TileEntitySyncPacketHandler;
+import com.animania.network.client.BlockEntitySyncPacket;
+import com.animania.network.client.BlockEntitySyncPacketHandler;
 import com.animania.network.common.PacketCloseManual;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,7 +18,7 @@ public class NetworkHandler
 
 		Animania.network = NetworkRegistry.INSTANCE.newSimpleChannel("Animania");
 
-		Animania.network.registerMessage(TileEntitySyncPacketHandler.class, TileEntitySyncPacket.class, packetID++, Dist.CLIENT);
+		Animania.network.registerMessage(BlockEntitySyncPacketHandler.class, BlockEntitySyncPacket.class, packetID++, Dist.CLIENT);
 		Animania.network.registerMessage(PacketCloseManual.class, PacketCloseManual.class, packetID++, Dist.DEDICATED_SERVER);
 	}
 

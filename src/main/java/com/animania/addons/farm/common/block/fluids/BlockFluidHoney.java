@@ -4,10 +4,10 @@ import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.potion.MobEffectInstance;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;

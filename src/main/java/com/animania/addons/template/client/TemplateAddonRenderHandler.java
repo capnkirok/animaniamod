@@ -3,10 +3,10 @@ package com.animania.addons.template.client;
 import com.animania.Animania;
 import com.animania.common.helper.RegistryHelper.RItem;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.model.ModelLoader;
@@ -61,9 +61,9 @@ public class TemplateAddonRenderHandler
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static <T extends TileEntity> void registerTileEntityRender(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer)
+	private static <T extends BlockEntity> void registerBlockEntityRender(Class<T> BlockEntityClass, BlockEntitySpecialRenderer<? super T> specialRenderer)
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityClass, specialRenderer);
 	}
 
 }

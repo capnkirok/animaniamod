@@ -1,4 +1,4 @@
-package com.animania.addons.farm.common.tileentity;
+package com.animania.addons.farm.common.BlockEntity;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import com.animania.client.handler.AnimationHandler;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
-import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedBlockEntity;
 
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,10 +28,10 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
-public class TileEntityHive extends AnimatedTileEntity implements ITickable
+public class BlockEntityHive extends AnimatedBlockEntity implements ITickable
 {
 
-	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(TileEntityHive.class);
+	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(BlockEntityHive.class);
 
 	static
 	{
@@ -45,7 +45,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	private boolean isRunning;
 	private int nbtSyncTimer;
 
-	public TileEntityHive()
+	public BlockEntityHive()
 	{
 		this.fluidHandler = new FluidHandlerBeehive(5000);
 	}
@@ -90,7 +90,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	public void onDataPacket(NetworkManager net, SPacketUpdateBlockEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)
@@ -100,11 +100,11 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 
 	@Override
 	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket()
+	public SPacketUpdateBlockEntity getUpdatePacket()
 	{
 		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
-		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
+		return new SPacketUpdateBlockEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
@@ -182,13 +182,13 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		if (this.nbtSyncTimer > 50)
 		{
 			super.markDirty();
-			AnimaniaHelper.sendTileEntityUpdate(this);
+			AnimaniaHelper.sendBlockEntityUpdate(this);
 			this.nbtSyncTimer = 0;
 		}
 	}
 
 	@Override
-	public AnimationHandler<TileEntityHive> getAnimationHandler()
+	public AnimationHandler<BlockEntityHive> getAnimationHandler()
 	{
 		return animHandler;
 	}

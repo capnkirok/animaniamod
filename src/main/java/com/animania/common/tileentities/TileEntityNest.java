@@ -13,13 +13,13 @@ import com.animania.common.tileentities.handler.ItemHandlerNest;
 import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityNest extends BlockEntity implements Tickable
+public class BlockEntityNest extends BlockEntity implements Tickable
 {
 
 	private NestContent nestContent;
@@ -27,7 +27,7 @@ public class TileEntityNest extends BlockEntity implements Tickable
 	public ItemHandlerNest itemHandler;
 	private int oldItemCount = 0;
 
-	public TileEntityNest()
+	public BlockEntityNest()
 	{
 		this.itemHandler = new ItemHandlerNest(this);
 	}
@@ -77,7 +77,7 @@ public class TileEntityNest extends BlockEntity implements Tickable
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	public void onDataPacket(NetworkManager net, SPacketUpdateBlockEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		this.level.notifyBlockUpdate(this.pos, this.getBlockType().defaultBlockState(), this.getBlockType().defaultBlockState(), 1);
@@ -86,11 +86,11 @@ public class TileEntityNest extends BlockEntity implements Tickable
 
 	@Override
 	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket()
+	public SPacketUpdateBlockEntity getUpdatePacket()
 	{
 		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
-		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
+		return new SPacketUpdateBlockEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
@@ -175,7 +175,7 @@ public class TileEntityNest extends BlockEntity implements Tickable
 	public void markDirty()
 	{
 		super.markDirty();
-		AnimaniaHelper.sendTileEntityUpdate(this);
+		AnimaniaHelper.sendBlockEntityUpdate(this);
 	}
 
 	public static enum NestContent

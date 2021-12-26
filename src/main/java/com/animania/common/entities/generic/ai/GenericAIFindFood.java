@@ -10,9 +10,9 @@ import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping> extends GenericAISearchBlock
@@ -74,7 +74,7 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 
 			if (block instanceof IFoodProviderBlock)
 			{
-				TileEntity te = this.level.getTileEntity(this.seekingBlockPos);
+				BlockEntity te = this.level.getBlockEntity(this.seekingBlockPos);
 				if ((te instanceof IFoodProviderTE trough) && trough.canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
 				{
 					trough.consumeSolidOrLiquid(100, 1);
@@ -131,7 +131,7 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 
 		if (block instanceof IFoodProviderBlock)
 		{
-			TileEntity te = level.getTileEntity(pos);
+			BlockEntity te = level.getBlockEntity(pos);
 			if (te instanceof IFoodProviderTE && ((IFoodProviderTE) te).canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
 				return true;
 		}

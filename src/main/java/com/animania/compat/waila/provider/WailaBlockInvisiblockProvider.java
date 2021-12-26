@@ -3,8 +3,8 @@ package com.animania.compat.waila.provider;
 import java.util.List;
 
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.tileentities.TileEntityInvisiblock;
-import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.common.tileentities.BlockEntityInvisiblock;
+import com.animania.common.tileentities.BlockEntityTrough;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -12,8 +12,8 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fluids.FluidStack;
 
 public class WailaBlockInvisiblockProvider implements IWailaDataProvider
@@ -54,10 +54,10 @@ public class WailaBlockInvisiblockProvider implements IWailaDataProvider
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayer player, TileEntity te, CompoundTag tag, Level level, BlockPos pos)
+	public CompoundTag getNBTData(ServerPlayer player, BlockEntity te, CompoundTag tag, Level level, BlockPos pos)
 	{
-		TileEntityInvisiblock tile = (TileEntityInvisiblock) te;
-		TileEntityTrough trough = tile.getTrough();
+		BlockEntityInvisiblock tile = (BlockEntityInvisiblock) te;
+		BlockEntityTrough trough = tile.getTrough();
 
 		try
 		{

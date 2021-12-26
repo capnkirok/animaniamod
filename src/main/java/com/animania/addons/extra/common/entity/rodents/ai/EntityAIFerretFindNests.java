@@ -3,8 +3,8 @@ package com.animania.addons.extra.common.entity.rodents.ai;
 import com.animania.Animania;
 import com.animania.addons.extra.common.entity.rodents.EntityFerretBase;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.tileentities.BlockEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
@@ -67,7 +67,7 @@ public class FerretFindNestsGoal extends Goal
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(currentpos);
+				BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(currentpos);
 
 				if (te == null ? true : te.getNestContent() == NestContent.EMPTY)
 				{
@@ -113,7 +113,7 @@ public class FerretFindNestsGoal extends Goal
 
 						if (blockchk == BlockHandler.blockNest)
 						{
-							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
+							BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(pos);
 
 							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 							{
@@ -177,7 +177,7 @@ public class FerretFindNestsGoal extends Goal
 					Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
 					if (blockchk == BlockHandler.blockNest)
 					{
-						TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
+						BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(pos);
 
 						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 						{
@@ -220,7 +220,7 @@ public class FerretFindNestsGoal extends Goal
 
 			if (foodBlockchk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(foodPos);
+				BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(foodPos);
 
 				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 				{

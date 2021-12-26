@@ -1,4 +1,4 @@
-package com.animania.addons.farm.common.tileentity;
+package com.animania.addons.farm.common.BlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,14 +24,14 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityCheeseMold extends BlockEntity implements Tickable
+public class BlockEntityCheeseMold extends BlockEntity implements Tickable
 {
 
 	private FluidHandlerCheeseMold fluidHandler;
 	private ItemHandlerCheeseMold itemHandler;
 	private int progress;
 
-	public TileEntityCheeseMold()
+	public BlockEntityCheeseMold()
 	{
 		this.fluidHandler = new FluidHandlerCheeseMold();
 		this.itemHandler = new ItemHandlerCheeseMold();
@@ -187,7 +187,7 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	public void onDataPacket(NetworkManager net, SPacketUpdateBlockEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 
@@ -195,11 +195,11 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 
 	@Override
 	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket()
+	public SPacketUpdateBlockEntity getUpdatePacket()
 	{
 		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
-		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
+		return new SPacketUpdateBlockEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
@@ -260,7 +260,7 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 	{
 		super.markDirty();
 
-		AnimaniaHelper.sendTileEntityUpdate(this);
+		AnimaniaHelper.sendBlockEntityUpdate(this);
 	}
 
 	@Override

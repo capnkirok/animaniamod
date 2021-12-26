@@ -2,7 +2,7 @@ package com.animania.addons.farm.compat.waila;
 
 import java.util.List;
 
-import com.animania.addons.farm.common.tileentity.TileEntityCheeseMold;
+import com.animania.addons.farm.common.tileentity.BlockEntityCheeseMold;
 import com.animania.addons.farm.config.FarmConfig;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -12,8 +12,8 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fluids.FluidStack;
 
 public class WailaBlockCheeseMoldProvider implements IWailaDataProvider
@@ -34,7 +34,7 @@ public class WailaBlockCheeseMoldProvider implements IWailaDataProvider
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
-		TileEntityCheeseMold tile = (TileEntityCheeseMold) accessor.getTileEntity();
+		BlockEntityCheeseMold tile = (BlockEntityCheeseMold) accessor.getBlockEntity();
 
 		ItemStack stack = tile.getItemHandler().getStackInSlot(0);
 		FluidStack fluid = tile.getFluidHandler().getFluid();
@@ -61,7 +61,7 @@ public class WailaBlockCheeseMoldProvider implements IWailaDataProvider
 	}
 
 	@Override
-	public CompoundTag getNBTData(ServerPlayer player, TileEntity te, CompoundTag tag, Level level, BlockPos pos)
+	public CompoundTag getNBTData(ServerPlayer player, BlockEntity te, CompoundTag tag, Level level, BlockPos pos)
 	{
 		return null;
 	}

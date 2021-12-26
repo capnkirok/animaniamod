@@ -3,8 +3,8 @@ package com.animania.addons.extra.common.entity.rodents.ai;
 import com.animania.Animania;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.tileentities.BlockEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
@@ -54,7 +54,7 @@ public class HedgehogFindNestsGoal extends Goal
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(currentpos);
+				BlockEntityNest te = (BlockEntityNest) this.temptedentity.level.getBlockEntity(currentpos);
 
 				if (te == null ? true : te.getNestContent() == NestContent.EMPTY)
 				{
@@ -114,7 +114,7 @@ public class HedgehogFindNestsGoal extends Goal
 
 						if (blockchk == BlockHandler.blockNest)
 						{
-							TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(pos);
+							BlockEntityNest te = (BlockEntityNest) this.temptedentity.level.getBlockEntity(pos);
 
 							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 							{
@@ -192,7 +192,7 @@ public class HedgehogFindNestsGoal extends Goal
 					if (blockchk == BlockHandler.blockNest)
 					{
 
-						TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(pos);
+						BlockEntityNest te = (BlockEntityNest) this.temptedentity.level.getBlockEntity(pos);
 
 						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 						{
@@ -263,7 +263,7 @@ public class HedgehogFindNestsGoal extends Goal
 
 			if (foodBlockchk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(foodPos);
+				BlockEntityNest te = (BlockEntityNest) this.temptedentity.level.getBlockEntity(foodPos);
 
 				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE))
 					if (!this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed))

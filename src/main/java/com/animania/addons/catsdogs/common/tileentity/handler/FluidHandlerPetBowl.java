@@ -1,4 +1,4 @@
-package com.animania.addons.catsdogs.common.tileentity.handler;
+package com.animania.addons.catsdogs.common.BlockEntity.handler;
 
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;

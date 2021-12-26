@@ -1,4 +1,4 @@
-package com.animania.addons.catsdogs.common.tileentity.handler;
+package com.animania.addons.catsdogs.common.BlockEntity.handler;
 
 import com.animania.addons.catsdogs.common.block.BlockPetBowl;
 

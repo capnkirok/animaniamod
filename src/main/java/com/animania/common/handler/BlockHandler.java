@@ -36,7 +36,7 @@ public class BlockHandler
 	public static Block blockSeeds;
 	public static Block blockStraw;
 
-	// TileEntity blocks
+	// BlockEntity blocks
 	public static Block blockTrough;
 	public static Block blockNest;
 	public static Block blockSaltLick;

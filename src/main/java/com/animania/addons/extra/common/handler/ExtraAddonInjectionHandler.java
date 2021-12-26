@@ -21,7 +21,7 @@ import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
 import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
 import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.BlockEntityNest;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
@@ -39,7 +39,7 @@ public class ExtraAddonInjectionHandler
 	{
 		AddonInjectionHandler.addInjection(ID, "nestHatchPeafowl", args -> {
 
-			TileEntityNest te = (TileEntityNest) args[0];
+			BlockEntityNest te = (BlockEntityNest) args[0];
 			Level levelIn = (Level) args[1];
 			BlockPos pos = (BlockPos) args[2];
 			BlockState state = (BlockState) args[3];

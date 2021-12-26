@@ -1,11 +1,11 @@
 package com.animania.client.handler;
 
-import com.animania.client.render.tileEntity.TileEntityNestRenderer;
-import com.animania.client.render.tileEntity.TileEntitySaltLickRenderer;
-import com.animania.client.render.tileEntity.TileEntityTroughRenderer;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntitySaltLick;
-import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.client.render.tileEntity.BlockEntityNestRenderer;
+import com.animania.client.render.tileEntity.BlockEntitySaltLickRenderer;
+import com.animania.client.render.tileEntity.BlockEntityTroughRenderer;
+import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.tileentities.BlockEntitySaltLick;
+import com.animania.common.tileentities.BlockEntityTrough;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
@@ -22,7 +22,7 @@ public class RenderHandler
 
 	public static void init()
 	{
-		renderTileEntity();
+		renderBlockEntity();
 	}
 
 	@SideOnly(Dist.CLIENT)
@@ -32,11 +32,11 @@ public class RenderHandler
 	}
 
 	@SideOnly(Dist.CLIENT)
-	static void renderTileEntity()
+	static void renderBlockEntity()
 	{
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNest.class, new TileEntityNestRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrough.class, new TileEntityTroughRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaltLick.class, new TileEntitySaltLickRenderer());
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityNest.class, new BlockEntityNestRenderer());
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntityTrough.class, new BlockEntityTroughRenderer());
+		ClientRegistry.bindBlockEntitySpecialRenderer(BlockEntitySaltLick.class, new BlockEntitySaltLickRenderer());
 
 	}
 }

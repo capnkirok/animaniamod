@@ -2,7 +2,7 @@ package com.animania.addons.farm.common.block;
 
 import com.animania.Animania;
 import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
-import com.animania.addons.farm.common.tileentity.TileEntityHive;
+import com.animania.addons.farm.common.tileentity.BlockEntityHive;
 import com.animania.common.handler.BlockHandler;
 
 import PropertyDirection;
@@ -15,9 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextComponent;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,6 +27,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -86,7 +85,7 @@ public class BlockHive extends BaseEntityBlock
 	{
 
 		ItemStack heldItem = player.getItemInHand(hand);
-		TileEntityHive hive = (TileEntityHive) level.getTileEntity(pos);
+		BlockEntityHive hive = (BlockEntityHive) level.getBlockEntity(pos);
 
 		if (hive != null)
 		{
@@ -199,9 +198,9 @@ public class BlockHive extends BaseEntityBlock
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(Level levelIn, int meta)
+	public BlockEntity createNewBlockEntity(Level levelIn, int meta)
 	{
-		return new TileEntityHive();
+		return new BlockEntityHive();
 	}
 
 }

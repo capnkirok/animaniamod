@@ -10,7 +10,7 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.helper.RegistryHelper.RItem;
-import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.common.tileentities.BlockEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
 import com.animania.config.AnimaniaConfig;
 
@@ -30,7 +30,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -42,6 +41,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -86,7 +86,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 
 		if (levelIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && levelIn.isRaining() && levelIn.getTopSolidOrLiquidBlock(pos).getY() == pos.getY() + 1)
 		{
-			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
+			BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 
 			if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
@@ -146,8 +146,8 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	public void onEntityCollidedWithBlock(Level levelIn, BlockPos pos, BlockState state, Entity entityIn)
 	{
 
-		TileEntity tile = levelIn.getTileEntity(pos);
-		if (!tile instanceof TileEntityTrough te)
+		BlockEntity tile = levelIn.getBlockEntity(pos);
+		if (!tile instanceof BlockEntityTrough te)
 			return;
 
 		if (entityIn instanceof EntityItem && !levelIn.isClientSide)
@@ -224,7 +224,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	public void onBlockPlacedBy(Level levelIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
 
-		TileEntityTrough teChk = (TileEntityTrough) levelIn.getTileEntity(pos);
+		BlockEntityTrough teChk = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 
 		if (teChk == null || true)
 		{
@@ -243,28 +243,28 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 			{
 				BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
 				levelIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
-				TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
+				BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 				te.setTroughRotation(0);
 			}
 			else if (placer.getHorizontalFacing().toString() == "north")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
 				levelIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
-				TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
+				BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 				te.setTroughRotation(1);
 			}
 			else if (placer.getHorizontalFacing().toString() == "east")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
 				levelIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
-				TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
+				BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 				te.setTroughRotation(2);
 			}
 			else if (placer.getHorizontalFacing().toString() == "west")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
 				levelIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
-				TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
+				BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 				te.setTroughRotation(3);
 			}
 		}
@@ -301,9 +301,9 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	 * the block.
 	 */
 	@Override
-	public TileEntity createNewTileEntity(Level levelIn, int meta)
+	public BlockEntity createNewBlockEntity(Level levelIn, int meta)
 	{
-		return new TileEntityTrough();
+		return new BlockEntityTrough();
 	}
 
 	@Override
@@ -339,7 +339,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 			levelIn.setBlockToAir(invisipos);
 		}
 
-		TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
+		BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 		if (te != null)
 		{
 			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
@@ -378,7 +378,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	{
 
 		ItemStack heldItem = playerIn.getItemInHand(hand);
-		TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
+		BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 
 		// SOLIDS
 		if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT || isModdedFoodItem(heldItem))
@@ -536,7 +536,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	public int getComparatorInputOverride(BlockState blockState, Level levelIn, BlockPos pos)
 	{
 
-		TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
+		BlockEntityTrough te = (BlockEntityTrough) levelIn.getBlockEntity(pos);
 		if (!te.itemHandler.getStackInSlot(0).isEmpty())
 			return ItemHandlerHelper.calcRedstoneFromInventory(te.itemHandler);
 
@@ -594,8 +594,8 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = level.getTileEntity(data.getPos());
-		if (te instanceof TileEntityTrough trough)
+		BlockEntity te = level.getBlockEntity(data.getPos());
+		if (te instanceof BlockEntityTrough trough)
 		{
 			ItemStack stack = trough.itemHandler.getStackInSlot(0);
 			FluidStack fluid = trough.fluidHandler.getFluid();

@@ -12,8 +12,8 @@ import com.animania.addons.farm.common.entity.chickens.EntityHenBase;
 import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.tileentities.BlockEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
@@ -85,7 +85,7 @@ public class FindNestGoal extends Goal
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(currentpos);
+				BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(currentpos);
 
 				if (te.itemHandler.getStackInSlot(0).getCount() >= 3)
 				{
@@ -148,7 +148,7 @@ public class FindNestGoal extends Goal
 						if (blockchk == BlockHandler.blockNest && others.size() == 0)
 						{
 
-							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
+							BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(pos);
 							NestContent nestType = te.getNestContent();
 
 							if (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY)
@@ -228,7 +228,7 @@ public class FindNestGoal extends Goal
 						if (blockchk == BlockHandler.blockNest && !this.temptedEntity.hasPath())
 						{
 
-							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
+							BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(pos);
 							NestContent nestType = te.getNestContent();
 
 							if (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY)
