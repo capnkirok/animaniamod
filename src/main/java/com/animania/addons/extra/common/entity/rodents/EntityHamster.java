@@ -155,7 +155,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		{
 			this.goalSelector.addGoal(10, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hamsterBed), Block.getBlockFromName(ExtraConfig.settings.hamsterBed2), EntityHamster.class, leveltime -> leveltime < 13000));
 		}
-		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 
 	}
 
@@ -205,20 +205,20 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityHamster.IN_BALL, false);
-		// this.dataManager.register(EntityHamster.SITTING, false);
-		// this.dataManager.register(EntityHamster.TAMED, false);
-		this.dataManager.register(EntityHamster.COLOR_NUM, Integer.valueOf(this.getRandom().nextInt(8)));
-		this.dataManager.register(EntityHamster.FOOD_STACK_COUNT, Integer.valueOf(0));
-		this.dataManager.register(EntityHamster.IN_LOVE, Integer.valueOf(0));
-		this.dataManager.register(EntityHamster.BALL_COLOR, Integer.valueOf(0));
-		this.dataManager.register(EntityHamster.FED, true);
-		this.dataManager.register(EntityHamster.WATERED, true);
-		this.dataManager.register(EntityHamster.RIDING, false);
-		this.dataManager.register(EntityHamster.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityHamster.SLEEPING, false);
-		this.dataManager.register(EntityHamster.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityHamster.IN_BALL, false);
+		// this.entityData.register(EntityHamster.SITTING, false);
+		// this.entityData.register(EntityHamster.TAMED, false);
+		this.entityData.register(EntityHamster.COLOR_NUM, Integer.valueOf(this.getRandom().nextInt(8)));
+		this.entityData.register(EntityHamster.FOOD_STACK_COUNT, Integer.valueOf(0));
+		this.entityData.register(EntityHamster.IN_LOVE, Integer.valueOf(0));
+		this.entityData.register(EntityHamster.BALL_COLOR, Integer.valueOf(0));
+		this.entityData.register(EntityHamster.FED, true);
+		this.entityData.register(EntityHamster.WATERED, true);
+		this.entityData.register(EntityHamster.RIDING, false);
+		this.entityData.register(EntityHamster.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityHamster.SLEEPING, false);
+		this.entityData.register(EntityHamster.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override
@@ -534,12 +534,12 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	@Nullable
 	public UUID getHamsterOwner()
 	{
-		return (UUID) ((Optional) this.dataManager.get(TameableEntity.OWNER_UNIQUE_ID)).orNull();
+		return (UUID) ((Optional) this.entityData.get(TameableEntity.OWNER_UNIQUE_ID)).orNull();
 	}
 
 	public void setHamsterOwner(@Nullable UUID uniqueId)
 	{
-		this.dataManager.set(TameableEntity.OWNER_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		this.entityData.set(TameableEntity.OWNER_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	public boolean isInBall()
@@ -552,12 +552,12 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		if (ball)
 		{
 			this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.30F, 1.6F);
-			this.dataManager.set(EntityHamster.IN_BALL, true);
+			this.entityData.set(EntityHamster.IN_BALL, true);
 		}
 		else
 		{
 			this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.30F, 1.3F);
-			this.dataManager.set(EntityHamster.IN_BALL, false);
+			this.entityData.set(EntityHamster.IN_BALL, false);
 		}
 	}
 
@@ -568,7 +568,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 
 	public void setBallColor(int color)
 	{
-		this.dataManager.set(EntityHamster.BALL_COLOR, Integer.valueOf(color));
+		this.entityData.set(EntityHamster.BALL_COLOR, Integer.valueOf(color));
 	}
 
 	// public boolean isHamsterSitting()
@@ -578,7 +578,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	//
 	// public void setHamsterSitting(boolean flag)
 	// {
-	// this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(flag));
+	// this.entityData.set(EntityHamster.SITTING, Boolean.valueOf(flag));
 	// }
 
 	void showHeartsOrSmokeFX(String s, int i, boolean flag)
@@ -605,9 +605,9 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	// public void setIsTamed(boolean tamed)
 	// {
 	// if (tamed)
-	// this.dataManager.set(EntityHamster.TAMED, true);
+	// this.entityData.set(EntityHamster.TAMED, true);
 	// else
-	// this.dataManager.set(EntityHamster.TAMED, false);
+	// this.entityData.set(EntityHamster.TAMED, false);
 	// }
 
 	public boolean getIsRiding()
@@ -617,7 +617,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 
 	public void setIsRiding(boolean riding)
 	{
-		this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(riding));
+		this.entityData.set(EntityHamster.RIDING, Boolean.valueOf(riding));
 	}
 
 	public boolean isHamsterStanding()
@@ -676,7 +676,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 
 	public void setColorNumber(int color)
 	{
-		this.dataManager.set(EntityHamster.COLOR_NUM, Integer.valueOf(color));
+		this.entityData.set(EntityHamster.COLOR_NUM, Integer.valueOf(color));
 	}
 
 	private boolean addFoodStack()

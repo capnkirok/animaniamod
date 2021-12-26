@@ -42,14 +42,14 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	{
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-		this.dataManager.register(STERILIZED, false);
+		this.entityData.register(STERILIZED, false);
 	}
 
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 

@@ -13,7 +13,6 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -31,6 +30,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -41,7 +42,7 @@ public class ItemEntityEgg extends Item
 	public AnimaniaType type;
 	public EntityGender gender;
 
-	public static Map<AnimalContainer, RItem> ANIMAL_EGGS = new HashMap<AnimalContainer, RItem>();
+	public static Map<AnimalContainer, Item> ANIMAL_EGGS = new HashMap<>();
 	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_PRIMARY = new HashMap<>();
 	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_SECONDARY = new HashMap<>();
 	public static Map<AnimalContainer, Boolean> ANIMAL_USES_COLOR = new HashMap<>();

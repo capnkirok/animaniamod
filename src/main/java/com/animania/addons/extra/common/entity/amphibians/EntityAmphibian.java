@@ -70,7 +70,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAmphibian.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityAmphibian.AGE, Integer.valueOf(0));
 	}
 
 	@Override
@@ -125,13 +125,13 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	@Override
 	public int getAge()
 	{
-		return this.dataManager.get(EntityAmphibian.AGE).intValue();
+		return this.entityData.get(EntityAmphibian.AGE).intValue();
 	}
 
 	@Override
 	public void setAge(int age)
 	{
-		this.dataManager.set(EntityAmphibian.AGE, Integer.valueOf(age));
+		this.entityData.set(EntityAmphibian.AGE, Integer.valueOf(age));
 	}
 
 	@Override

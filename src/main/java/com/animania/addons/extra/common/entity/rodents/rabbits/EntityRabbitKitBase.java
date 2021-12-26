@@ -54,8 +54,8 @@ public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(RabbitEntityKitBase.AGE, Float.valueOf(0));
-		this.dataManager.register(RabbitEntityKitBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(RabbitEntityKitBase.AGE, Float.valueOf(0));
+		this.entityData.register(RabbitEntityKitBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 

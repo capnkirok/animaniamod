@@ -77,9 +77,9 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityBullBase.FIGHTING, false);
-		this.dataManager.register(EntityBullBase.STERILIZED, false);
-		this.dataManager.register(EntityBullBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityBullBase.FIGHTING, false);
+		this.entityData.register(EntityBullBase.STERILIZED, false);
+		this.entityData.register(EntityBullBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -99,7 +99,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	public void setFighting(boolean fighting)
 	{
-		this.dataManager.set(EntityBullBase.FIGHTING, fighting);
+		this.entityData.set(EntityBullBase.FIGHTING, fighting);
 	}
 
 	@Override

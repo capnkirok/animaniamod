@@ -57,8 +57,8 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(AGE, Float.valueOf(0));
-		this.dataManager.register(PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(AGE, Float.valueOf(0));
+		this.entityData.register(PARENT_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 

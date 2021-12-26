@@ -60,8 +60,8 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityLambBase.AGE, Float.valueOf(0));
-		this.dataManager.register(EntityLambBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityLambBase.AGE, Float.valueOf(0));
+		this.entityData.register(EntityLambBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 

@@ -129,7 +129,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 			AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 
-			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof SilverfishEntity));
+			this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof SilverfishEntity));
 		}
 		this.tasks.taskEntries.removeIf(task -> task.action instanceof OcelotSitGoal);
 	}
@@ -152,15 +152,15 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(FED, true);
-		this.dataManager.register(WATERED, true);
-		// this.dataManager.register(TAMED, false);
-		// this.dataManager.register(SITTING, false);
-		this.dataManager.register(SLEEPING, false);
-		this.dataManager.register(HANDFED, false);
-		this.dataManager.register(AGE, Integer.valueOf(0));
-		this.dataManager.register(SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(FED, true);
+		this.entityData.register(WATERED, true);
+		// this.entityData.register(TAMED, false);
+		// this.entityData.register(SITTING, false);
+		this.entityData.register(SLEEPING, false);
+		this.entityData.register(HANDFED, false);
+		this.entityData.register(AGE, Integer.valueOf(0));
+		this.entityData.register(SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override

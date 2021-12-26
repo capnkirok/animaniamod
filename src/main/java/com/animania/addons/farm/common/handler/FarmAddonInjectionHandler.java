@@ -164,9 +164,9 @@ public class FarmAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "attackChicks", args -> {
 			CreatureEntity entity = (CreatureEntity) args[0];
 			if (entity instanceof TameableEntity)
-				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityChickBase));
+				entity.targetSelector.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityChickBase));
 			else
-				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 10, false, false, target -> target instanceof EntityChickBase));
+				entity.targetSelector.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 10, false, false, target -> target instanceof EntityChickBase));
 
 			return null;
 		});

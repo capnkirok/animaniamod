@@ -52,8 +52,8 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityFoalBase.AGE, Float.valueOf(0));
-		this.dataManager.register(EntityFoalBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityFoalBase.AGE, Float.valueOf(0));
+		this.entityData.register(EntityFoalBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 	}
 
 	@Override

@@ -61,7 +61,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		this.height = 1.8F;
 		this.stepHeight = 1.1F;
 		this.goalSelector.addGoal(4, new AttackMeleeGoal(this, 1.2D, false));
-		this.targetTasks.addTask(1, new HurtByTargetGoal(this, true, new Class[0]));
+		this.targetSelector.addTask(1, new HurtByTargetGoal(this, true, new Class[0]));
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
 	}
@@ -70,18 +70,18 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(CowEntityBase.PREGNANT, false);
+		this.entityData.register(CowEntityBase.PREGNANT, false);
 		if (FarmConfig.settings.cowsMilkableAtSpawn)
 		{
-			this.dataManager.register(CowEntityBase.HAS_KIDS, true);
+			this.entityData.register(CowEntityBase.HAS_KIDS, true);
 		}
 		else
 		{
-			this.dataManager.register(CowEntityBase.HAS_KIDS, false);
+			this.entityData.register(CowEntityBase.HAS_KIDS, false);
 		}
-		this.dataManager.register(CowEntityBase.FERTILE, true);
-		this.dataManager.register(CowEntityBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
-		this.dataManager.register(CowEntityBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(CowEntityBase.FERTILE, true);
+		this.entityData.register(CowEntityBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.entityData.register(CowEntityBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 

@@ -141,8 +141,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
 			this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
 			this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 20.0F));
-			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+			this.targetSelector.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
+			this.targetSelector.addTask(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 			this.setHealth(50);
 		}
@@ -166,8 +166,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
 		this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
 		this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 10.0F));
-		this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new NearestAttackableTargetGoal(this, Player.class, true));
+		this.targetSelector.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(2, new NearestAttackableTargetGoal(this, Player.class, true));
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.setHealth(50);
 	}
@@ -344,19 +344,19 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		super.entityInit();
 		if (this instanceof RabbitEntityBuckLop || this instanceof RabbitEntityKitLop || this instanceof RabbitEntityDoeLop)
 		{
-			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, Integer.valueOf(rand.nextInt(7)));
+			this.entityData.register(EntityAnimaniaRabbit.COLOR_NUM, Integer.valueOf(rand.nextInt(7)));
 		}
 		else
 		{
-			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, 0);
+			this.entityData.register(EntityAnimaniaRabbit.COLOR_NUM, 0);
 		}
-		this.dataManager.register(EntityAnimaniaRabbit.FED, true);
-		this.dataManager.register(EntityAnimaniaRabbit.HANDFED, false);
-		this.dataManager.register(EntityAnimaniaRabbit.WATERED, true);
-		this.dataManager.register(EntityAnimaniaRabbit.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaRabbit.SLEEPING, false);
-		this.dataManager.register(EntityAnimaniaRabbit.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityAnimaniaRabbit.FED, true);
+		this.entityData.register(EntityAnimaniaRabbit.HANDFED, false);
+		this.entityData.register(EntityAnimaniaRabbit.WATERED, true);
+		this.entityData.register(EntityAnimaniaRabbit.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityAnimaniaRabbit.SLEEPING, false);
+		this.entityData.register(EntityAnimaniaRabbit.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override
@@ -473,7 +473,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 
 	public void setColorNumber(int color)
 	{
-		this.dataManager.set(COLOR_NUM, Integer.valueOf(color));
+		this.entityData.set(COLOR_NUM, Integer.valueOf(color));
 	}
 
 	public ResourceLocation getResourceLocation()

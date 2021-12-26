@@ -124,17 +124,17 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 		this.goalSelector.addGoal(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(14, new GenericAILookIdle<>(this));
-		this.targetTasks.addTask(1, new GenericAIOwnerHurtByTarget(this));
-		this.targetTasks.addTask(2, new GenericAIOwnerHurtTarget(this));
-		this.targetTasks.addTask(3, new HurtByTargetGoal(this, true, new Class[0]));
-		this.targetTasks.addTask(5, new GenericAINearestAttackableTarget(this, AbstractSkeleton.class, false));
+		this.targetSelector.addTask(1, new GenericAIOwnerHurtByTarget(this));
+		this.targetSelector.addTask(2, new GenericAIOwnerHurtTarget(this));
+		this.targetSelector.addTask(3, new HurtByTargetGoal(this, true, new Class[0]));
+		this.targetSelector.addTask(5, new GenericAINearestAttackableTarget(this, AbstractSkeleton.class, false));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(14, new GenericAISleep<EntityAnimaniaDog>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.dogBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.dogBed2), EntityAnimaniaDog.class));
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 		{
-			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof SheepEntity || entity instanceof RabbitEntity));
+			this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof SheepEntity || entity instanceof RabbitEntity));
 		}
 	}
 
@@ -156,19 +156,19 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(FED, true);
-		this.dataManager.register(WATERED, true);
-		// this.dataManager.register(TAMED, false);
-		// this.dataManager.register(SITTING, false);
-		this.dataManager.register(SLEEPING, false);
-		this.dataManager.register(HANDFED, false);
-		this.dataManager.register(INTERACTED, false);
-		this.dataManager.register(AGE, Integer.valueOf(0));
-		this.dataManager.register(SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(FED, true);
+		this.entityData.register(WATERED, true);
+		// this.entityData.register(TAMED, false);
+		// this.entityData.register(SITTING, false);
+		this.entityData.register(SLEEPING, false);
+		this.entityData.register(HANDFED, false);
+		this.entityData.register(INTERACTED, false);
+		this.entityData.register(AGE, Integer.valueOf(0));
+		this.entityData.register(SLEEPTIMER, Float.valueOf(0.0F));
 		if (this.getVariantCount() > 0)
-			this.dataManager.register(VARIANT, Integer.valueOf(this.rand.nextInt(this.getVariantCount())));
+			this.entityData.register(VARIANT, Integer.valueOf(this.rand.nextInt(this.getVariantCount())));
 		else
-			this.dataManager.register(VARIANT, Integer.valueOf(0));
+			this.entityData.register(VARIANT, Integer.valueOf(0));
 
 	}
 

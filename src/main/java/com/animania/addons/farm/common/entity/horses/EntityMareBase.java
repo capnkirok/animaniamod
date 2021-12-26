@@ -60,11 +60,11 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityMareBase.PREGNANT, false);
-		this.dataManager.register(EntityMareBase.HAS_KIDS, false);
-		this.dataManager.register(EntityMareBase.FERTILE, true);
-		this.dataManager.register(EntityMareBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(400)));
-		this.dataManager.register(EntityMareBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityMareBase.PREGNANT, false);
+		this.entityData.register(EntityMareBase.HAS_KIDS, false);
+		this.entityData.register(EntityMareBase.FERTILE, true);
+		this.entityData.register(EntityMareBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(400)));
+		this.entityData.register(EntityMareBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -127,7 +127,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public void setGestation(int gestation)
 	{
-		this.dataManager.set(EntityMareBase.GESTATION_TIMER, Integer.valueOf(gestation));
+		this.entityData.set(EntityMareBase.GESTATION_TIMER, Integer.valueOf(gestation));
 	}
 
 	@Override
@@ -143,7 +143,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		{
 			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
 		}
-		this.dataManager.set(EntityMareBase.PREGNANT, Boolean.valueOf(preggers));
+		this.entityData.set(EntityMareBase.PREGNANT, Boolean.valueOf(preggers));
 	}
 
 	@Override

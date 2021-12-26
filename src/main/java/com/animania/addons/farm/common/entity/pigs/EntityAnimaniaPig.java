@@ -126,7 +126,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
 		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(15, new GenericAILookIdle<>(this));
-		this.targetTasks.addTask(16, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(16, new HurtByTargetGoal(this, false, new Class[0]));
 	}
 
 	@Override
@@ -225,18 +225,18 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaPig.SADDLED, false);
-		this.dataManager.register(EntityAnimaniaPig.MUDDY, false);
-		this.dataManager.register(EntityAnimaniaPig.MUDTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(EntityAnimaniaPig.SPLASHTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(EntityAnimaniaPig.FED, true);
-		this.dataManager.register(EntityAnimaniaPig.HANDFED, false);
-		this.dataManager.register(EntityAnimaniaPig.WATERED, true);
-		this.dataManager.register(EntityAnimaniaPig.PLAYED, true);
-		this.dataManager.register(EntityAnimaniaPig.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaPig.SLEEPING, false);
-		this.dataManager.register(EntityAnimaniaPig.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityAnimaniaPig.SADDLED, false);
+		this.entityData.register(EntityAnimaniaPig.MUDDY, false);
+		this.entityData.register(EntityAnimaniaPig.MUDTIMER, Float.valueOf(0.0F));
+		this.entityData.register(EntityAnimaniaPig.SPLASHTIMER, Float.valueOf(0.0F));
+		this.entityData.register(EntityAnimaniaPig.FED, true);
+		this.entityData.register(EntityAnimaniaPig.HANDFED, false);
+		this.entityData.register(EntityAnimaniaPig.WATERED, true);
+		this.entityData.register(EntityAnimaniaPig.PLAYED, true);
+		this.entityData.register(EntityAnimaniaPig.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityAnimaniaPig.SLEEPING, false);
+		this.entityData.register(EntityAnimaniaPig.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override
@@ -352,9 +352,9 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	public void setSaddled(boolean saddled)
 	{
 		if (saddled)
-			this.dataManager.set(EntityAnimaniaPig.SADDLED, true);
+			this.entityData.set(EntityAnimaniaPig.SADDLED, true);
 		else
-			this.dataManager.set(EntityAnimaniaPig.SADDLED, false);
+			this.entityData.set(EntityAnimaniaPig.SADDLED, false);
 	}
 
 	@Override
@@ -367,11 +367,11 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	{
 		if (fed)
 		{
-			this.dataManager.set(EntityAnimaniaPig.FED, true);
+			this.entityData.set(EntityAnimaniaPig.FED, true);
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaPig.FED, false);
+			this.entityData.set(EntityAnimaniaPig.FED, false);
 	}
 
 	public boolean getPlayed()
@@ -383,11 +383,11 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	{
 		if (played)
 		{
-			this.dataManager.set(EntityAnimaniaPig.PLAYED, true);
+			this.entityData.set(EntityAnimaniaPig.PLAYED, true);
 			this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaPig.PLAYED, false);
+			this.entityData.set(EntityAnimaniaPig.PLAYED, false);
 	}
 
 	@Override
@@ -404,9 +404,9 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	public void setMuddy(boolean muddy)
 	{
 		if (muddy)
-			this.dataManager.set(EntityAnimaniaPig.MUDDY, true);
+			this.entityData.set(EntityAnimaniaPig.MUDDY, true);
 		else
-			this.dataManager.set(EntityAnimaniaPig.MUDDY, false);
+			this.entityData.set(EntityAnimaniaPig.MUDDY, false);
 	}
 
 	public Float getMudTimer()
@@ -416,7 +416,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 
 	public void setMudTimer(Float timer)
 	{
-		this.dataManager.set(EntityAnimaniaPig.MUDTIMER, timer);
+		this.entityData.set(EntityAnimaniaPig.MUDTIMER, timer);
 	}
 
 	public Float getSplashTimer()
@@ -426,7 +426,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 
 	public void setSplashTimer(Float timer)
 	{
-		this.dataManager.set(EntityAnimaniaPig.SPLASHTIMER, timer);
+		this.entityData.set(EntityAnimaniaPig.SPLASHTIMER, timer);
 	}
 
 	@Override

@@ -95,8 +95,8 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityHogBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(EntityHogBase.STERILIZED, false);
+		this.entityData.register(EntityHogBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityHogBase.STERILIZED, false);
 
 	}
 

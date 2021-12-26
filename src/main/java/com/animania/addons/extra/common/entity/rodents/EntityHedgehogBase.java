@@ -143,13 +143,13 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget<SilverfishEntity>(this, SilverfishEntity.class, false));
-			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget<>(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget<>(this, EntityToad.class, false));
+			this.targetSelector.addTask(1, new GenericAINearestAttackableTarget<SilverfishEntity>(this, SilverfishEntity.class, false));
+			this.targetSelector.addTask(2, new GenericAINearestAttackableTarget<>(this, EntityFrogs.class, false));
+			this.targetSelector.addTask(3, new GenericAINearestAttackableTarget<>(this, EntityToad.class, false));
 
 			AddonInjectionHandler.runInjection("farm", "avoidRooster", Void.class, this.tasks, this);
 		}
-		this.targetTasks.addTask(13, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(13, new HurtByTargetGoal(this, false, new Class[0]));
 	}
 
 	@Override
@@ -198,8 +198,8 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		super.entityInit();
 		this.entityData.register(EntityHedgehogBase.FED, true);
 		this.entityData.register(EntityHedgehogBase.WATERED, true);
-		// this.dataManager.register(EntityHedgehogBase.TAMED, false);
-		// this.dataManager.register(EntityHedgehogBase.SITTING, false);
+		// this.entityData.register(EntityHedgehogBase.TAMED, false);
+		// this.entityData.register(EntityHedgehogBase.SITTING, false);
 		this.entityData.register(EntityHedgehogBase.RIDING, false);
 		this.entityData.register(EntityHedgehogBase.AGE, Integer.valueOf(0));
 		this.entityData.register(EntityHedgehogBase.SLEEPING, false);
@@ -426,7 +426,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		if (flag)
 			this.entityData.set(EntityHedgehogBase.RIDING, true);
 		else
-			this.dataManager.set(EntityHedgehogBase.RIDING, false);
+			this.entityData.set(EntityHedgehogBase.RIDING, false);
 	}
 
 	@Override

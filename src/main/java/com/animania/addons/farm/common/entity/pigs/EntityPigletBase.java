@@ -69,8 +69,8 @@ public class PigEntityletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(PigEntityletBase.AGE, Float.valueOf(0));
-		this.dataManager.register(PigEntityletBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(PigEntityletBase.AGE, Float.valueOf(0));
+		this.entityData.register(PigEntityletBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 

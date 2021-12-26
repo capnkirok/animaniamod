@@ -50,7 +50,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityChickBase.AGE, Float.valueOf(0));
+		this.entityData.register(EntityChickBase.AGE, Float.valueOf(0));
 	}
 
 	@Override

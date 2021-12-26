@@ -48,7 +48,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityDartFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(3)));
+		this.entityData.register(EntityDartFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(3)));
 	}
 
 	/**
@@ -73,12 +73,12 @@ public class EntityDartFrogs extends EntityAmphibian
 
 	public int getFrogsType()
 	{
-		return this.dataManager.get(EntityDartFrogs.FROGS_TYPE).intValue();
+		return this.entityData.get(EntityDartFrogs.FROGS_TYPE).intValue();
 	}
 
 	public void setFrogsType(int frogsId)
 	{
-		this.dataManager.set(EntityDartFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
+		this.entityData.set(EntityDartFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
 	}
 
 	@Override

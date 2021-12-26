@@ -80,11 +80,11 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(EntityEweBase.PREGNANT, false);
-		this.dataManager.register(EntityEweBase.HAS_KIDS, false);
-		this.dataManager.register(EntityEweBase.FERTILE, true);
-		this.dataManager.register(EntityEweBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.entityData.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityEweBase.PREGNANT, false);
+		this.entityData.register(EntityEweBase.HAS_KIDS, false);
+		this.entityData.register(EntityEweBase.FERTILE, true);
+		this.entityData.register(EntityEweBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
 
 	@Override

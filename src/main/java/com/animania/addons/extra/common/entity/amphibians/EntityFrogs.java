@@ -53,7 +53,7 @@ public class EntityFrogs extends EntityAmphibian
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(2)));
+		this.entityData.register(EntityFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(2)));
 	}
 
 	@Override
@@ -95,12 +95,12 @@ public class EntityFrogs extends EntityAmphibian
 
 	public int getFrogsType()
 	{
-		return this.dataManager.get(EntityFrogs.FROGS_TYPE).intValue();
+		return this.entityData.get(EntityFrogs.FROGS_TYPE).intValue();
 	}
 
 	public void setFrogsType(int frogsId)
 	{
-		this.dataManager.set(EntityFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
+		this.entityData.set(EntityFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
 	}
 
 	@Override
@@ -117,10 +117,10 @@ public class EntityFrogs extends EntityAmphibian
 			this.tasks.taskEntries.clear();
 			this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.5F));
 			this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
-			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<>(this, EntityFerretBase.class, true));
-			this.targetTasks.addTask(3, new NearestAttackableTargetGoal<>(this, EntityHedgehog.class, true));
-			this.targetTasks.addTask(4, new NearestAttackableTargetGoal<>(this, EntityHedgehogAlbino.class, true));
+			this.targetSelector.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
+			this.targetSelector.addTask(2, new NearestAttackableTargetGoal<>(this, EntityFerretBase.class, true));
+			this.targetSelector.addTask(3, new NearestAttackableTargetGoal<>(this, EntityHedgehog.class, true));
+			this.targetSelector.addTask(4, new NearestAttackableTargetGoal<>(this, EntityHedgehogAlbino.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}

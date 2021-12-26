@@ -334,32 +334,32 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 	public void setDamageTaken(float damageTaken)
 	{
-		this.dataManager.set(EntityCart.DAMAGE_TAKEN, Float.valueOf(damageTaken));
+		this.entityData.set(EntityCart.DAMAGE_TAKEN, Float.valueOf(damageTaken));
 	}
 
 	public float getDamageTaken()
 	{
-		return (Float) this.dataManager.get(EntityCart.DAMAGE_TAKEN);
+		return (Float) this.entityData.get(EntityCart.DAMAGE_TAKEN);
 	}
 
 	public void setHasChest(boolean hasChest)
 	{
-		this.dataManager.set(EntityCart.HAS_CHEST, Boolean.valueOf(hasChest));
+		this.entityData.set(EntityCart.HAS_CHEST, Boolean.valueOf(hasChest));
 	}
 
 	public boolean getHasChest()
 	{
-		return (boolean) this.dataManager.get(EntityCart.HAS_CHEST).booleanValue();
+		return (boolean) this.entityData.get(EntityCart.HAS_CHEST).booleanValue();
 	}
 
 	public void setTimeSinceHit(int timeSinceHit)
 	{
-		this.dataManager.set(EntityCart.TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
+		this.entityData.set(EntityCart.TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
 	}
 
 	public int getTimeSinceHit()
 	{
-		return (Integer) this.dataManager.get(EntityCart.TIME_SINCE_HIT);
+		return (Integer) this.entityData.get(EntityCart.TIME_SINCE_HIT);
 	}
 
 	public void applyEntityCollision(Entity entityIn)
@@ -945,21 +945,21 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 	@Override
 	protected void entityInit()
 	{
-		this.dataManager.register(EntityCart.PULLER_TYPE, Integer.valueOf(0));
-		this.dataManager.register(EntityCart.TIME_SINCE_HIT, Integer.valueOf(0));
-		this.dataManager.register(EntityCart.DAMAGE_TAKEN, Float.valueOf(0.0F));
-		this.dataManager.register(EntityCart.HAS_CHEST, false);
+		this.entityData.register(EntityCart.PULLER_TYPE, Integer.valueOf(0));
+		this.entityData.register(EntityCart.TIME_SINCE_HIT, Integer.valueOf(0));
+		this.entityData.register(EntityCart.DAMAGE_TAKEN, Float.valueOf(0.0F));
+		this.entityData.register(EntityCart.HAS_CHEST, false);
 	}
 
 	public int getPullerType()
 	{
-		return this.dataManager.get(EntityCart.PULLER_TYPE).intValue();
+		return this.entityData.get(EntityCart.PULLER_TYPE).intValue();
 	}
 
 	public void setPullerType(int pullerType)
 	{
 
-		this.dataManager.set(EntityCart.PULLER_TYPE, Integer.valueOf(pullerType));
+		this.entityData.set(EntityCart.PULLER_TYPE, Integer.valueOf(pullerType));
 	}
 
 	public void writeEntityToNBT(CompoundTag compound)

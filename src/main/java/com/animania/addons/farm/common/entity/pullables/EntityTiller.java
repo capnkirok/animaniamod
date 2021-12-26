@@ -282,32 +282,32 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 	public void setDamageTaken(float damageTaken)
 	{
-		this.dataManager.set(EntityTiller.DAMAGE_TAKEN, Float.valueOf(damageTaken));
+		this.entityData.set(EntityTiller.DAMAGE_TAKEN, Float.valueOf(damageTaken));
 	}
 
 	public float getDamageTaken()
 	{
-		return this.dataManager.get(EntityTiller.DAMAGE_TAKEN).floatValue();
+		return this.entityData.get(EntityTiller.DAMAGE_TAKEN).floatValue();
 	}
 
 	public void setHasChest(boolean hasChest)
 	{
-		this.dataManager.set(EntityTiller.HAS_CHEST, Boolean.valueOf(hasChest));
+		this.entityData.set(EntityTiller.HAS_CHEST, Boolean.valueOf(hasChest));
 	}
 
 	public boolean getHasChest()
 	{
-		return this.dataManager.get(EntityTiller.HAS_CHEST).booleanValue();
+		return this.entityData.get(EntityTiller.HAS_CHEST).booleanValue();
 	}
 
 	public void setTimeSinceHit(int timeSinceHit)
 	{
-		this.dataManager.set(EntityTiller.TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
+		this.entityData.set(EntityTiller.TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
 	}
 
 	public int getTimeSinceHit()
 	{
-		return this.dataManager.get(EntityTiller.TIME_SINCE_HIT).intValue();
+		return this.entityData.get(EntityTiller.TIME_SINCE_HIT).intValue();
 	}
 
 	@Override
@@ -921,21 +921,21 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 	@Override
 	protected void entityInit()
 	{
-		this.dataManager.register(EntityTiller.PULLER_TYPE, Integer.valueOf(0));
-		this.dataManager.register(EntityTiller.TIME_SINCE_HIT, Integer.valueOf(0));
-		this.dataManager.register(EntityTiller.DAMAGE_TAKEN, Float.valueOf(0.0F));
-		this.dataManager.register(EntityTiller.HAS_CHEST, true);
+		this.entityData.register(EntityTiller.PULLER_TYPE, Integer.valueOf(0));
+		this.entityData.register(EntityTiller.TIME_SINCE_HIT, Integer.valueOf(0));
+		this.entityData.register(EntityTiller.DAMAGE_TAKEN, Float.valueOf(0.0F));
+		this.entityData.register(EntityTiller.HAS_CHEST, true);
 	}
 
 	public int getPullerType()
 	{
-		return this.dataManager.get(EntityTiller.PULLER_TYPE).intValue();
+		return this.entityData.get(EntityTiller.PULLER_TYPE).intValue();
 	}
 
 	public void setPullerType(int pullerType)
 	{
 
-		this.dataManager.set(EntityTiller.PULLER_TYPE, Integer.valueOf(pullerType));
+		this.entityData.set(EntityTiller.PULLER_TYPE, Integer.valueOf(pullerType));
 	}
 
 	@Override

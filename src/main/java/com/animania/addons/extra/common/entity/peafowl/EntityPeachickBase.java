@@ -43,7 +43,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityPeachickBase.AGE, Float.valueOf(0));
+		this.entityData.register(EntityPeachickBase.AGE, Float.valueOf(0));
 
 	}
 

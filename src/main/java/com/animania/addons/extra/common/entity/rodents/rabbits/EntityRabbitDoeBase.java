@@ -55,11 +55,11 @@ public class RabbitEntityDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(RabbitEntityDoeBase.PREGNANT, false);
-		this.dataManager.register(RabbitEntityDoeBase.HAS_KIDS, false);
-		this.dataManager.register(RabbitEntityDoeBase.FERTILE, true);
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(RabbitEntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.entityData.register(RabbitEntityDoeBase.PREGNANT, false);
+		this.entityData.register(RabbitEntityDoeBase.HAS_KIDS, false);
+		this.entityData.register(RabbitEntityDoeBase.FERTILE, true);
+		this.entityData.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(RabbitEntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
 
 	@Override

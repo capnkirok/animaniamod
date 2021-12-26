@@ -98,7 +98,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 		{
 			this.goalSelector.addGoal(8, new GenericAISleep<EntityAnimaniaChicken>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed), AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed2), EntityAnimaniaChicken.class));
 		}
-		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -163,12 +163,12 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaChicken.FED, true);
-		this.dataManager.register(EntityAnimaniaChicken.WATERED, true);
-		this.dataManager.register(EntityAnimaniaChicken.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaChicken.SLEEPING, false);
-		this.dataManager.register(EntityAnimaniaChicken.HANDFED, false);
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityAnimaniaChicken.FED, true);
+		this.entityData.register(EntityAnimaniaChicken.WATERED, true);
+		this.entityData.register(EntityAnimaniaChicken.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityAnimaniaChicken.SLEEPING, false);
+		this.entityData.register(EntityAnimaniaChicken.HANDFED, false);
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override

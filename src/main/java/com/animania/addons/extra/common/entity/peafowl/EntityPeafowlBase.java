@@ -39,8 +39,8 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityPeafowlBase.LAID, true);
-		this.dataManager.register(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
+		this.entityData.register(EntityPeafowlBase.LAID, true);
+		this.entityData.register(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 
 	public void setLaidTimer(int laidtimer)
 	{
-		this.dataManager.set(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(laidtimer));
+		this.entityData.set(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(laidtimer));
 	}
 
 	@Override
@@ -96,11 +96,11 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	{
 		if (laid)
 		{
-			this.dataManager.set(EntityPeafowlBase.LAID, true);
+			this.entityData.set(EntityPeafowlBase.LAID, true);
 			this.setLaidTimer(AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100));
 		}
 		else
-			this.dataManager.set(EntityPeafowlBase.LAID, false);
+			this.entityData.set(EntityPeafowlBase.LAID, false);
 	}
 
 	@Override

@@ -141,11 +141,11 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 		{
 			AddonInjectionHandler.runInjection("farm", "attackChicks", Void.class, this);
 
-			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget<SilverfishEntity>(this, SilverfishEntity.class, false));
-			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget<>(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget<>(this, EntityToad.class, false));
+			this.targetSelector.addTask(6, new GenericAINearestAttackableTarget<SilverfishEntity>(this, SilverfishEntity.class, false));
+			this.targetSelector.addTask(7, new GenericAINearestAttackableTarget<>(this, EntityFrogs.class, false));
+			this.targetSelector.addTask(8, new GenericAINearestAttackableTarget<>(this, EntityToad.class, false));
 		}
-		this.targetTasks.addTask(9, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(9, new HurtByTargetGoal(this, false, new Class[0]));
 	}
 
 	@Override
@@ -264,15 +264,15 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityFerretBase.FED, true);
-		this.dataManager.register(EntityFerretBase.WATERED, true);
-		// this.dataManager.register(EntityFerretBase.TAMED, false);
-		// this.dataManager.register(EntityFerretBase.SITTING, false);
-		this.dataManager.register(EntityFerretBase.RIDING, false);
-		this.dataManager.register(EntityFerretBase.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityFerretBase.SLEEPING, false);
-		this.dataManager.register(EntityFerretBase.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityFerretBase.FED, true);
+		this.entityData.register(EntityFerretBase.WATERED, true);
+		// this.entityData.register(EntityFerretBase.TAMED, false);
+		// this.entityData.register(EntityFerretBase.SITTING, false);
+		this.entityData.register(EntityFerretBase.RIDING, false);
+		this.entityData.register(EntityFerretBase.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityFerretBase.SLEEPING, false);
+		this.entityData.register(EntityFerretBase.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override
@@ -438,9 +438,9 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	public void setFerretRiding(boolean flag)
 	{
 		if (flag)
-			this.dataManager.set(EntityFerretBase.RIDING, true);
+			this.entityData.set(EntityFerretBase.RIDING, true);
 		else
-			this.dataManager.set(EntityFerretBase.RIDING, false);
+			this.entityData.set(EntityFerretBase.RIDING, false);
 	}
 
 	@Override

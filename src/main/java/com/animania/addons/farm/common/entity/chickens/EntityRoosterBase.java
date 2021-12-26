@@ -49,7 +49,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 			AddonInjectionHandler.runInjection("extra", "attackFrogs", null, this);
 		}
 		if (FarmConfig.settings.roostersFight)
-			this.targetTasks.addTask(8, new NearestAttackableTargetGoal(this, EntityRoosterBase.class, 80, false, true, (Predicate) null));
+			this.targetSelector.addTask(8, new NearestAttackableTargetGoal(this, EntityRoosterBase.class, 80, false, true, (Predicate) null));
 
 		this.gender = EntityGender.MALE;
 	}
@@ -92,8 +92,8 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityRoosterBase.CROWTIMER, Integer.valueOf(0));
-		this.dataManager.register(EntityRoosterBase.CROWDURATION, Integer.valueOf(0));
+		this.entityData.register(EntityRoosterBase.CROWTIMER, Integer.valueOf(0));
+		this.entityData.register(EntityRoosterBase.CROWDURATION, Integer.valueOf(0));
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 	public void setCrowDuration(int duration)
 	{
-		this.dataManager.set(EntityRoosterBase.CROWDURATION, Integer.valueOf(duration));
+		this.entityData.set(EntityRoosterBase.CROWDURATION, Integer.valueOf(duration));
 	}
 
 	public int getTimeUntilNextCrow()
@@ -187,7 +187,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 	public void setTimeUntilNextCrow(int timer)
 	{
-		this.dataManager.set(EntityRoosterBase.CROWTIMER, Integer.valueOf(timer));
+		this.entityData.set(EntityRoosterBase.CROWTIMER, Integer.valueOf(timer));
 	}
 
 	@Override

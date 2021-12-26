@@ -132,8 +132,8 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityHenBase.LAID, true);
-		this.dataManager.register(EntityHenBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
+		this.entityData.register(EntityHenBase.LAID, true);
+		this.entityData.register(EntityHenBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
 		this.timeUntilNextEgg = 6000;
 	}
 
@@ -162,7 +162,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	public void setLaidTimer(int laidtimer)
 	{
-		this.dataManager.set(EntityHenBase.LAID_TIMER, Integer.valueOf(laidtimer));
+		this.entityData.set(EntityHenBase.LAID_TIMER, Integer.valueOf(laidtimer));
 	}
 
 	@Override
@@ -198,11 +198,11 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	{
 		if (laid)
 		{
-			this.dataManager.set(EntityHenBase.LAID, true);
+			this.entityData.set(EntityHenBase.LAID, true);
 			this.setLaidTimer(AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100));
 		}
 		else
-			this.dataManager.set(EntityHenBase.LAID, false);
+			this.entityData.set(EntityHenBase.LAID, false);
 	}
 
 	@Override

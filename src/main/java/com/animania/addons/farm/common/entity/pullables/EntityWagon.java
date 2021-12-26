@@ -343,32 +343,32 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 	public void setDamageTaken(float damageTaken)
 	{
-		this.dataManager.set(EntityWagon.DAMAGE_TAKEN, Float.valueOf(damageTaken));
+		this.entityData.set(EntityWagon.DAMAGE_TAKEN, Float.valueOf(damageTaken));
 	}
 
 	public float getDamageTaken()
 	{
-		return this.dataManager.get(EntityWagon.DAMAGE_TAKEN).floatValue();
+		return this.entityData.get(EntityWagon.DAMAGE_TAKEN).floatValue();
 	}
 
 	public void setHasChest(boolean hasChest)
 	{
-		this.dataManager.set(EntityWagon.HAS_CHEST, Boolean.valueOf(hasChest));
+		this.entityData.set(EntityWagon.HAS_CHEST, Boolean.valueOf(hasChest));
 	}
 
 	public boolean getHasChest()
 	{
-		return this.dataManager.get(EntityWagon.HAS_CHEST).booleanValue();
+		return this.entityData.get(EntityWagon.HAS_CHEST).booleanValue();
 	}
 
 	public void setTimeSinceHit(int timeSinceHit)
 	{
-		this.dataManager.set(EntityWagon.TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
+		this.entityData.set(EntityWagon.TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
 	}
 
 	public int getTimeSinceHit()
 	{
-		return this.dataManager.get(EntityWagon.TIME_SINCE_HIT).intValue();
+		return this.entityData.get(EntityWagon.TIME_SINCE_HIT).intValue();
 	}
 
 	@Override
@@ -909,21 +909,21 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	@Override
 	protected void entityInit()
 	{
-		this.dataManager.register(EntityWagon.PULLER_TYPE, Integer.valueOf(0));
-		this.dataManager.register(EntityWagon.TIME_SINCE_HIT, Integer.valueOf(0));
-		this.dataManager.register(EntityWagon.DAMAGE_TAKEN, Float.valueOf(0.0F));
-		this.dataManager.register(EntityWagon.HAS_CHEST, true);
+		this.entityData.register(EntityWagon.PULLER_TYPE, Integer.valueOf(0));
+		this.entityData.register(EntityWagon.TIME_SINCE_HIT, Integer.valueOf(0));
+		this.entityData.register(EntityWagon.DAMAGE_TAKEN, Float.valueOf(0.0F));
+		this.entityData.register(EntityWagon.HAS_CHEST, true);
 	}
 
 	public int getPullerType()
 	{
-		return this.dataManager.get(EntityWagon.PULLER_TYPE).intValue();
+		return this.entityData.get(EntityWagon.PULLER_TYPE).intValue();
 	}
 
 	public void setPullerType(int pullerType)
 	{
 
-		this.dataManager.set(EntityWagon.PULLER_TYPE, Integer.valueOf(pullerType));
+		this.entityData.set(EntityWagon.PULLER_TYPE, Integer.valueOf(pullerType));
 	}
 
 	@Override

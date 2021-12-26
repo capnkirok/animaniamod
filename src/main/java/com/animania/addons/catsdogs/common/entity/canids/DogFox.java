@@ -39,7 +39,7 @@ public class DogFox
 
 			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 			{
-				this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
+				this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
 				AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 				AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 			}
@@ -74,7 +74,7 @@ public class DogFox
 
 			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 			{
-				this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
+				this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
 				AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 				AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 			}
@@ -109,7 +109,7 @@ public class DogFox
 
 			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 			{
-				this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
+				this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
 				AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 				AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 			}

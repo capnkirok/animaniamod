@@ -104,10 +104,10 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<>(this, 1.0, this.entityAIEatGrass));
-		this.targetTasks.addTask(14, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(14, new HurtByTargetGoal(this, false, new Class[0]));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, Player.class));
+			this.targetSelector.addTask(1, new HurtByTargetGoal(this, false, Player.class));
 		}
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
@@ -132,13 +132,13 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaCow.FED, true);
-		this.dataManager.register(INTERACTED, false);
-		this.dataManager.register(EntityAnimaniaCow.HANDFED, false);
-		this.dataManager.register(EntityAnimaniaCow.WATERED, true);
-		this.dataManager.register(EntityAnimaniaCow.SLEEPING, false);
-		this.dataManager.register(EntityAnimaniaCow.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(EntityAnimaniaCow.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityAnimaniaCow.FED, true);
+		this.entityData.register(INTERACTED, false);
+		this.entityData.register(EntityAnimaniaCow.HANDFED, false);
+		this.entityData.register(EntityAnimaniaCow.WATERED, true);
+		this.entityData.register(EntityAnimaniaCow.SLEEPING, false);
+		this.entityData.register(EntityAnimaniaCow.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(EntityAnimaniaCow.AGE, Integer.valueOf(0));
 	}
 
 	@Override

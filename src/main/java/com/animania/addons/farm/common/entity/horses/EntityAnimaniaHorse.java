@@ -145,14 +145,14 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaHorse.COLOR_NUM, Integer.valueOf(rand.nextInt(6)));
-		this.dataManager.register(EntityAnimaniaHorse.FED, true);
-		this.dataManager.register(EntityAnimaniaHorse.HANDFED, false);
-		this.dataManager.register(EntityAnimaniaHorse.WATERED, true);
-		this.dataManager.register(EntityAnimaniaHorse.SLEEPING, false);
-		this.dataManager.register(EntityAnimaniaHorse.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(EntityAnimaniaHorse.AGE, Integer.valueOf(0));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityAnimaniaHorse.COLOR_NUM, Integer.valueOf(rand.nextInt(6)));
+		this.entityData.register(EntityAnimaniaHorse.FED, true);
+		this.entityData.register(EntityAnimaniaHorse.HANDFED, false);
+		this.entityData.register(EntityAnimaniaHorse.WATERED, true);
+		this.entityData.register(EntityAnimaniaHorse.SLEEPING, false);
+		this.entityData.register(EntityAnimaniaHorse.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(EntityAnimaniaHorse.AGE, Integer.valueOf(0));
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override
@@ -379,7 +379,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 
 	public void setColorNumber(int color)
 	{
-		this.dataManager.set(COLOR_NUM, Integer.valueOf(color));
+		this.entityData.set(COLOR_NUM, Integer.valueOf(color));
 	}
 
 	public ResourceLocation getResourceLocation()

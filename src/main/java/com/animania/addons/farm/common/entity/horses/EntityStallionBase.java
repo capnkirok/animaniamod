@@ -68,8 +68,8 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	@Override
 	protected void entityInit()
 	{
-		this.dataManager.register(STERILIZED, false);
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(STERILIZED, false);
+		this.entityData.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
 		super.entityInit();
 	}
 

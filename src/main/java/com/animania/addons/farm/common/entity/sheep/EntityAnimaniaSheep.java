@@ -136,8 +136,8 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 		{
 			AddonInjectionHandler.runInjection("catsdogs", "addHerdingBehavior", null, this, 1);
 		}
-		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
-		this.targetTasks.addTask(1, new HurtByTargetGoal(this, true, Player.class));
+		this.targetSelector.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(1, new HurtByTargetGoal(this, true, Player.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -167,39 +167,39 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaSheep.FED, true);
-		this.dataManager.register(EntityAnimaniaSheep.HANDFED, false);
-		this.dataManager.register(EntityAnimaniaSheep.WATERED, true);
-		this.dataManager.register(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(EntityAnimaniaSheep.SHEARED, false);
-		this.dataManager.register(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
-		this.dataManager.register(EntityAnimaniaSheep.SLEEPING, false);
-		this.dataManager.register(EntityAnimaniaSheep.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(EntityAnimaniaSheep.DYE_COLOR, Integer.valueOf(EnumDyeColor.WHITE.getMetadata()));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityAnimaniaSheep.FED, true);
+		this.entityData.register(EntityAnimaniaSheep.HANDFED, false);
+		this.entityData.register(EntityAnimaniaSheep.WATERED, true);
+		this.entityData.register(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityAnimaniaSheep.SHEARED, false);
+		this.entityData.register(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
+		this.entityData.register(EntityAnimaniaSheep.SLEEPING, false);
+		this.entityData.register(EntityAnimaniaSheep.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(EntityAnimaniaSheep.DYE_COLOR, Integer.valueOf(EnumDyeColor.WHITE.getMetadata()));
+		this.entityData.register(INTERACTED, false);
 
 		if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian || this instanceof EntityLambFriesian)
 		{
-			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
+			this.entityData.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
 		}
 		else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset || this instanceof EntityLambDorset)
 		{
-			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
+			this.entityData.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
 		}
 		else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino || this instanceof EntityLambMerino)
 		{
-			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
+			this.entityData.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
 		}
 		else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityLambSuffolk)
 		{
-			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
+			this.entityData.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
 		}
 		else
 		{
-			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, 0);
+			this.entityData.register(EntityAnimaniaSheep.COLOR_NUM, 0);
 		}
 
-		this.dataManager.register(EntityAnimaniaSheep.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityAnimaniaSheep.AGE, Integer.valueOf(0));
 
 	}
 
@@ -226,11 +226,11 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	{
 		if (sheared)
 		{
-			this.dataManager.set(EntityAnimaniaSheep.SHEARED, true);
+			this.entityData.set(EntityAnimaniaSheep.SHEARED, true);
 			this.setWoolRegrowthTimer(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500));
 		}
 		else
-			this.dataManager.set(EntityAnimaniaSheep.SHEARED, false);
+			this.entityData.set(EntityAnimaniaSheep.SHEARED, false);
 	}
 
 	@Override
@@ -270,7 +270,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 	public void setWoolRegrowthTimer(int time)
 	{
-		this.dataManager.set(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(time));
+		this.entityData.set(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(time));
 	}
 
 	public int getDyeColorNum()
@@ -280,7 +280,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 	public void setDyeColorNum(int col)
 	{
-		this.dataManager.set(EntityAnimaniaSheep.DYE_COLOR, Integer.valueOf(col));
+		this.entityData.set(EntityAnimaniaSheep.DYE_COLOR, Integer.valueOf(col));
 	}
 
 	@Override
@@ -474,7 +474,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 	public void setColorNumber(int color)
 	{
-		this.dataManager.set(COLOR_NUM, Integer.valueOf(color));
+		this.entityData.set(COLOR_NUM, Integer.valueOf(color));
 	}
 
 	@Override

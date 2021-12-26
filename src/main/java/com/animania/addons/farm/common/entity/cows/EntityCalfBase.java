@@ -56,8 +56,8 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityCalfBase.AGE, Float.valueOf(0));
-		this.dataManager.register(EntityCalfBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityCalfBase.AGE, Float.valueOf(0));
+		this.entityData.register(EntityCalfBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 	}
 
 	@Override

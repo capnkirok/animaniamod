@@ -123,7 +123,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 		{
 			AddonInjectionHandler.runInjection("catsdogs", "addHerdingBehavior", null, this, 1);
 		}
-		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -158,18 +158,18 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaGoat.FED, true);
-		this.dataManager.register(EntityAnimaniaGoat.HANDFED, false);
-		this.dataManager.register(EntityAnimaniaGoat.WATERED, true);
-		this.dataManager.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(EntityAnimaniaGoat.SHEARED, false);
-		this.dataManager.register(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
-		this.dataManager.register(EntityAnimaniaGoat.SPOOKED, false);
-		this.dataManager.register(EntityAnimaniaGoat.SPOOKED_TIMER, 0.0F);
-		this.dataManager.register(EntityAnimaniaGoat.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaGoat.SLEEPING, false);
-		this.dataManager.register(EntityAnimaniaGoat.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityAnimaniaGoat.FED, true);
+		this.entityData.register(EntityAnimaniaGoat.HANDFED, false);
+		this.entityData.register(EntityAnimaniaGoat.WATERED, true);
+		this.entityData.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityAnimaniaGoat.SHEARED, false);
+		this.entityData.register(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
+		this.entityData.register(EntityAnimaniaGoat.SPOOKED, false);
+		this.entityData.register(EntityAnimaniaGoat.SPOOKED_TIMER, 0.0F);
+		this.entityData.register(EntityAnimaniaGoat.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityAnimaniaGoat.SLEEPING, false);
+		this.entityData.register(EntityAnimaniaGoat.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 
 	public void setSpooked(boolean spooked)
 	{
-		this.dataManager.set(EntityAnimaniaGoat.SPOOKED, Boolean.valueOf(spooked));
+		this.entityData.set(EntityAnimaniaGoat.SPOOKED, Boolean.valueOf(spooked));
 	}
 
 	@Override
@@ -212,7 +212,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 
 	public void setSpookedTimer(Float timer)
 	{
-		this.dataManager.set(EntityAnimaniaGoat.SPOOKED_TIMER, timer);
+		this.entityData.set(EntityAnimaniaGoat.SPOOKED_TIMER, timer);
 	}
 
 	@Override
@@ -419,11 +419,11 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	{
 		if (sheared)
 		{
-			this.dataManager.set(EntityAnimaniaGoat.SHEARED, true);
+			this.entityData.set(EntityAnimaniaGoat.SHEARED, true);
 			this.setWoolRegrowthTimer(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500));
 		}
 		else
-			this.dataManager.set(EntityAnimaniaGoat.SHEARED, false);
+			this.entityData.set(EntityAnimaniaGoat.SHEARED, false);
 	}
 
 	public int getWoolRegrowthTimer()
@@ -433,7 +433,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 
 	public void setWoolRegrowthTimer(int time)
 	{
-		this.dataManager.set(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(time));
+		this.entityData.set(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(time));
 	}
 
 	@Override

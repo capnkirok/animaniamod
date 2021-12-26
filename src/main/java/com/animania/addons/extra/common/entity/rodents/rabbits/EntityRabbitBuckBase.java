@@ -50,8 +50,8 @@ public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(STERILIZED, false);
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(STERILIZED, false);
+		this.entityData.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
 	}
 
 	@Override

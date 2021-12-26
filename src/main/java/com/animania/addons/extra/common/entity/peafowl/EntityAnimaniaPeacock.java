@@ -103,7 +103,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 			this.goalSelector.addGoal(8, new LeapAtTargetGoal(this, 0.2F));
 			this.goalSelector.addGoal(9, new AttackMeleeGoal(this, 1.0D, true));
 		}
-		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetSelector.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
 		this.blinkTimer = 80 + this.rand.nextInt(80);
@@ -200,13 +200,13 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaPeacock.FED, true);
-		this.dataManager.register(EntityAnimaniaPeacock.HANDFED, false);
-		this.dataManager.register(EntityAnimaniaPeacock.WATERED, true);
-		this.dataManager.register(EntityAnimaniaPeacock.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaPeacock.SLEEPING, false);
-		this.dataManager.register(EntityAnimaniaPeacock.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityAnimaniaPeacock.FED, true);
+		this.entityData.register(EntityAnimaniaPeacock.HANDFED, false);
+		this.entityData.register(EntityAnimaniaPeacock.WATERED, true);
+		this.entityData.register(EntityAnimaniaPeacock.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityAnimaniaPeacock.SLEEPING, false);
+		this.entityData.register(EntityAnimaniaPeacock.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(INTERACTED, false);
 	}
 
 	@Override

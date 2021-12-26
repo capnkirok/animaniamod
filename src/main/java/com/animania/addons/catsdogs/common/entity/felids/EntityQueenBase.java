@@ -58,11 +58,11 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(PREGNANT, false);
-		this.dataManager.register(HAS_KIDS, false);
-		this.dataManager.register(FERTILE, true);
-		this.dataManager.register(GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.entityData.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(PREGNANT, false);
+		this.entityData.register(HAS_KIDS, false);
+		this.entityData.register(FERTILE, true);
+		this.entityData.register(GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 
 	}
 

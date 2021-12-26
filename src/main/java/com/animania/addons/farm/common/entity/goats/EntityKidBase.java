@@ -61,8 +61,8 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityKidBase.AGE, Float.valueOf(0));
-		this.dataManager.register(EntityKidBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityKidBase.AGE, Float.valueOf(0));
+		this.entityData.register(EntityKidBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 

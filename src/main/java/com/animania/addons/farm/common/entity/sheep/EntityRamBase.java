@@ -73,9 +73,9 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityRamBase.FIGHTING, false);
-		this.dataManager.register(STERILIZED, false);
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityRamBase.FIGHTING, false);
+		this.entityData.register(STERILIZED, false);
+		this.entityData.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -94,20 +94,20 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	public void setFighting(boolean fighting)
 	{
 		if (fighting)
-			this.dataManager.set(EntityRamBase.FIGHTING, true);
+			this.entityData.set(EntityRamBase.FIGHTING, true);
 		else
-			this.dataManager.set(EntityRamBase.FIGHTING, false);
+			this.entityData.set(EntityRamBase.FIGHTING, false);
 	}
 
 	@Nullable
 	public UUID getRivalUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityAnimaniaSheep.RIVAL_UNIQUE_ID)).orNull();
+		return (UUID) ((Optional) this.entityData.get(EntityAnimaniaSheep.RIVAL_UNIQUE_ID)).orNull();
 	}
 
 	public void setRivalUniqueId(@Nullable UUID uniqueId)
 	{
-		this.dataManager.set(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		this.entityData.set(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	@Override

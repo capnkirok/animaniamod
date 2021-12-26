@@ -78,9 +78,9 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityBuckBase.FIGHTING, false);
-		this.dataManager.register(EntityBuckBase.STERILIZED, false);
-		this.dataManager.register(EntityBuckBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityBuckBase.FIGHTING, false);
+		this.entityData.register(EntityBuckBase.STERILIZED, false);
+		this.entityData.register(EntityBuckBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
 	}
 
 	public boolean getFighting()
@@ -98,33 +98,33 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	public void setFighting(boolean fighting)
 	{
 		if (fighting)
-			this.dataManager.set(EntityBuckBase.FIGHTING, true);
+			this.entityData.set(EntityBuckBase.FIGHTING, true);
 		else
-			this.dataManager.set(EntityBuckBase.FIGHTING, false);
+			this.entityData.set(EntityBuckBase.FIGHTING, false);
 	}
 
 	@Override
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityBuckBase.MATE_UNIQUE_ID)).orNull();
+		return (UUID) ((Optional) this.entityData.get(EntityBuckBase.MATE_UNIQUE_ID)).orNull();
 	}
 
 	@Override
 	public void setMateUniqueId(@Nullable UUID uniqueId)
 	{
-		this.dataManager.set(EntityBuckBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		this.entityData.set(EntityBuckBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	@Nullable
 	public UUID getRivalUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityAnimaniaGoat.RIVAL_UNIQUE_ID)).orNull();
+		return (UUID) ((Optional) this.entityData.get(EntityAnimaniaGoat.RIVAL_UNIQUE_ID)).orNull();
 	}
 
 	public void setRivalUniqueId(@Nullable UUID uniqueId)
 	{
-		this.dataManager.set(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		this.entityData.set(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	@Override

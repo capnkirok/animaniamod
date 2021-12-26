@@ -100,11 +100,11 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntitySowBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(EntitySowBase.PREGNANT, false);
-		this.dataManager.register(EntitySowBase.HAS_KIDS, false);
-		this.dataManager.register(EntitySowBase.FERTILE, true);
-		this.dataManager.register(EntitySowBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.entityData.register(EntitySowBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntitySowBase.PREGNANT, false);
+		this.entityData.register(EntitySowBase.HAS_KIDS, false);
+		this.entityData.register(EntitySowBase.FERTILE, true);
+		this.entityData.register(EntitySowBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 
 	}
 

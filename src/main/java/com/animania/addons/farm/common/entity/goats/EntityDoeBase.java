@@ -64,11 +64,11 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityDoeBase.PREGNANT, false);
-		this.dataManager.register(EntityDoeBase.HAS_KIDS, false);
-		this.dataManager.register(EntityDoeBase.FERTILE, true);
-		this.dataManager.register(EntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
-		this.dataManager.register(EntityDoeBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.register(EntityDoeBase.PREGNANT, false);
+		this.entityData.register(EntityDoeBase.HAS_KIDS, false);
+		this.entityData.register(EntityDoeBase.FERTILE, true);
+		this.entityData.register(EntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.entityData.register(EntityDoeBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 

@@ -77,9 +77,9 @@ public class ExtraAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "attackFrogs", args -> {
 			PathfinderMob entity = (PathfinderMob) args[0];
 			if (entity instanceof TamableAnimal)
-				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
+				entity.targetSelector.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
 			else
-				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
+				entity.targetSelector.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
 			return null;
 		});
 
@@ -87,9 +87,9 @@ public class ExtraAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "attackPeachicks", args -> {
 			CreatureEntity entity = (CreatureEntity) args[0];
 			if (entity instanceof TameableEntity)
-				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityPeachickBase));
+				entity.targetSelector.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityPeachickBase));
 			else
-				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityPeachickBase));
+				entity.targetSelector.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityPeachickBase));
 			return null;
 		});
 
@@ -97,9 +97,9 @@ public class ExtraAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "attackRodents", args -> {
 			CreatureEntity entity = (CreatureEntity) args[0];
 			if (entity instanceof TameableEntity)
-				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityHamster || target instanceof EntityFerretBase || target instanceof EntityHedgehogBase));
+				entity.targetSelector.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityHamster || target instanceof EntityFerretBase || target instanceof EntityHedgehogBase));
 			else
-				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityHamster || target instanceof EntityFerretBase || target instanceof EntityHedgehogBase));
+				entity.targetSelector.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityHamster || target instanceof EntityFerretBase || target instanceof EntityHedgehogBase));
 			return null;
 		});
 
