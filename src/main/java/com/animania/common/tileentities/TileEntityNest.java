@@ -7,13 +7,13 @@ import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.AnimalTypeHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.tileentities.handler.ItemHandlerNest;
 
 import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
@@ -180,18 +180,18 @@ public class BlockEntityNest extends BlockEntity implements Tickable
 
 	public static enum NestContent
 	{
-		EMPTY(Items.AIR), CHICKEN_WHITE(Items.EGG), CHICKEN_BROWN(RItem.getByNameOrId(Animania.MODID + ":brown_egg")), PEACOCK_WHITE(RItem.getByNameOrId(Animania.MODID + ":peacock_egg_white")), PEACOCK_BLUE(RItem.getByNameOrId(Animania.MODID + ":peacock_egg_blue"));
+		EMPTY(Items.AIR), CHICKEN_WHITE(Items.EGG), CHICKEN_BROWN(Item.getByNameOrId(Animania.MODID + ":brown_egg")), PEACOCK_WHITE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_white")), PEACOCK_BLUE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_blue"));
 
-		private RItem item;
+		private Item item;
 
-		private NestContent(RItem item)
+		private NestContent(Item item)
 		{
 			if (item == null)
 				item = Items.AIR;
 			this.item = item;
 		}
 
-		public RItem getItem()
+		public Item getItem()
 		{
 			return this.item;
 		}

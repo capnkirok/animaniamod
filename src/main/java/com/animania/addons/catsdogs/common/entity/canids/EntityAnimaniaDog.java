@@ -28,7 +28,6 @@ import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -53,6 +52,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -332,7 +332,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	protected RItem getDropItem()
+	protected Item getDropItem()
 	{
 		return null;
 	}
@@ -376,7 +376,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
 	}

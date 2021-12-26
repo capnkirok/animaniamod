@@ -31,7 +31,6 @@ import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -53,6 +52,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -257,7 +257,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 
 	private boolean isCowBreedingItem(ItemStack itemIn)
 	{
-		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.RED_FLOWER);
+		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override
@@ -277,7 +277,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.cowType, this.gender));
 	}

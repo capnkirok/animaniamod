@@ -3,7 +3,6 @@ package com.animania.addons.extra.common.item;
 import java.util.List;
 
 import com.animania.Animania;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
@@ -12,12 +11,13 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemHamsterBall extends RItem
+public class ItemHamsterBall extends Item
 {
 	private String name;
 

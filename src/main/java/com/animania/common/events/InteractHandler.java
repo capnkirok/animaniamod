@@ -6,7 +6,6 @@ import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.handler.AdvancementHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
@@ -18,6 +17,7 @@ import net.minecraft.util.InteractionResultHolderType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -39,7 +39,7 @@ public class InteractHandler
 
 		if (stack != ItemStack.EMPTY && (stack.getItem() == Items.WHEAT_SEEDS || stack.getItem() == Items.PUMPKIN_SEEDS || stack.getItem() == Items.MELON_SEEDS || stack.getItem() == Items.BEETROOT_SEEDS) && (AnimaniaConfig.gameRules.shiftSeedPlacement ? player.isSneaking() : true))
 		{
-			RItem item = stack.getItem();
+			Item item = stack.getItem();
 			RayTraceResult ray = AnimaniaHelper.rayTrace(player, player.isCreative() ? 5.5 : 4.5);
 
 			if (ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK)

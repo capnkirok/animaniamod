@@ -2,7 +2,6 @@ package com.animania.addons.farm.common.item;
 
 import com.animania.Animania;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.resources.ResourceLocation;
@@ -13,10 +12,11 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemBrownEgg extends RItem
+public class ItemBrownEgg extends Item
 {
 	private String name = "brown_egg";
 
@@ -45,7 +45,7 @@ public class ItemBrownEgg extends RItem
 		if (!playerIn.capabilities.isCreativeMode)
 			itemStackIn.setCount(itemStackIn.getCount() - 1);
 
-		levelIn.playSound((Player) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RItem.itemRand.nextFloat() * 0.4F + 0.8F));
+		levelIn.playSound((Player) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (Item.itemRand.nextFloat() * 0.4F + 0.8F));
 
 		if (!levelIn.isClientSide)
 		{

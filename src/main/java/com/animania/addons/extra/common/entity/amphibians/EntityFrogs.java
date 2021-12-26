@@ -13,7 +13,6 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.handler.DamageSourceHandler;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.core.BlockPos;
@@ -36,6 +35,7 @@ import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class EntityFrogs extends EntityAmphibian
@@ -260,7 +260,7 @@ public class EntityFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.FROG, EntityGender.NONE));
 	}

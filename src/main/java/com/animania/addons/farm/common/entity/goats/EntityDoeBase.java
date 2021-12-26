@@ -13,7 +13,6 @@ import com.animania.api.interfaces.IMateable;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -31,6 +30,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidInteractionResultHolder;
@@ -180,11 +180,11 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 				if (!result.success)
 				{
-					RItem item = stack.getItem();
+					Item item = stack.getItem();
 					if (item == Items.BUCKET)
 						filled = this.milk.copy();
-					else if (ModList.get().isLoaded("ceramics") && item == RItem.getByNameOrId("ceramics:clay_bucket"))
-						filled = new ItemStack(RItem.getByNameOrId("ceramics:clay_bucket"), 1, 1);
+					else if (ModList.get().isLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
+						filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 					else
 						return false;
 				}

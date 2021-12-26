@@ -27,7 +27,6 @@ import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -50,6 +49,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -325,7 +325,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	}
 
 	@Override
-	protected RItem getDropItem()
+	protected Item getDropItem()
 	{
 		return null;
 	}
@@ -369,7 +369,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
 	}

@@ -10,12 +10,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
@@ -152,9 +152,9 @@ public class RecipeHandler
 
 	private static Map<String, Object> serializeItem(Object thing)
 	{
-		if (thing instanceof RItem)
+		if (thing instanceof Item)
 		{
-			return serializeItem(new ItemStack((RItem) thing));
+			return serializeItem(new ItemStack((Item) thing));
 		}
 		if (thing instanceof Block)
 		{

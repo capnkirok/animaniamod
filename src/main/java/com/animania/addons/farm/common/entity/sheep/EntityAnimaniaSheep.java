@@ -41,7 +41,6 @@ import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -68,6 +67,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
@@ -295,7 +295,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	protected RItem getDropItem()
+	protected Item getDropItem()
 	{
 		return Items.LEATHER;
 	}
@@ -432,7 +432,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 
 	private boolean isSheepBreedingItem(ItemStack itemIn)
 	{
-		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.RED_FLOWER);
+		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override
@@ -477,7 +477,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.sheepType, this.gender));
 	}

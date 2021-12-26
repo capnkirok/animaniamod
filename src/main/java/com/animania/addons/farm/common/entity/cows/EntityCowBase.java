@@ -13,7 +13,6 @@ import com.animania.api.interfaces.IMateable;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -36,6 +35,7 @@ import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidInteractionResultHolder;
 import net.minecraftforge.fluids.FluidUtil;
@@ -203,11 +203,11 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 				if (!result.success)
 				{
-					RItem item = stack.getItem();
+					Item item = stack.getItem();
 					if (item == Items.BUCKET)
 						filled = this.milk.copy();
-					else if (ModList.get().isLoaded("ceramics") && item == RItem.getByNameOrId("ceramics:clay_bucket"))
-						filled = new ItemStack(RItem.getByNameOrId("ceramics:clay_bucket"), 1, 1);
+					else if (ModList.get().isLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
+						filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 					else
 						return false;
 				}

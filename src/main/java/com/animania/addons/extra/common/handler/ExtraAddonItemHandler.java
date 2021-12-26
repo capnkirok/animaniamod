@@ -5,7 +5,6 @@ import com.animania.addons.extra.common.entity.peafowl.PeacockType;
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitType;
 import com.animania.addons.extra.common.item.ItemHamsterBall;
 import com.animania.api.data.EntityGender;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.AnimaniaItem;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.common.items.ItemAnimaniaFoodRaw;
@@ -13,41 +12,42 @@ import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Item;
 
 public class ExtraAddonItemHandler
 {
 
-	public static RItem hamsterBallClear;
-	public static RItem hamsterBallColored;
-	public static RItem hamsterFood;
-	public static RItem peacockFeatherBlue;
-	public static RItem peacockFeatherWhite;
-	public static RItem peacockFeatherCharcoal;
-	public static RItem peacockFeatherOpal;
-	public static RItem peacockFeatherPeach;
-	public static RItem peacockFeatherPurple;
-	public static RItem peacockFeatherTaupe;
+	public static Item hamsterBallClear;
+	public static Item hamsterBallColored;
+	public static Item hamsterFood;
+	public static Item peacockFeatherBlue;
+	public static Item peacockFeatherWhite;
+	public static Item peacockFeatherCharcoal;
+	public static Item peacockFeatherOpal;
+	public static Item peacockFeatherPeach;
+	public static Item peacockFeatherPurple;
+	public static Item peacockFeatherTaupe;
 
-	public static RItem peacockEggBlue;
-	public static RItem peacockEggWhite;
+	public static Item peacockEggBlue;
+	public static Item peacockEggWhite;
 
 	// Frogs
-	public static RItem rawFrogLegs;
-	public static RItem cookedFrogLegs;
+	public static Item rawFrogLegs;
+	public static Item cookedFrogLegs;
 
 	// Peacock
-	public static RItem rawPeacock;
-	public static RItem cookedPeacock;
-	public static RItem rawPrimePeacock;
-	public static RItem cookedPrimePeacock;
+	public static Item rawPeacock;
+	public static Item cookedPeacock;
+	public static Item rawPrimePeacock;
+	public static Item cookedPrimePeacock;
 
 	// Rabbit
-	public static RItem rawPrimeRabbit;
-	public static RItem cookedPrimeRabbit;
+	public static Item rawPrimeRabbit;
+	public static Item cookedPrimeRabbit;
 
-	public static RItem entityeggrandompeacock;
-	public static RItem entityeggrandomrabbit;
-	public static RItem entityeggdartfrog;
+	public static Item entityeggrandompeacock;
+	public static Item entityeggrandomrabbit;
+	public static Item entityeggdartfrog;
 
 	/**
 	 * Register Items

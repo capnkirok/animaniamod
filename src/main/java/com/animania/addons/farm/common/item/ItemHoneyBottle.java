@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.addons.farm.common.item.handler.FluidHandlerHoneyBottle;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.helper.RomanNumberHelper;
 import com.animania.common.helper.TimeHelper;
 import com.animania.common.items.AnimaniaItem;
@@ -33,6 +32,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -148,7 +148,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public RItem getContainerItem()
+	public Item getContainerItem()
 	{
 		return Items.GLASS_BOTTLE;
 	}

@@ -7,7 +7,6 @@ import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.client.models.item.AnimatedEggModelWrapper;
 import com.animania.client.render.item.RenderAnimatedEgg;
 import com.animania.common.handler.ItemHandler;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.manual.resources.ManualResourceLoader;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -23,6 +22,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -177,7 +177,7 @@ public class CarryRenderer
 	@SideOnly(Dist.CLIENT)
 	public static void onModelBake(ModelBakeEvent event)
 	{
-		for (RItem item : ItemHandler.entityEggList)
+		for (Item item : ItemHandler.entityEggList)
 		{
 			if (item instanceof ItemEntityEggAnimated)
 			{
@@ -194,7 +194,7 @@ public class CarryRenderer
 	@SideOnly(Dist.CLIENT)
 	public static void onModelRegistryReady(ModelRegistryEvent event)
 	{
-		for (RItem item : ItemHandler.entityEggList)
+		for (Item item : ItemHandler.entityEggList)
 		{
 			if (item instanceof ItemEntityEggAnimated)
 			{

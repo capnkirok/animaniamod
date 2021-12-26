@@ -1,10 +1,10 @@
 package com.animania.common.recipes.ingredients;
 
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.config.AnimaniaConfig;
 import com.google.gson.JsonObject;
 
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.IIngredientFactory;
@@ -20,7 +20,7 @@ public class PigFoodIngredient extends Ingredient
 
 	public static ItemStack[] getStacks()
 	{
-		RItem[] items = AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.slopIngredients);
+		Item[] items = AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.slopIngredients);
 		ItemStack[] stacks = new ItemStack[items.length];
 
 		for (int i = 0; i < items.length; i++)

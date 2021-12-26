@@ -3,14 +3,15 @@ package com.animania.addons.catsdogs.common.handler;
 import com.animania.addons.catsdogs.common.entity.canids.DogType;
 import com.animania.addons.catsdogs.common.entity.felids.CatType;
 import com.animania.api.data.EntityGender;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
+
+import net.minecraft.world.item.Item;
 
 public class CatsDogsAddonItemHandler
 {
 
-	public static RItem entityeggrandomdog;
-	public static RItem entityeggrandomcat;
+	public static Item entityeggrandomdog;
+	public static Item entityeggrandomcat;
 
 	/**
 	 * Register Items

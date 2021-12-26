@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import com.animania.Animania;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.BlockEntitySyncPacket;
 import com.google.gson.Gson;
@@ -38,6 +37,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -73,7 +73,7 @@ public class AnimaniaHelper
 			metaFlag = true;
 		}
 
-		RItem item = RItem.getByNameOrId(name);
+		Item item = Item.getByNameOrId(name);
 
 		if (item != null)
 		{
@@ -152,7 +152,7 @@ public class AnimaniaHelper
 	{
 		String itemName = JsonUtils.getString(json, "item");
 
-		RItem item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
+		Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
 
 		if (item == null)
 			throw new JsonSyntaxException("Unknown item '" + itemName + "'");
@@ -266,12 +266,12 @@ public class AnimaniaHelper
 		return false;
 	}
 
-	public static RItem[] getItemArray(String[] names)
+	public static Item[] getItemArray(String[] names)
 	{
-		ArrayList<RItem> list = new ArrayList<RItem>();
+		ArrayList<Item> list = new ArrayList<Item>();
 		for (String name : names)
 		{
-			RItem i = StringParser.getItem(name);
+			Item i = StringParser.getItem(name);
 			if (i != null)
 			{
 				list.add(i);
@@ -287,7 +287,7 @@ public class AnimaniaHelper
 			}
 		}
 
-		return list.toArray(new RItem[list.size()]);
+		return list.toArray(new Item[list.size()]);
 	}
 
 	public static ItemStack[] getItemStackArray(String[] names)
@@ -454,11 +454,11 @@ public class AnimaniaHelper
 				for (int k = 0; k < entries.size(); k++)
 				{
 					String name = entries.get(k).getAsJsonObject().get("name").getAsString();
-					RItem item = RItem.getByNameOrId(name);
+					Item item = Item.getByNameOrId(name);
 					if (item != null)
 					{
 						ItemStack stack = new ItemStack(item);
-						if (item == RItem.getItemFromBlock(Blocks.WOOL))
+						if (item == Item.getItemFromBlock(Blocks.WOOL))
 							stack = addTooltipToStack(stack, I18n.translateToLocal("manual.blocks.wool.colored"));
 						stacks.add(stack);
 					}

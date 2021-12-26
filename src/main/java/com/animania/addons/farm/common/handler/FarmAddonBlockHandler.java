@@ -18,8 +18,8 @@ import com.animania.addons.farm.common.tileentity.BlockEntityCheeseMold;
 import com.animania.addons.farm.common.tileentity.BlockEntityHive;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.common.blocks.fluids.FluidBase;
-import com.animania.common.helper.RegistryHelper.RItem;
 
+import net.minecraft.world.item.Item;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -63,14 +63,14 @@ public class FarmAddonBlockHandler
 		blockCheeseGoat = new BlockCheese("cheese_goat");
 		blockCheeseSheep = new BlockCheese("cheese_sheep");
 
-		cheeseWheelFriesian = RItem.byBlock(blockCheeseFriesian);
-		cheeseWheelHolstein = RItem.byBlock(blockCheeseHolstein);
-		cheeseWheelJersey = RItem.byBlock(blockCheeseJersey);
-		cheeseWheelGoat = RItem.byBlock(blockCheeseGoat);
-		cheeseWheelSheep = RItem.byBlock(blockCheeseSheep);
+		cheeseWheelFriesian = Item.byBlock(blockCheeseFriesian);
+		cheeseWheelHolstein = Item.byBlock(blockCheeseHolstein);
+		cheeseWheelJersey = Item.byBlock(blockCheeseJersey);
+		cheeseWheelGoat = Item.byBlock(blockCheeseGoat);
+		cheeseWheelSheep = Item.byBlock(blockCheeseSheep);
 
 		blockCheeseMold = new BlockCheeseMold();
-		cheeseMold = RItem.byBlock(blockCheeseMold);
+		cheeseMold = Item.byBlock(blockCheeseMold);
 		blockAnimaniaWool = new BlockAnimaniaWool();
 		blockHive = new BlockHive();
 		blockWildHive = new BlockWildHive();

@@ -7,7 +7,6 @@ import com.animania.api.interfaces.IAnimaniaAnimal;
 import com.animania.api.interfaces.IGendered;
 import com.animania.api.interfaces.ISpawnable;
 import com.animania.common.handler.AddonInjectionHandler;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ILivingEntityData;
@@ -27,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -486,7 +486,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return null;
 	}

@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import PropertyEnum;
 import net.minecraft.block.properties.IProperty;
@@ -22,6 +21,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
@@ -101,7 +101,7 @@ public class BlockSeeds extends Block
 
 	@Override
 	@Nullable
-	public RItem getItemDropped(BlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
 		switch (state.getValue(VARIANT))
 		{

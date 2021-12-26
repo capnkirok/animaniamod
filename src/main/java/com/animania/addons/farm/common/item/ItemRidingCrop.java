@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.horses.EntityAnimaniaHorse;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
@@ -15,12 +14,13 @@ import net.minecraft.util.InteractionResultHolderType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemRidingCrop extends RItem
+public class ItemRidingCrop extends Item
 {
 	private String name = "riding_crop";
 

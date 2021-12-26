@@ -9,7 +9,6 @@ import com.animania.api.addons.AnimaniaAddon;
 import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
 import com.animania.common.handler.AddonHandler;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.manual.gui.GuiManual;
 import com.animania.manual.resources.ManualResourceLoader;
@@ -24,6 +23,7 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.IResourcePack;
 import net.minecraft.server.packs.resources.SimpleReloadableResourceManager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.ModelLoader;
@@ -55,7 +55,7 @@ public class ClientProxy extends CommonProxy
 		super.init(event);
 		RenderHandler.init();
 
-		for (RItem item : ForgeRegistries.ITEMS.getValues())
+		for (Item item : ForgeRegistries.ITEMS.getValues())
 		{
 			if (item instanceof ItemEntityEgg)
 			{
@@ -80,7 +80,7 @@ public class ClientProxy extends CommonProxy
 		super.registerFluidBlockRendering(block, name);
 		FluidStateMapper mapper = new FluidStateMapper(name);
 
-		RItem item = RItem.getItemFromBlock(block);
+		Item item = Item.getItemFromBlock(block);
 		ModelBakery.registerItemVariants(item);
 		ModelLoader.setCustomMeshDefinition(item, mapper);
 

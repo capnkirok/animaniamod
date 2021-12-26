@@ -7,7 +7,6 @@ import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.core.BlockPos;
@@ -25,6 +24,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 
@@ -232,7 +232,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.DART_FROG, EntityGender.NONE));
 	}

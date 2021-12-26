@@ -189,7 +189,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 
 	private boolean isGoatBreedingItem(ItemStack itemIn)
 	{
-		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.RED_FLOWER);
+		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	public boolean getSpooked()
@@ -250,7 +250,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	protected RItem getDropItem()
+	protected Item getDropItem()
 	{
 		return Items.LEATHER;
 	}
@@ -348,7 +348,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 
 				for (int j = 0; j < i; ++j)
 				{
-					EntityItem entityitem = this.entityDropItem(new ItemStack(RItem.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+					EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
 					entityitem.motionY += this.rand.nextFloat() * 0.05F;
 					entityitem.motionX += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
 					entityitem.motionZ += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
@@ -453,7 +453,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.goatType, this.gender));
 	}

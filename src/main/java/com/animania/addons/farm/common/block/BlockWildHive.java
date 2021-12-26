@@ -2,10 +2,10 @@ package com.animania.addons.farm.common.block;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -24,7 +24,7 @@ public class BlockWildHive extends BlockHive
 		this.setHardness(1.3f);
 		this.setResistance(0.3f);
 		BlockHandler.blocks.add(this);
-		RItem item = new BlockItem(this);
+		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "wild_hive"));
 		ForgeRegistries.ITEMS.register(item);
 	}

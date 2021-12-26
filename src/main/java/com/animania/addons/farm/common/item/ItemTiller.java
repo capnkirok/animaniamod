@@ -4,7 +4,6 @@ import com.animania.Animania;
 import com.animania.addons.farm.common.entity.pullables.EntityTiller;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.InteractionResultHolderType;
@@ -12,10 +11,11 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemTiller extends RItem
+public class ItemTiller extends Item
 {
 	public ItemTiller()
 	{

@@ -5,7 +5,6 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 
@@ -17,6 +16,7 @@ import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.ModList;
@@ -31,9 +31,9 @@ public class DispenserHandler
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.MELON_SEEDS, SEEDS_DISPENSER_BEHAVIOUR);
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BEETROOT_SEEDS, SEEDS_DISPENSER_BEHAVIOUR);
 
-		for (ResourceLocation path : RItem.REGISTRY.getKeys())
+		for (ResourceLocation path : Item.REGISTRY.getKeys())
 		{
-			RItem item = RItem.getByNameOrId(path.toString());
+			Item item = Item.getByNameOrId(path.toString());
 			if (item instanceof ItemEntityEgg)
 			{
 				BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, SPAWNEGG_DISPENSER_BEHAVIOUR);
@@ -51,7 +51,7 @@ public class DispenserHandler
 			Level level = source.getLevel();
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			BlockPos below = pos.offset(Direction.DOWN);
-			RItem item = stack.getItem();
+			Item item = stack.getItem();
 
 			if (level.getBlockState(pos).getBlock() != BlockHandler.blockSeeds && level.getBlockState(below).isFullBlock() && level.getBlockState(below).isOpaqueCube() && !(level.getBlockState(below).getBlock() instanceof BlockFarmland) && !(level.getBlockState(below).getBlock() instanceof IPlantable) && AnimaniaConfig.gameRules.allowSeedDispenserPlacement)
 			{

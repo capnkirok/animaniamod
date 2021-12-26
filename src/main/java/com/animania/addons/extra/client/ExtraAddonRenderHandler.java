@@ -93,7 +93,6 @@ import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitE
 import com.animania.addons.extra.common.handler.ExtraAddonBlockHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 import com.animania.addons.extra.common.tileentity.BlockEntityHamsterWheel;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 import com.leviathanstudio.craftstudio.client.util.EnumRenderType;
@@ -102,6 +101,7 @@ import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
 import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
@@ -151,7 +151,7 @@ public class ExtraAddonRenderHandler
 		register(ExtraAddonItemHandler.entityeggdartfrog);
 		register(ExtraAddonItemHandler.entityeggrandomrabbit);
 
-		register(RItem.byBlock(ExtraAddonBlockHandler.blockHamsterWheel));
+		register(Item.byBlock(ExtraAddonBlockHandler.blockHamsterWheel));
 
 		// Rabbits
 		RenderingRegistry.registerEntityRenderingHandler(RabbitEntityBuckCottontail.class, RenderBuckCottontail.FACTORY);
@@ -250,20 +250,20 @@ public class ExtraAddonRenderHandler
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static void register(RItem item)
+	private static void register(Item item)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private static void register(RItem item, String name, int meta)
+	private static void register(Item item, String name, int meta)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name, "inventory"));
 	}
 
 	@SideOnly(Dist.CLIENT)
 
-	private static void registerColored(RItem item, String name)
+	private static void registerColored(Item item, String name)
 	{
 		for (int meta = 0; meta < 16; meta++)
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));

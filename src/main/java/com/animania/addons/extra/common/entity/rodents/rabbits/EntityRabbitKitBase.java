@@ -6,7 +6,6 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
@@ -14,6 +13,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.item.Item;
 
 public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfoProviderChild, IChild
 {
@@ -95,7 +95,7 @@ public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	}
 
 	@Override
-	protected RItem getDropItem()
+	protected Item getDropItem()
 	{
 		return null;
 	}

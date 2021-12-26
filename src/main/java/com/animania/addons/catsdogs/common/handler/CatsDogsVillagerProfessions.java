@@ -10,12 +10,12 @@ import com.animania.addons.catsdogs.common.entity.felids.CatType;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.entity.merchant.villager.VillagerEntity.ListItemForEmeralds;
 import net.minecraft.entity.merchant.villager.VillagerEntity.PriceInfo;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.VillagerRegistry.VillagerCareer;
@@ -56,7 +56,7 @@ public class CatsDogsVillagerProfessions
 		event.getRegistry().register(petSeller);
 	}
 
-	private static ListItemForEmeralds t(RItem i, int a, int b)
+	private static ListItemForEmeralds t(Item i, int a, int b)
 	{
 		PriceInfo p = new PriceInfo(a, b);
 		return new ListItemForEmeralds(i, p);

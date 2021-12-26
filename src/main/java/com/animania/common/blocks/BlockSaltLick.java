@@ -5,7 +5,6 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemSaltLick;
 import com.animania.common.tileentities.BlockEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
@@ -17,6 +16,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,7 +38,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 		this.setHardness(1.2f);
 		this.setResistance(1.7f);
 		this.hasBlockEntity = true;
-		RItem item = new ItemSaltLick(this);
+		Item item = new ItemSaltLick(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "salt_lick"));
 
 		ForgeRegistries.ITEMS.register(item);
@@ -77,7 +77,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 
 	@Override
-	public RItem getItemDropped(BlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
 		return Items.AIR;
 	}

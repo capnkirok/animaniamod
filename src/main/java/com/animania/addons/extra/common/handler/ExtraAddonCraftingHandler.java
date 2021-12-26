@@ -11,8 +11,7 @@ import static com.animania.addons.extra.common.handler.ExtraAddonItemHandler.raw
 import static com.animania.addons.extra.common.handler.ExtraAddonItemHandler.rawPrimePeacock;
 import static com.animania.addons.extra.common.handler.ExtraAddonItemHandler.rawPrimeRabbit;
 
-import com.animania.common.helper.RegistryHelper.RItem;
-
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -26,7 +25,7 @@ public class ExtraAddonCraftingHandler
 		GameRegistry.addSmelting(rawFrogLegs, new ItemStack(cookedFrogLegs, 1), .3F);
 		GameRegistry.addSmelting(rawPrimeRabbit, new ItemStack(cookedPrimeRabbit, 1), .3F);
 
-		RItem plainOmelette = RItem.getByNameOrId("animania:plain_omelette");
+		Item plainOmelette = Item.getByNameOrId("animania:plain_omelette");
 
 		if (plainOmelette != null)
 		{

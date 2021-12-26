@@ -23,7 +23,6 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
@@ -48,6 +47,7 @@ import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase, IAnimaniaAnimalBase
@@ -276,7 +276,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 			if (this.featherCounter <= 0)
 			{
 				this.featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
-				RItem feather;
+				Item feather;
 
 				feather = switch (this.type)
 				{
@@ -371,7 +371,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
 	}

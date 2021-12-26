@@ -10,7 +10,6 @@ import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
@@ -19,6 +18,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProviderChild, IChild
@@ -126,7 +126,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
-	protected RItem getDropItem()
+	protected Item getDropItem()
 	{
 		return null;
 	}

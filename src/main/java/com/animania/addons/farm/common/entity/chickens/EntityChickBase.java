@@ -5,7 +5,6 @@ import java.util.UUID;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.google.common.base.Optional;
 
@@ -15,6 +14,7 @@ import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.item.Item;
 
 public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase, IChild
 {
@@ -104,7 +104,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	}
 
 	@Override
-	protected RItem getDropItem()
+	protected Item getDropItem()
 	{
 		return null;
 	}

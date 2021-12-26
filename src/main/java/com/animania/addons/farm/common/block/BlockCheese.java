@@ -5,7 +5,6 @@ import java.util.Random;
 import com.animania.Animania;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.config.AnimaniaConfig;
 
 import PropertyInteger;
@@ -24,6 +23,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
@@ -47,7 +47,7 @@ public class BlockCheese extends Block
 		this.setSoundType(SoundType.CLOTH);
 		this.setHardness(0.6f);
 		BlockHandler.blocks.add(this);
-		RItem item = new BlockItem(this);
+		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, name.substring(7) + "_cheese_wheel"));
 
 		ForgeRegistries.ITEMS.register(item);
@@ -80,9 +80,9 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public RItem getItemDropped(BlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		return RItem.getItemFromBlock(this);
+		return Item.getItemFromBlock(this);
 	}
 
 	@Override

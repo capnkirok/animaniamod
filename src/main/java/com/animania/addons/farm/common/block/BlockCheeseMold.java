@@ -8,7 +8,6 @@ import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
 import PropertyEnum;
@@ -31,6 +30,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -60,7 +60,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 		this.setHardness(0.9f);
 		this.setResistance(1.2f);
 		BlockHandler.blocks.add(this);
-		RItem item = new BlockItem(this);
+		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "cheese_mold"));
 
 		ForgeRegistries.ITEMS.register(item);

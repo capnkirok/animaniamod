@@ -3,28 +3,27 @@ package com.animania.common.helper;
 import java.util.Arrays;
 import java.util.List;
 
-import com.animania.common.helper.RegistryHelper.RItem;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemHelper
 {
 
-	public static void spawnItem(Level level, BlockPos pos, RItem item, int count, int meta)
+	public static void spawnItem(Level level, BlockPos pos, Item item, int count, int meta)
 	{
 		spawnItem(level, pos, new ItemStack(item, count, meta));
 	}
 
-	public static void spawnItem(Level level, BlockPos pos, RItem item, int count)
+	public static void spawnItem(Level level, BlockPos pos, Item item, int count)
 	{
 		spawnItem(level, pos, new ItemStack(item, count, 0));
 	}
 
-	public static void spawnItem(Level level, BlockPos pos, RItem item)
+	public static void spawnItem(Level level, BlockPos pos, Item item)
 	{
 		spawnItem(level, pos, new ItemStack(item, 1, 0));
 	}
@@ -52,7 +51,7 @@ public class ItemHelper
 		AnimaniaHelper.spawnEntity(level, item);
 	}
 
-	public static int getSlotForItem(RItem item, Player player)
+	public static int getSlotForItem(Item item, Player player)
 	{
 
 		final List<NonNullList<ItemStack>> allInventories = Arrays.<NonNullList<ItemStack>> asList(player.inventory.mainInventory, player.inventory.armorInventory, player.inventory.offHandInventory);

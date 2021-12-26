@@ -7,7 +7,6 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
@@ -22,11 +21,12 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 
 public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProviderBase, IChild
 {
 	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.<Integer> defineId(EntityFoalBase.class, EntityEntityDataSerializers.INT);
-	private static final Set<RItem> TEMPTATION_ITEMS = Sets.newHashSet(Items.WHEAT, Items.APPLE, Items.CARROT);
+	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(Items.WHEAT, Items.APPLE, Items.CARROT);
 	private static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final EntityDataAccessor<Float> AGE = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;

@@ -7,13 +7,13 @@ import com.animania.addons.farm.common.entity.pigs.EntitySowBase;
 import com.animania.addons.farm.common.entity.sheep.EntityAnimaniaSheep;
 import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.item.ItemDye;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
@@ -95,9 +95,9 @@ public class FarmAddonInteractHandler
 	}
 
 	@SubscribeEvent
-	public static void missingMapping(RegistryEvent.MissingMappings<RItem> event)
+	public static void missingMapping(RegistryEvent.MissingMappings<Item> event)
 	{
-		for (MissingMappings.Mapping<RItem> entry : event.getAllMappings())
+		for (MissingMappings.Mapping<Item> entry : event.getAllMappings())
 		{
 
 			String key = entry.key.toString();

@@ -5,7 +5,6 @@ import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.core.BlockPos;
@@ -13,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class EntityToad extends EntityAmphibian
@@ -118,7 +118,7 @@ public class EntityToad extends EntityAmphibian
 			metaVal = moditem.substring(metaLoc + 1);
 		}
 
-		RItem bob = RItem.getByNameOrId(item);
+		Item bob = Item.getByNameOrId(item);
 
 		if (bob != null)
 		{
@@ -141,7 +141,7 @@ public class EntityToad extends EntityAmphibian
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.TOAD, EntityGender.NONE));
 	}

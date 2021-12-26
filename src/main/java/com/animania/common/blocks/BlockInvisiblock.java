@@ -8,7 +8,6 @@ import com.animania.Animania;
 import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.tileentities.BlockEntityInvisiblock;
 import com.animania.common.tileentities.BlockEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
@@ -25,6 +24,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -326,9 +326,9 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@Nullable
-	public RItem getItemDropped(BlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		return RItem.getItemFromBlock(BlockHandler.blockTrough);
+		return Item.getItemFromBlock(BlockHandler.blockTrough);
 	}
 
 	@Override

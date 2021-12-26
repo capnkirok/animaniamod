@@ -12,7 +12,6 @@ import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.addons.farm.common.inventory.CartChest;
 import com.animania.client.handler.AnimationHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
 
 import net.minecraft.client.Minecraft;
@@ -40,6 +39,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -187,7 +187,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
 				level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
 			}
-			else if (!this.getHasChest() && stack.getItem() != RItem.getItemFromBlock(Blocks.CHEST) && player.getRidingEntity() != this)
+			else if (!this.getHasChest() && stack.getItem() != Item.getItemFromBlock(Blocks.CHEST) && player.getRidingEntity() != this)
 			{
 				player.startRiding(this);
 
@@ -204,7 +204,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		else if (!player.isSneaking())
 		{
 
-			if (stack.getItem() == RItem.getItemFromBlock(Blocks.CHEST) && !this.getHasChest() && !this.isBeingRidden())
+			if (stack.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !this.getHasChest() && !this.isBeingRidden())
 			{
 				this.setHasChest(true);
 				if (!player.isCreative())
@@ -891,7 +891,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 						if (this.getHasChest())
 						{
 							InventoryHelper.dropInventoryItems(level, this.getPosition(), this.cartChest);
-							this.dropItemWithOffset(RItem.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
+							this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
 						}
 					}
 

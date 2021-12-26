@@ -1,11 +1,11 @@
 package com.animania.api.interfaces;
 
-import com.animania.common.helper.RegistryHelper.RItem;
+import net.minecraft.world.item.Item;
 
 public interface ISpawnable
 {
 
-	public RItem getSpawnEgg();
+	public Item getSpawnEgg();
 
 	public int getPrimaryEggColor();
 

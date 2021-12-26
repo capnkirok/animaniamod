@@ -5,7 +5,6 @@ import com.animania.addons.extra.common.capabilities.CapabilityRefs;
 import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.network.CapSyncPacket;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
@@ -14,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -61,9 +61,9 @@ public class CarryInteractHandler
 	}
 
 	@SubscribeEvent
-	public static void missingMapping(RegistryEvent.MissingMappings<RItem> event)
+	public static void missingMapping(RegistryEvent.MissingMappings<Item> event)
 	{
-		for (MissingMappings.Mapping<RItem> entry : event.getAllMappings())
+		for (MissingMappings.Mapping<Item> entry : event.getAllMappings())
 		{
 
 			String key = entry.key.toString();

@@ -9,7 +9,6 @@ import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.tileentities.BlockEntityNest;
 import com.animania.common.tileentities.BlockEntityNest.NestContent;
 import com.animania.compat.top.providers.TOPInfoProvider;
@@ -26,6 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -136,9 +136,9 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@Nullable
-	public RItem getItemDropped(BlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		return RItem.getItemFromBlock(BlockHandler.blockNest);
+		return Item.getItemFromBlock(BlockHandler.blockNest);
 	}
 
 	@Override

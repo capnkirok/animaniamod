@@ -10,7 +10,6 @@ import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
@@ -23,6 +22,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProviderChild, IChild
@@ -110,7 +110,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	protected RItem getDropItem()
+	protected Item getDropItem()
 	{
 		return null;
 	}
@@ -149,7 +149,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	private boolean isCowBreedingItem(ItemStack itemIn)
 	{
-		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == RItem.getItemFromBlock(Blocks.RED_FLOWER);
+		return AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, itemIn) || itemIn.getItem() == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override

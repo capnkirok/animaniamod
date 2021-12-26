@@ -5,7 +5,6 @@ import java.util.List;
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 
 import net.minecraft.stats.StatList;
 import net.minecraft.util.InteractionResultHolderType;
@@ -16,10 +15,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemWagon extends RItem
+public class ItemWagon extends Item
 {
 	public ItemWagon()
 	{

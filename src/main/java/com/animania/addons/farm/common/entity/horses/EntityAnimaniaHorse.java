@@ -28,7 +28,6 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.helper.RegistryHelper.RItem;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -54,6 +53,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -83,8 +83,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	private ResourceLocation resourceLocationBlink;
 	protected EntityGender gender;
 	protected ContainerHorseCart cartChest;
-	protected RItem dropRaw = Items.AIR;
-	protected RItem dropCooked = Items.AIR;
+	protected Item dropRaw = Items.AIR;
+	protected Item dropCooked = Items.AIR;
 	protected boolean boosting;
 	protected int boostTime;
 	protected int totalBoostTime;
@@ -580,7 +580,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	}
 
 	@Override
-	public RItem getSpawnEgg()
+	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.horseType, this.gender));
 	}
