@@ -52,7 +52,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     
-	mappings channel: 'official', version: "1.16.5"
+	mappings channel: 'parchment', version: "${mapping_version}-${mcversion}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	
