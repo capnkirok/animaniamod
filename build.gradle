@@ -183,7 +183,7 @@ repositories {
 
 dependencies {
 
-    minecraft "net.minecraftforge:forge:1.16.5-36.2.20"
+    minecraft "net.minecraftforge:forge:${forgeversion}"
 
    //compile 'com.leviathanstudio:CraftStudioAPI:1.0.0.93-mc1.12-alpha:dev'
    //compile files('libs/CraftStudioAPI-1.0.1.95-mc1.12-alpha.jar')
