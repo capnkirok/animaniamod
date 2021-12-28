@@ -29,7 +29,7 @@ public class BlockProp extends AnimaniaRotateable implements EntityBlock
 
 	public Block setAABB(double x1, double y1, double z1, double x2, double y2, double z2)
 	{
-		this.AABB = new AxisAlignedBB(x1 / 16, y1 / 16, z1 / 16, x2 / 16, y2 / 16, z2 / 16);
+		this.AABB = new AABB(x1 / 16, y1 / 16, z1 / 16, x2 / 16, y2 / 16, z2 / 16);
 		return this;
 	}
 
@@ -64,13 +64,13 @@ public class BlockProp extends AnimaniaRotateable implements EntityBlock
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return this.AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
+	public AABB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return this.AABB;
 	}

@@ -24,13 +24,13 @@ import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.AABB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -442,7 +442,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		if (this.isBeingRidden() && this.getControllingPassenger() instanceof Player && this.rideCooldown > 10 && level.isClientSide)
 		{
 			Player player = (Player) this.getControllingPassenger();
-			player.sendStatusMessage(new TextComponent(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
+			player.sendStatusMessage(new TextComponent(I18n.format("mount.onboard", Minecraft.getInstance().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
 		// Determine animation direction based on previous pos
@@ -869,7 +869,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 	@Override
 	@Nullable
-	public AxisAlignedBB getCollisionBox(Entity entityIn)
+	public AABB getCollisionBox(Entity entityIn)
 	{
 
 		double movX = Math.abs(this.getX() - this.prevgetX());
@@ -890,7 +890,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	 */
 	@Override
 	@Nullable
-	public AxisAlignedBB getCollisionBoundingBox()
+	public AABB getCollisionBoundingBox()
 	{
 		return this.getEntityBoundingBox();
 	}
@@ -929,9 +929,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	@Override
 	public void writeEntityToNBT(CompoundTag compound)
 	{
-		compound.putInteger("PullerType", this.getPullerType());
+		compound.putInt("PullerType", this.getPullerType());
 
-		NBTTagList nbttaglist = new NBTTagList();
+		ListTag ListTag = new ListTag();
 
 		for (int i = 0; i < this.wagonChest.getSizeInventory(); ++i)
 		{
@@ -942,12 +942,12 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				CompoundTag CompoundTag = new CompoundTag();
 				CompoundTag.setByte("Slot", (byte) i);
 				itemstack.writeToNBT(CompoundTag);
-				nbttaglist.appendTag(CompoundTag);
+				ListTag.appendTag(CompoundTag);
 			}
 		}
 		compound.putBoolean("HasChest", this.getHasChest());
 
-		compound.putTag("Items", nbttaglist);
+		compound.put("Items", ListTag);
 	}
 
 	@Override
@@ -955,12 +955,12 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	{
 		this.setPullerType(compound.getInteger("PullerType"));
 
-		NBTTagList nbttaglist = compound.getTagList("Items", 10);
+		ListTag ListTag = compound.getTagList("Items", 10);
 		this.initwagonChest();
 
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
+		for (int i = 0; i < ListTag.tagCount(); ++i)
 		{
-			CompoundTag CompoundTag = nbttaglist.getCompoundTagAt(i);
+			CompoundTag CompoundTag = ListTag.getCompoundTagAt(i);
 			int j = CompoundTag.getByte("Slot") & 255;
 
 			if (j >= 0 && j < this.wagonChest.getSizeInventory())
@@ -1057,7 +1057,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 			double d0 = 8.0D;
 			double d1 = 5.0D;
-			List<EntityMob> list = level.<EntityMob> getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(bedLocation.getX() - 8.0D, bedLocation.getY() - 5.0D, bedLocation.getZ() - 8.0D, bedLocation.getX() + 8.0D, bedLocation.getY() + 5.0D, bedLocation.getZ() + 8.0D));
+			List<EntityMob> list = level.<EntityMob> getEntitiesWithinAABB(EntityMob.class, new AABB(bedLocation.getX() - 8.0D, bedLocation.getY() - 5.0D, bedLocation.getZ() - 8.0D, bedLocation.getX() + 8.0D, bedLocation.getY() + 5.0D, bedLocation.getZ() + 8.0D));
 
 			if (!list.isEmpty())
 			{

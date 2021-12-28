@@ -1,10 +1,11 @@
 package com.animania.api.interfaces;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface IAgeable extends IAnimaniaAnimal
 {
-	public EntityDataAccessor<Integer> getAgeParam();
+	EntityDataAccessor<Integer> getAgeParam();
 
 	default void setAge(int age)
 	{

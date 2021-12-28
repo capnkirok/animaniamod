@@ -7,6 +7,8 @@ import com.animania.api.interfaces.IChild;
 import com.animania.client.render.layer.LayerBlinking;
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import net.minecraft.client.model.FoxModel;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -16,7 +18,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
+public class RenderFox<T extends EntityAnimaniaDog, M extends FoxModel<T>> extends LivingEntityRenderer<T, M>
 {
 	private final ResourceLocation texture = new ResourceLocation("animania:textures/entity/dogs/fox.png");
 	private final ResourceLocation texture_razz = new ResourceLocation("animania:textures/entity/dogs/razz_fox.png");

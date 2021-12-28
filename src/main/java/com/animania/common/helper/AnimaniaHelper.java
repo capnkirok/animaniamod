@@ -1,24 +1,10 @@
 package com.animania.common.helper;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.function.Predicate;
-
 import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.BlockEntitySyncPacket;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
@@ -26,31 +12,45 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.fluids.FluidInteractionResultHolder;
+import net.minecraftforge.common.util.JsonUtils;
+import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class AnimaniaHelper
 {
@@ -132,26 +132,27 @@ public class AnimaniaHelper
 		return b.getStateFromMeta(meta);
 	}
 
-	public static void sendBlockEntityUpdate(BlockEntity tile)
+	public static void sendBlockEntityUpdate(BlockEntity blockEntity)
 	{
-		if (tile != null && tile.getLevel() != null && !tile.getLevel().isClientSide)
+		if (blockEntity != null && blockEntity.getLevel() != null && !blockEntity.getLevel().isClientSide)
 		{
 			CompoundTag compound = new CompoundTag();
-			compound = tile.writeToNBT(compound);
+			blockEntity.deserializeNBT(compound);
+			compound = blockEntity.serializeNBT();
 
 			CompoundTag data = new CompoundTag();
-			data.putTag("data", compound);
-			data.putInteger("x", tile.getPos().getX());
-			data.putInteger("y", tile.getPos().getY());
-			data.putInteger("z", tile.getPos().getZ());
-			Animania.network.sendToAllAround(new BlockEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getLevel().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
+			data.put("data", compound);
+			data.putInt("x", blockEntity.getBlockPos().getX());
+			data.putInt("y", blockEntity.getBlockPos().getY());
+			data.putInt("z", blockEntity.getBlockPos().getZ());
+			Animania.network.sendToAllAround(new BlockEntitySyncPacket(data), new NetworkRegistry.TargetPoint(blockEntity.getLevel().provider.getDimension(), blockEntity.getPos().getX(), blockEntity.getPos().getY(), blockEntity.getPos().getZ(), 64));
 		}
 
 	}
 
 	public static ItemStack getItemStack(JsonObject json)
 	{
-		String itemName = JsonUtils.getString(json, "item");
+		String itemName = JsonUtils.readNBT(json, "item").get("name").getAsString();
 
 		Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
 
@@ -169,27 +170,27 @@ public class AnimaniaHelper
 				JsonElement element = json.get("nbt");
 				CompoundTag nbt;
 				if (element.isJsonObject())
-					nbt = JsonToNBT.getTagFromJson(GSON.toJson(element));
+					nbt = TagParser.parseTag(GSON.toJson(element));
 				else
-					nbt = JsonToNBT.getTagFromJson(element.getAsString());
+					nbt = TagParser.parseTag(element.getAsString());
 
 				CompoundTag tmp = new CompoundTag();
-				if (nbt.hasKey("ForgeCaps"))
+				if (nbt.contains("ForgeCaps"))
 				{
-					tmp.putTag("ForgeCaps", nbt.getTag("ForgeCaps"));
-					nbt.removeTag("ForgeCaps");
+					tmp.put("ForgeCaps", nbt.get("ForgeCaps"));
+					nbt.remove("ForgeCaps");
 				}
 
-				tmp.putTag("tag", nbt);
-				tmp.setString("id", itemName);
-				tmp.putInteger("Count", JsonUtils.getInt(json, "count", 1));
-				tmp.putInteger("Damage", JsonUtils.getInt(json, "data", 0));
+				tmp.put("tag", nbt);
+				tmp.putString("id", itemName);
+				tmp.putInt("Count", JsonUtils.getInt(json, "count", 1));
+				tmp.putInt("Damage", JsonUtils.getInt(json, "data", 0));
 
 				return new ItemStack(tmp);
 			}
-			catch (NBTException e)
+			catch (CommandSyntaxException e)
 			{
-				throw new JsonSyntaxException("Invalid NBT Entry: " + e.toString());
+				throw new JsonSyntaxException("Invalid NBT Entry: " + e);
 			}
 		}
 
@@ -198,13 +199,13 @@ public class AnimaniaHelper
 
 	public static void addItem(Player player, ItemStack stack)
 	{
-		if (!player.inventory.addItemStackToInventory(stack))
-			player.dropItem(stack, false);
+		if (!player.getInventory().add(stack))
+			player.drop(stack, false);
 	}
 
 	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, Level level, Entity theEntity)
 	{
-		List<T> list = level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
+		List<T> list = level.<T> getEntitiesOfClass(filterEntity, new AABB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
 		list.removeIf(e -> e == theEntity);
 		return list;
 	}
@@ -218,30 +219,30 @@ public class AnimaniaHelper
 
 	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, Level level, BlockPos pos)
 	{
-		return level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
+		return level.<T> getEntitiesOfClass(filterEntity, new AABB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
 	}
 
 	public static <T extends Entity> List<T> getEntitiesInRangeGeneric(Class<? extends T> filterEntity, double range, Level level, Entity theEntity)
 	{
-		return level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
+		return level.<T> getEntitiesOfClass(filterEntity, new AABB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
 	}
 
 	public static RayTraceResult rayTrace(Player player, double blockReachDistance)
 	{
-		Vec3d vec3d = player.getPositionEyes(1f);
-		Vec3d vec3d1 = player.getLook(1f);
-		Vec3d vec3d2 = vec3d.addVector(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
+		Vec3 vec3d = player.getEyePosition(1f);
+		Vec3 vec3d1 = player.getLookAngle(1f);
+		Vec3 vec3d2 = vec3d.add(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
 		return player.level.rayTraceBlocks(vec3d, vec3d2, false, false, true);
 	}
 
 	public static boolean hasFluid(ItemStack stack, Fluid fluid)
 	{
-		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
+		return FluidUtil.getFluidContained(stack).isPresent() && FluidUtil.getFluidContained(stack).get().getAmount() >= 1000 && FluidUtil.getFluidContained(stack).get().getFluid() == fluid;
 	}
 
 	public static boolean isEmptyFluidContainer(ItemStack stack)
 	{
-		return FluidUtil.getFluidHandler(stack) != null && FluidUtil.getFluidContained(stack) == null;
+		return FluidUtil.getFluidHandler(stack) != null && !FluidUtil.getFluidContained(stack).isPresent();
 	}
 
 	public static boolean isWaterContainer(ItemStack stack)
@@ -253,7 +254,8 @@ public class AnimaniaHelper
 	{
 		ItemStack copy = stack.copy();
 		copy.setCount(1);
-		FluidInteractionResultHolder result = FluidUtil.tryEmptyContainer(copy, FluidUtil.getFluidHandler(new ItemStack(Items.BUCKET)), 1000, null, true);
+		IFluidHandler fluidHandler = FluidUtil.getFluidHandler(new ItemStack(Items.BUCKET)).resolve().get();
+		FluidActionResult result = FluidUtil.tryEmptyContainer(copy, fluidHandler, 1000, null, true);
 		return result.result;
 	}
 
@@ -333,7 +335,7 @@ public class AnimaniaHelper
 		for (String ss : split)
 		{
 			String stripped = ChatFormatting.stripFormatting(ss);
-			String translated = I18n.get(stripped);
+			String translated = new TranslatableComponent(stripped);
 			result = result.replace(stripped, translated);
 		}
 		return result;
@@ -403,9 +405,9 @@ public class AnimaniaHelper
 
 	}
 
-	public static List<IRecipe> getRecipesForOutput(String output)
+	public static List<Recipe<?>> getRecipesForOutput(String output)
 	{
-		List<IRecipe> recipes = new ArrayList<IRecipe>();
+		List<Recipe<?>> recipes = new ArrayList<>();
 
 		String[] split = output.split(",");
 		for (String s : split)
@@ -413,8 +415,8 @@ public class AnimaniaHelper
 			ItemStack stack = StringParser.getItemStack(s);
 			if (stack.isEmpty())
 			{
-				IRecipe re;
-				if ((re = ForgeRegistries.RECIPES.getValue(new ResourceLocation(s))) != null)
+				Recipe<?> re = ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation(s));
+				if (re != null)
 				{
 					recipes.add(re);
 				}
@@ -427,7 +429,7 @@ public class AnimaniaHelper
 			{
 				ItemStack outputStack = r.getRecipeOutput().copy();
 				outputStack.setCount(1);
-				if (ItemStack.areItemStacksEqual(outputStack, stack))
+				if (ItemStack.matches(outputStack, stack))
 				{
 					recipes.add(r);
 				}
@@ -441,11 +443,11 @@ public class AnimaniaHelper
 	{
 		List<ItemStack> stacks = new ArrayList<>();
 
-		table = new ResourceLocation(table.getResourceDomain(), "loot_tables/" + table.getResourcePath() + ".json");
+		table = new ResourceLocation(table.getNamespace(), "loot_tables/" + table.getPath() + ".json");
 
 		try
 		{
-			InputStream stream = Minecraft.getMinecraft().getResourceManager().getResource(table).getInputStream();
+			InputStream stream = Minecraft.getInstance().getResourceManager().getResource(table).getInputStream();
 			JsonParser parser = new JsonParser();
 			JsonObject base = (JsonObject) parser.parse(new InputStreamReader(stream));
 			JsonArray pools = base.getAsJsonArray("pools");
@@ -455,11 +457,11 @@ public class AnimaniaHelper
 				for (int k = 0; k < entries.size(); k++)
 				{
 					String name = entries.get(k).getAsJsonObject().get("name").getAsString();
-					Item item = Item.getByNameOrId(name);
+					Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse(name));
 					if (item != null)
 					{
 						ItemStack stack = new ItemStack(item);
-						if (item == Item.getItemFromBlock(Blocks.WOOL))
+						if (item == Item.BY_BLOCK.get(Blocks.WHITE_WOOL))
 							stack = addTooltipToStack(stack, I18n.translateToLocal("manual.blocks.wool.colored"));
 						stacks.add(stack);
 					}
@@ -476,13 +478,13 @@ public class AnimaniaHelper
 
 	public static ItemStack addTooltipToStack(ItemStack stack, String tooltip)
 	{
-		CompoundTag tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundTag();
+		CompoundTag tag = stack.hasTag() ? stack.getTag() : new CompoundTag();
 		CompoundTag display = new CompoundTag();
-		NBTTagList lore = new NBTTagList();
-		lore.appendTag(new NBTTagString(ChatFormatting.GRAY + tooltip));
-		display.putTag("Lore", lore);
-		tag.putTag("display", display);
-		stack.putTagCompound(tag);
+		ListTag lore = new ListTag();
+		lore.add(StringTag.valueOf(ChatFormatting.GRAY + tooltip));
+		display.put("Lore", lore);
+		tag.put("display", display);
+		stack.deserializeNBT(tag);
 		return stack;
 	}
 
@@ -501,7 +503,7 @@ public class AnimaniaHelper
 	{
 		for (Type t : types)
 		{
-			if (BiomeDictionary.hasType(biome, t))
+			if (BiomeDictionary.hasType(ForgeRegistries.BIOMES.getResourceKey(biome).get(), t))
 				return true;
 		}
 
@@ -516,10 +518,10 @@ public class AnimaniaHelper
 	{
 		if (!level.isClientSide)
 		{
-			LevelServer ws = (LevelServer) level;
-			while (ws.getEntityFromUuid(entity.getUniqueID()) != null)
+			ServerLevel ws = (ServerLevel) level;
+			while (ws.getEntity(entity.getUUID()) != null)
 			{
-				entity.setUniqueId(MathHelper.getRandomUUID(Animania.RANDOM));
+				entity.setUUID(Mth.createInsecureUUID(Animania.RANDOM));
 			}
 		}
 

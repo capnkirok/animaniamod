@@ -1,6 +1,6 @@
 package com.animania.client.models;
 
-import com.animania.common.tileentities.BlockEntityNest.NestContent;
+import com.animania.common.blockentities.BlockEntityNest.NestContent;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.model.ModelRenderer;

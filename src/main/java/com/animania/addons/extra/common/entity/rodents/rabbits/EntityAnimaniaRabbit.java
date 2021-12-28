@@ -601,7 +601,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.putInteger("ColorNumber", this.getColorNumber());
+		compound.putInt("ColorNumber", this.getColorNumber());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 

@@ -17,6 +17,8 @@ import com.animania.common.blocks.fluids.FluidBase;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidRegistry;

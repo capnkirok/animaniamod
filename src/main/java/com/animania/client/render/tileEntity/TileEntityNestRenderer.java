@@ -1,7 +1,7 @@
 package com.animania.client.render.BlockEntity;
 
 import com.animania.client.models.ModelNest;
-import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.blockentities.BlockEntityNest;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.model.ModelBase;

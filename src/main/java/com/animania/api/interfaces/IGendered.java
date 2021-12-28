@@ -4,5 +4,5 @@ import com.animania.api.data.EntityGender;
 
 public interface IGendered
 {
-	public EntityGender getEntityGender();
+	EntityGender getEntityGender();
 }

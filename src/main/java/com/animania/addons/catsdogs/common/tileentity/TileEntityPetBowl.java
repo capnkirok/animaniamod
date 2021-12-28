@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 
 import com.animania.addons.catsdogs.common.tileentity.handler.FluidHandlerPetBowl;
 import com.animania.addons.catsdogs.common.tileentity.handler.ItemHandlerPetBowl;
-import com.animania.api.interfaces.IFoodProviderTE;
+import com.animania.api.interfaces.IFoodProviderBE;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BlockEntityPetBowl extends BlockEntity implements Tickable, IFoodProviderTE
+public class BlockEntityPetBowl extends BlockEntity implements Tickable, IFoodProviderBE
 {
 	protected BowlContent type;
 
@@ -121,8 +121,8 @@ public class BlockEntityPetBowl extends BlockEntity implements Tickable, IFoodPr
 		CompoundTag items = this.itemHandler.serializeNBT();
 		CompoundTag fluid = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
-		tag.putTag("items", items);
-		tag.putTag("fluid", fluid);
+		tag.put("items", items);
+		tag.put("fluid", fluid);
 
 		return tag;
 

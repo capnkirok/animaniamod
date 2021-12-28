@@ -442,8 +442,8 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 		super.writeEntityToNBT(compound);
 
 		compound.putBoolean("Sheared", this.getSheared());
-		compound.putInteger("ColorNumber", this.getColorNumber());
-		compound.putInteger("DyeColor", this.getDyeColorNum());
+		compound.putInt("ColorNumber", this.getColorNumber());
+		compound.putInt("DyeColor", this.getDyeColorNum());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 

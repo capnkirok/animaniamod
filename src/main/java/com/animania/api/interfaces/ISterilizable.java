@@ -1,10 +1,11 @@
 package com.animania.api.interfaces;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface ISterilizable extends IAnimaniaAnimal
 {
-	public EntityDataAccessor<Boolean> getSterilizedParam();
+	EntityDataAccessor<Boolean> getSterilizedParam();
 
 	default boolean getSterilized()
 	{
@@ -21,6 +22,6 @@ public interface ISterilizable extends IAnimaniaAnimal
 			((Entity) this).getEntityData().set(param, sterilized);
 	}
 
-	public void sterilize();
+	void sterilize();
 
 }

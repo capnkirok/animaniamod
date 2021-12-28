@@ -1,9 +1,9 @@
-package com.animania.common.tileentities;
+package com.animania.common.blockentities;
 
 import java.util.Set;
 
 import com.animania.Animania;
-import com.animania.api.interfaces.IFoodProviderTE;
+import com.animania.api.interfaces.IFoodProviderBE;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BlockEntityInvisiblock extends BlockEntity implements Tickable, IFoodProviderTE
+public class BlockEntityInvisiblock extends BlockEntity implements Tickable, IFoodProviderBE
 {
 	public BlockEntityInvisiblock()
 	{

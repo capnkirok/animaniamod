@@ -6,11 +6,12 @@ import com.animania.common.handler.ItemHandler;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
-public final class TabAnimaniaResources extends CreativeTabs
+public final class TabAnimaniaResources extends CreativeModeTab
 {
 	private static ItemStack DISPLAYSTACK = ItemStack.EMPTY;
 
@@ -19,16 +20,15 @@ public final class TabAnimaniaResources extends CreativeTabs
 		super(par1, par2Str);
 	}
 
+	/* TODO: Lang.
 	@Override
 	public String getTranslatedTabLabel()
 	{
 		return I18n.translateToLocal("tab.animania_resources.label");
-	}
+	}*/
 
 	@Override
-	public ItemStack getTabIconItem()
-	{
-
+	public ItemStack makeIcon() {
 		if (DISPLAYSTACK.isEmpty())
 			DISPLAYSTACK = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
 

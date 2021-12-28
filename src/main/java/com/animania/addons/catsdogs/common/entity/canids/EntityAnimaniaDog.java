@@ -178,7 +178,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 		super.writeEntityToNBT(compound);
 		compound.putBoolean("IsTamed", this.isTamed());
 		compound.putBoolean("IsSitting", this.isSitting());
-		compound.putInteger("Variant", this.getVariant());
+		compound.putInt("Variant", this.getVariant());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 	}

@@ -24,7 +24,7 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.AABB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
@@ -49,7 +49,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 {
 
 	public static final PropertyEnum<BlockCheeseMold.EnumType> VARIANT = PropertyEnum.<BlockCheeseMold.EnumType> create("variant", BlockCheeseMold.EnumType.class);
-	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D);
+	protected static final AABB AABB = new AABB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D);
 
 	public BlockCheeseMold()
 	{
@@ -133,13 +133,13 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
+	public AABB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return AABB;
 	}

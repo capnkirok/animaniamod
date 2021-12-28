@@ -13,8 +13,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.events.RenderEvents;
 import com.animania.client.models.ModelTrough;
-import com.animania.common.tileentities.BlockEntityTrough;
-import com.animania.common.tileentities.BlockEntityTrough.TroughContent;
+import com.animania.common.blockentities.BlockEntityTrough;
+import com.animania.common.blockentities.BlockEntityTrough.TroughContent;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
@@ -115,8 +115,8 @@ public class BlockEntityTroughRenderer extends BlockEntitySpecialRenderer<BlockE
 			FluidStack fluid = te.fluidHandler.getFluid();
 			if (fluid != null)
 			{
-				TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fluid.getFluid().getStill().toString());
-				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getResourceDomain() + ":textures/" + fluid.getFluid().getStill().getResourcePath() + ".png");
+				TextureAtlasSprite sprite = Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(fluid.getFluid().getStill().toString());
+				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getNamespace() + ":textures/" + fluid.getFluid().getStill().getPath() + ".png");
 				double multi = 0.3122 * (1 - (double) fluid.amount / 1000);
 				GlStateManager.pushMatrix();
 				GlStateManager.translate(0.4, 1, -0.3);
@@ -170,7 +170,7 @@ public class BlockEntityTroughRenderer extends BlockEntitySpecialRenderer<BlockE
 				else
 					this.trough.renderFeed(stack.getCount(), foodColor);
 
-				TextureAtlasSprite sprite = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, null, null).getParticleTexture();
+				TextureAtlasSprite sprite = Minecraft.getInstance().getRenderItem().getItemModelWithOverrides(stack, null, null).getParticleTexture();
 				if (stack.getItem() == Items.WHEAT)
 					this.bindTexture(WHEAT);
 				else
@@ -199,7 +199,7 @@ public class BlockEntityTroughRenderer extends BlockEntitySpecialRenderer<BlockE
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 		double u = textureSprite.getMaxU() - textureSprite.getMinU();
 		double v = textureSprite.getMaxV() - textureSprite.getMinV();
@@ -224,10 +224,10 @@ public class BlockEntityTroughRenderer extends BlockEntitySpecialRenderer<BlockE
 		BufferedImage image;
 		try
 		{
-			TextureAtlasSprite sprite = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(item, null, null).getParticleTexture();
+			TextureAtlasSprite sprite = Minecraft.getInstance().getRenderItem().getItemModelWithOverrides(item, null, null).getParticleTexture();
 			ResourceLocation loc = new ResourceLocation(sprite.getIconName().replace(":", ":textures/") + ".png");
 
-			is = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
+			is = Minecraft.getInstance().getResourceManager().getResource(loc).getInputStream();
 			image = ImageIO.read(is);
 		}
 		catch (IOException e)

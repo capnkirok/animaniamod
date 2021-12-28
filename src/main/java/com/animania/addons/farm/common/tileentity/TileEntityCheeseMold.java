@@ -237,9 +237,9 @@ public class BlockEntityCheeseMold extends BlockEntity implements Tickable
 		CompoundTag items = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		items = this.itemHandler.serializeNBT();
-		tag.putTag("fluid", fluid);
-		tag.putTag("items", items);
-		tag.putInteger("progress", this.progress);
+		tag.put("fluid", fluid);
+		tag.put("items", items);
+		tag.putInt("progress", this.progress);
 
 		return tag;
 

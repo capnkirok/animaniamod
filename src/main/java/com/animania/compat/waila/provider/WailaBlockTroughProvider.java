@@ -2,7 +2,7 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.tileentities.BlockEntityTrough;
+import com.animania.common.blockentities.BlockEntityTrough;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;

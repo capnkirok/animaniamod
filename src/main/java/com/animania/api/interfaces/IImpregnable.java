@@ -4,16 +4,17 @@ import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface IImpregnable extends IAnimaniaAnimal
 {
-	public EntityDataAccessor<Integer> getGestationParam();
+	EntityDataAccessor<Integer> getGestationParam();
 
-	public EntityDataAccessor<Boolean> getPregnantParam();
+	EntityDataAccessor<Boolean> getPregnantParam();
 
-	public EntityDataAccessor<Boolean> getFertileParam();
+	EntityDataAccessor<Boolean> getFertileParam();
 
-	public EntityDataAccessor<Boolean> getHasKidsParam();
+	EntityDataAccessor<Boolean> getHasKidsParam();
 
 	default boolean getFertile()
 	{
@@ -81,8 +82,8 @@ public interface IImpregnable extends IAnimaniaAnimal
 		return 0;
 	}
 
-	public int getDryTimer();
+	int getDryTimer();
 
-	public void setDryTimer(int i);
+	void setDryTimer(int i);
 
 }

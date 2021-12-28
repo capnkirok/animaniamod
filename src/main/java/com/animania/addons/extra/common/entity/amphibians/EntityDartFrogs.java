@@ -58,7 +58,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.putInteger("FrogsType", this.getFrogsType());
+		compound.putInt("FrogsType", this.getFrogsType());
 	}
 
 	/**

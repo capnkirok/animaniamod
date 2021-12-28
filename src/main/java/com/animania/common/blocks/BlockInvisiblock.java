@@ -8,8 +8,8 @@ import com.animania.Animania;
 import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
-import com.animania.common.tileentities.BlockEntityInvisiblock;
-import com.animania.common.tileentities.BlockEntityTrough;
+import com.animania.common.blockentities.BlockEntityInvisiblock;
+import com.animania.common.blockentities.BlockEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
@@ -173,7 +173,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return BlockInvisiblock.Invisiblock_AABB;
 	}

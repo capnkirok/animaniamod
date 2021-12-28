@@ -58,11 +58,11 @@ public class ItemCart extends Item
 	 * for (int i = 0; i < list.size(); ++i) { Entity entity = (Entity)
 	 * list.get(i);
 	 *
-	 * if (entity.canBeCollidedWith()) { AxisAlignedBB axisalignedbb =
+	 * if (entity.canBeCollidedWith()) { AABB AABB =
 	 * entity.getEntityBoundingBox().grow((double)
 	 * entity.getCollisionBorderSize());
 	 *
-	 * if (axisalignedbb.contains(vec3d)) { flag = true; } } }
+	 * if (AABB.contains(vec3d)) { flag = true; } } }
 	 *
 	 * if (flag) { return new
 	 * InteractionResultHolder(InteractionResultHolderType.PASS, itemstack);

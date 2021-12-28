@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.IFoodProviderBlock;
-import com.animania.api.interfaces.IFoodProviderTE;
+import com.animania.api.interfaces.IFoodProviderBE;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.config.AnimaniaConfig;
@@ -76,7 +76,7 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 			if (block instanceof IFoodProviderBlock)
 			{
 				BlockEntity te = this.level.getBlockEntity(this.seekingBlockPos);
-				if (te instanceof IFoodProviderTE trough && trough.canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
+				if (te instanceof IFoodProviderBE trough && trough.canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
 				{
 					trough.consumeSolidOrLiquid(100, 1);
 
@@ -133,7 +133,7 @@ public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping
 		if (block instanceof IFoodProviderBlock)
 		{
 			BlockEntity te = level.getBlockEntity(pos);
-			if (te instanceof IFoodProviderTE && ((IFoodProviderTE) te).canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
+			if (te instanceof IFoodProviderBE && ((IFoodProviderBE) te).canConsume(this.entity.getFoodItems(), this.entity.getFoodFluids()))
 				return true;
 		}
 

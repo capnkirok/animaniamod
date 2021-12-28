@@ -25,6 +25,7 @@ import net.minecraft.server.packs.resources.SimpleReloadableResourceManager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
@@ -119,7 +120,7 @@ public class ClientProxy extends CommonProxy
 	public void openManualGui(ItemStack stack)
 	{
 		GuiManual manual = GuiManual.getInstance(stack);
-		Minecraft.getMinecraft().displayGuiScreen(manual);
+		Minecraft.getInstance().displayGuiScreen(manual);
 	}
 
 	// Sleep
@@ -142,7 +143,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void addAddonResourcePack(AnimaniaAddon addon)
 	{
-		List<IResourcePack> packs = ObfuscationReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "field_110449_ao");
+		List<IResourcePack> packs = ObfuscationReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getInstance(), "field_110449_ao");
 		File animania = Loader.instance().activeModContainer().getSource();
 
 		IResourcePack pack = null;
@@ -152,11 +153,11 @@ public class ClientProxy extends CommonProxy
 			pack = new AddonResourcePack.Jar(addon);
 
 		packs.add(pack);
-		IResourceManager res = Minecraft.getMinecraft().getResourceManager();
+		IResourceManager res = Minecraft.getInstance().getResourceManager();
 		if (res instanceof SimpleReloadableResourceManager)
 		{
 			((SimpleReloadableResourceManager) res).reloadResourcePack(pack);
-			Minecraft.getMinecraft().getLanguageManager().onResourceManagerReload(res);
+			Minecraft.getInstance().getLanguageManager().onResourceManagerReload(res);
 		}
 	}
 
@@ -171,7 +172,7 @@ public class ClientProxy extends CommonProxy
 			public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer)
 			{
 				this.screen = errors.createGui();
-				this.screen.setLevelAndResolution(Minecraft.getMinecraft(), errorScreen.width, errorScreen.height);
+				this.screen.setLevelAndResolution(Minecraft.getInstance(), errorScreen.width, errorScreen.height);
 			}
 
 			@Override

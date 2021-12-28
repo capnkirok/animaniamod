@@ -40,7 +40,7 @@ public class RecipeHandler
 		{
 			return new File(".");
 		}
-		return Minecraft.getMinecraft().mcDataDir;
+		return Minecraft.getInstance().mcDataDir;
 	}
 
 	public static void addShapedRecipe(ItemStack result, Object... components)
@@ -89,12 +89,12 @@ public class RecipeHandler
 		// repeatedly adds _alt if a file already exists
 		// janky I know but it works
 		String suffix = "";
-		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
+		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getPath() + suffix + ".json");
 
 		while (f.exists())
 		{
 			suffix += "_alt";
-			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
+			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getPath() + suffix + ".json");
 		}
 
 		try (FileWriter w = new FileWriter(f))
@@ -131,12 +131,12 @@ public class RecipeHandler
 		// repeatedly adds _alt if a file already exists
 		// janky I know but it works
 		String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
-		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
+		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getPath() + suffix + ".json");
 
 		while (f.exists())
 		{
 			suffix += "_alt";
-			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
+			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getPath() + suffix + ".json");
 		}
 
 		try (FileWriter w = new FileWriter(f))
@@ -173,7 +173,7 @@ public class RecipeHandler
 				ret.put("count", stack.getCount());
 			}
 
-			if (stack.hasTagCompound())
+			if (stack.hasTag())
 			{
 				throw new IllegalArgumentException("nbt not implemented");
 			}

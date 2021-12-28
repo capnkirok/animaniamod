@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import net.minecraft.core.Direction;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.catsdogs.client.models.blocks.ModelPetBowl;
@@ -21,8 +22,7 @@ import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
-import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntitySpecialRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -98,8 +98,8 @@ public class BlockEntityPetBowlRenderer extends BlockEntitySpecialRenderer<Block
 			FluidStack fluid = te.fluidHandler.getFluid();
 			if (fluid != null)
 			{
-				TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fluid.getFluid().getStill().toString());
-				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getResourceDomain() + ":textures/" + fluid.getFluid().getStill().getResourcePath() + ".png");
+				TextureAtlasSprite sprite = Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(fluid.getFluid().getStill().toString());
+				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getNamespace() + ":textures/" + fluid.getFluid().getStill().getPath() + ".png");
 				double multi = (double) fluid.amount / 1000;
 				GlStateManager.pushMatrix();
 				GlStateManager.translate(0.4, 1.405, -0.3);
@@ -130,7 +130,7 @@ public class BlockEntityPetBowlRenderer extends BlockEntitySpecialRenderer<Block
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 		double u = textureSprite.getMaxU() - textureSprite.getMinU();
 		double v = textureSprite.getMaxV() - textureSprite.getMinV();
@@ -164,10 +164,10 @@ public class BlockEntityPetBowlRenderer extends BlockEntitySpecialRenderer<Block
 		BufferedImage image;
 		try
 		{
-			TextureAtlasSprite sprite = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(item, null, null).getParticleTexture();
+			TextureAtlasSprite sprite = Minecraft.getInstance().getRenderItem().getItemModelWithOverrides(item, null, null).getParticleTexture();
 			ResourceLocation loc = new ResourceLocation(sprite.getIconName().replace(":", ":textures/") + ".png");
 
-			is = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
+			is = Minecraft.getInstance().getResourceManager().getResource(loc).getInputStream();
 			image = ImageIO.read(is);
 		}
 		catch (IOException e)

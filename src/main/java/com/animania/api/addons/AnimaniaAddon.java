@@ -2,19 +2,19 @@ package com.animania.api.addons;
 
 public interface AnimaniaAddon
 {
-	public void preInitCommon();
+	void preInitCommon();
 
-	public void initCommon();
+	void initCommon();
 
-	public void preInitClient();
+	void preInitClient();
 
-	public void initClient();
+	void initClient();
 
-	public String getVersion();
+	String getVersion();
 
-	public String getAddonID();
+	String getAddonID();
 
-	public String getAddonName();
+	String getAddonName();
 
-	public String getDependencies();
+	String getDependencies();
 }

@@ -17,7 +17,7 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.AABB;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
@@ -125,7 +125,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends Ta
 		}
 	}
 
-	protected AxisAlignedBB getTargetableArea(double targetDistance)
+	protected AABB getTargetableArea(double targetDistance)
 	{
 		return this.taskOwner.getEntityBoundingBox().grow(targetDistance, 4.0D, targetDistance);
 	}

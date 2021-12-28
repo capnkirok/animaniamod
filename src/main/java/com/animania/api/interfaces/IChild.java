@@ -5,12 +5,13 @@ import java.util.UUID;
 import com.google.common.base.Optional;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface IChild extends IAnimaniaAnimal
 {
-	public EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam();
+	EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam();
 
-	public EntityDataAccessor<Float> getEntityAgeParam();
+	EntityDataAccessor<Float> getEntityAgeParam();
 
 	default UUID getParentUniqueId()
 	{
@@ -42,9 +43,9 @@ public interface IChild extends IAnimaniaAnimal
 			((Entity) this).getEntityData().set(param, age);
 	}
 
-	public int getAgeTimer();
+	int getAgeTimer();
 
-	public void setAgeTimer(int i);
+	void setAgeTimer(int i);
 
-	public float getSizeDividend();
+	float getSizeDividend();
 }

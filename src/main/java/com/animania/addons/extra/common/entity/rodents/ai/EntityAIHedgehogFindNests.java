@@ -3,8 +3,8 @@ package com.animania.addons.extra.common.entity.rodents.ai;
 import com.animania.Animania;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.tileentities.BlockEntityNest;
-import com.animania.common.tileentities.BlockEntityNest.NestContent;
+import com.animania.common.blockentities.BlockEntityNest;
+import com.animania.common.blockentities.BlockEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;

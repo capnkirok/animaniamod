@@ -1,8 +1,8 @@
-package com.animania.common.tileentities.handler;
+package com.animania.common.blockentities.handler;
 
 import com.animania.common.handler.BlockHandler;
 
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
@@ -15,9 +15,8 @@ public class FluidHandlerTrough extends FluidTank
 	}
 
 	@Override
-	public boolean canFillFluidType(FluidStack fluid)
-	{
-		return fluid.getFluid() == FluidRegistry.WATER || fluid.getFluid() == BlockHandler.fluidSlop;
+	public boolean isFluidValid(FluidStack stack) {
+		return fluid.getFluid() == Fluids.WATER || fluid.getFluid() == BlockHandler.fluidSlop;
 	}
 
 }

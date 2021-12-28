@@ -24,7 +24,7 @@ public class GuiCartChest extends GuiContainer
 
 	public GuiCartChest(IInventory upperInv, IInventory lowerInv)
 	{
-		super(new ContainerChest(upperInv, lowerInv, Minecraft.getMinecraft().player));
+		super(new ContainerChest(upperInv, lowerInv, Minecraft.getInstance().player));
 		this.upperChestInventory = upperInv;
 		this.lowerChestInventory = lowerInv;
 		this.allowUserInput = false;

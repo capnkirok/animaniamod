@@ -24,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeModContainer;
@@ -41,7 +42,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 	public BlockPetBowl()
 	{
-		super("pet_bowl", Material.WOOD, MaterialColor.BROWN);
+		super("pet_bowl", Material.WOOD, MaterialColor.COLOR_BROWN);
 		this.setHardness(1.2f);
 		this.setResistance(1.5f);
 	}
@@ -190,13 +191,13 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
+	public AABB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return AABB;
 	}

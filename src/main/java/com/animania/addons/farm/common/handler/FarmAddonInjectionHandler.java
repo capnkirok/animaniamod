@@ -28,7 +28,7 @@ import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
 import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.blockentities.BlockEntityNest;
 import com.animania.config.AnimaniaConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 

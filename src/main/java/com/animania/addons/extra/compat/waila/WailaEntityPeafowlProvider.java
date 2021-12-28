@@ -39,7 +39,7 @@ public class WailaEntityPeafowlProvider extends WailaAnimalEntityProviderBase
 	public CompoundTag getNBTData(ServerPlayer player, Entity ent, CompoundTag tag, Level level)
 	{
 		int laytime = ent.getEntityData().getInteger("EggLayTime");
-		tag.putInteger("EggLayTime", laytime);
+		tag.putInt("EggLayTime", laytime);
 
 		return super.getNBTData(player, ent, tag, level);
 	}

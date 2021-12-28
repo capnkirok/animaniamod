@@ -557,7 +557,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.putInteger("ColorNumber", this.getColorNumber());
+		compound.putInt("ColorNumber", this.getColorNumber());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 

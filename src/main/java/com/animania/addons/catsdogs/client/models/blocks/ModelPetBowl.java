@@ -4,23 +4,23 @@ import com.animania.client.models.IColoredModel;
 import com.animania.client.models.render.ModelRendererColored;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.model.geom.ModelPart;
 
 public class ModelPetBowl extends ModelBase implements IColoredModel
 {
-	ModelRenderer Root_Node;
-	ModelRenderer Side1;
-	ModelRenderer Side2;
-	ModelRenderer Side3;
-	ModelRenderer Side4;
-	ModelRenderer Side5;
-	ModelRenderer Side6;
-	ModelRenderer Side7;
-	ModelRenderer Side8;
-	ModelRenderer Bottom_;
-	ModelRenderer Bottom_2;
-	ModelRenderer Bottom_3;
-	ModelRenderer Bottom_4;
+	ModelPart Root_Node;
+	ModelPart Side1;
+	ModelPart Side2;
+	ModelPart Side3;
+	ModelPart Side4;
+	ModelPart Side5;
+	ModelPart Side6;
+	ModelPart Side7;
+	ModelPart Side8;
+	ModelPart Bottom_;
+	ModelPart Bottom_2;
+	ModelPart Bottom_3;
+	ModelPart Bottom_4;
 	ModelRendererColored Kibble;
 	ModelRendererColored Kibble2;
 	ModelRendererColored Kibble3;

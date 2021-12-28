@@ -62,7 +62,7 @@ public class WailaBlockHamsterWheelProvider implements IWailaDataProvider
 		if (!stack.isEmpty())
 			tag.setString("stack", stack.getCount() + " " + stack.getDisplayName());
 
-		tag.putInteger("energy", energy);
+		tag.putInt("energy", energy);
 		return tag;
 	}
 

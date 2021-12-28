@@ -2,12 +2,13 @@ package com.animania.api.interfaces;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface ISleeping extends IAnimaniaAnimal
 {
-	public EntityDataAccessor<Boolean> getSleepingParam();
+	EntityDataAccessor<Boolean> getSleepingParam();
 
-	public EntityDataAccessor<Float> getSleepTimerParam();
+	EntityDataAccessor<Float> getSleepTimerParam();
 
 	default void setSleeping(boolean sleeping)
 	{
@@ -24,9 +25,9 @@ public interface ISleeping extends IAnimaniaAnimal
 		return false;
 	}
 
-	public void setSleepingPos(BlockPos pos);
+	void setSleepingPos(BlockPos pos);
 
-	public BlockPos getSleepingPos();
+	BlockPos getSleepingPos();
 
 	default Float getSleepTimer()
 	{

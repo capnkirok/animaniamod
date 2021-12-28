@@ -9,7 +9,7 @@ import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.BlockEntityTrough;
+import com.animania.common.blockentities.BlockEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
 import com.animania.config.AnimaniaConfig;
 
@@ -30,7 +30,7 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.AABB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IBlockAccess;
@@ -57,10 +57,10 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	private String name = "block_trough";
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 3);
-	protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.25D, 2.0D, 0.3D, 0.75D);
-	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(-1.0D, 0.0D, 0.25D, 1.0D, 0.3D, 0.75D);
-	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.25D, 0.0D, -1.0D, 0.75D, 0.3D, 1.0D);
-	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 0.3D, 2.0D);
+	protected static final AABB NORTH_AABB = new AABB(0.0D, 0.0D, 0.25D, 2.0D, 0.3D, 0.75D);
+	protected static final AABB SOUTH_AABB = new AABB(-1.0D, 0.0D, 0.25D, 1.0D, 0.3D, 0.75D);
+	protected static final AABB WEST_AABB = new AABB(0.25D, 0.0D, -1.0D, 0.75D, 0.3D, 1.0D);
+	protected static final AABB EAST_AABB = new AABB(0.25D, 0.0D, 0.0D, 0.75D, 0.3D, 2.0D);
 
 	public BlockTrough()
 	{
@@ -199,7 +199,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 
 		switch (state.getValue(BlockTrough.FACING))

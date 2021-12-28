@@ -5,11 +5,11 @@ import net.minecraft.world.item.Item;
 public interface ISpawnable
 {
 
-	public Item getSpawnEgg();
+	Item getSpawnEgg();
 
-	public int getPrimaryEggColor();
+	int getPrimaryEggColor();
 
-	public int getSecondaryEggColor();
+	int getSecondaryEggColor();
 
 	default boolean usesEggColor()
 	{

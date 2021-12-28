@@ -17,7 +17,7 @@ public class BlockEntityProp extends BlockEntity
 	{
 		Block b = super.getBlockType();
 
-		String name = b.getRegistryName().getResourcePath();
+		String name = b.getRegistryName().getPath();
 
 		for (PropType t : PropType.values())
 		{

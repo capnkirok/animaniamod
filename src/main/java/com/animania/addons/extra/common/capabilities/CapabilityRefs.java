@@ -5,7 +5,7 @@ import com.animania.Animania;
 import NBTTagString;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.resources.ResourceLocation;
@@ -44,9 +44,9 @@ public class CapabilityRefs
 		return new NBTTagFloat(f);
 	}
 
-	public static NBTTagList toTagList(NBTTagList l)
+	public static ListTag toTagList(ListTag l)
 	{
-		return new NBTTagList();
+		return new ListTag();
 	}
 
 	public static ResourceLocation toResource(String path)

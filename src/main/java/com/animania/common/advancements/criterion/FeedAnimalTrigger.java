@@ -12,17 +12,18 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.advancements.critereon.AbstractCriterionInstance;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.EntityEntry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Instance>
@@ -73,21 +74,21 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 	}
 
 	@Override
-	public FeedAnimalTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
-	{
+	public Instance createInstance(JsonObject jsonObject, DeserializationContext arg) {
 		ItemStack item = ItemStack.EMPTY;
-		EntityEntry entity;
+		EntityPredicate.Composite entity;
 		boolean useOptional = false;
 
+		// TODO: Err...
 		ResourceLocation entityloc = new ResourceLocation(JsonUtils.getString(json, "entity"));
 
-		if (json.has("itemstack"))
+		if (jsonObject.has("itemstack"))
 		{
 			item = AnimaniaHelper.getItemStack(JsonUtils.getJsonObject(json, "itemstack"));
 			if (item.isEmpty())
 				throw new JsonSyntaxException("Item cannot be air '" + JsonUtils.getJsonObject(json, "item").toString() + "'");
 		}
-		else if (json.has("optional"))
+		else if (jsonObject.has("optional"))
 		{
 			try
 			{
@@ -107,21 +108,21 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 		return new FeedAnimalTrigger.Instance(item, entity, useOptional);
 	}
 
-	public static class Instance extends AbstractCriterionInstance
+	public static class Instance extends AbstractCriterionTriggerInstance
 	{
 		private final ItemStack item;
-		private final EntityEntry entity;
+		private final EntityPredicate.Composite entity;
 		private final boolean optional;
 
-		public Instance(@Nonnull ItemStack item, @Nullable EntityEntry entity, boolean useOptional)
+		public Instance(@Nonnull ItemStack item, @Nullable EntityPredicate.Composite entity, boolean useOptional)
 		{
-			super(FeedAnimalTrigger.ID);
+			super(FeedAnimalTrigger.ID, entity);
 			this.item = item;
 			this.entity = entity;
 			this.optional = useOptional;
 		}
 
-		public boolean test(ItemStack item, EntityEntry entry, Entity entity)
+		public boolean test(ItemStack item, EntityPredicate.Composite entry, Entity entity)
 		{
 			if (this.item.isEmpty() && this.optional)
 				return false;
@@ -133,7 +134,7 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 					Set<ItemStack> food = ((IFoodEating) entity).getFoodItems();
 					for (ItemStack is : food)
 					{
-						if (ItemStack.areItemsEqual(is, item))
+						if (ItemStack.matches(is, item))
 							return true;
 					}
 				}
@@ -146,7 +147,7 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 				ItemStack s2 = item.copy();
 				s1.setCount(1);
 				s2.setCount(1);
-				boolean equal = ItemStack.areItemStacksEqual(s1, s2);
+				boolean equal = ItemStack.matches(s1, s2);
 				if (this.entity != null && equal && entry == this.entity)
 					return true;
 			}
@@ -156,7 +157,7 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 
 	}
 
-	public void trigger(ServerPlayer player, ItemStack item, EntityEntry entry, Entity entity)
+	public void trigger(ServerPlayer player, ItemStack item, EntityPredicate.Composite entry, Entity entity)
 	{
 		FeedAnimalTrigger.Listeners enterblocktrigger$listeners = this.listeners.get(player.getAdvancements());
 
@@ -169,7 +170,7 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 	static class Listeners
 	{
 		private final PlayerAdvancements playerAdvancements;
-		private final Set<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> newHashSet();
+		private final Set<CriterionTrigger.Listener<FeedAnimalTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn)
 		{
@@ -181,27 +182,27 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 			return this.listeners.isEmpty();
 		}
 
-		public void add(ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
+		public void add(CriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
 		{
 			this.listeners.add(listener);
 		}
 
-		public void remove(ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
+		public void remove(CriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
 		{
 			this.listeners.remove(listener);
 		}
 
-		public void trigger(ItemStack item, EntityEntry entry, Entity entity)
+		public void trigger(ItemStack item, EntityPredicate.Composite entry, Entity entity)
 		{
-			List<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> list = null;
+			List<CriterionTrigger.Listener<FeedAnimalTrigger.Instance>> list = null;
 
-			for (ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener : this.listeners)
+			for (CriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener : this.listeners)
 			{
-				if (listener.getCriterionInstance().test(item, entry, entity))
+				if (listener.getTriggerInstance().test(item, entry, entity))
 				{
 					if (list == null)
 					{
-						list = Lists.<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> newArrayList();
+						list = Lists.newArrayList();
 					}
 
 					list.add(listener);
@@ -210,7 +211,7 @@ public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Ins
 
 			if (list != null)
 			{
-				for (ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener1 : list)
+				for (CriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener1 : list)
 				{
 					listener1.grantCriterion(this.playerAdvancements);
 				}
