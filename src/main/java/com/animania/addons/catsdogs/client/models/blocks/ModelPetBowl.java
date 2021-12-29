@@ -2,11 +2,10 @@ package com.animania.addons.catsdogs.client.models.blocks;
 
 import com.animania.client.models.IColoredModel;
 import com.animania.client.models.render.ModelRendererColored;
-
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.Entity;
 
-public class ModelPetBowl extends ModelBase implements IColoredModel
+public class ModelPetBowl extends ModelPart.Cube implements IColoredModel
 {
 	ModelPart Root_Node;
 	ModelPart Side1;
@@ -517,429 +516,428 @@ public class ModelPetBowl extends ModelBase implements IColoredModel
 
 	public void renderFood(float scale)
 	{
-		this.Kibble.rotateAngleX = 0F;
-		this.Kibble.rotateAngleY = 0F;
-		this.Kibble.rotateAngleZ = 0F;
+		this.Kibble.xRot = 0F;
+		this.Kibble.yRot = 0F;
+		this.Kibble.zRot = 0F;
 		this.Kibble.renderWithRotation(scale);
 
-		this.Kibble2.rotateAngleX = -0.1574999F;
-		this.Kibble2.rotateAngleY = -0.4672038F;
-		this.Kibble2.rotateAngleZ = -0.3014539F;
+		this.Kibble2.xRot = -0.1574999F;
+		this.Kibble2.yRot = -0.4672038F;
+		this.Kibble2.zRot = -0.3014539F;
 		this.Kibble2.renderWithRotation(scale);
 
-		this.Kibble3.rotateAngleX = 0.3970294F;
-		this.Kibble3.rotateAngleY = 0.3625107F;
-		this.Kibble3.rotateAngleZ = 0.775726F;
+		this.Kibble3.xRot = 0.3970294F;
+		this.Kibble3.yRot = 0.3625107F;
+		this.Kibble3.zRot = 0.775726F;
 		this.Kibble3.renderWithRotation(scale);
 
-		this.Kibble4.rotateAngleX = 0F;
-		this.Kibble4.rotateAngleY = 2.41131F;
-		this.Kibble4.rotateAngleZ = 0F;
+		this.Kibble4.xRot = 0F;
+		this.Kibble4.yRot = 2.41131F;
+		this.Kibble4.zRot = 0F;
 		this.Kibble4.renderWithRotation(scale);
 
-		this.Kibble21.rotateAngleX = -0.1574999F;
-		this.Kibble21.rotateAngleY = 1.944106F;
-		this.Kibble21.rotateAngleZ = -0.3014538F;
+		this.Kibble21.xRot = -0.1574999F;
+		this.Kibble21.yRot = 1.944106F;
+		this.Kibble21.zRot = -0.3014538F;
 		this.Kibble21.renderWithRotation(scale);
 
-		this.Kibble31.rotateAngleX = 0.3970294F;
-		this.Kibble31.rotateAngleY = 2.773821F;
-		this.Kibble31.rotateAngleZ = 0.775726F;
+		this.Kibble31.xRot = 0.3970294F;
+		this.Kibble31.yRot = 2.773821F;
+		this.Kibble31.zRot = 0.775726F;
 		this.Kibble31.renderWithRotation(scale);
 
-		this.Kibble1.rotateAngleX = 0F;
-		this.Kibble1.rotateAngleY = 1.489042F;
-		this.Kibble1.rotateAngleZ = 0F;
+		this.Kibble1.xRot = 0F;
+		this.Kibble1.yRot = 1.489042F;
+		this.Kibble1.zRot = 0F;
 		this.Kibble1.renderWithRotation(scale);
 
-		this.Kibble22.rotateAngleX = -0.1574999F;
-		this.Kibble22.rotateAngleY = 1.021838F;
-		this.Kibble22.rotateAngleZ = -0.3014539F;
+		this.Kibble22.xRot = -0.1574999F;
+		this.Kibble22.yRot = 1.021838F;
+		this.Kibble22.zRot = -0.3014539F;
 		this.Kibble22.renderWithRotation(scale);
 
-		this.Kibble32.rotateAngleX = 0.3970294F;
-		this.Kibble32.rotateAngleY = 1.851552F;
-		this.Kibble32.rotateAngleZ = 0.7757261F;
+		this.Kibble32.xRot = 0.3970294F;
+		this.Kibble32.yRot = 1.851552F;
+		this.Kibble32.zRot = 0.7757261F;
 		this.Kibble32.renderWithRotation(scale);
 
-		this.Kibble41.rotateAngleX = 0F;
-		this.Kibble41.rotateAngleY = -2.382834F;
-		this.Kibble41.rotateAngleZ = 0F;
+		this.Kibble41.xRot = 0F;
+		this.Kibble41.yRot = -2.382834F;
+		this.Kibble41.zRot = 0F;
 		this.Kibble41.renderWithRotation(scale);
 
-		this.Kibble23.rotateAngleX = -0.1574999F;
-		this.Kibble23.rotateAngleY = -2.850037F;
-		this.Kibble23.rotateAngleZ = -0.3014538F;
+		this.Kibble23.xRot = -0.1574999F;
+		this.Kibble23.yRot = -2.850037F;
+		this.Kibble23.zRot = -0.3014538F;
 		this.Kibble23.renderWithRotation(scale);
 
-		this.Kibble33.rotateAngleX = 0.3970294F;
-		this.Kibble33.rotateAngleY = -2.020323F;
-		this.Kibble33.rotateAngleZ = 0.775726F;
+		this.Kibble33.xRot = 0.3970294F;
+		this.Kibble33.yRot = -2.020323F;
+		this.Kibble33.zRot = 0.775726F;
 		this.Kibble33.renderWithRotation(scale);
 
-		this.Kibble5.rotateAngleX = 0.1310762F;
-		this.Kibble5.rotateAngleY = -2.981984F;
-		this.Kibble5.rotateAngleZ = -0.1431112F;
+		this.Kibble5.xRot = 0.1310762F;
+		this.Kibble5.yRot = -2.981984F;
+		this.Kibble5.zRot = -0.1431112F;
 		this.Kibble5.renderWithRotation(scale);
 
-		this.Kibble24.rotateAngleX = -0.101737F;
-		this.Kibble24.rotateAngleY = 2.867677F;
-		this.Kibble24.rotateAngleZ = -0.4886197F;
+		this.Kibble24.xRot = -0.101737F;
+		this.Kibble24.yRot = 2.867677F;
+		this.Kibble24.zRot = -0.4886197F;
 		this.Kibble24.renderWithRotation(scale);
 
-		this.Kibble34.rotateAngleX = 0.5685233F;
-		this.Kibble34.rotateAngleY = -2.657655F;
-		this.Kibble34.rotateAngleZ = 0.6736612F;
+		this.Kibble34.xRot = 0.5685233F;
+		this.Kibble34.yRot = -2.657655F;
+		this.Kibble34.zRot = 0.6736612F;
 		this.Kibble34.renderWithRotation(scale);
 
-		this.Kibble42.rotateAngleX = -0.003045561F;
-		this.Kibble42.rotateAngleY = -0.5615618F;
-		this.Kibble42.rotateAngleZ = 0.1937396F;
+		this.Kibble42.xRot = -0.003045561F;
+		this.Kibble42.yRot = -0.5615618F;
+		this.Kibble42.zRot = 0.1937396F;
 		this.Kibble42.renderWithRotation(scale);
 
-		this.Kibble25.rotateAngleX = -0.07101944F;
-		this.Kibble25.rotateAngleY = -1.048444F;
-		this.Kibble25.rotateAngleZ = -0.1268627F;
+		this.Kibble25.xRot = -0.07101944F;
+		this.Kibble25.yRot = -1.048444F;
+		this.Kibble25.zRot = -0.1268627F;
 		this.Kibble25.renderWithRotation(scale);
 
-		this.Kibble35.rotateAngleX = -5.963936F;
-		this.Kibble35.rotateAngleY = -0.1320712F;
-		this.Kibble35.rotateAngleZ = 0.9653189F;
+		this.Kibble35.xRot = -5.963936F;
+		this.Kibble35.yRot = -0.1320712F;
+		this.Kibble35.zRot = 0.9653189F;
 		this.Kibble35.renderWithRotation(scale);
 
-		this.Kibble6.rotateAngleX = 0.1521878F;
-		this.Kibble6.rotateAngleY = -1.474344F;
-		this.Kibble6.rotateAngleZ = 0.1203963F;
+		this.Kibble6.xRot = 0.1521878F;
+		this.Kibble6.yRot = -1.474344F;
+		this.Kibble6.zRot = 0.1203963F;
 		this.Kibble6.renderWithRotation(scale);
 
-		this.Kibble26.rotateAngleX = 0.03257764F;
-		this.Kibble26.rotateAngleY = -1.953105F;
-		this.Kibble26.rotateAngleZ = -0.2637101F;
+		this.Kibble26.xRot = 0.03257764F;
+		this.Kibble26.yRot = -1.953105F;
+		this.Kibble26.zRot = -0.2637101F;
 		this.Kibble26.renderWithRotation(scale);
 
-		this.Kibble36.rotateAngleX = 0.4908113F;
-		this.Kibble36.rotateAngleY = -1.040031F;
-		this.Kibble36.rotateAngleZ = 0.9636469F;
+		this.Kibble36.xRot = 0.4908113F;
+		this.Kibble36.yRot = -1.040031F;
+		this.Kibble36.zRot = 0.9636469F;
 		this.Kibble36.renderWithRotation(scale);
 
-		this.Kibble43.rotateAngleX = -0.1933369F;
-		this.Kibble43.rotateAngleY = 0.9265222F;
-		this.Kibble43.rotateAngleZ = 0.01292846F;
+		this.Kibble43.xRot = -0.1933369F;
+		this.Kibble43.yRot = 0.9265222F;
+		this.Kibble43.zRot = 0.01292846F;
 		this.Kibble43.renderWithRotation(scale);
 
-		this.Kibble27.rotateAngleX = -0.3232937F;
-		this.Kibble27.rotateAngleY = 0.4358495F;
-		this.Kibble27.rotateAngleZ = -0.1980595F;
+		this.Kibble27.xRot = -0.3232937F;
+		this.Kibble27.yRot = 0.4358495F;
+		this.Kibble27.zRot = -0.1980595F;
 		this.Kibble27.renderWithRotation(scale);
 
-		this.Kibble37.rotateAngleX = 0.2111879F;
-		this.Kibble37.rotateAngleY = 1.272965F;
-		this.Kibble37.rotateAngleZ = 0.7181429F;
+		this.Kibble37.xRot = 0.2111879F;
+		this.Kibble37.yRot = 1.272965F;
+		this.Kibble37.zRot = 0.7181429F;
 		this.Kibble37.renderWithRotation(scale);
 
-		this.Kibble44.rotateAngleX = 0.1715521F;
-		this.Kibble44.rotateAngleY = -2.636588F;
-		this.Kibble44.rotateAngleZ = -0.09052449F;
+		this.Kibble44.xRot = 0.1715521F;
+		this.Kibble44.yRot = -2.636588F;
+		this.Kibble44.zRot = -0.09052449F;
 		this.Kibble44.renderWithRotation(scale);
 
-		this.Kibble28.rotateAngleX = -0.04301889F;
-		this.Kibble28.rotateAngleY = -3.080209F;
-		this.Kibble28.rotateAngleZ = -0.4586606F;
+		this.Kibble28.xRot = -0.04301889F;
+		this.Kibble28.yRot = -3.080209F;
+		this.Kibble28.zRot = -0.4586606F;
 		this.Kibble28.renderWithRotation(scale);
 
-		this.Kibble38.rotateAngleX = 0.5892963F;
-		this.Kibble38.rotateAngleY = -2.279304F;
-		this.Kibble38.rotateAngleZ = 0.7483609F;
+		this.Kibble38.xRot = 0.5892963F;
+		this.Kibble38.yRot = -2.279304F;
+		this.Kibble38.zRot = 0.7483609F;
 		this.Kibble38.renderWithRotation(scale);
 
-		this.Kibble7.rotateAngleX = 0F;
-		this.Kibble7.rotateAngleY = 0.4213091F;
-		this.Kibble7.rotateAngleZ = 0F;
+		this.Kibble7.xRot = 0F;
+		this.Kibble7.yRot = 0.4213091F;
+		this.Kibble7.zRot = 0F;
 		this.Kibble7.renderWithRotation(scale);
 
-		this.Kibble29.rotateAngleX = -0.1574999F;
-		this.Kibble29.rotateAngleY = -0.04589463F;
-		this.Kibble29.rotateAngleZ = -0.3014538F;
+		this.Kibble29.xRot = -0.1574999F;
+		this.Kibble29.yRot = -0.04589463F;
+		this.Kibble29.zRot = -0.3014538F;
 		this.Kibble29.renderWithRotation(scale);
 
-		this.Kibble39.rotateAngleX = 0.3970294F;
-		this.Kibble39.rotateAngleY = 0.7838198F;
-		this.Kibble39.rotateAngleZ = 0.775726F;
+		this.Kibble39.xRot = 0.3970294F;
+		this.Kibble39.yRot = 0.7838198F;
+		this.Kibble39.zRot = 0.775726F;
 		this.Kibble39.renderWithRotation(scale);
 
-		this.Kibble45.rotateAngleX = 0F;
-		this.Kibble45.rotateAngleY = 2.832619F;
-		this.Kibble45.rotateAngleZ = 0F;
+		this.Kibble45.xRot = 0F;
+		this.Kibble45.yRot = 2.832619F;
+		this.Kibble45.zRot = 0F;
 		this.Kibble45.renderWithRotation(scale);
 
-		this.Kibble210.rotateAngleX = -0.1574999F;
-		this.Kibble210.rotateAngleY = 2.365415F;
-		this.Kibble210.rotateAngleZ = -0.3014538F;
+		this.Kibble210.xRot = -0.1574999F;
+		this.Kibble210.yRot = 2.365415F;
+		this.Kibble210.zRot = -0.3014538F;
 		this.Kibble210.renderWithRotation(scale);
 
-		this.Kibble310.rotateAngleX = 0.3970294F;
-		this.Kibble310.rotateAngleY = -3.088056F;
-		this.Kibble310.rotateAngleZ = 0.775726F;
+		this.Kibble310.xRot = 0.3970294F;
+		this.Kibble310.yRot = -3.088056F;
+		this.Kibble310.zRot = 0.775726F;
 		this.Kibble310.renderWithRotation(scale);
 
-		this.Kibble311.rotateAngleX = 0.3970294F;
-		this.Kibble311.rotateAngleY = -3.088056F;
-		this.Kibble311.rotateAngleZ = 0.775726F;
+		this.Kibble311.xRot = 0.3970294F;
+		this.Kibble311.yRot = -3.088056F;
+		this.Kibble311.zRot = 0.775726F;
 		this.Kibble311.renderWithRotation(scale);
 
-		this.Kibble312.rotateAngleX = 0.3970294F;
-		this.Kibble312.rotateAngleY = -3.088056F;
-		this.Kibble312.rotateAngleZ = 0.775726F;
+		this.Kibble312.xRot = 0.3970294F;
+		this.Kibble312.yRot = -3.088056F;
+		this.Kibble312.zRot = 0.775726F;
 		this.Kibble312.renderWithRotation(scale);
 
-		this.Kibble313.rotateAngleX = 0.3970294F;
-		this.Kibble313.rotateAngleY = -3.088056F;
-		this.Kibble313.rotateAngleZ = 0.775726F;
+		this.Kibble313.xRot = 0.3970294F;
+		this.Kibble313.yRot = -3.088056F;
+		this.Kibble313.zRot = 0.775726F;
 		this.Kibble313.renderWithRotation(scale);
 
-		this.Kibble8.rotateAngleX = 0F;
-		this.Kibble8.rotateAngleY = 1.910351F;
-		this.Kibble8.rotateAngleZ = 0F;
+		this.Kibble8.xRot = 0F;
+		this.Kibble8.yRot = 1.910351F;
+		this.Kibble8.zRot = 0F;
 		this.Kibble8.renderWithRotation(scale);
 
-		this.Kibble211.rotateAngleX = -0.1574999F;
-		this.Kibble211.rotateAngleY = 1.443147F;
-		this.Kibble211.rotateAngleZ = -0.3014538F;
+		this.Kibble211.xRot = -0.1574999F;
+		this.Kibble211.yRot = 1.443147F;
+		this.Kibble211.zRot = -0.3014538F;
 		this.Kibble211.renderWithRotation(scale);
 
-		this.Kibble314.rotateAngleX = 0.3970294F;
-		this.Kibble314.rotateAngleY = 2.272861F;
-		this.Kibble314.rotateAngleZ = 0.775726F;
+		this.Kibble314.xRot = 0.3970294F;
+		this.Kibble314.yRot = 2.272861F;
+		this.Kibble314.zRot = 0.775726F;
 		this.Kibble314.renderWithRotation(scale);
 
-		this.Kibble46.rotateAngleX = 0F;
-		this.Kibble46.rotateAngleY = -1.961524F;
-		this.Kibble46.rotateAngleZ = 0F;
+		this.Kibble46.xRot = 0F;
+		this.Kibble46.yRot = -1.961524F;
+		this.Kibble46.zRot = 0F;
 		this.Kibble46.renderWithRotation(scale);
 
-		this.Kibble212.rotateAngleX = -0.1574999F;
-		this.Kibble212.rotateAngleY = -2.428728F;
-		this.Kibble212.rotateAngleZ = -0.3014538F;
+		this.Kibble212.xRot = -0.1574999F;
+		this.Kibble212.yRot = -2.428728F;
+		this.Kibble212.zRot = -0.3014538F;
 		this.Kibble212.renderWithRotation(scale);
 
-		this.Kibble315.rotateAngleX = 0.3970293F;
-		this.Kibble315.rotateAngleY = -1.599014F;
-		this.Kibble315.rotateAngleZ = 0.775726F;
+		this.Kibble315.xRot = 0.3970293F;
+		this.Kibble315.yRot = -1.599014F;
+		this.Kibble315.zRot = 0.775726F;
 		this.Kibble315.renderWithRotation(scale);
 
-		this.Kibble9.rotateAngleX = 0.1310762F;
-		this.Kibble9.rotateAngleY = -2.560675F;
-		this.Kibble9.rotateAngleZ = -0.1431112F;
+		this.Kibble9.xRot = 0.1310762F;
+		this.Kibble9.yRot = -2.560675F;
+		this.Kibble9.zRot = -0.1431112F;
 		this.Kibble9.renderWithRotation(scale);
 
-		this.Kibble213.rotateAngleX = -0.101737F;
-		this.Kibble213.rotateAngleY = -2.994199F;
-		this.Kibble213.rotateAngleZ = -0.4886197F;
+		this.Kibble213.xRot = -0.101737F;
+		this.Kibble213.yRot = -2.994199F;
+		this.Kibble213.zRot = -0.4886197F;
 		this.Kibble213.renderWithRotation(scale);
 
-		this.Kibble316.rotateAngleX = 0.5685233F;
-		this.Kibble316.rotateAngleY = -2.236345F;
-		this.Kibble316.rotateAngleZ = 0.6736611F;
+		this.Kibble316.xRot = 0.5685233F;
+		this.Kibble316.yRot = -2.236345F;
+		this.Kibble316.zRot = 0.6736611F;
 		this.Kibble316.renderWithRotation(scale);
 
-		this.Kibble47.rotateAngleX = -0.003045562F;
-		this.Kibble47.rotateAngleY = -0.1402526F;
-		this.Kibble47.rotateAngleZ = 0.1937396F;
+		this.Kibble47.xRot = -0.003045562F;
+		this.Kibble47.yRot = -0.1402526F;
+		this.Kibble47.zRot = 0.1937396F;
 		this.Kibble47.renderWithRotation(scale);
 
-		this.Kibble214.rotateAngleX = -0.07101945F;
-		this.Kibble214.rotateAngleY = -0.6271345F;
-		this.Kibble214.rotateAngleZ = -0.1268627F;
+		this.Kibble214.xRot = -0.07101945F;
+		this.Kibble214.yRot = -0.6271345F;
+		this.Kibble214.zRot = -0.1268627F;
 		this.Kibble214.renderWithRotation(scale);
 
-		this.Kibble317.rotateAngleX = 0.3192494F;
-		this.Kibble317.rotateAngleY = 0.2892379F;
-		this.Kibble317.rotateAngleZ = 0.9653188F;
+		this.Kibble317.xRot = 0.3192494F;
+		this.Kibble317.yRot = 0.2892379F;
+		this.Kibble317.zRot = 0.9653188F;
 		this.Kibble317.renderWithRotation(scale);
 
-		this.Kibble10.rotateAngleX = 0.1521878F;
-		this.Kibble10.rotateAngleY = -1.053035F;
-		this.Kibble10.rotateAngleZ = 0.1203963F;
+		this.Kibble10.xRot = 0.1521878F;
+		this.Kibble10.yRot = -1.053035F;
+		this.Kibble10.zRot = 0.1203963F;
 		this.Kibble10.renderWithRotation(scale);
 
-		this.Kibble215.rotateAngleX = 0.03257762F;
-		this.Kibble215.rotateAngleY = -1.531796F;
-		this.Kibble215.rotateAngleZ = -0.2637101F;
+		this.Kibble215.xRot = 0.03257762F;
+		this.Kibble215.yRot = -1.531796F;
+		this.Kibble215.zRot = -0.2637101F;
 		this.Kibble215.renderWithRotation(scale);
 
-		this.Kibble318.rotateAngleX = 0.4908113F;
-		this.Kibble318.rotateAngleY = -0.6187222F;
-		this.Kibble318.rotateAngleZ = 0.9636468F;
+		this.Kibble318.xRot = 0.4908113F;
+		this.Kibble318.yRot = -0.6187222F;
+		this.Kibble318.zRot = 0.9636468F;
 		this.Kibble318.renderWithRotation(scale);
 
-		this.Kibble48.rotateAngleX = 6.089849F;
-		this.Kibble48.rotateAngleY = 1.347831F;
-		this.Kibble48.rotateAngleZ = 0.01292845F;
+		this.Kibble48.xRot = 6.089849F;
+		this.Kibble48.yRot = 1.347831F;
+		this.Kibble48.zRot = 0.01292845F;
 		this.Kibble48.renderWithRotation(scale);
 
-		this.Kibble216.rotateAngleX = -0.3232938F;
-		this.Kibble216.rotateAngleY = 0.8571585F;
-		this.Kibble216.rotateAngleZ = -0.1980595F;
+		this.Kibble216.xRot = -0.3232938F;
+		this.Kibble216.yRot = 0.8571585F;
+		this.Kibble216.zRot = -0.1980595F;
 		this.Kibble216.renderWithRotation(scale);
 
-		this.Kibble319.rotateAngleX = 0.211188F;
-		this.Kibble319.rotateAngleY = 1.694274F;
-		this.Kibble319.rotateAngleZ = 0.718143F;
+		this.Kibble319.xRot = 0.211188F;
+		this.Kibble319.yRot = 1.694274F;
+		this.Kibble319.zRot = 0.718143F;
 		this.Kibble319.renderWithRotation(scale);
 
-		this.Kibble11.rotateAngleX = 0F;
-		this.Kibble11.rotateAngleY = -2.296948F;
-		this.Kibble11.rotateAngleZ = 0F;
+		this.Kibble11.xRot = 0F;
+		this.Kibble11.yRot = -2.296948F;
+		this.Kibble11.zRot = 0F;
 		this.Kibble11.renderWithRotation(scale);
 
-		this.Kibble217.rotateAngleX = -0.1574999F;
-		this.Kibble217.rotateAngleY = -2.764152F;
-		this.Kibble217.rotateAngleZ = -0.3014539F;
+		this.Kibble217.xRot = -0.1574999F;
+		this.Kibble217.yRot = -2.764152F;
+		this.Kibble217.zRot = -0.3014539F;
 		this.Kibble217.renderWithRotation(scale);
 
-		this.Kibble320.rotateAngleX = 0.3970294F;
-		this.Kibble320.rotateAngleY = -1.934437F;
-		this.Kibble320.rotateAngleZ = 0.7757261F;
+		this.Kibble320.xRot = 0.3970294F;
+		this.Kibble320.yRot = -1.934437F;
+		this.Kibble320.zRot = 0.7757261F;
 		this.Kibble320.renderWithRotation(scale);
 
-		this.Kibble49.rotateAngleX = -6.283185F;
-		this.Kibble49.rotateAngleY = 0.1143622F;
-		this.Kibble49.rotateAngleZ = 0F;
+		this.Kibble49.xRot = -6.283185F;
+		this.Kibble49.yRot = 0.1143622F;
+		this.Kibble49.zRot = 0F;
 		this.Kibble49.renderWithRotation(scale);
 
-		this.Kibble218.rotateAngleX = -0.1574999F;
-		this.Kibble218.rotateAngleY = -0.3528416F;
-		this.Kibble218.rotateAngleZ = -0.3014538F;
+		this.Kibble218.xRot = -0.1574999F;
+		this.Kibble218.yRot = -0.3528416F;
+		this.Kibble218.zRot = -0.3014538F;
 		this.Kibble218.renderWithRotation(scale);
 
-		this.Kibble321.rotateAngleX = 0.3970294F;
-		this.Kibble321.rotateAngleY = 0.4768728F;
-		this.Kibble321.rotateAngleZ = 0.775726F;
+		this.Kibble321.xRot = 0.3970294F;
+		this.Kibble321.yRot = 0.4768728F;
+		this.Kibble321.zRot = 0.775726F;
 		this.Kibble321.renderWithRotation(scale);
 
-		this.Kibble12.rotateAngleX = 0F;
-		this.Kibble12.rotateAngleY = -0.807906F;
-		this.Kibble12.rotateAngleZ = 0F;
+		this.Kibble12.xRot = 0F;
+		this.Kibble12.yRot = -0.807906F;
+		this.Kibble12.zRot = 0F;
 		this.Kibble12.renderWithRotation(scale);
 
-		this.Kibble219.rotateAngleX = -0.1574999F;
-		this.Kibble219.rotateAngleY = -1.27511F;
-		this.Kibble219.rotateAngleZ = -0.3014539F;
+		this.Kibble219.xRot = -0.1574999F;
+		this.Kibble219.yRot = -1.27511F;
+		this.Kibble219.zRot = -0.3014539F;
 		this.Kibble219.renderWithRotation(scale);
 
-		this.Kibble322.rotateAngleX = 0.3970294F;
-		this.Kibble322.rotateAngleY = -0.4453953F;
-		this.Kibble322.rotateAngleZ = 0.775726F;
+		this.Kibble322.xRot = 0.3970294F;
+		this.Kibble322.yRot = -0.4453953F;
+		this.Kibble322.zRot = 0.775726F;
 		this.Kibble322.renderWithRotation(scale);
 
-		this.Kibble410.rotateAngleX = 0F;
-		this.Kibble410.rotateAngleY = 1.603404F;
-		this.Kibble410.rotateAngleZ = 0F;
+		this.Kibble410.xRot = 0F;
+		this.Kibble410.yRot = 1.603404F;
+		this.Kibble410.zRot = 0F;
 		this.Kibble410.renderWithRotation(scale);
 
-		this.Kibble220.rotateAngleX = -0.1574999F;
-		this.Kibble220.rotateAngleY = 1.1362F;
-		this.Kibble220.rotateAngleZ = -0.3014538F;
+		this.Kibble220.xRot = -0.1574999F;
+		this.Kibble220.yRot = 1.1362F;
+		this.Kibble220.zRot = -0.3014538F;
 		this.Kibble220.renderWithRotation(scale);
 
-		this.Kibble323.rotateAngleX = 0.3970294F;
-		this.Kibble323.rotateAngleY = 1.965915F;
-		this.Kibble323.rotateAngleZ = 0.775726F;
+		this.Kibble323.xRot = 0.3970294F;
+		this.Kibble323.yRot = 1.965915F;
+		this.Kibble323.zRot = 0.775726F;
 		this.Kibble323.renderWithRotation(scale);
 
-		this.Kibble411.rotateAngleX = -6.283185F;
-		this.Kibble411.rotateAngleY = -1.95317F;
-		this.Kibble411.rotateAngleZ = -1.241958E-08F;
+		this.Kibble411.xRot = -6.283185F;
+		this.Kibble411.yRot = -1.95317F;
+		this.Kibble411.zRot = -1.241958E-08F;
 		this.Kibble411.renderWithRotation(scale);
 
-		this.Kibble221.rotateAngleX = -0.1574999F;
-		this.Kibble221.rotateAngleY = -2.420374F;
-		this.Kibble221.rotateAngleZ = -0.3014539F;
+		this.Kibble221.xRot = -0.1574999F;
+		this.Kibble221.yRot = -2.420374F;
+		this.Kibble221.zRot = -0.3014539F;
 		this.Kibble221.renderWithRotation(scale);
 
-		this.Kibble324.rotateAngleX = 0.3970294F;
-		this.Kibble324.rotateAngleY = -1.590659F;
-		this.Kibble324.rotateAngleZ = 0.775726F;
+		this.Kibble324.xRot = 0.3970294F;
+		this.Kibble324.yRot = -1.590659F;
+		this.Kibble324.zRot = 0.775726F;
 		this.Kibble324.renderWithRotation(scale);
 
-		this.Kibble325.rotateAngleX = 0.3970294F;
-		this.Kibble325.rotateAngleY = -1.934437F;
-		this.Kibble325.rotateAngleZ = 0.7757261F;
+		this.Kibble325.xRot = 0.3970294F;
+		this.Kibble325.yRot = -1.934437F;
+		this.Kibble325.zRot = 0.7757261F;
 		this.Kibble325.renderWithRotation(scale);
 
-		this.Kibble326.rotateAngleX = 0.3970294F;
-		this.Kibble326.rotateAngleY = -1.934437F;
-		this.Kibble326.rotateAngleZ = 0.7757261F;
+		this.Kibble326.xRot = 0.3970294F;
+		this.Kibble326.yRot = -1.934437F;
+		this.Kibble326.zRot = 0.7757261F;
 		this.Kibble326.renderWithRotation(scale);
 
 	}
 
 	public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
 	{
-		this.Root_Node.rotateAngleX = 0F;
-		this.Root_Node.rotateAngleY = 0F;
-		this.Root_Node.rotateAngleZ = 0F;
+		this.Root_Node.xRot = 0F;
+		this.Root_Node.yRot = 0F;
+		this.Root_Node.zRot = 0F;
 		this.Root_Node.renderWithRotation(par7);
 
-		this.Side1.rotateAngleX = 0F;
-		this.Side1.rotateAngleY = -1.570796F;
-		this.Side1.rotateAngleZ = 0F;
+		this.Side1.xRot = 0F;
+		this.Side1.yRot = -1.570796F;
+		this.Side1.zRot = 0F;
 		this.Side1.renderWithRotation(par7);
 
-		this.Side2.rotateAngleX = 0F;
-		this.Side2.rotateAngleY = -2.356194F;
-		this.Side2.rotateAngleZ = 0F;
+		this.Side2.xRot = 0F;
+		this.Side2.yRot = -2.356194F;
+		this.Side2.zRot = 0F;
 		this.Side2.renderWithRotation(par7);
 
-		this.Side3.rotateAngleX = 0F;
-		this.Side3.rotateAngleY = -3.141593F;
-		this.Side3.rotateAngleZ = 0F;
+		this.Side3.xRot = 0F;
+		this.Side3.yRot = -3.141593F;
+		this.Side3.zRot = 0F;
 		this.Side3.renderWithRotation(par7);
 
-		this.Side4.rotateAngleX = 0F;
-		this.Side4.rotateAngleY = 2.356194F;
-		this.Side4.rotateAngleZ = 0F;
+		this.Side4.xRot = 0F;
+		this.Side4.yRot = 2.356194F;
+		this.Side4.zRot = 0F;
 		this.Side4.renderWithRotation(par7);
 
-		this.Side5.rotateAngleX = -6.283185F;
-		this.Side5.rotateAngleY = 1.570796F;
-		this.Side5.rotateAngleZ = 0F;
+		this.Side5.xRot = -6.283185F;
+		this.Side5.yRot = 1.570796F;
+		this.Side5.zRot = 0F;
 		this.Side5.renderWithRotation(par7);
 
-		this.Side6.rotateAngleX = 0F;
-		this.Side6.rotateAngleY = 0.7853978F;
-		this.Side6.rotateAngleZ = 0F;
+		this.Side6.xRot = 0F;
+		this.Side6.yRot = 0.7853978F;
+		this.Side6.zRot = 0F;
 		this.Side6.renderWithRotation(par7);
 
-		this.Side7.rotateAngleX = 0F;
-		this.Side7.rotateAngleY = -2.753375E-07F;
-		this.Side7.rotateAngleZ = 0F;
+		this.Side7.xRot = 0F;
+		this.Side7.yRot = -2.753375E-07F;
+		this.Side7.zRot = 0F;
 		this.Side7.renderWithRotation(par7);
 
-		this.Side8.rotateAngleX = 0F;
-		this.Side8.rotateAngleY = -0.7853984F;
-		this.Side8.rotateAngleZ = 0F;
+		this.Side8.xRot = 0F;
+		this.Side8.yRot = -0.7853984F;
+		this.Side8.zRot = 0F;
 		this.Side8.renderWithRotation(par7);
 
-		this.Bottom_.rotateAngleX = 0F;
-		this.Bottom_.rotateAngleY = 0F;
-		this.Bottom_.rotateAngleZ = 0F;
+		this.Bottom_.xRot = 0F;
+		this.Bottom_.yRot = 0F;
+		this.Bottom_.zRot = 0F;
 		this.Bottom_.renderWithRotation(par7);
 
-		this.Bottom_2.rotateAngleX = 0F;
-		this.Bottom_2.rotateAngleY = -1.570796F;
-		this.Bottom_2.rotateAngleZ = 0F;
+		this.Bottom_2.xRot = 0F;
+		this.Bottom_2.yRot = -1.570796F;
+		this.Bottom_2.zRot = 0F;
 		this.Bottom_2.renderWithRotation(par7);
 
-		this.Bottom_3.rotateAngleX = 0F;
-		this.Bottom_3.rotateAngleY = -0.7853982F;
-		this.Bottom_3.rotateAngleZ = 0F;
+		this.Bottom_3.xRot = 0F;
+		this.Bottom_3.yRot = -0.7853982F;
+		this.Bottom_3.zRot = 0F;
 		this.Bottom_3.renderWithRotation(par7);
 
-		this.Bottom_4.rotateAngleX = 0F;
-		this.Bottom_4.rotateAngleY = 0.7853982F;
-		this.Bottom_4.rotateAngleZ = 0F;
+		this.Bottom_4.xRot = 0F;
+		this.Bottom_4.yRot = 0.7853982F;
+		this.Bottom_4.zRot = 0F;
 		this.Bottom_4.renderWithRotation(par7);
 	}
-
 }

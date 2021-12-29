@@ -1,21 +1,23 @@
 package com.animania.manual.components;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 public interface IManualComponent
 {
 	public void init();
 
-	public void draw(int mouseX, int mouseY, float partialTicks);
+	public void draw(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
 
 	public void onLeftClick();
 
 	public void onRightClick();
 
-	default void onLeftClick(int mouseX, int mouseY)
+	default void onLeftClick(PoseStack poseStack, int mouseX, int mouseY)
 	{
 		this.onLeftClick();
 	}
 
-	default void onRightClick(int mouseX, int mouseY)
+	default void onRightClick(PoseStack poseStack, int mouseX, int mouseY)
 	{
 		this.onRightClick();
 	}
@@ -32,7 +34,7 @@ public interface IManualComponent
 
 	public IManualComponent setY(int y);
 
-	default void drawLater(int mouseX, int mouseY, float partialTicks)
+	default void drawLater(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
 	{
 
 	}
