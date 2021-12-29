@@ -58,7 +58,7 @@ import net.minecraft.network.datasync.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.InteractionHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.AABB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Level;
@@ -151,7 +151,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 		this.getZ() = z;
 		float f = this.width / 2.0F;
 		float f1 = this.height;
-		this.setEntityBoundingBox(new AxisAlignedBB(x - f, y, z - f, x + f, y + f1, z + f));
+		this.setEntityBoundingBox(new AABB(x - f, y, z - f, x + f, y + f1, z + f));
 	}
 
 	@Override

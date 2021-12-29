@@ -228,7 +228,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 			{
 				props.setAnimal(this.writeToNBT(new CompoundTag()));
 				props.setCarrying(true);
-				props.setType(EntityList.getKey(this).getResourcePath());
+				props.setType(EntityList.getKey(this).getPath());
 				this.setDead();
 				player.swingArm(InteractionHand.MAIN_HAND);
 				if (!player.level.isClientSide)

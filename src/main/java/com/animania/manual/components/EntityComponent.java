@@ -209,7 +209,7 @@ public class EntityComponent implements IManualComponent
 	@SideOnly(Dist.CLIENT)
 	private void renderEntityStatic(Entity entity)
 	{
-		Minecraft.getMinecraft().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, 0, 0.0F, true);
+		Minecraft.getInstance().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, 0, 0.0F, true);
 
 	}
 

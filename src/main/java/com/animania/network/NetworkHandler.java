@@ -16,7 +16,7 @@ public class NetworkHandler
 	public static void init()
 	{
 
-		Animania.network = NetworkRegistry.INSTANCE.newSimpleChannel("Animania");
+		Animania.network = NetworkRegistry.newSimpleChannel("Animania");
 
 		Animania.network.registerMessage(BlockEntitySyncPacketHandler.class, BlockEntitySyncPacket.class, packetID++, Dist.CLIENT);
 		Animania.network.registerMessage(PacketCloseManual.class, PacketCloseManual.class, packetID++, Dist.DEDICATED_SERVER);

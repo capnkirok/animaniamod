@@ -1,9 +1,9 @@
 package com.animania.common.handler;
 
-import com.animania.common.tileentities.BlockEntityInvisiblock;
-import com.animania.common.tileentities.BlockEntityNest;
-import com.animania.common.tileentities.BlockEntitySaltLick;
-import com.animania.common.tileentities.BlockEntityTrough;
+import com.animania.common.blockentities.BlockEntityInvisiblock;
+import com.animania.common.blockentities.BlockEntityNest;
+import com.animania.common.blockentities.BlockEntitySaltLick;
+import com.animania.common.blockentities.BlockEntityTrough;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

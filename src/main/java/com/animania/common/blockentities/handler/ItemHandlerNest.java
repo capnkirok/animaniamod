@@ -1,18 +1,18 @@
-package com.animania.common.tileentities.handler;
+package com.animania.common.blockentities.handler;
 
-import com.animania.common.tileentities.BlockEntityNest;
+import com.animania.common.blockentities.BlockEntityNest;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemHandlerNest extends ItemStackHandler
 {
-	BlockEntityNest te;
+	BlockEntityNest be;
 
 	public ItemHandlerNest(BlockEntityNest nest)
 	{
 		this.setSize(1);
-		this.te = nest;
+		this.be = nest;
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class ItemHandlerNest extends ItemStackHandler
 	@Override
 	protected void onContentsChanged(int slot)
 	{
-		this.te.setChanged();
+		this.be.setChanged();
 		super.onContentsChanged(slot);
 	}
 }

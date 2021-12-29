@@ -5,23 +5,24 @@ import java.util.Set;
 import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockCrops;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.IPlantable;
 
 public interface IFoodEating extends IAnimaniaAnimal
 {
-	public EntityDataAccessor<Boolean> getHandFedParam();
+	EntityDataAccessor<Boolean> getHandFedParam();
 
-	public EntityDataAccessor<Boolean> getFedParam();
+	EntityDataAccessor<Boolean> getFedParam();
 
-	public EntityDataAccessor<Boolean> getWateredParam();
+	EntityDataAccessor<Boolean> getWateredParam();
 
-	public EntityDataAccessor<Boolean> getInteractedParam();
+	EntityDataAccessor<Boolean> getInteractedParam();
 
 	default void setFed(boolean fed)
 	{
@@ -99,7 +100,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default float getHeadAnchorPointY(float partialTicks)
 	{
-		if (((Entity) this).isBeingRidden())
+		if (((Entity) this).isVehicle())
 		{
 			return 0;
 		}
@@ -110,7 +111,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default float getHeadAngleX(float partialTicks)
 	{
-		if (((Entity) this).isBeingRidden())
+		if (((Entity) this).isVehicle())
 		{
 			return 0;
 		}
@@ -119,13 +120,13 @@ public interface IFoodEating extends IAnimaniaAnimal
 		if (eatTimer > 4 && eatTimer <= 76)
 		{
 			float f = (eatTimer - 4 - partialTicks) / 24.0F;
-			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
+			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * Mth.sin(f * 28.7F);
 		}
 		else
-			return eatTimer > 0 ? (float) Math.PI / 5F : ((Entity) this).rotationPitch * 0.017453292F;
+			return eatTimer > 0 ? (float) Math.PI / 5F : ((Entity) this).getXRot() * 0.017453292F;
 	}
 
-	public Set<ItemStack> getFoodItems();
+	Set<ItemStack> getFoodItems();
 
 	default Fluid[] getFoodFluids()
 	{
@@ -139,26 +140,26 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default Class[] getFoodBlocks()
 	{
-		return new Class[] { BlockCrops.class, IPlantable.class, BlockBush.class };
+		return new Class[] { BlockCrops.class, IPlantable.class, BushBlock.class };
 	}
 
-	public int getEatTimer();
+	int getEatTimer();
 
-	public void setEatTimer(int i);
+	void setEatTimer(int i);
 
-	public int getFedTimer();
+	int getFedTimer();
 
-	public void setFedTimer(int i);
+	void setFedTimer(int i);
 
-	public int getWaterTimer();
+	int getWaterTimer();
 
-	public void setWaterTimer(int i);
+	void setWaterTimer(int i);
 
-	public int getDamageTimer();
+	int getDamageTimer();
 
-	public void setDamageTimer(int i);
+	void setDamageTimer(int i);
 
-	public int getHappyTimer();
+	int getHappyTimer();
 
-	public void setHappyTimer(int i);
+	void setHappyTimer(int i);
 }

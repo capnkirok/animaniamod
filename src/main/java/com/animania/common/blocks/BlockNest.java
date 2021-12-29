@@ -9,8 +9,8 @@ import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.BlockEntityNest;
-import com.animania.common.tileentities.BlockEntityNest.NestContent;
+import com.animania.common.blockentities.BlockEntityNest;
+import com.animania.common.blockentities.BlockEntityNest.NestContent;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
@@ -85,7 +85,7 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 
 		return BlockNest.AABB;

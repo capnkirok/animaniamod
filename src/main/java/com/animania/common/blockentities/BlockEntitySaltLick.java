@@ -1,4 +1,4 @@
-package com.animania.common.tileentities;
+package com.animania.common.blockentities;
 
 import javax.annotation.Nullable;
 
@@ -55,7 +55,7 @@ public class BlockEntitySaltLick extends BlockEntity
 	public CompoundTag writeToNBT(CompoundTag compound)
 	{
 		CompoundTag tag = super.writeToNBT(compound);
-		tag.putInteger("usesLeft", this.usesLeft);
+		tag.putInt("usesLeft", this.usesLeft);
 
 		return tag;
 

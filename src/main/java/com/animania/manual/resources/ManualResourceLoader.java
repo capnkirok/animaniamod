@@ -1,5 +1,9 @@
 package com.animania.manual.resources;
 
+import net.minecraft.client.gui.Font;
+import net.minecraft.server.packs.PackResources;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 
 import java.io.BufferedReader;
@@ -49,6 +53,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class ManualResourceLoader
 {
@@ -121,9 +126,9 @@ public class ManualResourceLoader
 			}
 		}
 
-		List<IResourcePack> packs = ObfuscationReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "field_110449_ao");
+		List<PackResources> packs = ObfuscationReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getInstance(), "field_110449_ao");
 
-		for (IResourcePack pack : packs)
+		for (PackResources pack : packs)
 		{
 			if (pack instanceof AddonResourcePack.Jar)
 				allManualFiles.addAll(((AddonResourcePack.Jar) pack).manualFiles);
@@ -149,7 +154,7 @@ public class ManualResourceLoader
 		{
 			try
 			{
-				List<IResource> resources = Minecraft.getMinecraft().getResourceManager().getAllResources(loc);
+				List<PackResources> resources = Minecraft.getInstance().getResourceManager().getAllResources(loc);
 				if (resources.isEmpty())
 					continue;
 
@@ -264,7 +269,7 @@ public class ManualResourceLoader
 	{
 		int offsetY = 0;
 
-		int prevgetY() = 0;
+		int prevWidth = 0;
 		int prevHeight = 0;
 
 		for (int i = 0; i < components.size(); i++)
@@ -275,7 +280,7 @@ public class ManualResourceLoader
 
 			if (lastComponent != null)
 			{
-				if (prevgetY() == thisComponent.getY() && prevHeight == thisComponent.getObjectHeight())
+				if (prevWidth == thisComponent.getY() && prevHeight == thisComponent.getObjectHeight())
 				{
 					offsetY = lastComponent.getY();
 				}
@@ -283,7 +288,7 @@ public class ManualResourceLoader
 					offsetY = lastComponent.getY() + lastComponent.getObjectHeight() + GuiManual.LINE_Y_OFFSET;
 
 			}
-			prevgetY() = thisComponent.getY();
+			prevWidth = thisComponent.getY();
 			prevHeight = thisComponent.getObjectHeight();
 
 			thisComponent.setY(offsetY);
@@ -334,7 +339,7 @@ public class ManualResourceLoader
 
 				for (IManualComponent comp : textComps)
 				{
-					String displ = ((TextComponent) comp).toString();
+					String displ = comp.toString();
 					linkComps.add(new LinkComponent(comp.getX(), comp.getY(), displ, loc));
 				}
 
@@ -362,7 +367,7 @@ public class ManualResourceLoader
 		else if (s.startsWith("@crafting@"))
 		{
 			s = s.replace("@crafting@", "");
-			List<IRecipe> recipes = AnimaniaHelper.getRecipesForOutput(s);
+			List<Recipe<?>> recipes = AnimaniaHelper.getRecipesForOutput(s);
 			if (!recipes.isEmpty())
 			{
 				CraftingComponent i = new CraftingComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, recipes);
@@ -377,7 +382,7 @@ public class ManualResourceLoader
 			if (stacks.length > 6)
 			{
 				List<IManualComponent> itemComps = new ArrayList<>();
-				List<ItemStack[]> splitStacks = new ArrayList<ItemStack[]>();
+				List<ItemStack[]> splitStacks = new ArrayList<>();
 
 				while (stacks.length > 6)
 				{
@@ -409,7 +414,7 @@ public class ManualResourceLoader
 			if (stacks.length > 6)
 			{
 				List<IManualComponent> itemComps = new ArrayList<>();
-				List<ItemStack[]> splitStacks = new ArrayList<ItemStack[]>();
+				List<ItemStack[]> splitStacks = new ArrayList<>();
 
 				while (stacks.length > 6)
 				{
@@ -453,7 +458,7 @@ public class ManualResourceLoader
 				if (stacks.length > 6)
 				{
 					List<IManualComponent> itemComps = new ArrayList<>();
-					List<ItemStack[]> splitStacks = new ArrayList<ItemStack[]>();
+					List<ItemStack[]> splitStacks = new ArrayList<>();
 
 					while (stacks.length > 6)
 					{
@@ -548,7 +553,7 @@ public class ManualResourceLoader
 			if (stack.isEmpty())
 				return Collections.EMPTY_LIST;
 
-			String display = stack.getDisplayName();
+			String display = stack.getDisplayName().getString();
 
 			TextComponent c = new TextComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, display);
 
@@ -556,7 +561,7 @@ public class ManualResourceLoader
 			{
 				IManualComponent textComp = getTextComp(display, otherComponents, true).get(0);
 				c.setX(textComp.getX()).setY(textComp.getY());
-				if (Minecraft.getMinecraft().fontRenderer.getStringWidth(display) > GuiManual.MANUAL_MAX_X - c.getX())
+				if (Minecraft.getInstance().font.width(display) > GuiManual.MANUAL_MAX_X - c.getX())
 					c.setX(0).setY(offsetY + GuiManual.LINE_Y_OFFSET);
 			}
 			return getList(c);
@@ -583,7 +588,7 @@ public class ManualResourceLoader
 
 	private static List<IManualComponent> getTextComp(String s, List<IManualComponent> otherComponents, boolean prevLine)
 	{
-		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+		Font fr = Minecraft.getInstance().font;
 		int offsetY = 0;
 		int offsetX = 0;
 
@@ -605,12 +610,12 @@ public class ManualResourceLoader
 		if (offsetX >= GuiManual.MANUAL_MAX_X)
 			offsetX = 0;
 
-		int strWidth = fr.getStringWidth(s);
+		int strWidth = fr.width(s);
 		if (strWidth > GuiManual.MANUAL_MAX_X - offsetX)
 		{
 			String firstWrapped = "";
 			List<String> wrappedStrings;
-			if (fr.getStringWidth(s.split(" ")[0]) < GuiManual.MANUAL_MAX_X - offsetX)
+			if (fr.width(s.split(" ")[0]) < GuiManual.MANUAL_MAX_X - offsetX)
 			{
 				wrappedStrings = fr.listFormattedStringToWidth(s, GuiManual.MANUAL_MAX_X - offsetX);
 				firstWrapped = wrappedStrings.get(0);
@@ -622,7 +627,7 @@ public class ManualResourceLoader
 
 			if (!firstWrapped.isEmpty())
 			{
-				if (fr.getStringWidth(firstWrapped) > GuiManual.MANUAL_MAX_X - offsetX)
+				if (fr.width(firstWrapped) > GuiManual.MANUAL_MAX_X - offsetX)
 				{
 					if (!otherComponents.isEmpty())
 					{

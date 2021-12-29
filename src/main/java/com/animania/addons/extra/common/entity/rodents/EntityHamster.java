@@ -227,9 +227,9 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		super.writeEntityToNBT(CompoundTag);
 		CompoundTag.putBoolean("IsSitting", this.isSitting());
 		CompoundTag.putBoolean("InBall", this.isInBall());
-		CompoundTag.putInteger("ColorNumber", this.getColorNumber());
-		CompoundTag.putInteger("foodStackCount", this.getFoodStackCount());
-		CompoundTag.putInteger("BallColor", this.getBallColor());
+		CompoundTag.putInt("ColorNumber", this.getColorNumber());
+		CompoundTag.putInt("foodStackCount", this.getFoodStackCount());
+		CompoundTag.putInt("BallColor", this.getBallColor());
 		CompoundTag.putBoolean("IsTamed", this.isTamed());
 		CompoundTag.putBoolean("IsRiding", this.getIsRiding());
 

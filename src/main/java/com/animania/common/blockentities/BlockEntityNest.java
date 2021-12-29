@@ -1,4 +1,4 @@
-package com.animania.common.tileentities;
+package com.animania.common.blockentities;
 
 import javax.annotation.Nullable;
 
@@ -7,7 +7,7 @@ import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.AnimalTypeHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.handler.ItemHandlerNest;
+import com.animania.common.blockentities.handler.ItemHandlerNest;
 
 import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.nbt.CompoundTag;
@@ -47,7 +47,7 @@ public class BlockEntityNest extends BlockEntity implements Tickable
 	{
 		super.writeToNBT(compound);
 		CompoundTag items = this.itemHandler.serializeNBT();
-		compound.putTag("items", items);
+		compound.put("items", items);
 		if (this.birdType != null)
 			compound.setString("birdType", this.birdType.toString());
 		return compound;

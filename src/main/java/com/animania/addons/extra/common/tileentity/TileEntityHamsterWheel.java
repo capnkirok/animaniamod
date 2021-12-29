@@ -212,13 +212,13 @@ public class BlockEntityHamsterWheel extends AnimatedBlockEntity implements ITic
 	public CompoundTag writeToNBT(CompoundTag compound)
 	{
 		CompoundTag tag = super.writeToNBT(compound);
-		tag.putInteger("energy", this.power.getEnergyStored());
+		tag.putInt("energy", this.power.getEnergyStored());
 		tag.putBoolean("running", this.isRunning);
-		tag.putInteger("timer", this.timer);
+		tag.putInt("timer", this.timer);
 		CompoundTag hamster = new CompoundTag();
 		CompoundTag items = this.itemHandler.serializeNBT();
-		tag.putTag("hamster", this.hamster == null ? hamster : this.hamster.writeToNBT(hamster));
-		tag.putTag("items", items);
+		tag.put("hamster", this.hamster == null ? hamster : this.hamster.writeToNBT(hamster));
+		tag.put("items", items);
 		return tag;
 
 	}

@@ -10,13 +10,22 @@ import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.NotNull;
 
 public class BlockMud extends Block
 {
@@ -27,7 +36,7 @@ public class BlockMud extends Block
 
 	public BlockMud()
 	{
-		super(Material.SAND, MaterialColor.BROWN);
+		super(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_BROWN));
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		BlockHandler.blocks.add(this);
@@ -35,12 +44,6 @@ public class BlockMud extends Block
 		this.slipperiness = 0.6F;
 		this.setSoundType(SoundType.SLIME);
 		this.setTickRandomly(true);
-	}
-
-	@Override
-	public int tickRate(Level levelIn)
-	{
-		return 20;
 	}
 
 	@Override
@@ -56,21 +59,23 @@ public class BlockMud extends Block
 
 	@Override
 	@Nullable
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
+	public AABB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return BlockMud.MUD_AABB;
 	}
 
+	/* TODO: Done in loot tables
 	@Override
 	public int quantityDropped(Random random)
 	{
 		return 1;
 	}
 
+	TODO: Done in lang
 	public String getName()
 	{
 		return this.name;
-	}
+	}*/
 
 	@Override
 	public void onEntityCollidedWithBlock(Level levelIn, BlockPos pos, BlockState state, Entity entityIn)
@@ -87,10 +92,8 @@ public class BlockMud extends Block
 	}
 
 	@Override
-	@SideOnly(Dist.CLIENT)
-	public void randomDisplayTick(BlockState stateIn, Level levelIn, BlockPos pos, Random rand)
-	{
-		AddonInjectionHandler.runInjection("farm", "mudParticleDisplay", Void.class, stateIn, levelIn, pos, rand);
+	// @SideOnly(Dist.CLIENT)
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Random random) {
+		AddonInjectionHandler.runInjection("farm", "mudParticleDisplay", Void.class, state, level, pos, random);
 	}
-
 }

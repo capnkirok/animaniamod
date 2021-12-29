@@ -13,10 +13,12 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,7 +27,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
@@ -37,9 +43,9 @@ public class BlockStraw extends Block
 
 	protected static final AABB STRAW_AABB = new AABB(0.0D, 0.0D, 0.0D, 1.0D, 0.002D, 1.0D);
 
-	private String name = "block_straw";
+	private final String name = "block_straw";
 
-	public static final PropertyEnum<BlockStraw.EnumType> VARIANT = PropertyEnum.<BlockStraw.EnumType> create("variant", BlockStraw.EnumType.class);
+	public static final EnumProperty<EnumType> VARIANT = EnumProperty.create("variant", BlockStraw.EnumType.class);
 
 	public BlockStraw()
 	{
@@ -115,13 +121,13 @@ public class BlockStraw extends Block
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
+	public AABB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return Block.NULL_AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return BlockStraw.STRAW_AABB;
 	}
@@ -135,14 +141,9 @@ public class BlockStraw extends Block
 	@Override
 	public boolean canPlaceBlockAt(Level levelIn, BlockPos pos)
 	{
-		BlockPos blockposlower = pos.down();
+		BlockPos blockposlower = pos.below();
 
-		if (levelIn.getBlockState(blockposlower).getBlock() == BlockHandler.blockStraw || !levelIn.getBlockState(blockposlower).getBlock().isFullBlock(levelIn.getBlockState(blockposlower)) || !levelIn.getBlockState(blockposlower).getBlock().isOpaqueCube(levelIn.getBlockState(blockposlower)))
-		{
-			return false;
-		}
-
-		return true;
+		return levelIn.getBlockState(blockposlower).getBlock() != BlockHandler.blockStraw && levelIn.getBlockState(blockposlower).getBlock().isFullBlock(levelIn.getBlockState(blockposlower)) && levelIn.getBlockState(blockposlower).getBlock().isOpaqueCube(levelIn.getBlockState(blockposlower));
 
 	}
 
@@ -172,7 +173,7 @@ public class BlockStraw extends Block
 
 	private boolean canBlockStay(Level levelIn, BlockPos pos)
 	{
-		return !levelIn.isAirBlock(pos.down());
+		return !levelIn.getBlockState(pos.below()).isAir();
 	}
 
 	@Override
@@ -192,7 +193,7 @@ public class BlockStraw extends Block
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
-		return this.defaultBlockState().withProperty(VARIANT, BlockStraw.EnumType.byMetadata(meta));
+		return this.defaultBlockState().setValue(VARIANT, BlockStraw.EnumType.byMetadata(meta));
 	}
 
 	/**
@@ -201,7 +202,12 @@ public class BlockStraw extends Block
 	@Override
 	public int getMetaFromState(BlockState state)
 	{
-		return ((BlockStraw.EnumType) state.getValue(VARIANT)).getMetadata();
+		return state.getValue(VARIANT).getMetadata();
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> arg) {
+		return new StateDefinition.Builder<>(this, new Property[] {VARIANT});
 	}
 
 	@Override
@@ -213,20 +219,18 @@ public class BlockStraw extends Block
 	@Override
 	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
 	{
-		return ((BlockStraw.EnumType) state.getValue(VARIANT)).getMaterialColor();
+		return state.getValue(VARIANT).getMaterialColor();
 	}
 
 	@Override
 	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, Direction side)
 	{
-		if (side == Direction.UP)
-			return true;
-		return false;
+		return side == Direction.UP;
 	}
 
-	public static enum EnumType implements IStringSerializable
+	public enum EnumType implements StringRepresentable
 	{
-		STRAW(0, MaterialColor.YELLOW, "straw");
+		STRAW(0, MaterialColor.COLOR_YELLOW, "straw");
 
 		/** Array of the Block's BlockStates */
 		private static final BlockStraw.EnumType[] META = new BlockStraw.EnumType[values().length];
@@ -235,19 +239,19 @@ public class BlockStraw extends Block
 		/** The EnumType's name. */
 		private final String name;
 		private final String unlocalizedName;
-		private final MaterialColor MaterialColor;
+		private final MaterialColor materialColor;
 
-		private EnumType(int i, MaterialColor color, String name)
+		EnumType(int i, MaterialColor color, String name)
 		{
 			this(i, color, name, name);
 		}
 
-		private EnumType(int meta, MaterialColor color, String name, String name2)
+		EnumType(int meta, MaterialColor color, String name, String name2)
 		{
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = name2;
-			this.MaterialColor = color;
+			this.materialColor = color;
 		}
 
 		/**
@@ -260,7 +264,7 @@ public class BlockStraw extends Block
 
 		public MaterialColor getMaterialColor()
 		{
-			return this.MaterialColor;
+			return this.materialColor;
 		}
 
 		@Override
@@ -300,6 +304,10 @@ public class BlockStraw extends Block
 			}
 		}
 
+		@Override
+		public String getSerializedName() {
+			return this.unlocalizedName;
+		}
 	}
 
 }

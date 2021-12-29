@@ -143,7 +143,7 @@ public class ModelRendererBall extends ModelPart
 		GL11.glEnable(GL11.GL_NORMALIZE);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		Minecraft.getMinecraft().renderEngine.bindTexture(ModelRendererBall.resource);
+		Minecraft.getInstance().renderEngine.bindTexture(ModelRendererBall.resource);
 
 		switch (this.color)
 		{

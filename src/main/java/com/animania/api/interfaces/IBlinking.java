@@ -2,8 +2,8 @@ package com.animania.api.interfaces;
 
 public interface IBlinking
 {
-	public int getBlinkTimer();
+	int getBlinkTimer();
 
-	public void setBlinkTimer(int i);
+	void setBlinkTimer(int i);
 
 }

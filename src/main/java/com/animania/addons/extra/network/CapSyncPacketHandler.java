@@ -15,11 +15,11 @@ public class CapSyncPacketHandler implements IMessageHandler<CapSyncPacket, IMes
 	@Override
 	public IMessage onMessage(CapSyncPacket message, MessageContext ctx)
 	{
-		IThreadListener mainThread = Minecraft.getMinecraft();
+		IThreadListener mainThread = Minecraft.getInstance();
 
 		mainThread.addScheduledTask(() -> {
 
-			Entity entity = Minecraft.getMinecraft().level.getEntityByID(message.entityID);
+			Entity entity = Minecraft.getInstance().level.getEntityByID(message.entityID);
 
 			if (entity != null)
 			{

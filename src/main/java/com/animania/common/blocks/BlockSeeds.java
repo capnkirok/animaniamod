@@ -121,13 +121,13 @@ public class BlockSeeds extends Block
 	}
 
 	@Nullable
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, Level levelIn, BlockPos pos)
+	public AABB getCollisionBoundingBox(BlockState blockState, Level levelIn, BlockPos pos)
 	{
 		return Block.NULL_AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return BlockSeeds.SEEDS_AABB;
 	}

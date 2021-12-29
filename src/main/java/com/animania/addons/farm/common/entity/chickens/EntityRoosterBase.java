@@ -100,8 +100,8 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
 		super.writeEntityToNBT(CompoundTag);
-		CompoundTag.putInteger("CrowTime", this.getTimeUntilNextCrow());
-		CompoundTag.putInteger("CrowDuration", this.getCrowDuration());
+		CompoundTag.putInt("CrowTime", this.getTimeUntilNextCrow());
+		CompoundTag.putInt("CrowDuration", this.getCrowDuration());
 	}
 
 	@Override

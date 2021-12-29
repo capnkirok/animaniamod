@@ -3,7 +3,7 @@ package com.animania.common.helper;
 import javax.annotation.Nullable;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.JsonToNBT;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,7 @@ public class StringParser
 	@Nullable
 	public static Block getBlock(String string)
 	{
-		CompoundTag tag = getTagCompound(string);
+		CompoundTag tag = getTag(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
@@ -32,7 +32,7 @@ public class StringParser
 
 	public static int getMeta(String string)
 	{
-		CompoundTag tag = getTagCompound(string);
+		CompoundTag tag = getTag(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
@@ -56,7 +56,7 @@ public class StringParser
 	@Nullable
 	public static BlockState getBlockState(String string)
 	{
-		CompoundTag tag = getTagCompound(string);
+		CompoundTag tag = getTag(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
@@ -81,7 +81,7 @@ public class StringParser
 	@Nullable
 	public static Item getItem(String string)
 	{
-		CompoundTag tag = getTagCompound(string);
+		CompoundTag tag = getTag(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
@@ -99,15 +99,15 @@ public class StringParser
 			return ItemStack.EMPTY;
 
 		ItemStack stack = new ItemStack(item, 1, getMeta(string));
-		CompoundTag tag = getTagCompound(string);
+		CompoundTag tag = getTag(string);
 		if (tag != null)
-			stack.putTagCompound(tag);
+			stack.putCompound(tag);
 
 		return stack;
 	}
 
 	@Nullable
-	public static CompoundTag getTagCompound(String string)
+	public static CompoundTag getTag(String string)
 	{
 		CompoundTag tag = null;
 		if (string.contains("{"))
@@ -119,7 +119,7 @@ public class StringParser
 			string = string.replace(nbt, "");
 			try
 			{
-				tag = JsonToNBT.getTagFromJson(nbt);
+				tag = TagParser.getTagFromJson(nbt);
 			}
 			catch (NBTException e)
 			{

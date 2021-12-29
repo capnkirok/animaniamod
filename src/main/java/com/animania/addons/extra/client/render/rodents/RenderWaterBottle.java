@@ -3,7 +3,7 @@ package com.animania.addons.extra.client.render.rodents;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelWaterBottle;
-import com.animania.common.tileentities.BlockEntityWaterBottle;
+import com.animania.common.blockentities.BlockEntityWaterBottle;
 
 import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.resources.ResourceLocation;

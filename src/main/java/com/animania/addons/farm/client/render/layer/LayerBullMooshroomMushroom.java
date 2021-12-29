@@ -25,7 +25,7 @@ public class LayerBullMooshroomMushroom implements LayerRenderer<EntityBullMoosh
 	{
 		if (!LivingEntityIn.isChild() && !LivingEntityIn.isInvisible())
 		{
-			BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+			BlockRendererDispatcher blockrendererdispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
 			this.mooshroomRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.enableCull();
 			GlStateManager.cullFace(GlStateManager.CullFace.FRONT);

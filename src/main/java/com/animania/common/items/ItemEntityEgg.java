@@ -129,7 +129,7 @@ public class ItemEntityEgg extends Item
 	@Override
 	public String getItemStackDisplayName(ItemStack stack)
 	{
-		return I18n.translateToLocal("entity.animania:" + stack.getItem().getRegistryName().getResourcePath().replace("entity_egg_", "") + ".name");
+		return I18n.translateToLocal("entity.animania:" + stack.getItem().getRegistryName().getPath().replace("entity_egg_", "") + ".name");
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class ItemEntityEgg extends Item
 		@Override
 		public int colorMultiplier(ItemStack stack, int tintIndex)
 		{
-			Level level = Minecraft.getMinecraft().level;
+			Level level = Minecraft.getInstance().level;
 			if (!stack.isEmpty() && stack.getItem() != ItemHandler.entityeggrandomanimal)
 			{
 				AnimalContainer animal = ((ItemEntityEgg) stack.getItem()).getAnimal();

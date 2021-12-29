@@ -64,11 +64,11 @@ public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseM
 				else if (main.getItem() == ItemHandler.animaniaManual)
 					stack = off;
 
-				CompoundTag tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundTag();
+				CompoundTag tag = stack.hasTag() ? stack.getTag() : new CompoundTag();
 				tag.setString("currentTopic", message.currentTopic);
 				tag.setString("lastTopic", message.lastTopic);
 
-				stack.putTagCompound(tag);
+				stack.putCompound(tag);
 			}
 		});
 

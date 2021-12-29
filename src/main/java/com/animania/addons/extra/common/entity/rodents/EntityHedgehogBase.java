@@ -321,7 +321,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 			{
 				props.setAnimal(this.writeToNBT(new CompoundTag()));
 				props.setCarrying(true);
-				props.setType(EntityList.getKey(this).getResourcePath());
+				props.setType(EntityList.getKey(this).getPath());
 				this.setDead();
 				player.swingArm(InteractionHand.MAIN_HAND);
 				if (!player.level.isClientSide)

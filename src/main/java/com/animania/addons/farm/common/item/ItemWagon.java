@@ -8,7 +8,7 @@ import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.stats.StatList;
 import net.minecraft.util.InteractionResultHolderType;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.AABB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -68,9 +68,9 @@ public class ItemWagon extends Item
 
 				if (entity.canBeCollidedWith())
 				{
-					AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().grow(entity.getCollisionBorderSize());
+					AABB AABB = entity.getEntityBoundingBox().grow(entity.getCollisionBorderSize());
 
-					if (axisalignedbb.contains(vec3d))
+					if (AABB.contains(vec3d))
 					{
 						flag = true;
 					}

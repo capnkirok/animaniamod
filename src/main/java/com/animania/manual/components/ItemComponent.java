@@ -1,12 +1,11 @@
 package com.animania.manual.components;
 
-import net.minecraft.world.level.Level;
+import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import com.animania.manual.gui.GuiManual;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemComponent implements IManualComponent
@@ -56,42 +55,39 @@ public class ItemComponent implements IManualComponent
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY, float partialTicks)
+	public void draw(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
 	{
 		int border = (GuiManual.MANUAL_MAX_X - this.objectWidth) / 2;
 		for (int i = 0; i < this.stacks.length; i++)
 		{
 			ItemStack stack = this.stacks[i];
-			int getX() = absoluteX + manual.guiLeft + border + i * (16 + ITEM_OFFSET);
-			int getY() = absoluteY + manual.guiTop;
-			GlStateManager.pushMatrix();
-			RenderHelper.enableGUIStandardItemLighting();
+			int width = absoluteX + manual.guiLeft + border + i * (16 + ITEM_OFFSET);
+			int height = absoluteY + manual.guiTop;
+			poseStack.pushPose();
+			// RenderHelper.enableGUIStandardItemLighting();
+			Lighting.setupForFlatItems(); // TODO: Check this
 			this.manual.drawItemStack(stack, this.getX(), this.getY(), null);
-			GlStateManager.disableLighting();
-			GlStateManager.popMatrix();
-
+			// GlStateManager.disableLighting();
+			poseStack.popPose();
 		}
-
-
-
 	}
 
 	@Override
-	public void drawLater(int mouseX, int mouseY, float partialTicks)
+	public void drawLater(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
 	{
 		int border = (GuiManual.MANUAL_MAX_X - this.objectWidth) / 2;
 		for (int i = 0; i < this.stacks.length; i++)
 		{
 			ItemStack stack = this.stacks[i];
-			int getX() = absoluteX + manual.guiLeft + border + i * (16 + ITEM_OFFSET);
-			int getY() = absoluteY + manual.guiTop;
+			int width = absoluteX + manual.guiLeft + border + i * (16 + ITEM_OFFSET);
+			int height = absoluteY + manual.guiTop;
 
 			if (mouseX > this.getX() && mouseX < this.getX() + 16 && mouseY > this.getY() && mouseY < this.getY() + 16)
 			{
-				GlStateManager.pushMatrix();
+				poseStack.pushPose();
 				this.manual.renderToolTip(stack, mouseX, mouseY);
-				GlStateManager.disableLighting();
-				GlStateManager.popMatrix();
+				// GlStateManager.disableLighting();
+				poseStack.popPose();
 			}
 		}
 	}

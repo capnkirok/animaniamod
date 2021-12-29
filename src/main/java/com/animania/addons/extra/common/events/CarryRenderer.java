@@ -45,11 +45,11 @@ public class CarryRenderer
 	public static void renderHand(RenderHandEvent event)
 	{
 
-		Level level = Minecraft.getMinecraft().level;
-		Player player = Minecraft.getMinecraft().player;
+		Level level = Minecraft.getInstance().level;
+		Player player = Minecraft.getInstance().player;
 		AbstractClientPlayer aplayer = (AbstractClientPlayer) player;
 		ItemStack stack = player.getMainHandItem();
-		int perspective = Minecraft.getMinecraft().gameSettings.thirdPersonView;
+		int perspective = Minecraft.getInstance().gameSettings.thirdPersonView;
 		float partialticks = event.getPartialTicks();
 		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 
@@ -84,9 +84,9 @@ public class CarryRenderer
 				if (perspective == 0)
 				{
 					RenderHelper.enableStandardItemLighting();
-					Minecraft.getMinecraft().getRenderManager().setRenderShadow(false);
-					Minecraft.getMinecraft().getRenderManager().renderEntityStatic(entity, 0.0f, false);
-					Minecraft.getMinecraft().getRenderManager().setRenderShadow(true);
+					Minecraft.getInstance().getRenderManager().setRenderShadow(false);
+					Minecraft.getInstance().getRenderManager().renderEntityStatic(entity, 0.0f, false);
+					Minecraft.getInstance().getRenderManager().setRenderShadow(true);
 
 				}
 
@@ -113,10 +113,10 @@ public class CarryRenderer
 	@SubscribeEvent
 	public static void onPlayerRenderPost(RenderPlayerEvent.Post event)
 	{
-		Level level = Minecraft.getMinecraft().level;
+		Level level = Minecraft.getInstance().level;
 		Player player = event.getPlayer();
 		ModelPlayer modelPlayer = event.getRenderer().getMainModel();
-		LocalPlayer clientPlayer = Minecraft.getMinecraft().player;
+		LocalPlayer clientPlayer = Minecraft.getInstance().player;
 		ItemStack stack = player.getMainHandItem();
 		float partialticks = event.getPartialRenderTick();
 		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
@@ -126,7 +126,7 @@ public class CarryRenderer
 			Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), level);
 			entity.readFromNBT(props.getAnimal());
 			float rotation = -(player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialticks);
-			int perspective = Minecraft.getMinecraft().gameSettings.thirdPersonView;
+			int perspective = Minecraft.getInstance().gameSettings.thirdPersonView;
 
 			if (entity != null)
 			{
@@ -162,9 +162,9 @@ public class CarryRenderer
 				if (player.isSneaking())
 					GlStateManager.translate(0, -0.3, 0);
 
-				Minecraft.getMinecraft().getRenderManager().setRenderShadow(false);
-				Minecraft.getMinecraft().getRenderManager().renderEntityStatic(entity, 0.0f, false);
-				Minecraft.getMinecraft().getRenderManager().setRenderShadow(true);
+				Minecraft.getInstance().getRenderManager().setRenderShadow(false);
+				Minecraft.getInstance().getRenderManager().renderEntityStatic(entity, 0.0f, false);
+				Minecraft.getInstance().getRenderManager().setRenderShadow(true);
 
 				GlStateManager.scale(1, 1, 1);
 				GlStateManager.popMatrix();

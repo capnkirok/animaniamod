@@ -31,8 +31,8 @@ public class RenderAnimatedEgg extends BlockEntityItemStackRenderer
 	@Override
 	public void renderByItem(ItemStack stack, float partialTicks)
 	{
-		Player player = Minecraft.getMinecraft().player;
-		Minecraft mc = Minecraft.getMinecraft();
+		Player player = Minecraft.getInstance().player;
+		Minecraft mc = Minecraft.getInstance();
 
 		Entity entity = ItemEntityEggAnimated.getEntity(player.level, stack);
 
@@ -158,7 +158,7 @@ public class RenderAnimatedEgg extends BlockEntityItemStackRenderer
 		}
 
 		float f = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw);
-		int i = this.getBrightnessForRender(entity, Minecraft.getMinecraft().player);
+		int i = this.getBrightnessForRender(entity, Minecraft.getInstance().player);
 
 		if (entity.isBurning())
 		{
@@ -175,7 +175,7 @@ public class RenderAnimatedEgg extends BlockEntityItemStackRenderer
 		else
 			this.setLightmapDisabled(false);
 
-		Minecraft.getMinecraft().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, f, 0.0F, true);
+		Minecraft.getInstance().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, f, 0.0F, true);
 
 	}
 

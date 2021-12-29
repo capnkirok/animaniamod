@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.items.ItemSaltLick;
-import com.animania.common.tileentities.BlockEntitySaltLick;
+import com.animania.common.blockentities.BlockEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.state.BlockFaceShape;
@@ -96,7 +96,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess level, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess level, BlockPos pos)
 	{
 		if (level != null)
 		{
@@ -104,14 +104,14 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 			if (te instanceof BlockEntitySaltLick)
 			{
 				double usesLeft = (double) ((BlockEntitySaltLick) te).usesLeft / (double) AnimaniaConfig.careAndFeeding.saltLickMaxUses;
-				return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft, 0.8125);
+				return new AABB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft, 0.8125);
 			}
 		}
 		return AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess level, BlockPos pos)
+	public AABB getCollisionBoundingBox(BlockState blockState, IBlockAccess level, BlockPos pos)
 	{
 		if (level != null)
 		{
@@ -119,7 +119,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 			if (te instanceof BlockEntitySaltLick)
 			{
 				double usesLeft = (double) ((BlockEntitySaltLick) te).usesLeft / (double) AnimaniaConfig.careAndFeeding.saltLickMaxUses;
-				return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft, 0.8125);
+				return new AABB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft, 0.8125);
 			}
 		}
 		return AABB;

@@ -349,7 +349,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.putInteger("Age", this.getAge());
+		compound.putInt("Age", this.getAge());
 
 	}
 

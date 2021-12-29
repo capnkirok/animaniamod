@@ -13,7 +13,7 @@ public class CapabilityPlayerHandler
 	public static NBTBase writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance)
 	{
 		CompoundTag tags = new CompoundTag();
-		tags.putTag("animal", instance.getAnimal());
+		tags.put("animal", instance.getAnimal());
 		tags.putBoolean("carrying", instance.isCarrying());
 		tags.setString("type", instance.getType());
 		return tags;
@@ -22,17 +22,17 @@ public class CapabilityPlayerHandler
 	public static void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, CompoundTag nbt)
 	{
 
-		if (nbt.hasKey("animal"))
+		if (nbt.contains("animal"))
 		{
 			instance.setAnimal(nbt.getCompoundTag("animal"));
 		}
 
-		if (nbt.hasKey("carrying"))
+		if (nbt.contains("carrying"))
 		{
 			instance.setCarrying(nbt.getBoolean("carrying"));
 		}
 
-		if (nbt.hasKey("type"))
+		if (nbt.contains("type"))
 		{
 			instance.setType(nbt.getString("type"));
 		}
@@ -54,16 +54,16 @@ public class CapabilityPlayerHandler
 		if (instance == null)
 			return;
 
-		if (nbt.hasKey("animal"))
+		if (nbt.contains("animal"))
 		{
 			instance.setAnimal(nbt.getCompoundTag("animal"));
 		}
-		if (nbt.hasKey("carrying"))
+		if (nbt.contains("carrying"))
 		{
 			instance.setCarrying(nbt.getBoolean("carrying"));
 		}
 
-		if (nbt.hasKey("type"))
+		if (nbt.contains("type"))
 		{
 			instance.setType(nbt.getString("type"));
 		}

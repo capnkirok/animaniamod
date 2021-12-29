@@ -1,17 +1,16 @@
 package com.animania.manual.groups;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.animania.Animania;
 import com.animania.common.handler.AddonHandler;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.ModList;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ManualTopic
 {
-	private List<ManualPage> pages = new ArrayList<>();
+	private List<ManualPage> pages;
 	private ResourceLocation id;
 	private boolean isFirstPage;
 	private String requiredModid = Animania.MODID;

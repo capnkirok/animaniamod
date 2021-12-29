@@ -142,8 +142,8 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	{
 		super.writeEntityToNBT(CompoundTag);
 		CompoundTag.putBoolean("Laid", this.getLaid());
-		CompoundTag.putInteger("EggLayTime", timeUntilNextEgg);
-		CompoundTag.putInteger("LaidTimer", this.getLaidTimer());
+		CompoundTag.putInt("EggLayTime", timeUntilNextEgg);
+		CompoundTag.putInt("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override

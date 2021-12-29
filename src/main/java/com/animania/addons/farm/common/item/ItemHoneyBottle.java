@@ -131,7 +131,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 			Potion pot = MobEffects.REGENERATION;
 			int duration = 100;
 			int amplifier = 1;
-			String name = pot.getRegistryName().getResourcePath().replace("_", "");
+			String name = pot.getRegistryName().getPath().replace("_", "");
 
 			tooltip.add(ChatFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + " (" + TimeHelper.getTime(duration) + ")");
 		}

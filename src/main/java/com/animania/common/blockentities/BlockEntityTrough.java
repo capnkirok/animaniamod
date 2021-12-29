@@ -1,13 +1,13 @@
-package com.animania.common.tileentities;
+package com.animania.common.blockentities;
 
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.animania.api.interfaces.IFoodProviderTE;
+import com.animania.api.interfaces.IFoodProviderBE;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.handler.FluidHandlerTrough;
-import com.animania.common.tileentities.handler.ItemHandlerTrough;
+import com.animania.common.blockentities.handler.FluidHandlerTrough;
+import com.animania.common.blockentities.handler.ItemHandlerTrough;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.renderer.texture.Tickable;
@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BlockEntityTrough extends BlockEntity implements Tickable, IFoodProviderTE
+public class BlockEntityTrough extends BlockEntity implements Tickable, IFoodProviderBE
 {
 	protected TroughContent troughType;
 	private int troughRotation;
@@ -132,8 +132,8 @@ public class BlockEntityTrough extends BlockEntity implements Tickable, IFoodPro
 		CompoundTag items = this.itemHandler.serializeNBT();
 		CompoundTag fluid = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
-		tag.putTag("items", items);
-		tag.putTag("fluid", fluid);
+		tag.put("items", items);
+		tag.put("fluid", fluid);
 		tag.setByte("Rot", (byte) (this.troughRotation & 255));
 
 		return tag;

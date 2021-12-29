@@ -15,7 +15,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.AABB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
@@ -36,7 +36,7 @@ public class BlockCheese extends Block
 {
 
 	public static final PropertyInteger BITES = PropertyInteger.create("bites", 0, 3);
-	private static final AxisAlignedBB[] AABB = new AxisAlignedBB[] { new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.5D), new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.5D, 0.5D, 0.5D) };
+	private static final AABB[] AABB = new AABB[] { new AABB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AABB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AABB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.5D), new AABB(0.0625D, 0.0D, 0.0625D, 0.5D, 0.5D, 0.5D) };
 
 	public BlockCheese(String name)
 	{
@@ -93,7 +93,7 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return AABB[state.getValue(BITES)];
 	}

@@ -11,24 +11,29 @@ import com.animania.manual.groups.ManualTopic;
 import com.animania.manual.resources.ManualResourceLoader;
 import com.animania.network.common.PacketCloseManual;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.java.games.input.Keyboard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.Button;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class GuiManual extends GuiScreen
+public class GuiManual extends Screen
 {
 
 	public static final ResourceLocation TEXTURE = new ResourceLocation(Animania.MODID, "textures/gui/book.png");
@@ -37,7 +42,7 @@ public class GuiManual extends GuiScreen
 	public static final int START_OFFSET_Y = 16;
 
 	public static final int LINE_Y_OFFSET = 1;
-	public static final int LINE_X_OFFSET = Minecraft.getMinecraft().fontRenderer.getStringWidth(" ");
+	public static final int LINE_X_OFFSET = Minecraft.getInstance().font.width(" ");
 
 	public static final int MANUAL_MAX_X = 114;
 	public static final int MANUAL_MAX_Y = 154;
@@ -64,11 +69,11 @@ public class GuiManual extends GuiScreen
 
 	public int pageIndex = 0;
 
-	private GuiButton buttonNextPage;
-	private GuiButton buttonPreviousPage;
+	private Button buttonNextPage;
+	private Button buttonPreviousPage;
 
-	private GuiButton buttonPrevTopic;
-	private GuiButton buttonThisTopic;
+	private Button buttonPrevTopic;
+	private Button buttonThisTopic;
 
 	private GuiManual()
 	{
@@ -76,10 +81,10 @@ public class GuiManual extends GuiScreen
 
 	public static GuiManual getInstance(ItemStack book)
 	{
-		if (book.hasTagCompound())
+		if (book.hasTag())
 		{
-			CompoundTag tag = book.getTagCompound();
-			if (tag.hasKey("currentTopic") && tag.hasKey("lastTopic"))
+			CompoundTag tag = book.getOrCreateTag();
+			if (tag.contains("currentTopic") && tag.contains("lastTopic"))
 			{
 				INSTANCE.currentTopic = INSTANCE.manualContent.get(new ResourceLocation(tag.getString("currentTopic")));
 				INSTANCE.lastTopic = INSTANCE.manualContent.get(new ResourceLocation(tag.getString("lastTopic")));
@@ -107,15 +112,13 @@ public class GuiManual extends GuiScreen
 	}
 
 	@Override
-	public boolean doesGuiPauseGame()
-	{
+	public boolean isPauseScreen() {
 		return false;
 	}
 
 	@Override
-	public void onGuiClosed()
-	{
-		Keyboard.enableRepeatEvents(false);
+	public void onClose() {
+		// Keyboard.enableRepeatEvents(false);
 		Animania.network.sendToServer(new PacketCloseManual(this.currentTopic.getId().toString(), this.lastTopic.getId().toString()));
 	}
 
@@ -133,7 +136,7 @@ public class GuiManual extends GuiScreen
 		this.y = this.guiTop + START_OFFSET_Y;
 
 		int i = (this.width - 192) / 2;
-		this.buttonNextPage = this.addButton(new NextPageButton(0, this.guiLeft + 155, this.guiTop + 164, true));
+		this.buttonNextPage = this.addWidget(new NextPageButton(0, this.guiLeft + 155, this.guiTop + 164, true));
 		this.buttonPreviousPage = this.addButton(new NextPageButton(1, this.guiLeft + 7, this.guiTop + 164, false));
 		this.buttonPrevTopic = this.addButton(new PrevPageButton(2, this.guiLeft + 9, this.guiTop + 178, false));
 		this.buttonThisTopic = this.addButton(new PrevPageButton(3, this.guiLeft + 159, this.guiTop + 178, true));
@@ -150,6 +153,16 @@ public class GuiManual extends GuiScreen
 
 		for (IManualComponent c : p.getComponents())
 			c.init();
+	}
+
+	@Override
+	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		super.render(poseStack, mouseX, mouseY, partialTicks);
+		RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderTexture(0, TEXTURE);
+		int marginHorizontal = (width - this.xSize) / 2;
+		int marginVertical = (height - this.ySize) / 2;
+		drawModalRectWithCustomSizedTexture(marginHorizontal, marginVertical, 0, 0, this.xSize, this.ySize);
 	}
 
 	@Override
@@ -181,7 +194,7 @@ public class GuiManual extends GuiScreen
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton button) throws IOException
+	protected void actionPerformed(Button button) throws IOException
 	{
 		if (button.enabled)
 		{
@@ -218,7 +231,7 @@ public class GuiManual extends GuiScreen
 	}
 
 	@SideOnly(Dist.CLIENT)
-	static class NextPageButton extends GuiButton
+	static class NextPageButton extends Button
 	{
 		private final boolean isForward;
 
@@ -265,7 +278,7 @@ public class GuiManual extends GuiScreen
 	}
 
 	@SideOnly(Dist.CLIENT)
-	static class PrevPageButton extends GuiButton
+	static class PrevPageButton extends Button
 	{
 		private final boolean isForward;
 
@@ -278,12 +291,12 @@ public class GuiManual extends GuiScreen
 		/**
 		 * Draws this button to the screen.
 		 */
-		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
-		{
+		@Override
+		public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 			if (this.visible)
 			{
 				boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
 				int i = 48;
 				int j = 229;
 
@@ -297,15 +310,15 @@ public class GuiManual extends GuiScreen
 					j += 13;
 				}
 
-				mc.getTextureManager().bindTexture(TEXTURE);
+				RenderSystem.setShaderTexture(0, TEXTURE);
 				this.drawTexturedModalRect(this.x, this.y, i, j, 18, 11);
 
 				if (flag)
 				{
-					GlStateManager.pushMatrix();
-					GuiManual.INSTANCE.drawHoveringText(I18n.translateToLocal("manual.topic.previous"), mouseX, mouseY);
+					poseStack.pushPose();
+					GuiManual.INSTANCE.drawHoveringText(new TranslatableComponent("manual.topic.previous"), mouseX, mouseY);
 					GlStateManager.disableLighting();
-					GlStateManager.popMatrix();
+					poseStack.popPose();
 				}
 
 			}

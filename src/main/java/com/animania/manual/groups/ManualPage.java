@@ -1,13 +1,13 @@
 package com.animania.manual.groups;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.animania.manual.components.IManualComponent;
 
 public class ManualPage
 {
-	private List<IManualComponent> components = new ArrayList<>();
+	private List<IManualComponent> components;
 
 	public ManualPage(IManualComponent... components)
 	{

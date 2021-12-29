@@ -5,9 +5,9 @@ import com.animania.client.render.item.RenderAnimatedEgg;
 import com.animania.manual.components.CraftingComponent;
 import com.animania.manual.components.EntityComponent;
 
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(modid = Animania.MODID)
@@ -18,7 +18,7 @@ public class RenderEvents
 	@SubscribeEvent
 	public static void onTick(TickEvent.ClientTickEvent event)
 	{
-		if (event.side == Dist.CLIENT)
+		if (event.side == LogicalSide.CLIENT)
 		{
 			ticks++;
 			RenderAnimatedEgg.renderTimer += 0.004f;

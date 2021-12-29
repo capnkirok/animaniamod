@@ -7,8 +7,8 @@ import com.animania.addons.extra.common.entity.peafowl.EntityPeafowlBase;
 import com.animania.addons.extra.common.entity.peafowl.PeafowlBlue.EntityPeafowlBlue;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.tileentities.BlockEntityNest;
-import com.animania.common.tileentities.BlockEntityNest.NestContent;
+import com.animania.common.blockentities.BlockEntityNest;
+import com.animania.common.blockentities.BlockEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;

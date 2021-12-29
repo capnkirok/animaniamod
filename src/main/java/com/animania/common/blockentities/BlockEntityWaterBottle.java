@@ -1,4 +1,4 @@
-package com.animania.common.tileentities;
+package com.animania.common.blockentities;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,7 +16,7 @@ public class BlockEntityWaterBottle extends BlockEntity
 
 	/*
 	 * @Override public void writeToNBT(CompoundTag compound) {
-	 * super.writeToNBT(compound); compound.putInteger("BlockRotation",
+	 * super.writeToNBT(compound); compound.putInt("BlockRotation",
 	 * rotation); }
 	 *
 	 * @Override public Packet getDescriptionPacket() { CompoundTag CompoundTag

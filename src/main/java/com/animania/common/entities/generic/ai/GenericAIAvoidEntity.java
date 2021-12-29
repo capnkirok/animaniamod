@@ -12,7 +12,7 @@ public class GenericAIAvoidEntity<T extends LivingEntity> extends AvoidEntityGoa
 {
 	public GenericAIAvoidEntity(PathfinderMob entityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
 	{
-		super(entityIn, classToAvoidIn, Predicates.alwaysTrue(), avoidDistanceIn, farSpeedIn, nearSpeedIn);
+		super(entityIn, classToAvoidIn, avoidDistanceIn, farSpeedIn, nearSpeedIn);
 	}
 
 	public GenericAIAvoidEntity(PathfinderMob entityIn, Class<T> classToAvoidIn, Predicate<? super T> avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
@@ -20,11 +20,11 @@ public class GenericAIAvoidEntity<T extends LivingEntity> extends AvoidEntityGoa
 		super(entityIn, classToAvoidIn, avoidTargetSelectorIn, avoidDistanceIn, farSpeedIn, nearSpeedIn);
 	}
 
-	public boolean shouldExecute()
-	{
-		if (((ISleeping) entity).getSleeping())
+	@Override
+	public boolean canUse() {
+		if (((ISleeping) this.predicateOnAvoidEntity).getSleeping())
 			return false;
 
-		return super.shouldExecute();
+		return super.canUse();
 	}
 }

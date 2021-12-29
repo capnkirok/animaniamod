@@ -6,8 +6,9 @@ import java.util.List;
 import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.Button;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.config.GuiConfig;
@@ -17,7 +18,7 @@ public class GuiConfigAnimania extends GuiConfig
 {
 	private static final String LANG_PREFIX = Animania.MODID + ".category.";
 
-	public GuiConfigAnimania(GuiScreen parent)
+	public GuiConfigAnimania(Screen parent)
 	{
 		super(parent, getConfigElements(), "animania", false, false, "Animania Configuration");
 	}
@@ -52,7 +53,7 @@ public class GuiConfigAnimania extends GuiConfig
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton button)
+	protected void actionPerformed(Button button)
 	{
 		super.actionPerformed(button);
 	}

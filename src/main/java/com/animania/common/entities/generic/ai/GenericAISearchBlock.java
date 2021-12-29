@@ -13,7 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.AABB;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
@@ -229,7 +229,7 @@ public abstract class GenericAISearchBlock extends Goal
 
 									for (Direction facing : this.destinationOffset)
 									{
-										AxisAlignedBB aabb = this.level.getBlockState(blockpos1).getCollisionBoundingBox(this.level, blockpos1);
+										AABB aabb = this.level.getBlockState(blockpos1).getCollisionBoundingBox(this.level, blockpos1);
 
 										BlockPos offsetPos = aabb == Block.NULL_AABB ? blockpos1 : blockpos1.offset(facing);
 

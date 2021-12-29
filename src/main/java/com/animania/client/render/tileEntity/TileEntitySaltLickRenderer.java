@@ -1,7 +1,7 @@
 package com.animania.client.render.BlockEntity;
 
 import com.animania.client.models.blocks.ModelSaltLick;
-import com.animania.common.tileentities.BlockEntitySaltLick;
+import com.animania.common.blockentities.BlockEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 

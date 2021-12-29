@@ -48,7 +48,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	{
 		super.writeEntityToNBT(CompoundTag);
 		CompoundTag.putBoolean("Laid", this.getLaid());
-		CompoundTag.putInteger("LaidTimer", this.getLaidTimer());
+		CompoundTag.putInt("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override

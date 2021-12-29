@@ -10,7 +10,6 @@ import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
-import PropertyEnum;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -24,7 +23,8 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.math.AABB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
@@ -36,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -48,8 +49,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 {
 
-	public static final PropertyEnum<BlockCheeseMold.EnumType> VARIANT = PropertyEnum.<BlockCheeseMold.EnumType> create("variant", BlockCheeseMold.EnumType.class);
-	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D);
+	public static final EnumProperty<EnumType> VARIANT = PropertyEnum.<BlockCheeseMold.EnumType> create("variant", BlockCheeseMold.EnumType.class);
+	protected static final AABB AABB = new AABB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D);
 
 	public BlockCheeseMold()
 	{
@@ -133,13 +134,13 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
+	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
+	public AABB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return AABB;
 	}
@@ -209,7 +210,7 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 		super.breakBlock(levelIn, pos, state);
 	}
 
-	public static enum EnumType implements IStringSerializable
+	public static enum EnumType implements StringRepresentable
 	{
 		EMPTY(0, "empty"), HOLSTEIN_MILK(1, "holstein_milk"), HOLSTEIN_CHEESE(2, "holstein_cheese"), FRIESIAN_MILK(3, "friesian_milk"), FRIESIAN_CHEESE(4, "friesian_cheese"), GOAT_MILK(5, "goat_milk"), GOAT_CHEESE(6, "goat_cheese"), SHEEP_MILK(7, "sheep_milk"), SHEEP_CHEESE(8, "sheep_cheese"), WATER(9, "water"), SALT(10, "salt"), JERSEY_MILK(11, "jersey_milk"), JERSEY_CHEESE(12, "jersey_cheese");
 
@@ -265,6 +266,10 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 			}
 		}
 
+		@Override
+		public String getSerializedName() {
+			return null;
+		}
 	}
 
 	@Override

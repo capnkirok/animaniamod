@@ -120,8 +120,8 @@ public class BlockEntityHive extends AnimatedBlockEntity implements ITickable
 		CompoundTag tag = super.writeToNBT(compound);
 		CompoundTag fluid = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
-		tag.putInteger("nextHoney", this.nextHoney);
-		tag.putTag("fluid", fluid);
+		tag.putInt("nextHoney", this.nextHoney);
+		tag.put("fluid", fluid);
 		return tag;
 
 	}
