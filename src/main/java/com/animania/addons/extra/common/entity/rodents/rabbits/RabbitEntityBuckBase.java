@@ -16,20 +16,24 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(RabbitEntityBuckBase.class, EntityEntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(RabbitEntityBuckBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(RabbitEntityBuckBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(RabbitEntityBuckBase.class, EntityDataSerializers.OPTIONAL_UUID);
 
 	public RabbitEntityBuckBase(Level levelIn)
 	{
@@ -50,16 +54,16 @@ public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.entityData.register(STERILIZED, false);
-		this.entityData.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.set(STERILIZED, false);
+		this.entityData.set(MATE_UNIQUE_ID, Optional.<UUID> absent());
 	}
 
 	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.265D);
 	}
 
 	@Override
@@ -74,7 +78,7 @@ public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
-		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.8F);
+		this.playSound(SoundEvents.WOLF_STEP, 0.02F, 1.8F);
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 
-import PropertyEnum;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -17,14 +16,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,9 +38,9 @@ public class BlockSeeds extends Block
 
 	protected static final AABB SEEDS_AABB = new AABB(0.0D, 0.0D, 0.0D, 1.0D, 0.0002D, 1.0D);
 
-	private String name = "block_seeds";
+	private final String name = "block_seeds";
 
-	public static final PropertyEnum<BlockSeeds.EnumType> VARIANT = PropertyEnum.<BlockSeeds.EnumType> create("variant", BlockSeeds.EnumType.class);
+	public static final EnumProperty<EnumType> VARIANT = EnumProperty.create("variant", BlockSeeds.EnumType.class);
 
 	public BlockSeeds()
 	{
@@ -104,20 +107,13 @@ public class BlockSeeds extends Block
 	@Nullable
 	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
-		switch (state.getValue(VARIANT))
-		{
-		case WHEAT:
-			return Items.WHEAT_SEEDS;
-		case PUMPKIN:
-			return Items.PUMPKIN_SEEDS;
-		case MELON:
-			return Items.MELON_SEEDS;
-		case BEETROOT:
-			return Items.BEETROOT_SEEDS;
-		default:
-			return Items.WHEAT_SEEDS;
-
-		}
+		return switch (state.getValue(VARIANT)) {
+			case WHEAT -> Items.WHEAT_SEEDS;
+			case PUMPKIN -> Items.PUMPKIN_SEEDS;
+			case MELON -> Items.MELON_SEEDS;
+			case BEETROOT -> Items.BEETROOT_SEEDS;
+			default -> Items.WHEAT_SEEDS;
+		};
 	}
 
 	@Nullable
@@ -170,27 +166,20 @@ public class BlockSeeds extends Block
 	@Override
 	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, Player player)
 	{
-		switch (state.getValue(VARIANT))
-		{
-		case WHEAT:
-			return new ItemStack(Items.WHEAT_SEEDS);
-		case PUMPKIN:
-			return new ItemStack(Items.PUMPKIN_SEEDS);
-		case MELON:
-			return new ItemStack(Items.MELON_SEEDS);
-		case BEETROOT:
-			return new ItemStack(Items.BEETROOT_SEEDS);
-		default:
-			return new ItemStack(Items.WHEAT_SEEDS);
-
-		}
+		return switch (state.getValue(VARIANT)) {
+			case WHEAT -> new ItemStack(Items.WHEAT_SEEDS);
+			case PUMPKIN -> new ItemStack(Items.PUMPKIN_SEEDS);
+			case MELON -> new ItemStack(Items.MELON_SEEDS);
+			case BEETROOT -> new ItemStack(Items.BEETROOT_SEEDS);
+			default -> new ItemStack(Items.WHEAT_SEEDS);
+		};
 
 	}
 
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
-		return this.defaultBlockState().withProperty(VARIANT, BlockSeeds.EnumType.byMetadata(meta));
+		return this.defaultBlockState().setValue(VARIANT, BlockSeeds.EnumType.byMetadata(meta));
 	}
 
 	/**
@@ -199,7 +188,7 @@ public class BlockSeeds extends Block
 	@Override
 	public int getMetaFromState(BlockState state)
 	{
-		return ((BlockSeeds.EnumType) state.getValue(VARIANT)).getMetadata();
+		return state.getValue(VARIANT).getMetadata();
 	}
 
 	@Override
@@ -211,20 +200,18 @@ public class BlockSeeds extends Block
 	@Override
 	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
 	{
-		return ((BlockSeeds.EnumType) state.getValue(VARIANT)).getMaterialColor();
+		return state.getValue(VARIANT).getMaterialColor();
 	}
 
 	@Override
 	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, Direction side)
 	{
-		if (side == Direction.UP)
-			return true;
-		return false;
+		return side == Direction.UP;
 	}
 
-	public static enum EnumType implements IStringSerializable
+	public enum EnumType implements StringRepresentable
 	{
-		WHEAT(0, MaterialColor.GREEN, "wheat"), PUMPKIN(1, MaterialColor.YELLOW, "pumpkin"), MELON(2, MaterialColor.BROWN, "melon"), BEETROOT(3, MaterialColor.BROWN, "beetroot");
+		WHEAT(0, MaterialColor.COLOR_GREEN, "wheat"), PUMPKIN(1, MaterialColor.COLOR_YELLOW, "pumpkin"), MELON(2, MaterialColor.COLOR_BROWN, "melon"), BEETROOT(3, MaterialColor.COLOR_BROWN, "beetroot");
 
 		/** Array of the Block's BlockStates */
 		private static final BlockSeeds.EnumType[] META = new BlockSeeds.EnumType[values().length];
@@ -233,19 +220,19 @@ public class BlockSeeds extends Block
 		/** The EnumType's name. */
 		private final String name;
 		private final String unlocalizedName;
-		private final MaterialColor MaterialColor;
+		private final MaterialColor materialColor;
 
-		private EnumType(int i, MaterialColor color, String name)
+		EnumType(int i, MaterialColor color, String name)
 		{
 			this(i, color, name, name);
 		}
 
-		private EnumType(int meta, MaterialColor color, String name, String name2)
+		EnumType(int meta, MaterialColor color, String name, String name2)
 		{
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = name2;
-			this.MaterialColor = color;
+			this.materialColor = color;
 		}
 
 		/**
@@ -258,7 +245,7 @@ public class BlockSeeds extends Block
 
 		public MaterialColor getMaterialColor()
 		{
-			return this.MaterialColor;
+			return this.materialColor;
 		}
 
 		@Override
@@ -298,6 +285,10 @@ public class BlockSeeds extends Block
 			}
 		}
 
+		@Override
+		public String getSerializedName() {
+			return this.name;
+		}
 	}
 
 }

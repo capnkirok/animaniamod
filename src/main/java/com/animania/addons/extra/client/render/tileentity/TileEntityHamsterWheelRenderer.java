@@ -2,7 +2,7 @@ package com.animania.addons.extra.client.render.BlockEntity;
 
 import com.animania.Animania;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
-import com.animania.addons.extra.common.tileentity.BlockEntityHamsterWheel;
+import com.animania.addons.extra.common.blockentity.BlockEntityHamsterWheel;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSBlockEntitySpecialRenderer;
 import com.mojang.blaze3d.platform.GlStateManager;

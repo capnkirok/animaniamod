@@ -5,7 +5,6 @@ import com.animania.common.blocks.AnimaniaBlock;
 import com.animania.common.blocks.IMetaBlockName;
 import com.animania.common.items.SubtypesBlockItem;
 
-import PropertyEnum;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -14,12 +13,15 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemShears;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,11 +30,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 {
 
-	public static final PropertyEnum<BlockAnimaniaWool.EnumType> VARIANT = PropertyEnum.<BlockAnimaniaWool.EnumType> create("variant", BlockAnimaniaWool.EnumType.class);
+	public static final EnumProperty<EnumType> VARIANT = EnumProperty.create("variant", BlockAnimaniaWool.EnumType.class);
 
 	public BlockAnimaniaWool()
 	{
-		super("wool", Material.CLOTH, MaterialColor.GRAY, false);
+		super("wool", Material.WOOL, MaterialColor.COLOR_GRAY, false);
 		this.setHardness(0.8F);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setSoundType(SoundType.CLOTH);
@@ -99,12 +101,12 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	@Override
 	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
 	{
-		return ((BlockAnimaniaWool.EnumType) state.getValue(VARIANT)).getMaterialColor();
+		return state.getValue(VARIANT).getMaterialColor();
 	}
 
-	public static enum EnumType implements IStringSerializable
+	public static enum EnumType implements StringRepresentable
 	{
-		DORSET_BROWN(0, MaterialColor.BROWN, "dorset_brown"), FRIESIAN_BLACK(1, MaterialColor.BLACK, "friesian_black"), FRIESIAN_BROWN(2, MaterialColor.BROWN, "friesian_brown"), JACOB(3, MaterialColor.SNOW, "jacob"), MERINO_BROWN(4, MaterialColor.BROWN, "merino_brown"), MERINO_WHITE(5, MaterialColor.SNOW, "merino_white"), SUFFOLK_BROWN(6, MaterialColor.BROWN, "suffolk_brown");
+		DORSET_BROWN(0, MaterialColor.COLOR_BROWN, "dorset_brown"), FRIESIAN_BLACK(1, MaterialColor.COLOR_BLACK, "friesian_black"), FRIESIAN_BROWN(2, MaterialColor.COLOR_BROWN, "friesian_brown"), JACOB(3, MaterialColor.SNOW, "jacob"), MERINO_BROWN(4, MaterialColor.COLOR_BROWN, "merino_brown"), MERINO_WHITE(5, MaterialColor.SNOW, "merino_white"), SUFFOLK_BROWN(6, MaterialColor.COLOR_BROWN, "suffolk_brown");
 
 		/** Array of the Block's BlockStates */
 		private static final BlockAnimaniaWool.EnumType[] META = new BlockAnimaniaWool.EnumType[values().length];
@@ -113,7 +115,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 		/** The EnumType's name. */
 		private final String name;
 		private final String unlocalizedName;
-		private final MaterialColor MaterialColor;
+		private final MaterialColor materialColor;
 
 		private EnumType(int i, MaterialColor color, String name)
 		{
@@ -125,7 +127,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = name2;
-			this.MaterialColor = color;
+			this.materialColor = color;
 		}
 
 		/**
@@ -138,7 +140,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 
 		public MaterialColor getMaterialColor()
 		{
-			return this.MaterialColor;
+			return this.materialColor;
 		}
 
 		@Override
@@ -165,11 +167,6 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 			return this.name;
 		}
 
-		public String getUnlocalizedName()
-		{
-			return this.unlocalizedName;
-		}
-
 		static
 		{
 			for (BlockAnimaniaWool.EnumType blockstone$enumtype : values())
@@ -178,30 +175,26 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 			}
 		}
 
+		@Override
+		public String getSerializedName() {
+			return this.name;
+		}
 	}
 
 	@Override
 	public String getSpecialName(ItemStack stack)
 	{
-		switch (stack.getItemDamage())
-		{
-		case 0:
-			return "dorset_brown";
-		case 1:
-			return "friesian_black";
-		case 2:
-			return "friesian_brown";
-		case 3:
-			return "jacob";
-		case 4:
-			return "merino_brown";
-		case 5:
-			return "merino_white";
-		case 6:
-			return "suffolk_brown";
-		}
+		return switch (stack.getUseDuration()) {
+			case 0 -> "dorset_brown";
+			case 1 -> "friesian_black";
+			case 2 -> "friesian_brown";
+			case 3 -> "jacob";
+			case 4 -> "merino_brown";
+			case 5 -> "merino_white";
+			case 6 -> "suffolk_brown";
+			default -> "";
+		};
 
-		return "";
 	}
 
 }

@@ -4,8 +4,8 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.catsdogs.common.tileentity.handler.FluidHandlerPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.handler.ItemHandlerPetBowl;
+import com.animania.addons.catsdogs.common.blockentity.handler.FluidHandlerPetBowl;
+import com.animania.addons.catsdogs.common.blockentity.handler.ItemHandlerPetBowl;
 import com.animania.api.interfaces.IFoodProviderBE;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;

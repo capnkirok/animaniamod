@@ -1,14 +1,14 @@
-package com.animania.addons.catsdogs.common.BlockEntity.handler;
+package com.animania.addons.extra.common.blockentity.handler;
 
-import com.animania.addons.catsdogs.common.block.BlockPetBowl;
+import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class ItemHandlerPetBowl extends ItemStackHandler
+public class ItemHandlerHamsterWheel extends ItemStackHandler
 {
 
-	public ItemHandlerPetBowl()
+	public ItemHandlerHamsterWheel()
 	{
 		this.setSize(1);
 	}
@@ -16,14 +16,14 @@ public class ItemHandlerPetBowl extends ItemStackHandler
 	@Override
 	public int getSlotLimit(int slot)
 	{
-		return 3;
+		return 16;
 	}
 
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate)
 	{
 
-		if (!stack.isEmpty() && BlockPetBowl.isFoodItem(stack))
+		if (!stack.isEmpty() && stack.getItem() == ExtraAddonItemHandler.hamsterFood)
 			return super.insertItem(slot, stack, simulate);
 
 		return stack;

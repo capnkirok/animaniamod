@@ -6,22 +6,22 @@ import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
-import PropertyDirection;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EventBeehiveDecorator
 {
 
-	public static final PropertyDirection FACING = BlockDirectional.FACING;
+	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onLevelDecoration(DecorateBiomeEvent.Decorate event)

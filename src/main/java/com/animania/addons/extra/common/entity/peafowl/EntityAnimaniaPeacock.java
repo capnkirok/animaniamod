@@ -1,5 +1,6 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -30,26 +31,33 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase, IAnimaniaAnimalBase
 {
@@ -191,37 +199,37 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(7.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(7.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+		this.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(1.5D);
 	}
 
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.entityData.register(EntityAnimaniaPeacock.FED, true);
-		this.entityData.register(EntityAnimaniaPeacock.HANDFED, false);
-		this.entityData.register(EntityAnimaniaPeacock.WATERED, true);
-		this.entityData.register(EntityAnimaniaPeacock.AGE, Integer.valueOf(0));
-		this.entityData.register(EntityAnimaniaPeacock.SLEEPING, false);
-		this.entityData.register(EntityAnimaniaPeacock.SLEEPTIMER, Float.valueOf(0.0F));
-		this.entityData.register(INTERACTED, false);
+		this.entityData.set(EntityAnimaniaPeacock.FED, true);
+		this.entityData.set(EntityAnimaniaPeacock.HANDFED, false);
+		this.entityData.set(EntityAnimaniaPeacock.WATERED, true);
+		this.entityData.set(EntityAnimaniaPeacock.AGE, 0);
+		this.entityData.set(EntityAnimaniaPeacock.SLEEPING, false);
+		this.entityData.set(EntityAnimaniaPeacock.SLEEPTIMER, 0.0F);
+		this.entityData.set(INTERACTED, false);
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundTag CompoundTag)
+	public void deserializeNBT(CompoundTag compoundTag)
 	{
-		super.writeEntityToNBT(CompoundTag);
-		GenericBehavior.writeCommonNBT(CompoundTag, this);
+		super.deserializeNBT(compoundTag);
+		GenericBehavior.writeCommonNBT(compoundTag, this);
 
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundTag CompoundTag)
-	{
-		super.readEntityFromNBT(CompoundTag);
-		GenericBehavior.readCommonNBT(CompoundTag, this);
+	public CompoundTag serializeNBT() {
+		CompoundTag tag = super.serializeNBT();
+		GenericBehavior.readCommonNBT(tag, this);
+		return tag;
 	}
 
 	@Override
@@ -259,7 +267,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
 		this.destPos = (float) (this.destPos + (this.onGround || this.isPassenger() ? -1 : 4) * 0.3D);
-		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
+		this.destPos = Mth.clamp(this.destPos, 0.0F, 1.0F);
 
 		if (!this.onGround && !this.isPassenger() && this.wingRotDelta < 1.0F)
 			this.wingRotDelta = 1.0F;
@@ -293,8 +301,8 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 				if (!this.level.isClientSide)
 				{
 					ItemStack item = new ItemStack(feather, 1);
-					EntityItem entityitem = new EntityItem(this.level, this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, item);
-					AnimaniaHelper.spawnEntity(this.level, entityitem);
+					ItemEntity droppedItem = new ItemEntity(this.level, this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, item);
+					AnimaniaHelper.spawnEntity(this.level, droppedItem);
 				}
 			}
 
@@ -320,7 +328,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
-		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.05F, 1.0F);
+		this.playSound(SoundEvents.CHICKEN_STEP, 0.05F, 1.0F);
 	}
 
 	/**
@@ -334,21 +342,21 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public void updatePassenger(Entity passenger)
+	public void positionRider(Entity passenger)
 	{
-		super.updatePassenger(passenger);
-		float f = MathHelper.sin(this.renderYawOffset * 0.017453292F);
-		float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
+		super.positionRider(passenger);
+		float f = Mth.sin(this.yBodyRot * 0.017453292F);
+		float f1 = Mth.cos(this.yBodyRot * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0.0F;
-		passenger.setPosition(this.getX() + 0.1F * f, this.getY() + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.getZ() - 0.1F * f1);
+		passenger.setPos(this.getX() + 0.1F * f, this.getY() + this.height * 0.5F + passenger.getMyRidingOffset() + 0.0D, this.getZ() - 0.1F * f1);
 
 		if (passenger instanceof LivingEntity)
-			((LivingEntity) passenger).renderYawOffset = this.renderYawOffset;
+			((LivingEntity) passenger).yBodyRot = this.yBodyRot;
 	}
 
 	@Override
-	public AgeableEntity createChild(AgeableEntity ageable)
+	public AgeableMob createChild(AgeableMob ageable)
 	{
 		return null;
 	}
@@ -415,7 +423,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

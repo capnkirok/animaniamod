@@ -1,8 +1,7 @@
 package com.animania.api.interfaces;
 
+import java.util.Optional;
 import java.util.UUID;
-
-import com.google.common.base.Optional;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.Entity;
@@ -25,7 +24,7 @@ public interface IChild extends IAnimaniaAnimal
 	{
 		EntityDataAccessor<Optional<UUID>> param = this.getParentUniqueIdParam();
 		if (param != null)
-			((Entity) this).getEntityData().set(param, Optional.fromNullable(id));
+			((Entity) this).getEntityData().set(param, Optional.ofNullable(id));
 	}
 
 	default float getEntityAge()

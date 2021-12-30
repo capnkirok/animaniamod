@@ -2,31 +2,28 @@ package com.animania.addons.extra.common.capabilities;
 
 import java.util.concurrent.Callable;
 
-import NBTBase;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NBTBase;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.Capability.IStorage;
 
 public class CapabilitiesPlayerStorage implements IStorage<ICapabilityPlayer>
 {
 
 	@Override
-	public NBTBase writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side)
+	public CompoundTag writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side)
 	{
 		return CapabilityPlayerHandler.writeNBT(capability, instance);
 	}
 
 	@Override
-	public void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side, NBTBase nbt)
+	public void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side, CompoundTag nbt)
 	{
-		CapabilityPlayerHandler.readNBT(capability, instance, (CompoundTag) nbt);
+		CapabilityPlayerHandler.readNBT(capability, instance, nbt);
 	}
 
-	public ICapabilityPlayer readNBT2(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side, NBTBase nbt)
+	public ICapabilityPlayer readNBT2(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side, CompoundTag nbt)
 	{
-		CapabilityPlayerHandler.readNBT(capability, instance, (CompoundTag) nbt);
+		CapabilityPlayerHandler.readNBT(capability, instance, nbt);
 
 		return instance;
 	}

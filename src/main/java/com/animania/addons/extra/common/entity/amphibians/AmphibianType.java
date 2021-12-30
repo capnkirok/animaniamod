@@ -12,9 +12,9 @@ public enum AmphibianType implements AnimaniaType
 {
 	FROG(EntityFrogs.class), DART_FROG(EntityDartFrogs.class), TOAD(EntityToad.class);
 
-	private Class male;
+	private Class<?> male;
 
-	private AmphibianType(Class male)
+	AmphibianType(Class<?> male)
 	{
 		this.male = male;
 	}

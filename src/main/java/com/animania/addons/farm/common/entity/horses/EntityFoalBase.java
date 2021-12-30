@@ -13,10 +13,10 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 
 public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProviderBase, IChild
 {
-	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.<Integer> defineId(EntityFoalBase.class, EntityEntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.<Integer> defineId(EntityFoalBase.class, EntityDataSerializers.INT);
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(Items.WHEAT, Items.APPLE, Items.CARROT);
 	private static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final EntityDataAccessor<Float> AGE = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.FLOAT);
@@ -60,9 +60,9 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(12.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+		this.getAttributeMap().registerAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 	}
 
 	@Override

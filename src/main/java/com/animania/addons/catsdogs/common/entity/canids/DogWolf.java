@@ -4,8 +4,8 @@ import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
 import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.level.Level;
 
 public class DogWolf
@@ -41,25 +41,16 @@ public class DogWolf
 		@Override
 		public int getEyeColorForVariant(int variant)
 		{
-			switch (variant)
-			{
-			case 0:
-				return 0x524E48;
-			case 1:
-				return 0xD9D9D9;
-			case 2:
-				return 0x2A2725;
-			case 3:
-				return 0x2A2725;
-			case 4:
-				return 0x71533F;
-			case 5:
-				return 0x9D8C76;
-			case 6:
-				return 0x9A9389;
-			default:
-				return 0xCECECD;
-			}
+			return switch (variant) {
+				case 0 -> 0x524E48;
+				case 1 -> 0xD9D9D9;
+				case 2 -> 0x2A2725;
+				case 3 -> 0x2A2725;
+				case 4 -> 0x71533F;
+				case 5 -> 0x9D8C76;
+				case 6 -> 0x9A9389;
+				default -> 0xCECECD;
+			};
 		}
 
 		@Override
@@ -67,9 +58,9 @@ public class DogWolf
 		{
 			super.initAI();
 
-			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
+			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTame())
 			{
-				this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
+				this.targetSelector.addGoal(4, new GenericAITargetNonTamed(this, Animal.class, false, entity -> entity instanceof Chicken));
 				AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 				AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 			}
@@ -106,25 +97,16 @@ public class DogWolf
 		@Override
 		public int getEyeColorForVariant(int variant)
 		{
-			switch (variant)
-			{
-			case 0:
-				return 0x524E48;
-			case 1:
-				return 0xD9D9D9;
-			case 2:
-				return 0x2A2725;
-			case 3:
-				return 0x2A2725;
-			case 4:
-				return 0x71533F;
-			case 5:
-				return 0x9D8C76;
-			case 6:
-				return 0x9A9389;
-			default:
-				return 0xCECECD;
-			}
+			return switch (variant) {
+				case 0 -> 0x524E48;
+				case 1 -> 0xD9D9D9;
+				case 2 -> 0x2A2725;
+				case 3 -> 0x2A2725;
+				case 4 -> 0x71533F;
+				case 5 -> 0x9D8C76;
+				case 6 -> 0x9A9389;
+				default -> 0xCECECD;
+			};
 		}
 
 		@Override
@@ -132,9 +114,9 @@ public class DogWolf
 		{
 			super.initAI();
 
-			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
+			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTame())
 			{
-				this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
+				this.targetSelector.addGoal(4, new GenericAITargetNonTamed(this, Animal.class, false, entity -> entity instanceof Chicken));
 				AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 				AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 			}
@@ -171,25 +153,16 @@ public class DogWolf
 		@Override
 		public int getEyeColorForVariant(int variant)
 		{
-			switch (variant)
-			{
-			case 0:
-				return 0x524E48;
-			case 1:
-				return 0xD9D9D9;
-			case 2:
-				return 0x2A2725;
-			case 3:
-				return 0x2A2725;
-			case 4:
-				return 0x71533F;
-			case 5:
-				return 0x9D8C76;
-			case 6:
-				return 0x9A9389;
-			default:
-				return 0xCECECD;
-			}
+			return switch (variant) {
+				case 0 -> 0x524E48;
+				case 1 -> 0xD9D9D9;
+				case 2 -> 0x2A2725;
+				case 3 -> 0x2A2725;
+				case 4 -> 0x71533F;
+				case 5 -> 0x9D8C76;
+				case 6 -> 0x9A9389;
+				default -> 0xCECECD;
+			};
 		}
 
 		@Override
@@ -197,9 +170,9 @@ public class DogWolf
 		{
 			super.initAI();
 
-			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
+			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTame())
 			{
-				this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof ChickenEntity));
+				this.targetSelector.addGoal(4, new GenericAITargetNonTamed(this, Animal.class, false, entity -> entity instanceof Chicken));
 				AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 				AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 			}

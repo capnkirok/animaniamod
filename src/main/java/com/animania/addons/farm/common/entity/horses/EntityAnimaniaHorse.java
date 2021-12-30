@@ -1,6 +1,7 @@
 package com.animania.addons.farm.common.entity.horses;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -34,7 +35,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -159,7 +160,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28499999403953552D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.28499999403953552D);
 	}
 
 	@Override
@@ -403,8 +404,8 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 			this.prevRotationYaw = this.rotationYaw;
 			this.rotationPitch = LivingEntity.rotationPitch * 0.5F;
 			this.setRotation(this.rotationYaw, this.rotationPitch);
-			this.renderYawOffset = this.rotationYaw;
-			this.rotationYawHead = this.renderYawOffset;
+			this.yBodyRot = this.rotationYaw;
+			this.rotationYawHead = this.yBodyRot;
 			strafe = LivingEntity.moveStrafing * 0.5F;
 			forward = LivingEntity.moveForward * 4F;
 
@@ -448,7 +449,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 
 			if (this.canPassengerSteer() || this.getLeashed())
 			{
-				this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+				this.setAIMoveSpeed((float) this.getAttribute(Attributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(strafe, vertical / 8, forward);
 			}
 			else if (LivingEntity instanceof Player)
@@ -619,7 +620,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

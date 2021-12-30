@@ -24,21 +24,20 @@ import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityLambSuffo
 import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityRamSuffolk;
 import com.animania.api.interfaces.AnimaniaType;
 
-import StatBase;
-import net.minecraft.stats.StatBase;
+import net.minecraft.stats.Stat;
 import net.minecraft.world.level.Level;
 
 public enum SheepType implements AnimaniaType
 {
 	DORPER(EntityRamDorper.class, EntityEweDorper.class, EntityLambDorper.class, null, true), DORSET(EntityRamDorset.class, EntityEweDorset.class, EntityLambDorset.class, null, true), FRIESIAN(EntityRamFriesian.class, EntityEweFriesian.class, EntityLambFriesian.class, null, false), JACOB(EntityRamJacob.class, EntityEweJacob.class, EntityLambJacob.class, null, false), MERINO(EntityRamMerino.class, EntityEweMerino.class, EntityLambMerino.class, null, false), SUFFOLK(EntityRamSuffolk.class, EntityEweSuffolk.class, EntityLambSuffolk.class, null, true);
 
-	private Class male;
-	private Class female;
-	private Class child;
-	private StatBase achievement;
+	private Class<?> male;
+	private Class<?> female;
+	private Class<?> child;
+	private Stat<?> achievement;
 	public boolean isPrime;
 
-	private SheepType(Class male, Class female, Class child, StatBase achievement, boolean prime)
+	SheepType(Class<?> male, Class<?> female, Class<?> child, Stat<?> achievement, boolean prime)
 	{
 		this.male = male;
 		this.female = female;
@@ -124,7 +123,7 @@ public enum SheepType implements AnimaniaType
 		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
 
-	public StatBase getAchievement()
+	public Stat<?> getAchievement()
 	{
 		return this.achievement;
 	}

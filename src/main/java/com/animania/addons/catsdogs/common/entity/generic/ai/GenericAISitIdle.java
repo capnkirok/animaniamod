@@ -60,7 +60,7 @@ public class GenericAISitIdle extends Goal
 		--this.idleTime;
 		if (this.idleEntity instanceof EntityAnimaniaCat entityCat)
 		{
-			if (!entityCat.isSitting() && this.idleTime > 0)
+			if (!entityCat.isInSittingPose() && this.idleTime > 0)
 			{
 				entityCat.setSitting(true);
 			}

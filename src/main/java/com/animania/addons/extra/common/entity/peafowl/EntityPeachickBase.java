@@ -8,13 +8,13 @@ import com.animania.common.entities.generic.GenericBehavior;
 import com.google.common.base.Optional;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.level.Level;
 
 public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 {
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityPeachickBase.class, EntityEntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityPeachickBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public EntityPeachickBase(Level levelIn)
@@ -43,7 +43,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.entityData.register(EntityPeachickBase.AGE, Float.valueOf(0));
+		this.entityData.set(EntityPeachickBase.AGE, (float) 0);
 
 	}
 

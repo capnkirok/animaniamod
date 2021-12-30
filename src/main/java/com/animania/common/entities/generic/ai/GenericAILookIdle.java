@@ -4,8 +4,9 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.handler.AddonInjectionHandler;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 
-public class GenericAILookIdle<T extends LivingEntity & ISleeping> extends LookIdleGoal
+public class GenericAILookIdle<T extends LivingEntity & ISleeping> extends RandomLookAroundGoal
 {
 	/** The entity that is looking idle. */
 	private final T entity;

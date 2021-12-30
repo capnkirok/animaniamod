@@ -1,47 +1,42 @@
 package com.animania.addons.extra.common.capabilities;
 
 import com.animania.Animania;
-
-import NBTTagString;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NBTTagLong;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.util.LazyOptional;
 
 public class CapabilityRefs
 {
 
-	@CapabilityInject(ICapabilityPlayer.class)
+	// TODO: Move this to RegisterCapabilitiesEvent?
+	// @CapabilityInject(ICapabilityPlayer.class)
 	public static final Capability<ICapabilityPlayer> CAPS = null;
 
-	public static ICapabilityPlayer getPlayerCaps(Player player)
+	public static LazyOptional<ICapabilityPlayer> getPlayerCaps(Player player)
 	{
 		return player.getCapability(CapabilityRefs.CAPS, null);
 	}
 
-	public static NBTTagString toTagString(String s)
+	public static StringTag toTagString(String s)
 	{
-		return new NBTTagString(s);
+		return StringTag.valueOf(s);
 	}
 
-	public static NBTTagInt toTagInt(int i)
+	public static IntTag toTagInt(int i)
 	{
-		return new NBTTagInt(i);
+		return IntTag.valueOf(i);
 	}
 
-	public static NBTTagLong toTagLong(long i)
+	public static LongTag toTagLong(long i)
 	{
-		return new NBTTagLong(i);
+		return LongTag.valueOf(i);
 	}
 
-	public static NBTTagFloat toTagFloat(float f)
+	public static FloatTag toTagFloat(float f)
 	{
-		return new NBTTagFloat(f);
+		return FloatTag.valueOf(f);
 	}
 
 	public static ListTag toTagList(ListTag l)

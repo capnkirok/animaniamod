@@ -1,5 +1,6 @@
 package com.animania.addons.farm.common.entity.goats;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
 import java.util.Iterator;
@@ -498,7 +499,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public java.util.Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

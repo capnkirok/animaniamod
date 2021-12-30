@@ -793,7 +793,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			{
 
 				int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-				passenger.setRenderYawOffset(((AnimalEntity) passenger).renderYawOffset + j);
+				passenger.setyBodyRot(((AnimalEntity) passenger).yBodyRot + j);
 				passenger.setRotationYawHead(passenger.getRotationYawHead() + j);
 			}
 		}
@@ -801,7 +801,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 	protected void applyYawToEntity(Entity entityToUpdate)
 	{
-		entityToUpdate.setRenderYawOffset(this.rotationYaw);
+		entityToUpdate.setyBodyRot(this.rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
 		float f1 = MathHelper.clamp(f, 0.0F, 0.0F);
 		if (entityToUpdate instanceof Player)

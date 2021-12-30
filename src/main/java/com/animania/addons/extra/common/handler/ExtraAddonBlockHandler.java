@@ -2,7 +2,7 @@ package com.animania.addons.extra.common.handler;
 
 import com.animania.Animania;
 import com.animania.addons.extra.common.block.BlockHamsterWheel;
-import com.animania.addons.extra.common.tileentity.BlockEntityHamsterWheel;
+import com.animania.addons.extra.common.blockentity.BlockEntityHamsterWheel;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;

@@ -38,7 +38,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -187,8 +187,8 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 	}
 
 	public ResourceLocation getResourceLocation()
@@ -829,7 +829,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public java.util.Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

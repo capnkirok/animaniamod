@@ -37,7 +37,7 @@ public enum PeacockType implements AnimaniaType
 	private Class<?> female;
 	private Class<?> child;
 
-	private PeacockType(Class<?> male, Class<?> female, Class<?> child)
+	PeacockType(Class<?> male, Class<?> female, Class<?> child)
 	{
 		this.male = male;
 		this.female = female;

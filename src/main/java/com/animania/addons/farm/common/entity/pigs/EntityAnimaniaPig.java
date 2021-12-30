@@ -1,5 +1,6 @@
 package com.animania.addons.farm.common.entity.pigs;
 
+import java.util.Optional;
 import java.util.Set;
 
 import com.animania.Animania;
@@ -30,7 +31,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.PigZombieEntity;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -157,7 +158,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 			this.prevRotationYaw = this.rotationYaw;
 			this.rotationPitch = entity.rotationPitch * 0.5F;
 			this.setRotation(this.rotationYaw, this.rotationPitch);
-			this.renderYawOffset = this.rotationYaw;
+			this.yBodyRot = this.rotationYaw;
 			this.rotationYawHead = this.rotationYaw;
 			this.stepHeight = 1.0F;
 			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
@@ -169,7 +170,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 
 			if (this.canPassengerSteer())
 			{
-				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
+				float f = (float) this.getAttribute(Attributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
 
 				if (this.boosting)
 				{
@@ -545,7 +546,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

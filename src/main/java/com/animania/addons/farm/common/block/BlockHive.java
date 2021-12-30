@@ -5,7 +5,6 @@ import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.addons.farm.common.tileentity.BlockEntityHive;
 import com.animania.common.handler.BlockHandler;
 
-import PropertyDirection;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -18,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -26,11 +26,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -39,11 +43,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BlockHive extends BaseEntityBlock
 {
 	private String name = "block_hive";
-	public static final PropertyDirection FACING = BlockDirectional.FACING;
+	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
 	public BlockHive()
 	{
-		super(Material.WOOD, MaterialColor.YELLOW);
+		super(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_YELLOW));
 		this.setSoundType(SoundType.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
@@ -59,7 +63,7 @@ public class BlockHive extends BaseEntityBlock
 
 	public BlockHive(Material mat, MaterialColor color)
 	{
-		super(mat, color);
+		super(BlockBehaviour.Properties.of(mat, color));
 	}
 
 	@Override
@@ -81,11 +85,11 @@ public class BlockHive extends BaseEntityBlock
 	}
 
 	@Override
-	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult)
 	{
 
 		ItemStack heldItem = player.getItemInHand(hand);
-		BlockEntityHive hive = (BlockEntityHive) level.getBlockEntity(pos);
+		com.animania.addons.farm.common.BlockEntity.BlockEntityHive hive = (BlockEntityHive) level.getBlockEntity(pos);
 
 		if (hive != null)
 		{

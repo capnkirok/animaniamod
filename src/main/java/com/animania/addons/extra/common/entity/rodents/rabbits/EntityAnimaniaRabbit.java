@@ -1,5 +1,6 @@
 package com.animania.addons.extra.common.entity.rodents.rabbits;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
@@ -49,22 +50,27 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -73,10 +79,10 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 {
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(ExtraConfig.settings.rabbitFood));
-	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.VARINT);
-	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.INT);
 	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.FLOAT);
@@ -117,15 +123,15 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			this.goalSelector.addGoal(3, new GenericAIFindFood<>(this, 1.4D, this.entityAIEatGrass, true));
 		}
 
-		if (!this.getCustomNameTag().equals("Killer"))
+		if (this.getCustomName() != null && !this.getCustomName().toString().equals("Killer"))
 		{
 			this.goalSelector.addGoal(3, new GenericAIPanic<>(this, 2.5D));
 			this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.8D));
-			this.goalSelector.addGoal(5, new SwimmingGoal(this));
+			this.goalSelector.addGoal(5, new RandomSwimmingGoal(this));
 			this.goalSelector.addGoal(7, new GenericAITempt<>(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
 			this.goalSelector.addGoal(8, this.entityAIEatGrass);
-			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 3.0D, 3.5D));
-			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<EntityMob>(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
+			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<>(this, Wolf.class, 24.0F, 3.0D, 3.5D));
+			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<>(this, Mob.class, 16.0F, 2.2D, 2.2D));
 			this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, Player.class, 6.0F));
 			this.goalSelector.addGoal(11, new GenericAILookIdle<>(this));
 			if (AnimaniaConfig.gameRules.animalsSleep)
@@ -143,7 +149,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 			this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 20.0F));
 			this.targetSelector.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
 			this.targetSelector.addTask(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(50.0D);
 			this.setHealth(50);
 		}
 
@@ -168,7 +174,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 10.0F));
 		this.targetSelector.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
 		this.targetSelector.addTask(2, new NearestAttackableTargetGoal(this, Player.class, true));
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.setHealth(50);
 	}
 
@@ -181,8 +187,8 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.34000001192092896D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(3.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.34000001192092896D);
 	}
 
 	@Override
@@ -576,7 +582,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 				if (stack.getDisplayName().equals("Killer"))
 				{
 					this.resetAI();
-					this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+					this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(50.0D);
 					this.setHealth(50);
 				}
 			}
@@ -921,7 +927,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

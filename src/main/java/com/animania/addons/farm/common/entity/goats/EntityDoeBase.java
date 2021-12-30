@@ -22,7 +22,7 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
@@ -76,8 +76,8 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(15.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.265D);
 	}
 
 	@Override

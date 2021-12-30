@@ -12,11 +12,13 @@ import com.animania.common.blockentities.BlockEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.util.RandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.Vec3;
 
 public class FindPeacockNestGoal extends Goal
 {
@@ -40,7 +42,7 @@ public class FindPeacockNestGoal extends Goal
 	}
 
 	@Override
-	public boolean shouldExecute()
+	public boolean canUse()
 	{
 
 		this.delayTemptCounter++;
@@ -50,7 +52,7 @@ public class FindPeacockNestGoal extends Goal
 		else if (this.delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
 
-			if (!temptedentity.level.isDay() || this.temptedEntity.getSleeping())
+			if (!temptedEntity.level.isDay() || this.temptedEntity.getSleeping())
 			{
 				this.delayTemptCounter = 0;
 				return false;
@@ -64,22 +66,22 @@ public class FindPeacockNestGoal extends Goal
 
 			if (this.temptedEntity.getRandom().nextInt(100) == 0)
 			{
-				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				Vec3 vec3d = RandomPos.findRandomTarget(this.temptedEntity, 20, 4);
 				if (vec3d != null)
 				{
 					this.delayTemptCounter = 0;
-					this.resetTask();
-					this.temptedEntity.getNavigation().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.stop();
+					this.temptedEntity.getNavigation().moveTo(vec3d.x, vec3d.y, vec3d.z, this.speed);
 				}
 				return false;
 			}
 
 			BlockPos currentpos = new BlockPos(this.temptedEntity.getX(), this.temptedEntity.getY(), this.temptedEntity.getZ());
-			Block poschk = temptedentity.level.getBlockState(currentpos).getBlock();
+			Block poschk = temptedEntity.level.getBlockState(currentpos).getBlock();
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(currentpos);
+				BlockEntityNest te = (BlockEntityNest) temptedEntity.level.getBlockEntity(currentpos);
 
 				if (te.itemHandler.getStackInSlot(0).getCount() >= 3)
 				{
@@ -90,7 +92,7 @@ public class FindPeacockNestGoal extends Goal
 				{
 					if (te != null && (te.getNestContent() == NestContent.EMPTY || te.getNestContent() == NestContent.PEACOCK_BLUE) && !entity.getLaid())
 					{
-						if ((te.getNestContent() == NestContent.PEACOCK_BLUE ? entity.type == te.birdType : true) && te.insertItem(new ItemStack(ExtraAddonItemHandler.peacockEggBlue)))
+						if ((te.getNestContent() != NestContent.PEACOCK_BLUE || entity.type == te.birdType) && te.insertItem(new ItemStack(ExtraAddonItemHandler.peacockEggBlue)))
 						{
 							entity.setLaid(true);
 							te.birdType = entity.type;
@@ -103,7 +105,7 @@ public class FindPeacockNestGoal extends Goal
 				{
 					if (te != null && (te.getNestContent() == NestContent.EMPTY || te.getNestContent() == NestContent.PEACOCK_WHITE) && !entity.getLaid())
 					{
-						if ((te.getNestContent() == NestContent.PEACOCK_WHITE ? entity.type == te.birdType : true) && te.insertItem(new ItemStack(ExtraAddonItemHandler.peacockEggWhite)))
+						if ((te.getNestContent() != NestContent.PEACOCK_WHITE || entity.type == te.birdType) && te.insertItem(new ItemStack(ExtraAddonItemHandler.peacockEggWhite)))
 						{
 							entity.setLaid(true);
 							te.birdType = entity.type;
@@ -132,12 +134,12 @@ public class FindPeacockNestGoal extends Goal
 					{
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
+						Block blockchk = temptedEntity.level.getBlockState(pos).getBlock();
 
 						if (blockchk == BlockHandler.blockNest)
 						{
 
-							BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(pos);
+							BlockEntityNest te = (BlockEntityNest) temptedEntity.level.getBlockEntity(pos);
 							NestContent nestType = te.getNestContent();
 
 							if (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
@@ -147,7 +149,7 @@ public class FindPeacockNestGoal extends Goal
 									nestFound = true;
 									return true;
 								}
-								else if (this.temptedEntity instanceof EntityPeafowlBase && (nestType == NestContent.PEACOCK_WHITE ? ((EntityPeafowlBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
+								else if (this.temptedEntity instanceof EntityPeafowlBase && (nestType == NestContent.PEACOCK_WHITE ? this.temptedEntity.type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
@@ -168,13 +170,13 @@ public class FindPeacockNestGoal extends Goal
 	}
 
 	@Override
-	public boolean shouldContinueExecuting()
+	public boolean canContinueToUse()
 	{
-		return !this.temptedEntity.getNavigation().noPath();
+		return !this.temptedEntity.getNavigation().isDone();
 	}
 
 	@Override
-	public void resetTask()
+	public void stop()
 	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigation().stop();
@@ -182,7 +184,7 @@ public class FindPeacockNestGoal extends Goal
 	}
 
 	@Override
-	public void startExecuting()
+	public void start()
 	{
 
 		double x = this.temptedEntity.getX();
@@ -190,7 +192,7 @@ public class FindPeacockNestGoal extends Goal
 		double z = this.temptedEntity.getZ();
 
 		BlockPos currentpos = new BlockPos(x, y, z);
-		Block poschk = temptedentity.level.getBlockState(currentpos).getBlock();
+		Block poschk = temptedEntity.level.getBlockState(currentpos).getBlock();
 		if (poschk != BlockHandler.blockNest)
 		{
 
@@ -208,12 +210,12 @@ public class FindPeacockNestGoal extends Goal
 					{
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
+						Block blockchk = temptedEntity.level.getBlockState(pos).getBlock();
 
-						if (blockchk == BlockHandler.blockNest && !this.temptedEntity.hasPath())
+						if (blockchk == BlockHandler.blockNest && !this.temptedEntity.isPathFinding())
 						{
 
-							BlockEntityNest te = (BlockEntityNest) temptedentity.level.getBlockEntity(pos);
+							BlockEntityNest te = (BlockEntityNest) temptedEntity.level.getBlockEntity(pos);
 							NestContent nestType = te.getNestContent();
 
 							if (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
@@ -222,7 +224,7 @@ public class FindPeacockNestGoal extends Goal
 								{
 									nestFound = true;
 								}
-								else if (this.temptedEntity instanceof EntityPeafowlBase && (nestType == NestContent.PEACOCK_WHITE ? ((EntityPeafowlBase) this.temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
+								else if (this.temptedEntity instanceof EntityPeafowlBase && (nestType == NestContent.PEACOCK_WHITE ? this.temptedEntity.type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
@@ -241,7 +243,7 @@ public class FindPeacockNestGoal extends Goal
 									if (this.temptedEntity.getX() < nestPos.getX())
 									{
 										BlockPos nestPoschk = new BlockPos(x + i + 1, y + j, z + k);
-										Block nestBlockchk = temptedentity.level.getBlockState(nestPoschk).getBlock();
+										Block nestBlockchk = temptedEntity.level.getBlockState(nestPoschk).getBlock();
 										if (nestBlockchk == BlockHandler.blockNest)
 										{
 											i = i + 1;
@@ -251,7 +253,7 @@ public class FindPeacockNestGoal extends Goal
 									if (this.temptedEntity.getZ() < nestPos.getZ())
 									{
 										BlockPos nestPoschk = new BlockPos(x + i, y + j, z + k + 1);
-										Block nestBlockchk = temptedentity.level.getBlockState(nestPoschk).getBlock();
+										Block nestBlockchk = temptedEntity.level.getBlockState(nestPoschk).getBlock();
 										if (nestBlockchk == BlockHandler.blockNest)
 										{
 											k = k + 1;
@@ -270,12 +272,12 @@ public class FindPeacockNestGoal extends Goal
 			if (nestFound)
 			{
 
-				Block nestBlockchk = temptedentity.level.getBlockState(nestPos).getBlock();
-				List<Entity> nestClear = temptedentity.level.getEntitiesWithinAABBExcludingEntity(this.temptedEntity, this.temptedEntity.getEntityBoundingBox().expand(1, 1, 1));
+				Block nestBlockchk = temptedEntity.level.getBlockState(nestPos).getBlock();
+				List<Entity> nestClear = temptedEntity.level.getEntities(this.temptedEntity, this.temptedEntity.getBoundingBox().expandTowards(1, 1, 1));
 
 				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{
-					this.temptedEntity.getNavigation().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
+					this.temptedEntity.getNavigation().moveTo(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
 				}
 				else
 				{

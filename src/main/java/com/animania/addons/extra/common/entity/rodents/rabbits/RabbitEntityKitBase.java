@@ -1,26 +1,27 @@
 package com.animania.addons.extra.common.entity.rodents.rabbits;
 
-import java.util.UUID;
-
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
-import com.google.common.base.Optional;
 
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+
+import java.util.Optional;
+import java.util.UUID;
 
 public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfoProviderChild, IChild
 {
 
-	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(RabbitEntityKitBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(RabbitEntityKitBase.class, EntityEntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.defineId(RabbitEntityKitBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.defineId(RabbitEntityKitBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public RabbitEntityKitBase(Level levelIn)
@@ -36,7 +37,7 @@ public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	}
 
 	@Override
-	public boolean isChild()
+	public boolean isBaby()
 	{
 		return true;
 	}
@@ -45,8 +46,8 @@ public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.315D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(3.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.315D);
 
 	}
 
@@ -54,8 +55,8 @@ public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.entityData.register(RabbitEntityKitBase.AGE, Float.valueOf(0));
-		this.entityData.register(RabbitEntityKitBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.entityData.set(RabbitEntityKitBase.AGE, (float) 0);
+		this.entityData.set(RabbitEntityKitBase.PARENT_UNIQUE_ID, Optional.empty());
 
 	}
 
@@ -65,7 +66,7 @@ public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null && !this.getSleeping())
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F);
+			this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch() + .2F);
 	}
 
 	@Override

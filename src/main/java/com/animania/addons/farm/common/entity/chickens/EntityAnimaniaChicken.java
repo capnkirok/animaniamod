@@ -31,7 +31,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -155,8 +155,8 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.29D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(6.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.29D);
 	}
 
 	@Override
@@ -315,14 +315,14 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	public void updatePassenger(Entity passenger)
 	{
 		super.updatePassenger(passenger);
-		float f = MathHelper.sin(this.renderYawOffset * 0.017453292F);
-		float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
+		float f = MathHelper.sin(this.yBodyRot * 0.017453292F);
+		float f1 = MathHelper.cos(this.yBodyRot * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0.0F;
 		passenger.setPosition(this.getX() + 0.1F * f, this.getY() + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.getZ() - 0.1F * f1);
 
 		if (passenger instanceof LivingEntity)
-			((LivingEntity) passenger).renderYawOffset = this.renderYawOffset;
+			((LivingEntity) passenger).yBodyRot = this.yBodyRot;
 	}
 
 	@Override
@@ -400,7 +400,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public java.util.Optional<BlockPos> getSleepingPos()
 	{
 		return null;
 	}

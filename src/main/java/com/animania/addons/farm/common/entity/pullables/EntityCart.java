@@ -836,7 +836,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 			{
 
 				int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-				passenger.setRenderYawOffset(((AnimalEntity) passenger).renderYawOffset + (float) j);
+				passenger.setyBodyRot(((AnimalEntity) passenger).yBodyRot + (float) j);
 				passenger.setRotationYawHead(passenger.getRotationYawHead() + (float) j);
 			}
 		}
@@ -844,7 +844,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 	protected void applyYawToEntity(Entity entityToUpdate)
 	{
-		entityToUpdate.setRenderYawOffset(this.rotationYaw);
+		entityToUpdate.setyBodyRot(this.rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
 		float f1 = MathHelper.clamp(f, 0.0F, 0.0F);
 		if (entityToUpdate instanceof Player)

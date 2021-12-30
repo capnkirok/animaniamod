@@ -1,5 +1,6 @@
 package com.animania.addons.extra.common.entity.rodents;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -42,13 +43,13 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -79,7 +80,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	// protected static final EntityDataAccessor<Boolean> SITTING =
 	// SynchedEntityData.defineId(EntityFerretBase.class,
 	// EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> RIDING = EntityEntityDataSerializers.<Boolean> createKey(EntityFerretBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> RIDING = EntityDataSerializers.<Boolean> createKey(EntityFerretBase.class, EntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityFerretBase.class, EntityDataSerializers.VARINT);
 	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityFerretBase.class, EntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityFerretBase.class, EntityDataSerializers.FLOAT);
@@ -152,9 +153,9 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.5D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.35D);
+		this.getAttributeMap().registerAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(0.5D);
 	}
 
 	@Override
@@ -511,7 +512,7 @@ public class EntityFerretBase extends TamableAnimal implements TOPInfoProviderRo
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

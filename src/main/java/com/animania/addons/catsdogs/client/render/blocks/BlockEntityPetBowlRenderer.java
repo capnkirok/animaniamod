@@ -13,8 +13,8 @@ import net.minecraft.core.Direction;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.catsdogs.client.models.blocks.ModelPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl.BowlContent;
+import com.animania.addons.catsdogs.common.blockentity.BlockEntityPetBowl;
+import com.animania.addons.catsdogs.common.blockentity.BlockEntityPetBowl.BowlContent;
 import com.animania.client.events.RenderEvents;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;

@@ -2,7 +2,7 @@ package com.animania.addons.extra.compat.waila;
 
 import java.util.List;
 
-import com.animania.addons.extra.common.tileentity.BlockEntityHamsterWheel;
+import com.animania.addons.extra.common.blockentity.BlockEntityHamsterWheel;
 import com.animania.addons.extra.config.ExtraConfig;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;

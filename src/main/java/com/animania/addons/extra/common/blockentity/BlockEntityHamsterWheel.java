@@ -1,4 +1,4 @@
-package com.animania.addons.extra.common.BlockEntity;
+package com.animania.addons.extra.common.blockentity;
 
 import javax.annotation.Nullable;
 
@@ -6,7 +6,7 @@ import com.animania.Animania;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.addons.extra.common.handler.ExtraAddonBlockHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
-import com.animania.addons.extra.common.tileentity.handler.ItemHandlerHamsterWheel;
+import com.animania.addons.extra.common.blockentity.handler.ItemHandlerHamsterWheel;
 import com.animania.addons.extra.config.ExtraConfig;
 import com.animania.client.handler.AnimationHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -15,6 +15,7 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedBlock
 
 import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.client.renderer.texture.ITickable;
+import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
@@ -32,7 +33,8 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BlockEntityHamsterWheel extends AnimatedBlockEntity implements ITickable
+// TODO: Port to Geckolib
+public class BlockEntityHamsterWheel extends AnimatedBlockEntity implements Tickable
 {
 	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(BlockEntityHamsterWheel.class);
 

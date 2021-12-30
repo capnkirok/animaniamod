@@ -1,5 +1,6 @@
 package com.animania.addons.catsdogs.common.entity.felids;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -33,7 +34,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.nbt.CompoundTag;
@@ -45,9 +46,15 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.CatSitOnBlockGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Ocelot;
+import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -58,7 +65,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IConvertable
 {
 
-	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaCat.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityAnimaniaCat.class, EntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityAnimaniaCat.class, EntityDataSerializers.BOOLEAN);
 	// protected static final EntityDataAccessor<Boolean> TAMED =
 	// SynchedEntityData.defineId(EntityAnimaniaCat.class,
@@ -102,7 +109,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	protected void initAI()
 	{
 		this.aiSit = new GenericAISit(this);
-		this.goalSelector.addGoal(0, new SwimmingGoal(this));
+		this.goalSelector.addGoal(0, new RandomSwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.goalSelector.addGoal(1, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaCat.class, true));
@@ -122,16 +129,16 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 		{
 			this.goalSelector.addGoal(14, new GenericAISleep<EntityAnimaniaCat>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed2), EntityAnimaniaCat.class));
 		}
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTame())
 		{
 			AddonInjectionHandler.runInjection("farm", "attackChicks", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackFrogs", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 
-			this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof SilverfishEntity));
+			this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, Animal.class, false, entity -> entity instanceof Silverfish));
 		}
-		this.tasks.taskEntries.removeIf(task -> task.action instanceof OcelotSitGoal);
+		this.tasks.taskEntries.removeIf(task -> task.action instanceof CatSitOnBlockGoal);
 	}
 
 	@Override
@@ -143,24 +150,24 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(18.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.5D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(18.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+		this.getAttributeMap().registerAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5D);
 	}
 
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.entityData.register(FED, true);
-		this.entityData.register(WATERED, true);
+		this.entityData.set(FED, true);
+		this.entityData.set(WATERED, true);
 		// this.entityData.register(TAMED, false);
 		// this.entityData.register(SITTING, false);
-		this.entityData.register(SLEEPING, false);
-		this.entityData.register(HANDFED, false);
-		this.entityData.register(AGE, Integer.valueOf(0));
-		this.entityData.register(SLEEPTIMER, Float.valueOf(0.0F));
-		this.entityData.register(INTERACTED, false);
+		this.entityData.set(SLEEPING, false);
+		this.entityData.set(HANDFED, false);
+		this.entityData.set(AGE, 0);
+		this.entityData.set(SLEEPTIMER, 0.0F);
+		this.entityData.set(INTERACTED, false);
 	}
 
 	@Override
@@ -192,7 +199,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
-		super.setPosition(x, y, z);
+		super.setPos(x, y, z);
 	}
 
 	@Override
@@ -277,7 +284,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.isSitting() || this.isPassenger())
+		if (this.isInSittingPose() || this.isPassenger())
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
@@ -357,7 +364,7 @@ public class EntityAnimaniaCat extends Ocelot implements IAnimaniaAnimalBase, IC
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

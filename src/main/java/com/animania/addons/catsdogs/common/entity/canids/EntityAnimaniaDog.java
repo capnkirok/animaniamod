@@ -1,5 +1,6 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -34,7 +35,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.SheepEntity;
@@ -147,9 +148,9 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(18.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.5D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(18.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+		this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5D);
 	}
 
 	@Override
@@ -367,7 +368,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

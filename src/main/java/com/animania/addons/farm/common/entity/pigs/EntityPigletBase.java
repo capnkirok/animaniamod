@@ -20,9 +20,9 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
@@ -33,8 +33,8 @@ import net.minecraft.world.level.Level;
 public class PigEntityletBase extends EntityAnimaniaPig implements TOPInfoProviderChild, IChild
 {
 
-	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(PigEntityletBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(PigEntityletBase.class, EntityEntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(PigEntityletBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(PigEntityletBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public PigEntityletBase(Level levelIn)
@@ -60,8 +60,8 @@ public class PigEntityletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.315D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.315D);
 
 	}
 
