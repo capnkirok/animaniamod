@@ -1,4 +1,4 @@
-package com.animania.addons.template.common.handler;
+package com.animania.template.handler;
 
 public class TemplateAddonItemHandler
 {

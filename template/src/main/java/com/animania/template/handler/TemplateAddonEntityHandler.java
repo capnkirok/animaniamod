@@ -1,12 +1,11 @@
-package com.animania.addons.template.common.handler;
+package com.animania.template.handler;
+
+import com.google.common.collect.Lists;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.List;
 import java.util.Set;
-
-import com.google.common.collect.Lists;
-
-import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
 
 public class TemplateAddonEntityHandler
 {

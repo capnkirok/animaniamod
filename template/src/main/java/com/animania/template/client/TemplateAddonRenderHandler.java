@@ -1,7 +1,6 @@
-package com.animania.addons.template.client;
+package com.animania.template.client;
 
 import com.animania.Animania;
-
 import net.minecraft.client.renderer.BlockEntity.BlockEntitySpecialRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;

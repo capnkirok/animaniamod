@@ -1,4 +1,4 @@
-package com.animania.addons.template;
+package com.animania.template;
 
 import com.animania.addons.template.client.TemplateAddonRenderHandler;
 import com.animania.addons.template.common.handler.TemplateAddonBlockHandler;
