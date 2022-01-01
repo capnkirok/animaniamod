@@ -540,7 +540,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public java.util.Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

@@ -2,6 +2,7 @@ package com.animania.addons.extra.common.entity.peafowl.ai;
 
 import com.animania.addons.extra.common.entity.peafowl.EntityAnimaniaPeacock;
 
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +35,7 @@ public class WatchClosestFromSideGoal extends Goal
 	}
 
 	@Override
-	public boolean shouldExecute()
+	public boolean canUse()
 	{
 
 		boolean isSleeping = false;
@@ -56,34 +57,34 @@ public class WatchClosestFromSideGoal extends Goal
 				this.closestEntity = this.theWatcher.getAttackTarget();
 
 			if (this.watchedClass == Player.class)
-				this.closestEntity = this.theWatcher.level.getClosestPlayerToEntity(this.theWatcher, this.maxDistanceForPlayer);
+				this.closestEntity = this.theWatcher.level.getNearestPlayer(this.theWatcher, this.maxDistanceForPlayer);
 			else
-				this.closestEntity = this.theWatcher.level.findNearestEntityWithinAABB(this.watchedClass, this.theWatcher.getEntityBoundingBox().expand(this.maxDistanceForPlayer, 3.0D, this.maxDistanceForPlayer), this.theWatcher);
+				this.closestEntity = this.theWatcher.level.getNearestEntity(this.watchedClass, this.theWatcher.getBoundingBox().expandTowards(this.maxDistanceForPlayer, 3.0D, this.maxDistanceForPlayer), this.theWatcher);
 
 			return this.closestEntity != null;
 		}
 	}
 
 	@Override
-	public boolean shouldContinueExecuting()
+	public boolean canContinueToUse()
 	{
-		return !this.closestEntity.isAlive() ? false : this.theWatcher.getDistanceSq(this.closestEntity) > this.maxDistanceForPlayer * this.maxDistanceForPlayer ? false : this.lookTime > 0;
+		return this.closestEntity.isAlive() && (!(this.theWatcher.distanceToSqr(this.closestEntity) > this.maxDistanceForPlayer * this.maxDistanceForPlayer) && this.lookTime > 0);
 	}
 
 	@Override
-	public void startExecuting()
+	public void start()
 	{
 		this.lookTime = 40 + this.theWatcher.getRandom().nextInt(40);
 	}
 
 	@Override
-	public void resetTask()
+	public void stop()
 	{
 		this.closestEntity = null;
 	}
 
 	@Override
-	public void updateTask()
+	public void tick()
 	{
 
 		this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.getX() + 20F, this.closestEntity.getY() + this.closestEntity.getEyeHeight(), this.closestEntity.getZ(), this.theWatcher.getHorizontalFaceSpeed(), this.theWatcher.getVerticalFaceSpeed());

@@ -1,7 +1,7 @@
 package com.animania.addons.catsdogs.common.block;
 
 import com.animania.Animania;
-import com.animania.addons.catsdogs.common.tileentity.BlockEntityProp;
+import com.animania.addons.catsdogs.common.blockentity.BlockEntityProp;
 import com.animania.common.blocks.AnimaniaRotateable;
 
 import net.minecraft.block.state.BlockFaceShape;

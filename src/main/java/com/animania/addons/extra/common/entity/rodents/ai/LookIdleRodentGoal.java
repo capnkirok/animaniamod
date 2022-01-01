@@ -21,10 +21,10 @@ public class LookIdleRodentGoal extends Goal
 	}
 
 	@Override
-	public boolean shouldExecute()
+	public boolean canUse()
 	{
 
-		if (this.idleEntity instanceof EntityHamster er && er.getSleeping() || this.idleEntity instanceof EntityFerretBase er && er.getSleeping())
+		if (this.idleEntity instanceof EntityHamster er && er.getSleeping() || this.idleEntity instanceof EntityFerretBase erb && erb.getSleeping())
 		{
 			return false;
 		}
@@ -38,13 +38,13 @@ public class LookIdleRodentGoal extends Goal
 	}
 
 	@Override
-	public boolean shouldContinueExecuting()
+	public boolean canContinueToUse()
 	{
 		return this.idleTime >= 0;
 	}
 
 	@Override
-	public void startExecuting()
+	public void start()
 	{
 		double d0 = Math.PI * 2D * this.idleEntity.getRandom().nextDouble();
 		this.lookX = Math.cos(d0);
@@ -53,7 +53,7 @@ public class LookIdleRodentGoal extends Goal
 	}
 
 	@Override
-	public void updateTask()
+	public void tick()
 	{
 		--this.idleTime;
 		this.idleEntity.getLookHelper().setLookPosition(this.idleEntity.getX() + this.lookX, this.idleEntity.getY() + this.idleEntity.getEyeHeight(), this.idleEntity.getZ() + this.lookZ, this.idleEntity.getHorizontalFaceSpeed(), this.idleEntity.getVerticalFaceSpeed());

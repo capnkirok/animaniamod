@@ -1,6 +1,6 @@
 package com.animania.addons.catsdogs.common.block;
 
-import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl;
+import com.animania.addons.catsdogs.common.blockentity.BlockEntityPetBowl;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.blocks.AnimaniaContainer;

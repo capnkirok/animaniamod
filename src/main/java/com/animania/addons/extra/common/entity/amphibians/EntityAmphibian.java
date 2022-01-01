@@ -10,13 +10,14 @@ import com.animania.common.handler.AddonInjectionHandler;
 
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -264,7 +265,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 		if (this.getCustomNameTag().equals("Pepe") && this.getMaxHealth() != 20.0D)
 		{
 			this.initEntityAI();
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}
 
@@ -300,8 +301,8 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(3.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 	}
 
 	protected SoundEvent getJumpSound()

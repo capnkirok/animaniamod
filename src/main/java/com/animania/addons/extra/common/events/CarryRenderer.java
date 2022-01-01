@@ -125,7 +125,7 @@ public class CarryRenderer
 		{
 			Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), level);
 			entity.readFromNBT(props.getAnimal());
-			float rotation = -(player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialticks);
+			float rotation = -(player.prevyBodyRot + (player.yBodyRot - player.prevyBodyRot) * partialticks);
 			int perspective = Minecraft.getInstance().gameSettings.thirdPersonView;
 
 			if (entity != null)

@@ -5,11 +5,12 @@ import java.util.List;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.pathfinding.PathPoint;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.level.pathfinder.Path;
 
 public class AnimalAIGetDogHerded<T extends PathfinderMob & ISleeping, U extends TamableAnimal & ISleeping> extends Goal
 {
@@ -24,40 +25,37 @@ public class AnimalAIGetDogHerded<T extends PathfinderMob & ISleeping, U extends
 	}
 
 	@Override
-	public boolean shouldExecute()
+	public boolean canUse()
 	{
 		if (this.herdAnimal.getSleeping())
 			return false;
 
-		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(this.herderType, 10, this.herdAnimal.level, this.herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
-		if (list.isEmpty())
-			return false;
-
-		return true;
+		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(this.herderType, 10, this.herdAnimal.level, this.herdAnimal, e -> !e.getSleeping() && e.isTame() && !e.isInSittingPose());
+		return !list.isEmpty();
 	}
 
 	@Override
-	public boolean shouldContinueExecuting()
+	public boolean canContinueToUse()
 	{
-		if (!this.shouldExecute())
+		if (!this.canUse())
 			return false;
 
-		return super.shouldContinueExecuting();
+		return super.canContinueToUse();
 	}
 
 	@Override
-	public void updateTask()
+	public void tick()
 	{
-		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(this.herderType, 10, this.herdAnimal.level, this.herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
+		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(this.herderType, 10, this.herdAnimal.level, this.herdAnimal, e -> !e.getSleeping() && e.isTame() && !e.isInSittingPose());
 		if (list.size() > 0)
 		{
 			U herder = list.get(0);
-			PathNavigate herderNav = herder.getNavigation();
+			PathNavigation herderNav = herder.getNavigation();
 			Path herderPath = herderNav.getPath();
 			if (herderPath != null)
 			{
-				PathPoint herderDest = herderPath.getFinalPathPoint();
-				this.herdAnimal.getNavigation().tryMoveToXYZ(herderDest.x, herderDest.y, herderDest.z, 1.0f);
+				BlockPos herderDest = herderPath.getTarget();
+				this.herdAnimal.getNavigation().moveTo(herderDest.getX(), herderDest.getY(), herderDest.getZ(), 1.0f);
 			}
 		}
 	}

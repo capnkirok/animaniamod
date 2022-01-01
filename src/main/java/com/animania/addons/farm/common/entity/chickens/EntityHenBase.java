@@ -18,10 +18,10 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -34,8 +34,8 @@ import net.minecraft.world.level.Level;
 public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
-	protected static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean> defineId(EntityHenBase.class, EntityEntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer> defineId(EntityHenBase.class, EntityEntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean> defineId(EntityHenBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer> defineId(EntityHenBase.class, EntityDataSerializers.INT);
 
 	public EntityHenBase(Level levelIn)
 	{
@@ -83,7 +83,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 		}
 
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+		this.getAttribute(Attributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
 		if (this.rand.nextFloat() < 0.05F)
 			this.setLeftHanded(true);
@@ -124,7 +124,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
+		this.getAttributeMap().registerAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(1.5D);
 
 	}
 

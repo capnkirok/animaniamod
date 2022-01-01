@@ -1,6 +1,6 @@
-package com.animania.addons.catsdogs.common.BlockEntity.handler;
+package com.animania.addons.catsdogs.common.blockentity.handler;
 
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
@@ -13,9 +13,9 @@ public class FluidHandlerPetBowl extends FluidTank
 	}
 
 	@Override
-	public boolean canFillFluidType(FluidStack fluid)
+	public boolean isFluidValid(FluidStack fluid)
 	{
-		return fluid.getFluid() == FluidRegistry.WATER;
+		return fluid.getFluid() == Fluids.WATER;
 	}
 
 }

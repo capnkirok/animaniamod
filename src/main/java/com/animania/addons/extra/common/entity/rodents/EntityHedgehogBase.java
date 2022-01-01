@@ -1,5 +1,6 @@
 package com.animania.addons.extra.common.entity.rodents;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -156,9 +157,9 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
+		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+		this.getAttributeMap().registerAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(1.0D);
 	}
 
 	@Override
@@ -491,7 +492,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

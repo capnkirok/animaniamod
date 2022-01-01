@@ -27,21 +27,20 @@ import com.animania.addons.farm.common.entity.goats.GoatPygmy.EntityDoePygmy;
 import com.animania.addons.farm.common.entity.goats.GoatPygmy.EntityKidPygmy;
 import com.animania.api.interfaces.AnimaniaType;
 
-import StatBase;
-import net.minecraft.stats.StatBase;
+import net.minecraft.stats.Stat;
 import net.minecraft.world.level.Level;
 
 public enum GoatType implements AnimaniaType
 {
 	ALPINE(EntityBuckAlpine.class, EntityDoeAlpine.class, EntityKidAlpine.class, null, true), ANGORA(EntityBuckAngora.class, EntityDoeAngora.class, EntityKidAngora.class, null, false), FAINTING(EntityBuckFainting.class, EntityDoeFainting.class, EntityKidFainting.class, null, false), KIKO(EntityBuckKiko.class, EntityDoeKiko.class, EntityKidKiko.class, null, true), KINDER(EntityBuckKinder.class, EntityDoeKinder.class, EntityKidKinder.class, null, false), NIGERIAN_DWARF(EntityBuckNigerianDwarf.class, EntityDoeNigerianDwarf.class, EntityKidNigerianDwarf.class, null, false), PYGMY(EntityBuckPygmy.class, EntityDoePygmy.class, EntityKidPygmy.class, null, true);
 
-	private Class male;
-	private Class female;
-	private Class child;
-	private StatBase achievement;
+	private Class<?> male;
+	private Class<?> female;
+	private Class<?> child;
+	private Stat<?> achievement;
 	public boolean isPrime;
 
-	private GoatType(Class male, Class female, Class child, StatBase achievement, boolean prime)
+	GoatType(Class<?> male, Class<?> female, Class<?> child, Stat<?> achievement, boolean prime)
 	{
 		this.male = male;
 		this.female = female;
@@ -127,7 +126,7 @@ public enum GoatType implements AnimaniaType
 		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
 
-	public StatBase getAchievement()
+	public Stat<?> getAchievement()
 	{
 		return this.achievement;
 	}

@@ -98,8 +98,8 @@ import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityQueenTab
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityTomTabby;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonBlockHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonItemHandler;
-import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.BlockEntityProp;
+import com.animania.addons.catsdogs.common.blockentity.BlockEntityPetBowl;
+import com.animania.addons.catsdogs.common.blockentity.BlockEntityProp;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 import com.leviathanstudio.craftstudio.client.util.EnumRenderType;

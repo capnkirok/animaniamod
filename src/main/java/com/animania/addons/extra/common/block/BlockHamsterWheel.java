@@ -5,68 +5,75 @@ import com.animania.addons.extra.common.capabilities.CapabilityRefs;
 import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
-import com.animania.addons.extra.common.tileentity.BlockEntityHamsterWheel;
+import com.animania.addons.extra.common.blockentity.BlockEntityHamsterWheel;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
-import mcjty.theoneprobe.api.IProbeHitData;
-import mcjty.theoneprobe.api.IProbeInfo;
-import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.EntityList;
-import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.util.LazyOptional;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvider
 {
 
 	private String name = "block_hamster_wheel";
-	public static final PropertyDirection FACING = BlockHorizontal.FACING;
+	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
 	public BlockHamsterWheel()
 	{
-		super(Material.IRON, MaterialColor.GRAY);
+		super(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_GRAY));
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
+		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
 		BlockHandler.blocks.add(this);
-		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-		this.setCreativeTab(Animania.TabAnimaniaResources);
-		this.setTickRandomly(true);
+		// TODO: Move to lang, and item
+		//  this.setUnlocalizedName(Animania.MODID + "_" + this.name);
+		//  this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setHardness(1.4f);
 		this.setResistance(3.4F);
 		this.useNeighborBrightness = true;
 	}
 
 	@Override
-	public BlockEntity createNewBlockEntity(Level levelIn, int meta)
-	{
+	public boolean isRandomlyTicking(BlockState arg) {
+		return true;
+	}
+
+	@Nullable
+	@Override
+	public BlockEntity newBlockEntity(BlockPos arg, BlockState arg2) {
 		return new BlockEntityHamsterWheel();
 	}
 
+	/* TODO: Err...
 	@Override
 	public boolean isOpaqueCube(BlockState state)
 	{
 		return false;
-	}
+	}*/
 
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
@@ -81,15 +88,14 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	}
 
 	@Override
-	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, Direction facing, float hitX, float hitY, float hitZ)
-	{
+	public InteractionResult use(BlockState arg, Level level, BlockPos pos, Player player, InteractionHand arg5, BlockHitResult arg6) {
 		BlockEntityHamsterWheel te = (BlockEntityHamsterWheel) level.getBlockEntity(pos);
 
 		if (!te.isRunning() && player.hasCapability(CapabilityRefs.CAPS, null))
 		{
-			ICapabilityPlayer cap = player.getCapability(CapabilityRefs.CAPS, null);
+			LazyOptional<ICapabilityPlayer> cap = player.getCapability(CapabilityRefs.CAPS, null);
 
-			CompoundTag hamsternbt = cap.getAnimal();
+			CompoundTag hamsternbt = cap.ifPresent(ICapabilityPlayer::getAnimal);
 
 			if (!hamsternbt.hasNoTags() && cap.isCarrying() && cap.getType().equals("hamster"))
 
@@ -104,7 +110,7 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 					cap.setCarrying(false);
 					cap.setType("");
 					player.swingArm(InteractionHand.MAIN_HAND);
-					player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
+					player.playSound(SoundEvents.ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 
 					return true;
 				}
@@ -126,9 +132,9 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 		{
 			ItemStack food = te.getItemHandler().getStackInSlot(0);
 			if (food.isEmpty())
-				player.sendStatusMessage(new TextComponent(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF"), true);
+				player.displayClientMessage(new TextComponent(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF"), true);
 			else
-				player.sendStatusMessage(new TextComponent(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
+				player.displayClientMessage(new TextComponent(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
 
 		}
 
@@ -136,15 +142,14 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	}
 
 	@Override
-	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
-	{
-		BlockEntityHamsterWheel te = (BlockEntityHamsterWheel) levelIn.getBlockEntity(pos);
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState blockState, @Nullable BlockEntity blockEntity, ItemStack itemStack) {
+		BlockEntityHamsterWheel te = (BlockEntityHamsterWheel) level.getBlockEntity(pos);
 		if (te != null)
 		{
 			te.ejectHamster();
-			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
+			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
 		}
-		super.breakBlock(levelIn, pos, state);
+		super.playerDestroy(level, player, pos, blockState, blockEntity, itemStack);
 	}
 
 	@Override
@@ -162,16 +167,15 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 		}
 	}
 
+	@Nullable
 	@Override
-	public BlockState getStateForPlacement(Level levelIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
-	{
-		return this.defaultBlockState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
-	public void onBlockPlacedBy(Level levelIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
-	{
-		levelIn.setBlock(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+	public void setPlacedBy(Level level, BlockPos pos, BlockState blockState, @Nullable LivingEntity livingEntity, ItemStack itemStack) {
+		level.setBlock(pos, blockState.setValue(FACING, livingEntity.getDirection().getOpposite()), 2);
 	}
 
 	@Override

@@ -4,33 +4,36 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ChestMenu;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class GuiCartChest extends GuiContainer
+public class GuiCartChest extends ContainerScreen
 {
 	/** The ResourceLocation containing the chest GUI texture. */
 	private static final ResourceLocation CHEST_GUI_TEXTURE = new ResourceLocation("textures/gui/container/generic_54.png");
-	private final IInventory upperChestInventory;
-	private final IInventory lowerChestInventory;
+	private final Inventory upperChestInventory;
+	private final Inventory lowerChestInventory;
 	/**
 	 * window height is calculated with these values; the more rows, the heigher
 	 */
 	private final int inventoryRows;
 
-	public GuiCartChest(IInventory upperInv, IInventory lowerInv)
+	public GuiCartChest(Inventory upperInv, Inventory lowerInv)
 	{
-		super(new ContainerChest(upperInv, lowerInv, Minecraft.getInstance().player));
+		super(new ChestMenu(Minecraft.getInstance().player), upperInv, lowerInv);
 		this.upperChestInventory = upperInv;
 		this.lowerChestInventory = lowerInv;
 		this.allowUserInput = false;
 		int i = 222;
 		int j = 114;
-		this.inventoryRows = lowerInv.getSizeInventory() / 9;
+		this.inventoryRows = lowerInv.getContainerSize() / 9;
 		this.ySize = 114 + this.inventoryRows * 18;
 	}
 

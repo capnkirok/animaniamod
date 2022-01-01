@@ -6,17 +6,17 @@ import net.minecraft.world.entity.player.Player;
 public interface ICapabilityPlayer
 {
 
-	public CompoundTag getAnimal();
+	CompoundTag getAnimal();
 
-	public void setAnimal(CompoundTag tag);
+	void setAnimal(CompoundTag tag);
 
-	public boolean isCarrying();
+	boolean isCarrying();
 
-	public void setCarrying(boolean carrying);
+	void setCarrying(boolean carrying);
 
-	public String getType();
+	String getType();
 
-	public void setType(String type);
+	void setType(String type);
 
 	void read(Player player);
 

@@ -13,10 +13,10 @@ import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,8 +29,8 @@ import net.minecraft.world.level.Level;
 public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
-	protected static final EntityDataAccessor<Integer> CROWTIMER = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityEntityDataSerializers.INT);
-	protected static final EntityDataAccessor<Integer> CROWDURATION = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityEntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Integer> CROWTIMER = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Integer> CROWDURATION = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityDataSerializers.INT);
 
 	public EntityRoosterBase(Level levelIn)
 	{
@@ -84,7 +84,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+		this.getAttributeMap().registerAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0D);
 
 	}
 

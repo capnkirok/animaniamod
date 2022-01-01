@@ -9,9 +9,9 @@ public class PeafowlBlue
 	public static class EntityPeachickBlue extends EntityPeachickBase
 	{
 
-		public EntityPeachickBlue(Level levelIn)
+		public EntityPeachickBlue(Level level)
 		{
-			super(levelIn);
+			super(level);
 			this.type = PeacockType.BLUE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_blue.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
@@ -34,9 +34,9 @@ public class PeafowlBlue
 	public static class EntityPeafowlBlue extends EntityPeafowlBase
 	{
 
-		public EntityPeafowlBlue(Level levelIn)
+		public EntityPeafowlBlue(Level level)
 		{
-			super(levelIn);
+			super(level);
 			this.type = PeacockType.BLUE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_blue.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_blue_blink.png");
@@ -59,9 +59,9 @@ public class PeafowlBlue
 	public static class EntityPeacockBlue extends EntityPeacockBase
 	{
 
-		public EntityPeacockBlue(Level levelIn)
+		public EntityPeacockBlue(Level level)
 		{
-			super(levelIn);
+			super(level);
 			this.type = PeacockType.BLUE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue_blink.png");

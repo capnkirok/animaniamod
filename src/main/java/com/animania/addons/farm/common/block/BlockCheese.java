@@ -27,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,13 +36,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BlockCheese extends Block
 {
 
-	public static final PropertyInteger BITES = PropertyInteger.create("bites", 0, 3);
+	public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 3);
 	private static final AABB[] AABB = new AABB[] { new AABB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AABB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AABB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.5D), new AABB(0.0625D, 0.0D, 0.0625D, 0.5D, 0.5D, 0.5D) };
 
 	public BlockCheese(String name)
 	{
 		super(Material.CAKE, MaterialColor.YELLOW);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, Integer.valueOf(0)));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, 0));
 		this.setRegistryName(Animania.MODID + ":" + name);
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
@@ -137,7 +138,7 @@ public class BlockCheese extends Block
 
 			if (i < 3)
 			{
-				levelIn.setBlock(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
+				levelIn.setBlock(pos, state.setValue(BITES, i + 1), 3);
 			}
 			else
 			{
@@ -163,7 +164,7 @@ public class BlockCheese extends Block
 	@Override
 	public int getComparatorInputOverride(BlockState blockState, Level levelIn, BlockPos pos)
 	{
-		return 4 - ((Integer) blockState.getValue(BITES)).intValue();
+		return 4 - blockState.getValue(BITES);
 	}
 
 	@Override
@@ -189,7 +190,7 @@ public class BlockCheese extends Block
 
 	private boolean canBlockStay(Level levelIn, BlockPos pos)
 	{
-		return levelIn.getBlockState(pos.down()).getMaterial().isSolid();
+		return levelIn.getBlockState(pos.below()).getMaterial().isSolid();
 	}
 
 	@Override
@@ -210,13 +211,14 @@ public class BlockCheese extends Block
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
-		return this.defaultBlockState().withProperty(BITES, Integer.valueOf(meta));
+		return this.defaultBlockState().withProperty(BITES, meta);
 	}
 
+	/* TODO: Move to rendering
 	@SideOnly(Dist.CLIENT)
 	@Override
 	public BlockRenderLayer getBlockLayer()
 	{
 		return BlockRenderLayer.CUTOUT;
-	}
+	}*/
 }

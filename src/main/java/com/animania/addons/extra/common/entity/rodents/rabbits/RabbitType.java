@@ -30,8 +30,7 @@ import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitE
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityKitRex;
 import com.animania.api.interfaces.AnimaniaType;
 
-import StatBase;
-import net.minecraft.stats.StatBase;
+import net.minecraft.stats.Stat;
 import net.minecraft.world.level.Level;
 
 public enum RabbitType implements AnimaniaType
@@ -39,13 +38,13 @@ public enum RabbitType implements AnimaniaType
 
 	LOP(RabbitEntityBuckLop.class, RabbitEntityDoeLop.class, RabbitEntityKitLop.class, null, false), REX(RabbitEntityBuckRex.class, RabbitEntityDoeRex.class, RabbitEntityKitRex.class, null, true), DUTCH(RabbitEntityBuckDutch.class, RabbitEntityDoeDutch.class, RabbitEntityKitDutch.class, null, false), HAVANA(RabbitEntityBuckHavana.class, RabbitEntityDoeHavana.class, RabbitEntityKitHavana.class, null, false), NEW_ZEALAND(RabbitEntityBuckNewZealand.class, RabbitEntityDoeNewZealand.class, RabbitEntityKitNewZealand.class, null, true), JACK(RabbitEntityBuckJack.class, RabbitEntityDoeJack.class, RabbitEntityKitJack.class, null, false), COTTONTAIL(RabbitEntityBuckCottontail.class, RabbitEntityDoeCottontail.class, RabbitEntityKitCottontail.class, null, false), CHINCHILLA(RabbitEntityBuckChinchilla.class, RabbitEntityDoeChinchilla.class, RabbitEntityKitChinchilla.class, null, true);
 
-	private Class male;
-	private Class female;
-	private Class child;
-	private StatBase achievement;
+	private Class<?> male;
+	private Class<?> female;
+	private Class<?> child;
+	private Stat<?> achievement;
 	public boolean isPrime;
 
-	private RabbitType(Class male, Class female, Class child, StatBase achievement, boolean prime)
+	RabbitType(Class<?> male, Class<?> female, Class<?> child, Stat<?> achievement, boolean prime)
 	{
 		this.male = male;
 		this.female = female;
@@ -131,7 +130,7 @@ public enum RabbitType implements AnimaniaType
 		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
 
-	public StatBase getAchievement()
+	public Stat<?> getAchievement()
 	{
 		return this.achievement;
 	}

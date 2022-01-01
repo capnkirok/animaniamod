@@ -36,13 +36,10 @@ public class DogChihuahua
 		@Override
 		public int getEyeColorForVariant(int variant)
 		{
-			switch (variant)
-			{
-			case 0:
-				return 0x8E5C2B;
-			default:
-				return 0xE5DAD3;
-			}
+			return switch (variant) {
+				case 0 -> 0x8E5C2B;
+				default -> 0xE5DAD3;
+			};
 		}
 	}
 
@@ -77,13 +74,10 @@ public class DogChihuahua
 		@Override
 		public int getEyeColorForVariant(int variant)
 		{
-			switch (variant)
-			{
-			case 0:
-				return 0x8E5C2B;
-			default:
-				return 0xE5DAD3;
-			}
+			return switch (variant) {
+				case 0 -> 0x8E5C2B;
+				default -> 0xE5DAD3;
+			};
 		}
 	}
 
@@ -118,13 +112,10 @@ public class DogChihuahua
 		@Override
 		public int getEyeColorForVariant(int variant)
 		{
-			switch (variant)
-			{
-			case 0:
-				return 0x8E5C2B;
-			default:
-				return 0xE5DAD3;
-			}
+			return switch (variant) {
+				case 0 -> 0x8E5C2B;
+				default -> 0xE5DAD3;
+			};
 		}
 	}
 

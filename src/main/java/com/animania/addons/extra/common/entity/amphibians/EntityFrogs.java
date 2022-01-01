@@ -17,12 +17,13 @@ import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.Attributes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityEntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -42,7 +43,7 @@ import net.minecraft.world.level.Level;
 public class EntityFrogs extends EntityAmphibian
 {
 
-	private static final EntityDataAccessor<Integer> FROGS_TYPE = SynchedEntityData.<Integer> defineId(EntityFrogs.class, EntityEntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> FROGS_TYPE = SynchedEntityData.<Integer> defineId(EntityFrogs.class, EntityDataSerializers.INT);
 
 	public EntityFrogs(Level levelIn)
 	{
@@ -121,7 +122,7 @@ public class EntityFrogs extends EntityAmphibian
 			this.targetSelector.addTask(2, new NearestAttackableTargetGoal<>(this, EntityFerretBase.class, true));
 			this.targetSelector.addTask(3, new NearestAttackableTargetGoal<>(this, EntityHedgehog.class, true));
 			this.targetSelector.addTask(4, new NearestAttackableTargetGoal<>(this, EntityHedgehogAlbino.class, true));
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}
 		this.goalSelector.addGoal(4, new WatchClosestGoal(this, Player.class, 10.0F));
@@ -155,7 +156,7 @@ public class EntityFrogs extends EntityAmphibian
 				if (stack.getDisplayName().equals("Pepe"))
 				{
 					this.initEntityAI();
-					this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+					this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
 					this.setHealth(20);
 				}
 

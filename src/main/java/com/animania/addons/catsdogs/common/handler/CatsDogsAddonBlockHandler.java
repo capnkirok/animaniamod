@@ -2,8 +2,8 @@ package com.animania.addons.catsdogs.common.handler;
 
 import com.animania.addons.catsdogs.common.block.BlockPetBowl;
 import com.animania.addons.catsdogs.common.block.BlockProp;
-import com.animania.addons.catsdogs.common.tileentity.BlockEntityPetBowl;
-import com.animania.addons.catsdogs.common.tileentity.BlockEntityProp;
+import com.animania.addons.catsdogs.common.blockentity.BlockEntityPetBowl;
+import com.animania.addons.catsdogs.common.blockentity.BlockEntityProp;
 
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fml.common.registry.GameRegistry;

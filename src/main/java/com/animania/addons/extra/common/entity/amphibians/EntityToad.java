@@ -15,6 +15,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class EntityToad extends EntityAmphibian
 {
@@ -30,19 +33,13 @@ public class EntityToad extends EntityAmphibian
 
 		int chooser = Animania.RANDOM.nextInt(5);
 
-		switch (chooser)
-		{
-		case 0:
-			return ExtraAddonSoundHandler.toadLiving1;
-		case 1:
-			return ExtraAddonSoundHandler.toadLiving2;
-		case 2:
-			return ExtraAddonSoundHandler.toadLiving3;
-		case 3:
-			return ExtraAddonSoundHandler.toadLiving4;
-		default:
-			return null;
-		}
+		return switch (chooser) {
+			case 0 -> ExtraAddonSoundHandler.toadLiving1;
+			case 1 -> ExtraAddonSoundHandler.toadLiving2;
+			case 2 -> ExtraAddonSoundHandler.toadLiving3;
+			case 3 -> ExtraAddonSoundHandler.toadLiving4;
+			default -> null;
+		};
 	}
 
 	@Override
@@ -58,7 +55,7 @@ public class EntityToad extends EntityAmphibian
 	}
 
 	@Override
-	protected ResourceLocation getLootTable()
+	public ResourceLocation getLootTable()
 	{
 		return new ResourceLocation("extra/" + Animania.MODID, "toad");
 	}
@@ -69,13 +66,12 @@ public class EntityToad extends EntityAmphibian
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null)
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getGrowingAge() * 2);
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getAge() * 2);
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn)
-	{
-		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.05F, 1.1F);
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(SoundEvents.CHICKEN_STEP, 0.05F, 1.1F);
 	}
 
 	@Override

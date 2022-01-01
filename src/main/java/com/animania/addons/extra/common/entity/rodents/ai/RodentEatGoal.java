@@ -7,18 +7,19 @@ import com.animania.common.handler.BlockHandler;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
-import net.minecraft.block.BlockTallGrass;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.TallGrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 
 public class RodentEatGoal extends Goal
 {
-	private static final Predicate<BlockState> IS_TALL_GRASS = BlockStatePredicate.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+	private static final Predicate<BlockState> IS_TALL_GRASS = BlockStatePredicate.forBlock(Blocks.TALL_GRASS).where(TallGrassBlock.AABB_OFFSET, Predicates.equalTo(TallGrassBlock.EnumType.GRASS));
 	private final LivingEntity grassEaterEntity;
 	private final Level entityLevel;
 	int eatingGrassTimer;
@@ -54,7 +55,7 @@ public class RodentEatGoal extends Goal
 		else
 		{
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.getX(), this.grassEaterEntity.getY(), this.grassEaterEntity.getZ());
-			return RodentEatGoal.IS_TALL_GRASS.apply(this.entityLevel.getBlockState(blockpos)) ? true : this.entityLevel.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS || this.entityLevel.getBlockState(blockpos.down()).getBlock() == Blocks.DIRT;
+			return RodentEatGoal.IS_TALL_GRASS.apply(this.entityLevel.getBlockState(blockpos)) || this.entityLevel.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS || this.entityLevel.getBlockState(blockpos.below()).getBlock() == Blocks.DIRT;
 		}
 	}
 

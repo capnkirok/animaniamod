@@ -1,5 +1,6 @@
 package com.animania.addons.farm.common.entity.cows;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -219,7 +220,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 
 				CowEntity.setLocationAndAngles(this.getX(), this.getY(), this.getZ(), this.rotationYaw, this.rotationPitch);
 				CowEntity.setHealth(this.getHealth());
-				CowEntity.renderYawOffset = this.renderYawOffset;
+				CowEntity.yBodyRot = this.yBodyRot;
 				if (this.hasCustomName())
 				{
 					CowEntity.setCustomNameTag(this.getCustomNameTag());
@@ -313,7 +314,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public BlockPos getSleepingPos()
+	public Optional<BlockPos> getSleepingPos()
 	{
 		// TODO Auto-generated method stub
 		return null;

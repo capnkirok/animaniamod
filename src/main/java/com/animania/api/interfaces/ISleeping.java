@@ -4,6 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.Entity;
 
+import java.util.Optional;
+
 public interface ISleeping extends IAnimaniaAnimal
 {
 	EntityDataAccessor<Boolean> getSleepingParam();
@@ -27,7 +29,7 @@ public interface ISleeping extends IAnimaniaAnimal
 
 	void setSleepingPos(BlockPos pos);
 
-	BlockPos getSleepingPos();
+	Optional<BlockPos> getSleepingPos();
 
 	default Float getSleepTimer()
 	{

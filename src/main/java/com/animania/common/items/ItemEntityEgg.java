@@ -101,7 +101,7 @@ public class ItemEntityEgg extends Item
 
 			level.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 			entity.rotationYawHead = entity.rotationYaw;
-			entity.renderYawOffset = entity.rotationYaw;
+			entity.yBodyRot = entity.rotationYaw;
 
 			if (entity instanceof IFoodEating foodEating)
 			{
