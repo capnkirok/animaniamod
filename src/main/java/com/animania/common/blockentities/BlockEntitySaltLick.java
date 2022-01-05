@@ -8,6 +8,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class BlockEntitySaltLick extends BlockEntity
@@ -34,13 +35,13 @@ public class BlockEntitySaltLick extends BlockEntity
 	@Nullable
 	public SPacketUpdateBlockEntity getUpdatePacket()
 	{
-		return new SPacketUpdateBlockEntity(this.pos, 1, this.getUpdateTag());
+		return new SPacketUpdateBlockEntity(this.getBlockPos(), 1, this.getUpdateTag());
 	}
 
 	@Override
 	public CompoundTag getUpdateTag()
 	{
-		return this.writeToNBT(new CompoundTag());
+		return this.save(new CompoundTag());
 	}
 
 	@Override
@@ -52,9 +53,9 @@ public class BlockEntitySaltLick extends BlockEntity
 	}
 
 	@Override
-	public CompoundTag writeToNBT(CompoundTag compound)
+	public CompoundTag save(CompoundTag compound)
 	{
-		CompoundTag tag = super.writeToNBT(compound);
+		CompoundTag tag = super.save(compound);
 		tag.putInt("usesLeft", this.usesLeft);
 
 		return tag;
@@ -62,10 +63,10 @@ public class BlockEntitySaltLick extends BlockEntity
 	}
 
 	@Override
-	public void readFromNBT(CompoundTag compound)
+	public void load(CompoundTag compound)
 	{
-		super.readFromNBT(compound);
-		this.usesLeft = compound.getInteger("usesLeft");
+		super.load(compound);
+		this.usesLeft = compound.getInt("usesLeft");
 	}
 
 }

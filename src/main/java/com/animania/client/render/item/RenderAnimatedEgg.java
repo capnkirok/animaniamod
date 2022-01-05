@@ -1,5 +1,6 @@
 package com.animania.client.render.item;
 
+import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.world.level.Level;
 
 import com.animania.api.interfaces.IChild;
@@ -21,7 +22,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class RenderAnimatedEgg extends BlockEntityItemStackRenderer
+public class RenderAnimatedEgg extends ItemEntityRenderer
 {
 
 	public static AnimatedEggModelWrapper wrapperModel;
@@ -29,7 +30,7 @@ public class RenderAnimatedEgg extends BlockEntityItemStackRenderer
 	public static float renderTimer = 0;
 
 	@Override
-	public void renderByItem(ItemStack stack, float partialTicks)
+	public void renderByItem(PoseStack poseStack, ItemStack stack, float partialTicks)
 	{
 		Player player = Minecraft.getInstance().player;
 		Minecraft mc = Minecraft.getInstance();

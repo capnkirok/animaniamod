@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -53,13 +52,13 @@ public class BlockHandler
 	public static BlockItem BlockItemStraw;
 	public static BlockItem itemInvisiblock;
 
-	public static List<Block> blocks = new ArrayList<Block>();
+	public static List<Block> blocks = new ArrayList<>();
 
 	public static void preInit()
 	{
 
 		// Fluids
-		fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);
+		fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.SLIME_BLOCK_PLACE).setFillSound(SoundEvents.SLIME_BLOCK_FALL);
 		FluidRegistry.addBucketForFluid(fluidSlop);
 		blockSlop = new BlockFluidSlop();
 

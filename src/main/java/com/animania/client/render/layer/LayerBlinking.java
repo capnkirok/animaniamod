@@ -8,8 +8,6 @@ import com.animania.client.models.IColoredModel;
 import com.animania.common.handler.AddonInjectionHandler;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import RenderLiving;
-import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;

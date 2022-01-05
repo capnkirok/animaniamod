@@ -7,36 +7,39 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 
-import PropertyEnum;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 public class BlockStraw extends Block
 {
@@ -49,15 +52,11 @@ public class BlockStraw extends Block
 
 	public BlockStraw()
 	{
-		super(Material.CIRCUITS);
-		this.setCreativeTab(null);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockStraw.EnumType.STRAW));
+		super(BlockBehaviour.Properties.of(Material.EXPLOSIVE));
+		this.registerDefaultState(this.defaultBlockState().setValue(VARIANT, BlockStraw.EnumType.STRAW));
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		BlockHandler.blocks.add(this);
-		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-		this.setSoundType(SoundType.PLANT);
-		this.setTickRandomly(true);
 
 		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
@@ -66,38 +65,23 @@ public class BlockStraw extends Block
 
 	}
 
-	public boolean isFlammable(IBlockAccess level, BlockPos pos, Direction face)
-	{
+	@Override
+	public @NotNull SoundType getSoundType(@NotNull BlockState blockState) {
+		return SoundType.GRASS;
+	}
+
+	@Override
+	public boolean isRandomlyTicking(@NotNull BlockState blockState) {
 		return true;
 	}
 
 	@Override
-	public boolean isOpaqueCube(BlockState state)
-	{
-		return false;
+	public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+		return true;
 	}
 
 	@Override
-	public boolean isFullCube(BlockState state)
-	{
-		return false;
-	}
-
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
-	{
-		return BlockFaceShape.UNDEFINED;
-	}
-
-	@Override
-	@SideOnly(Dist.CLIENT)
-	public BlockRenderLayer getBlockLayer()
-	{
-		return BlockRenderLayer.CUTOUT;
-	}
-
-	public BlockState onBlockPlaced(Level levelIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
-	{
+	public InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player placer, InteractionHand hand, BlockHitResult result) {
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -106,51 +90,31 @@ public class BlockStraw extends Block
 			double d2 = pos.getZ() + 0.25D;
 			double d3 = 0.52D;
 			double d4 = Animania.RANDOM.nextDouble() * 0.6D - 0.3D;
-			levelIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, d0, d1 + .75D, d2 + d4, 0.0D, 0.0D, 0.0D, new int[] { Block.getStateId(BlockHandler.blockSeeds.defaultBlockState()) });
+			level.addParticle(ParticleTypes.BLOCK, d0, d1 + .75D, d2 + d4, 0.0D, 0.0D, 0.0D);
 
 		}
 
-		return this.defaultBlockState();
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	@Nullable
-	public Item getItemDropped(BlockState state, Random rand, int fortune)
-	{
-		return Item.getItemFromBlock(BlockHandler.blockStraw);
+	public VoxelShape getCollisionShape(BlockState p_60572_, BlockGetter p_60573_, BlockPos p_60574_, CollisionContext p_60575_) {
+		return Shapes.empty();
 	}
 
 	@Override
-	public AABB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
-	{
-		return Block.NULL_AABB;
-	}
-
-	@Override
-	public AABB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
-	{
+	public VoxelShape getShape(@NotNull BlockState blockState, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
 		return BlockStraw.STRAW_AABB;
 	}
 
 	@Override
-	public int quantityDropped(Random random)
-	{
-		return 1;
+	public boolean canSurvive(@NotNull BlockState blockState, @NotNull LevelReader levelReader, BlockPos pos) {
+		BlockPos lowerBlockPos = pos.below();
+
+		return levelReader.getBlockState(lowerBlockPos).getBlock() != BlockHandler.blockStraw && levelReader.getBlockState(lowerBlockPos).getBlock().isFullBlock(levelReader.getBlockState(lowerBlockPos)) && levelReader.getBlockState(lowerBlockPos).getBlock().isOpaqueCube(levelReader.getBlockState(lowerBlockPos));
 	}
 
-	@Override
-	public boolean canPlaceBlockAt(Level levelIn, BlockPos pos)
-	{
-		BlockPos blockposlower = pos.below();
 
-		return levelIn.getBlockState(blockposlower).getBlock() != BlockHandler.blockStraw && levelIn.getBlockState(blockposlower).getBlock().isFullBlock(levelIn.getBlockState(blockposlower)) && levelIn.getBlockState(blockposlower).getBlock().isOpaqueCube(levelIn.getBlockState(blockposlower));
-
-	}
-
-	public String getName()
-	{
-		return this.name;
-	}
 
 	@Override
 	public void observedNeighborChange(BlockState observerState, Level level, BlockPos observerPos, Block changedBlock, BlockPos changedBlockPos)
@@ -179,30 +143,8 @@ public class BlockStraw extends Block
 	@Override
 	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, Player player)
 	{
-		switch (state.getValue(VARIANT))
-		{
-		case STRAW:
-			return new ItemStack(BlockHandler.blockStraw);
-		default:
-			return new ItemStack(BlockHandler.blockStraw);
+		return new ItemStack(BlockHandler.blockStraw);
 
-		}
-
-	}
-
-	@Override
-	public BlockState getStateFromMeta(int meta)
-	{
-		return this.defaultBlockState().setValue(VARIANT, BlockStraw.EnumType.byMetadata(meta));
-	}
-
-	/**
-	 * Convert the BlockState into the correct metadata value
-	 */
-	@Override
-	public int getMetaFromState(BlockState state)
-	{
-		return state.getValue(VARIANT).getMetadata();
 	}
 
 	@Override
@@ -214,12 +156,6 @@ public class BlockStraw extends Block
 	protected BlockStateContainer createBlockState()
 	{
 		return new BlockStateContainer(this, new IProperty[] { VARIANT });
-	}
-
-	@Override
-	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
-	{
-		return state.getValue(VARIANT).getMaterialColor();
 	}
 
 	@Override
