@@ -11,11 +11,13 @@ import com.animania.common.blockentities.handler.ItemHandlerTrough;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.renderer.texture.Tickable;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -64,7 +66,7 @@ public class BlockEntityTrough extends BlockEntity implements Tickable, IFoodPro
 	}
 
 	@Override
-	public void update()
+	public void tick()
 	{
 
 		ItemStack stack = this.itemHandler.getStackInSlot(0);
@@ -107,7 +109,7 @@ public class BlockEntityTrough extends BlockEntity implements Tickable, IFoodPro
 	{
 		this.troughType = type;
 		this.markDirty();
-		this.level.notifyBlockUpdate(this.pos, this.level.getBlockState(this.pos), this.level.getBlockState(this.pos), 2);
+		this.level.sendBlockUpdated(this.getBlockPos(), this.level.getBlockState(this.getBlockPos()), this.level.getBlockState(this.getBlockPos()), 2);
 	}
 
 	public TroughContent getTroughContent()
@@ -191,16 +193,15 @@ public class BlockEntityTrough extends BlockEntity implements Tickable, IFoodPro
 	}
 
 	@Override
-	public boolean canConsume(@Nullable Set<ItemStack> fooditems, @Nullable Fluid[] fluid)
-	{
-		if (fluid == null)
-			return this.canConsume(null, fooditems);
+	public boolean canConsume(@Nullable Set<ItemStack> foodItems, @Nullable Fluid[] fluids) {
+		if (fluids == null)
+			return this.canConsume(null, foodItems);
 		else
 		{
 			boolean canConsumeAny = false;
-			for (Fluid f : fluid)
+			for (Fluid f : fluids)
 			{
-				boolean consume = this.canConsume(new FluidStack(f, 0), fooditems);
+				boolean consume = this.canConsume(new FluidStack(f, 0), foodItems);
 				if (consume)
 					canConsumeAny = true;
 			}

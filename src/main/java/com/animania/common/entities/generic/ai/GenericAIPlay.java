@@ -7,19 +7,19 @@ import com.animania.api.interfaces.IPlaying;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.helper.AnimaniaHelper;
 
-import PathNavigate;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.util.RandomPos;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.Vec3;
 
 public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U extends PathfinderMob & ISleeping & IPlaying> extends Goal
 {
 	private T entity;
 	private Class<? extends U> playmateClass;
 	private Path path = null;
-	private PathNavigate navigator;
+	private PathNavigation navigator;
 
 	public boolean isRunning = false;
 	public boolean isChaser = false;
@@ -35,7 +35,7 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 	}
 
 	@Override
-	public boolean shouldExecute()
+	public boolean canUse()
 	{
 		if (this.isRunning)
 			return true;
@@ -54,16 +54,16 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 	}
 
 	@Override
-	public boolean shouldContinueExecuting()
+	public boolean canContinueToUse()
 	{
-		if (rand.nextDouble() < 0.1 || !this.shouldExecute())
+		if (rand.nextDouble() < 0.1 || !this.canUse())
 			return false;
 
-		return super.shouldContinueExecuting();
+		return super.canContinueToUse();
 	}
 
 	@Override
-	public void resetTask()
+	public void stop()
 	{
 		this.isRunning = false;
 		this.isChaser = false;
@@ -72,7 +72,7 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 	}
 
 	@Override
-	public void startExecuting()
+	public void start()
 	{
 		if (!this.isRunning)
 		{
@@ -91,18 +91,18 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 	}
 
 	@Override
-	public void updateTask()
+	public void tick()
 	{
 		if (this.isRunning)
 		{
 			if (this.isChaser)
 			{
-				if (this.path == null || this.navigator.noPath())
+				if (this.path == null || this.navigator.isDone())
 				{
 					this.path = this.navigator.getPathToLivingEntity(this.playmate);
 				}
 
-				this.navigator.setPath(this.path, 1.0);
+				this.navigator.moveTo(this.path, 1.0);
 
 				if (this.entity.getDistance(this.playmate) <= 0.5)
 				{
@@ -113,16 +113,16 @@ public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U ext
 			}
 			else
 			{
-				if (this.path == null || this.navigator.noPath())
+				if (this.path == null || this.navigator.isDone())
 				{
-					Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.entity, 16, 7, new Vec3d(this.playmate.getX(), this.playmate.getY(), this.playmate.getZ()));
-					if (vec3d != null)
+					Vec3 vector = RandomPos.getPosAvoid(this.entity, 16, 7, new Vec3d(this.playmate.getX(), this.playmate.getY(), this.playmate.getZ()));
+					if (vector != null)
 					{
-						this.path = this.navigator.getPathToXYZ(vec3d.x, vec3d.y, vec3d.z);
+						this.path = this.navigator.moveTo(vector.x, vector.y, vector.z);
 					}
 				}
 
-				this.navigator.setPath(this.path, 1.0);
+				this.navigator.moveTo(this.path, 1.0);
 			}
 		}
 	}

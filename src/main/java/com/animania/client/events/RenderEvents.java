@@ -2,8 +2,6 @@ package com.animania.client.events;
 
 import com.animania.Animania;
 import com.animania.client.render.item.RenderAnimatedEgg;
-import com.animania.manual.components.CraftingComponent;
-import com.animania.manual.components.EntityComponent;
 
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,13 +23,14 @@ public class RenderEvents
 			if (RenderAnimatedEgg.renderTimer > 1f)
 				RenderAnimatedEgg.renderTimer = 0;
 
+			/* TODO: Some manual leftovers
 			CraftingComponent.ITEM_TIMER++;
 			if (CraftingComponent.ITEM_TIMER > 20)
 				CraftingComponent.ITEM_TIMER = 0;
 
 			if (EntityComponent.renderTimer >= 80)
 				EntityComponent.renderTimer = 0;
-			EntityComponent.renderTimer++;
+			EntityComponent.renderTimer++;*/
 
 		}
 	}

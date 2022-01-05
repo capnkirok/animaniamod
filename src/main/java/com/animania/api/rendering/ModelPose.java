@@ -8,11 +8,8 @@ import java.util.Set;
 
 import com.animania.client.models.render.ModelRendererAnimania;
 
-import ModelBase;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.Mth;
-import net.minecraft.util.math.MathHelper;
 
 public class ModelPose
 {

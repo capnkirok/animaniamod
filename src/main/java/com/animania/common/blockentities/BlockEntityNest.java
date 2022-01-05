@@ -10,14 +10,15 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.blockentities.handler.ItemHandlerNest;
 
 import net.minecraft.client.renderer.texture.Tickable;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class BlockEntityNest extends BlockEntity implements Tickable
 {
@@ -43,22 +44,22 @@ public class BlockEntityNest extends BlockEntity implements Tickable
 	}
 
 	@Override
-	public CompoundTag writeToNBT(CompoundTag compound)
+	public @NotNull CompoundTag save(@NotNull CompoundTag compound)
 	{
-		super.writeToNBT(compound);
+		super.save(compound);
 		CompoundTag items = this.itemHandler.serializeNBT();
 		compound.put("items", items);
 		if (this.birdType != null)
-			compound.setString("birdType", this.birdType.toString());
+			compound.putString("birdType", this.birdType.toString());
 		return compound;
 	}
 
 	@Override
-	public void readFromNBT(CompoundTag compound)
+	public void load(@NotNull CompoundTag compound)
 	{
-		super.readFromNBT(compound);
+		super.load(compound);
 		this.itemHandler = new ItemHandlerNest(this);
-		this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
+		this.itemHandler.deserializeNBT(compound.getCompound("items"));
 
 		if (AddonHandler.isAddonLoaded("farm"))
 		{
@@ -80,7 +81,7 @@ public class BlockEntityNest extends BlockEntity implements Tickable
 	public void onDataPacket(NetworkManager net, SPacketUpdateBlockEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
-		this.level.notifyBlockUpdate(this.pos, this.getBlockType().defaultBlockState(), this.getBlockType().defaultBlockState(), 1);
+		this.level.notifyBlockUpdate(this.getBlockPos(), this.getBlockType().defaultBlockState(), this.getBlockType().defaultBlockState(), 1);
 
 	}
 
@@ -90,13 +91,13 @@ public class BlockEntityNest extends BlockEntity implements Tickable
 	{
 		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
-		return new SPacketUpdateBlockEntity(this.pos, 1, this.getUpdateTag());
+		return new SPacketUpdateBlockEntity(this.getBlockPos(), 1, this.getUpdateTag());
 	}
 
 	@Override
 	public CompoundTag getUpdateTag()
 	{
-		return this.writeToNBT(new CompoundTag());
+		return this.save(new CompoundTag());
 	}
 
 	@Override
@@ -130,7 +131,7 @@ public class BlockEntityNest extends BlockEntity implements Tickable
 	public boolean insertItem(ItemStack stack)
 	{
 		ItemStack item = this.itemHandler.getStackInSlot(0);
-		if (item.isEmpty() ? true : ItemStack.areItemsEqual(stack, item))
+		if (item.isEmpty() || ItemStack.matches(stack, item))
 		{
 			int count = item.getCount();
 			if (stack.getCount() + count <= 3)

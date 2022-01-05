@@ -6,6 +6,7 @@ import com.animania.catsdogs.common.blockentity.handler.ItemHandlerPetBowl;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import net.minecraft.client.renderer.texture.Tickable;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.play.server.SPacketUpdateBlockEntity;
@@ -57,7 +58,7 @@ public class BlockEntityPetBowl extends BlockEntity implements Tickable, IFoodPr
 	@Override
 	public CompoundTag getUpdateTag()
 	{
-		return this.writeToNBT(new CompoundTag());
+		return this.save(new CompoundTag());
 	}
 
 	@Override
@@ -113,9 +114,9 @@ public class BlockEntityPetBowl extends BlockEntity implements Tickable, IFoodPr
 	}
 
 	@Override
-	public CompoundTag writeToNBT(CompoundTag compound)
+	public CompoundTag save(CompoundTag compound)
 	{
-		CompoundTag tag = super.writeToNBT(compound);
+		CompoundTag tag = super.save(compound);
 		CompoundTag items = this.itemHandler.serializeNBT();
 		CompoundTag fluid = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
@@ -127,13 +128,13 @@ public class BlockEntityPetBowl extends BlockEntity implements Tickable, IFoodPr
 	}
 
 	@Override
-	public void readFromNBT(CompoundTag compound)
+	public void load(CompoundTag compound)
 	{
-		super.readFromNBT(compound);
+		super.load(compound);
 		this.itemHandler = new ItemHandlerPetBowl();
 		this.fluidHandler = new FluidHandlerPetBowl(1000);
-		this.fluidHandler.readFromNBT(compound.getCompoundTag("fluid"));
-		this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
+		this.fluidHandler.readFromNBT(compound.getCompound("fluid"));
+		this.itemHandler.deserializeNBT(compound.getCompound("items"));
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.animania.catsdogs.client.render.blocks;
 import com.animania.addons.catsdogs.common.blockentity.BlockEntityPetBowl;
 import com.animania.addons.catsdogs.common.blockentity.BlockEntityPetBowl.BowlContent;
 import com.animania.catsdogs.client.models.blocks.ModelPetBowl;
+import com.animania.catsdogs.common.blockentity.BlockEntityPetBowl;
 import com.animania.client.events.RenderEvents;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;

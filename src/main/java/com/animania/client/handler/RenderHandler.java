@@ -1,8 +1,8 @@
 package com.animania.client.handler;
 
-import com.animania.client.render.tileEntity.BlockEntityNestRenderer;
-import com.animania.client.render.tileEntity.BlockEntitySaltLickRenderer;
-import com.animania.client.render.tileEntity.BlockEntityTroughRenderer;
+import com.animania.client.render.blockentity.BlockEntityNestRenderer;
+import com.animania.client.render.blockentity.BlockEntitySaltLickRenderer;
+import com.animania.client.render.blockentity.BlockEntityTroughRenderer;
 import com.animania.common.blockentities.BlockEntityNest;
 import com.animania.common.blockentities.BlockEntitySaltLick;
 import com.animania.common.blockentities.BlockEntityTrough;

@@ -14,24 +14,26 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.Attributes;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.RabbitEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
@@ -39,10 +41,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Set;
 
@@ -58,10 +58,10 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	// protected static final EntityDataAccessor<Boolean> SITTING =
 	// SynchedEntityData.defineId(EntityAnimaniaDog.class,
 	// EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.INT);
 	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.BOOLEAN);
 	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.INT);
 	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.BOOLEAN);
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(CatsDogsConfig.catsdogs.dogFood));
@@ -80,11 +80,11 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	public EntityAnimaniaDog(Level levelIn)
 	{
 		super(levelIn);
-		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.getRandom().nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.getRandom().nextInt(100);
 		this.happyTimer = 60;
-		this.blinkTimer = 80 + this.rand.nextInt(80);
-		this.enablePersistence();
+		this.blinkTimer = 80 + this.getRandom().nextInt(80);
+		this.setPersistenceRequired();
 		this.entityAIEatGrass = new GenericAIEatGrass<>(this, false);
 		this.goalSelector.addGoal(11, this.entityAIEatGrass);
 
@@ -94,7 +94,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	protected void initAI()
 	{
 		this.aiSit = new GenericAISit(this);
-		this.goalSelector.addGoal(0, new SwimmingGoal(this));
+		this.goalSelector.addGoal(0, new RandomSwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.goalSelector.addGoal(1, new GenericAIFindWater<>(this, 1.0D, this.entityAIEatGrass, EntityAnimaniaDog.class, true));
@@ -102,30 +102,25 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 		}
 		this.goalSelector.addGoal(4, this.aiSit);
 		this.goalSelector.addGoal(5, new LeapAtTargetGoal(this, 0.4F));
-		this.goalSelector.addGoal(6, new AttackMeleeGoal(this, 1.0D, true));
+		this.goalSelector.addGoal(6, new MeleeAttackGoal(this, 1.0D, true));
 		this.goalSelector.addGoal(7, new GenericAIFollowOwner<>(this, 1.5D, 5.0F, 30.0F));
 		this.goalSelector.addGoal(8, new GenericAIPanic<>(this, 1.5D));
 		this.goalSelector.addGoal(10, new GenericAITempt<>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
 		this.goalSelector.addGoal(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(14, new GenericAILookIdle<>(this));
-		this.targetSelector.addTask(1, new GenericAIOwnerHurtByTarget(this));
-		this.targetSelector.addTask(2, new GenericAIOwnerHurtTarget(this));
-		this.targetSelector.addTask(3, new HurtByTargetGoal(this, true, new Class[0]));
-		this.targetSelector.addTask(5, new GenericAINearestAttackableTarget(this, AbstractSkeleton.class, false));
+		this.targetSelector.addGoal(1, new GenericAIOwnerHurtByTarget(this));
+		this.targetSelector.addGoal(2, new GenericAIOwnerHurtTarget(this));
+		this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+		this.targetSelector.addGoal(5, new GenericAINearestAttackableTarget<>(this, AbstractSkeleton.class, false));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.goalSelector.addGoal(14, new GenericAISleep<EntityAnimaniaDog>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.dogBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.dogBed2), EntityAnimaniaDog.class));
 		}
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTame())
 		{
-			this.targetSelector.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, entity -> entity instanceof SheepEntity || entity instanceof RabbitEntity));
+			this.targetSelector.addGoal(4, new GenericAITargetNonTamed(this, Animal.class, false, entity -> entity instanceof Sheep || entity instanceof Rabbit));
 		}
-	}
-
-	@Override
-	protected void initEntityAI()
-	{
 	}
 
 	@Override
@@ -141,21 +136,22 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.entityData.register(FED, true);
-		this.entityData.register(WATERED, true);
+		this.entityData.set(FED, true);
+		this.entityData.set(WATERED, true);
 		// this.entityData.register(TAMED, false);
 		// this.entityData.register(SITTING, false);
-		this.entityData.register(SLEEPING, false);
-		this.entityData.register(HANDFED, false);
-		this.entityData.register(INTERACTED, false);
-		this.entityData.register(AGE, Integer.valueOf(0));
-		this.entityData.register(SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.set(SLEEPING, false);
+		this.entityData.set(HANDFED, false);
+		this.entityData.set(INTERACTED, false);
+		this.entityData.set(AGE, 0);
+		this.entityData.set(SLEEPTIMER, 0.0F);
 		if (this.getVariantCount() > 0)
-			this.entityData.register(VARIANT, Integer.valueOf(this.rand.nextInt(this.getVariantCount())));
+			this.entityData.set(VARIANT, this.getRandom().nextInt(this.getVariantCount()));
 		else
-			this.entityData.register(VARIANT, Integer.valueOf(0));
-
+			this.entityData.set(VARIANT, 0);
 	}
+
+
 
 	@Override
 	public void writeEntityToNBT(CompoundTag compound)
@@ -180,21 +176,8 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	protected boolean canDespawn()
-	{
+	public boolean removeWhenFarAway(double p_27598_) {
 		return false;
-	}
-
-	@Override
-	protected ResourceLocation getLootTable()
-	{
-		return null;
-	}
-
-	@Override
-	public void setPosition(double x, double y, double z)
-	{
-		super.setPosition(x, y, z);
 	}
 
 	@Override
@@ -204,16 +187,14 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public boolean attackEntityAsMob(Entity entityIn)
-	{
-		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 2.5F);
+	public boolean doHurtTarget(Entity entity) {
+		return entity.hurt(DamageSource.mobAttack(this), 2.5F);
 	}
 
 	@Override
-	protected void updateAITasks()
-	{
+	protected void customServerAiStep() {
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
-		super.updateAITasks();
+		super.customServerAiStep();
 	}
 
 	@Override
@@ -247,14 +228,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
-	{
-
-	}
-
-	@Override
-	public boolean isBreedingItem(@Nullable ItemStack stack)
-	{
+	public boolean isFood(@NotNull ItemStack stack) {
 		return stack != ItemStack.EMPTY && AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, stack);
 	}
 
@@ -277,14 +251,13 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public void onLivingUpdate()
-	{
-		if (this.isSitting() || this.isPassenger())
+	public void tick() {
+		if (this.isInSittingPose() || this.isPassenger())
 		{
-			if (this.getRidingEntity() != null)
-				this.rotationYaw = this.getRidingEntity().rotationYaw;
-			this.navigator.stop();
-			this.navigator.setSpeed(0);
+			if (this.getVehicle() != null)
+				this.setYRot(this.getVehicle().getYRot());
+			this.navigation.stop();
+			this.navigation.setSpeedModifier(0);
 		}
 
 		if (this.blinkTimer > -1)
@@ -292,13 +265,13 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 			this.blinkTimer--;
 			if (this.blinkTimer == 0)
 			{
-				this.blinkTimer = 100 + this.rand.nextInt(100);
+				this.blinkTimer = 100 + this.getRandom().nextInt(100);
 			}
 		}
 
 		GenericBehavior.livingUpdateCommon(this);
 
-		super.onLivingUpdate();
+		super.tick();
 	}
 
 	@Override
@@ -307,27 +280,20 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null && !this.getSleeping())
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
+			this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch() - 0.2F);
 	}
 
 	@Override
-	@SideOnly(Dist.CLIENT)
-	public void handleStatusUpdate(byte id)
-	{
-		if (id == 10)
+	public void handleEntityEvent(byte id) {
+		if (id == 10) {
 			this.eatTimer = 80;
-		else
-			super.handleStatusUpdate(id);
+		} else {
+			super.handleEntityEvent(id);
+		}
 	}
 
 	@Override
-	protected Item getDropItem()
-	{
-		return null;
-	}
-
-	@Override
-	public boolean canBeLeashedTo(Player player)
+	public boolean canBeLeashed(@NotNull Player player)
 	{
 		return true;
 	}
@@ -335,12 +301,11 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
-		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.5F);
+		this.playSound(SoundEvents.WOLF_STEP, 0.02F, 1.5F);
 	}
 
 	@Override
-	public WolfEntity createChild(AgeableEntity ageable)
-	{
+	public Wolf getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageable) {
 		return null;
 	}
 
@@ -348,7 +313,6 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	public void setSleepingPos(BlockPos pos)
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -481,10 +445,10 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	@Override
 	public Entity convertToVanilla()
 	{
-		WolfEntity entity = new WolfEntity(this.level);
-		entity.setPosition(this.getX(), this.getY(), this.getZ());
+		Wolf entity = new Wolf(EntityType.WOLF, this.level);
+		entity.setPos(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
-			entity.setCustomNameTag(this.getCustomNameTag());
+			entity.setCustomName(this.getCustomName());
 		return entity;
 	}
 
